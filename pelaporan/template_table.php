@@ -4,54 +4,56 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block title%}Pelaporan{%endblock%}</title>
+    <title>Pelaporan</title>
     <meta name="description" content="Website untuk kewirausahaan mahasiswa">
     <meta name="author" content="Pelaporan">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load static %}
+    
+    <link href="../assets/MDB/css/mdb.min.css" rel="stylesheet">
+     <script type="text/javascript" src="../assets/MDB/js/mdb.min.js" ></script>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href={% static "assets/plugins/font-awesome/css/font-awesome.min.css"%}>
+    <link rel="stylesheet" href={% static "../assets/plugins/font-awesome/css/font-awesome.min.css"%}>
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- Theme style -->
-    <link rel="stylesheet" href={% static "assets/dist/css/adminlte.min.css"%}>
+    <link rel="stylesheet" href={% static "../assets/dist/css/adminlte.min.css"%}>
     <!-- iCheck -->
-    <link rel="stylesheet" href={% static "assets/plugins/iCheck/flat/blue.css"%}>
+    <link rel="stylesheet" href={% static "../assets/plugins/iCheck/flat/blue.css"%}>
     <!-- Morris chart -->
-    <link rel="stylesheet" href={% static "assets/plugins/morris/morris.css"%}>
+    <link rel="stylesheet" href={% static "../assets/plugins/morris/morris.css"%}>
     <!-- jvectormap -->
-    <link rel="stylesheet" href={% static "assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css"%}>
+    <link rel="stylesheet" href={% static "../assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css"%}>
     <!-- Date Picker -->
-    <link rel="stylesheet" href={% static "assets/plugins/datepicker/datepicker3.css"%}>
+    <link rel="stylesheet" href={% static "../assets/plugins/datepicker/datepicker3.css"%}>
     <!-- Daterange picker -->
-    <link rel="stylesheet" href={% static "assets/plugins/daterangepicker/daterangepicker-bs3.css"%}>
+    <link rel="stylesheet" href={% static "../assets/plugins/daterangepicker/daterangepicker-bs3.css"%}>
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href={% static "assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"%}>
-    <link rel="stylesheet" href={% static "assets/style.css"%}>
+    <link rel="stylesheet" href={% static "../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"%}>
+    <link rel="stylesheet" href={% static "../assets/style.css"%}>
     <!-- Google Font: Source Sans Pro -->
-    <link href={% static "assets/css/sans-pro.css"%} rel="stylesheet">
-    <link rel="shortcut icon" href={% static "assets/images/logo.png"%} type="image/x-icon">
-    <link rel="icon" href={% static "assets/images/logo.png"%} type="image/x-icon">
+    <link href={% static "../assets/css/sans-pro.css"%} rel="stylesheet">
+    <link rel="shortcut icon" href={% static "../assets/images/logo.png"%} type="image/x-icon">
+    <link rel="icon" href={% static "../assets/images/logo.png"%} type="image/x-icon">
    
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- DataTables -->
-    <link rel="stylesheet" type="text/css" href="{%static "assets/DataTables/datatables.min.css"%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static "../assets/DataTables/datatables.min.css"%}"/>
     <!-- Theme style -->
-    <link rel="stylesheet" href={% static "assets/dist/css/adminlte.min.css"%}>
+    <link rel="stylesheet" href={% static "../assets/dist/css/adminlte.min.css"%}>
 
-    <link rel="stylesheet" href= {% static "assets/css/css.css"%}>
+    <link rel="stylesheet" href= {% static "../assets/css/css.css"%}>
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
 
-    <link href={% static "assets/fullcalendar/3.4.0/fullcalendar.min.css"%} rel="stylesheet">
-    <link href={% static "assets/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css"%} rel="stylesheet">
+    <link href={% static "../assets/fullcalendar/3.4.0/fullcalendar.min.css"%} rel="stylesheet">
+    <link href={% static "../assets/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css"%} rel="stylesheet">
 
-    <script src={% static "assets/fullcalendar/3.4.0/fullcalendar.min.js"%}></script>
-    <script src={% static "assets/fullcalendar/3.4.0/locale/id.js"%}></script>
-    <script src={% static "assets/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"%}></script>
-    <script src={% static "assets/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.id.min.js"%}></script>
+    <script src={% static "../assets/fullcalendar/3.4.0/fullcalendar.min.js"%}></script>
+    <script src={% static "../assets/fullcalendar/3.4.0/locale/id.js"%}></script>
+    <script src={% static "../assets/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"%}></script>
+    <script src={% static "../assets/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.id.min.js"%}></script>
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <style>
         body {
@@ -127,7 +129,6 @@
             }
         }
     </style>
-    {%block header %}
     <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
@@ -152,14 +153,12 @@
             </li>
         </ul>
     </nav>
-  {%endblock%}
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    {%block sidebar %}
     <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 450px !important;">
            <a href="{%url 'pelaporan:bukutamu'%}" class="brand-link">
-            <img src={% static "assets/img/logo.png" %} alt="Logo Aqua" class="brand-image img-circle elevation-3"
+            <img src={% static "../assets/img/logo.png" %} alt="Logo Aqua" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
             <span class="brand-text font-weight-light">Pelaporan</span>
         </a>
@@ -228,34 +227,21 @@
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper" style="background: #fbfbfb !important;">
                     <!-- Content Header (Page header) -->
-                    {%block header-content %}
                     <br>
-                    {%endblock%}
                     <!-- Main content -->
                     <section class="content">
                     <div class="row">
                     <div class="col">
                         <div class="card table-responsive" style="border-radius: 0px !important;">
                             <div class="card-header">
-                                {%block title-table %}
-                                            
-                                {%endblock%}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-hover"
                                     style="font-size:10pt; text-align:center; vertical-align:middle;">
                                     <thead>
-                                        <tr>
-                                            {%block header-table %}
-                                            
-                                            {%endblock%}
-                                        </tr>
-                                    </thead>
+                                 </thead>
                                     <tbody>
-                                        {%block content-table%}
-                                            {%endblock%}
-                                        
                                     </tbody>
                             </tfoot>
                             </table>
@@ -302,9 +288,8 @@
     <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-  {% load static %}
     <!-- jQuery -->
-    <script src={% static "assets/plugins/jquery/jquery.min.js"%}></script>
+    <script src={% static "../assets/plugins/jquery/jquery.min.js"%}></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -312,38 +297,38 @@
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src={% static "assets/plugins/bootstrap/js/bootstrap.bundle.min.js"%}></script>
+    <script src={% static "../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"%}></script>
     <!-- Morris.js charts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src={% static "assets/plugins/morris/morris.min.js"%}></script>
+    <script src={% static "../assets/plugins/morris/morris.min.js"%}></script>
     <!-- Sparkline -->
-    <script src={% static "assets/plugins/sparkline/jquery.sparkline.min.js"%}></script>
+    <script src={% static "../assets/plugins/sparkline/jquery.sparkline.min.js"%}></script>
     <!-- jvectormap -->
-    <script src={% static "assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"%}></script>
-    <script src={% static "assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"%}></script>
+    <script src={% static "../assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"%}></script>
+    <script src={% static "../assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"%}></script>
     <!-- jQuery Knob Chart -->
-    <script src={% static "assets/plugins/knob/jquery.knob.js"%}></script>
+    <script src={% static "../assets/plugins/knob/jquery.knob.js"%}></script>
     <!-- daterangepicker -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script> -->
-    <script src={% static "assets/plugins/daterangepicker/daterangepicker.js"%}></script>
+    <script src={% static "../assets/plugins/daterangepicker/daterangepicker.js"%}></script>
     <!-- datepicker -->
-    <script src={% static "assets/plugins/datepicker/bootstrap-datepicker.js"%}></script>
+    <script src={% static "../assets/plugins/datepicker/bootstrap-datepicker.js"%}></script>
     <!-- Bootstrap WYSIHTML5 -->
-    <script src={% static "assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"%}></script>
+    <script src={% static "../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"%}></script>
     <!-- Slimscroll -->
-    <script src={% static "assets/plugins/slimScroll/jquery.slimscroll.min.js"%}></script>
+    <script src={% static "../assets/plugins/slimScroll/jquery.slimscroll.min.js"%}></script>
     <!-- FastClick -->
-    <script src={% static "assets/plugins/fastclick/fastclick.js"%}></script>
+    <script src={% static "../assets/plugins/fastclick/fastclick.js"%}></script>
     <!-- AdminLTE App -->
-    <script src={% static "assets/dist/js/adminlte.js"%}></script>
+    <script src={% static "../assets/dist/js/adminlte.js"%}></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src={% static "assets/dist/js/pages/dashboard.js"%}></script>
+    <script src={% static "../assets/dist/js/pages/dashboard.js"%}></script>
     <!-- AdminLTE for demo purposes -->
-    <script src={% static "assets/dist/js/demo.js"%}></script>
+    <script src={% static "../assets/dist/js/demo.js"%}></script>
     <!-- DataTables -->
-    <!-- <script src={% static "assets/plugins/datatables/jquery.dataTables.min.js"%}></script> -->
-    <!-- <script src={% static "assets/plugins/datatables/dataTables.bootstrap4.min.js"%}></script> -->
-    <script type="text/javascript" src="{%static "assets/DataTables/datatables.min.js"%}"></script>
+    <!-- <script src={% static "../assets/plugins/datatables/jquery.dataTables.min.js"%}></script> -->
+    <!-- <script src={% static "../assets/plugins/datatables/dataTables.bootstrap4.min.js"%}></script> -->
+    <script type="text/javascript" src="{%static "../assets/DataTables/datatables.min.js"%}"></script>
     <script>
         $(function () {
             $('#example1').DataTable({
@@ -368,4 +353,4 @@
             $('#tolakModal').modal();
         }
     </script>
-    <script src={% static "assets/ckeditor/ckeditor.js"%} type="text/javascript"></script>
+    <script src={% static "../assets/ckeditor/ckeditor.js"%} type="text/javascript"></script>
