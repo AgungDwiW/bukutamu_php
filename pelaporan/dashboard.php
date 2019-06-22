@@ -1,7 +1,6 @@
-{%extends "pelaporan/template.html"%}
-{%block title%} Form Laporan {%endblock%}
-
-{%block style%}
+<!DOCTYPE html>
+<html>
+<head>
 <style>
 * {
   box-sizing: border-box;
@@ -38,9 +37,8 @@
   color: white;
 }
 </style>        
-{%endblock%}
-
-{%block content %} 
+</head>
+<body>
 <div class="wrapper" style="text-align: center;">
 	<h1 style="text-align: center;">Dashboard</h1>
 	<div id="btnContainer">
@@ -77,9 +75,6 @@
 	  </div>
 	</div>
 </div>
-{%endblock%}
-
-{%block dashboard%}
 
 <script>
 // Get the elements with class="column"
@@ -281,5 +276,5 @@ var ctxL = document.getElementById("dpengunjung").getContext('2d');
   });
 
 </script>
-
-{%endblock%}
+</body>
+</html>

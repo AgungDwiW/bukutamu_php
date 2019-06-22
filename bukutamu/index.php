@@ -31,8 +31,11 @@
 			
           <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" aria-label="Search" required autofocus>
           <br>
-          <input style="margin-top: 40px; width: 80%; text-align: center;" type="submit" class="" value="Log In">
-         </form>
+           <a href="../index.php" style="margin-top: 40px; width: 40%; text-align: center;"><input type="button" name="back" id = "back" class="col-sm-11 center" value="back"></a>
+                    
+          <input style="margin-top: 40px; width: 45%; text-align: center;" type="submit" class="" value="Log In">
+         
+          
 
     
       </div>

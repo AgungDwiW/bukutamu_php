@@ -165,7 +165,7 @@
 	        <div class="form-group row"  >
   			<input type="hidden" id = "Image" name = "Image">
   				<div class="col-sm-6"> 
-		  			<a href={%url 'bukutamu:index'%}><input type="button" name="cancel" id = "cancel" class="col-sm-11 center" value="cancel"></a>
+		  			<a href="index.php"><input type="button" name="cancel" id = "cancel" class="col-sm-11 center" value="cancel"></a>
 	  			</div>
   				
 	  			<div class="col-sm-6"> 
