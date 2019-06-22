@@ -73,5 +73,6 @@ drop table if exists user;
 create table user(
 	pk int not null auto_increment primary key,
 	user varchar(30),
-	pass varchar(30)
+	pass varchar(30),
+	is_super boolean
 );
