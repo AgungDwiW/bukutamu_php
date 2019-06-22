@@ -3,23 +3,30 @@
 
 <head>
     
-        {% load static %}
-    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" id="bootstrap-css">
-     <link rel="stylesheet" href={% static "assets/plugins/font-awesome/css/font-awesome.min.css"%}>
-    <link href="{% static "bukutamu/css/daftar.css" %}" rel="stylesheet">
-    <script src="{% static "jquery.js" %}"></script>
-    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link href="bukutamu/css/daftar.css" rel="stylesheet">
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <link rel="icon" href="assets/images/logo.png" type="image/x-icon">
     <!------ Include the above in your HEAD tag ---------->
     <!------ Include the above in your HEAD tag ---------->
-    <title>Bukutamu</title>
+    <title>Index</title>
+    <style type="text/css">
+      body {
+        background-size: cover;
+      }
+    </style>
 </head>
 
-<body background="{% static "indexbackground.jpg" %}">
+<body background="assets/bg/indexbackground.jpg">
  
  
 <div class="container ">
     <div class="wrapper col">
-      <a href="{%url 'pelaporan:dashboard'%}" class="formContent boxshadow">
+      <a href="pelaporan/dashboard.php" class="formContent boxshadow">
         <div class=" Laporan ">
           
           	<div><i class="nav-icon fa fa-users fa-5x" aria-hidden="true"></i>
@@ -34,7 +41,7 @@
       </a>
     </div>
     <div class="wrapper col">
-      <a href="{%url 'bukutamu:laporan'%}" class="formContent boxshadow">
+      <a href="bukutamu/laporan.php" class="formContent boxshadow">
         <div class=" Laporan ">
           
           	<div><i class="nav-icon fa fa-file fa-5x" aria-hidden="true"></i>
@@ -50,7 +57,7 @@
     </div>
 
     <div class="wrapper col">
-      <a href="{%url 'bukutamu:index'%}" class="formContent boxshadow">
+      <a href="bukutamu/index.php" class="formContent boxshadow">
         <div class=" Laporan ">
           
           	<div><i class="nav-icon fa fa-book fa-5x" aria-hidden="true"></i>

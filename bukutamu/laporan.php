@@ -1,18 +1,24 @@
 
 <head>
-    {% load static %}
-    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" id="bootstrap-css">
-    <script src="{% static "jquery.js" %}"></script>
-    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <link href="../assets/bootstrap/css/bootstrap.min.css"  rel="stylesheet" id="bootstrap-css">
+    <script src="../assets/js/jquery.js" ></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js" ></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static "bukutamu/css/form.css" %}" rel="stylesheet">
+    <link href="css/form.css"  rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/images/logo.png" type="image/x-icon">
+    <link rel="icon" href="../assets/images/logo.png" type="image/x-icon">
     <!------ Include the above in your HEAD tag ---------->
-    <title>Bukutamu</title>
+    <title>Buku tamu</title>
+    <style type="text/css">
+      body {
+        background-size: cover;
+      }
+    </style>
 
 </head>
 
-<body background="{% static "indexbackground.jpg" %}" style="font-size: 15px" >
+<body background="../assets/bg/indexbackground.jpg" style="font-size: 15px" >
  <div class="wrapper" > 
   <div id="formContent">
    <div class="row vertical-align">
@@ -193,36 +199,31 @@
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Action plan 1:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = {{kedatangan.alasan_kedatangan}} {%if not flag%} readonly {%endif%}>
+	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value =  {%if not flag%} readonly {%endif%}>
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Action plan 2:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = {{kedatangan.alasan_kedatangan}} {%if not flag%} readonly {%endif%}>
+	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value =  {%if not flag%} readonly {%endif%}>
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keterangan:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = {{kedatangan.alasan_kedatangan}} {%if not flag%} readonly {%endif%}>
+	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value =  {%if not flag%} readonly {%endif%}>
 	          </div>
 	        </div>
 	        
 	        <div class="form-group row"  >
-  			<input type="hidden" id = "Image" name = "Image">
+  		    	<input type="hidden" id = "Image" name = "Image">
   				<div class="col-sm-6"> 
 		  			<a href={%url 'bukutamu:index'%}><input type="button" name="cancel" id = "cancel" class="col-sm-11 center" value="cancel"></a>
 	  			</div>
-  				{%if flag%}
-	  			<div class="col-sm-6"> 
+  				<div class="col-sm-6"> 
 		  			<input type="submit" name="submit" id = "submit" class="col-sm-11 btn">
 	  			</div>
-	  			{%else%}
-	  			<div class="col-sm-6"> 
-	  				<input id="cancel " type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value = "logout">
-	  			</div>
-	  			{%endif%}
+	  	
 	  			
   			</div>
   		</form>
@@ -231,7 +232,7 @@
   </div>
 </div>
 
-{%if flag%}
+<!-- {%if flag%}
 <script>
   
   const player = document.getElementById('player');
@@ -302,5 +303,5 @@
     });
   sakit_aktive()
 </script>
-{%endif%}
+{%endif%} -->
 </body>
