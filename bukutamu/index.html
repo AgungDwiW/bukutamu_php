@@ -1,0 +1,33 @@
+
+<head>
+    {% load static %}
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" id="bootstrap-css">
+
+    <link href="{% static "bukutamu/css/index.css" %}" rel="stylesheet">
+    <script src="{% static "jquery.js" %}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <title>Bukutamu</title>
+</head>
+
+<body background="{% static "indexbackground.jpg" %}">
+    <div class="wrapper ">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+        <br>
+
+        <br>
+        <!-- Icon -->
+        
+        <!-- Login Form -->
+        <form method="POST" action="{%url 'bukutamu:form'%}" class="center">
+			{% csrf_token %}
+          <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" aria-label="Search" required autofocus>
+          <br>
+          <input style="margin-top: 40px; width: 80%; text-align: center;" type="submit" class="" value="Log In">
+         </form>
+
+    
+      </div>
+    </div>
+</body>
