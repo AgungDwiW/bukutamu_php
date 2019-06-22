@@ -27,7 +27,7 @@
         <!-- Icon -->
         
         <!-- Login Form -->
-        <form method="POST" action="" class="center">
+        <form method="POST" action="form.php" class="center">
 			
           <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" aria-label="Search" required autofocus>
           <br>

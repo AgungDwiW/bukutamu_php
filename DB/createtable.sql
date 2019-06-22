@@ -1,31 +1,40 @@
 USE bukutamudb;
-DROP TABLE IF EXISTS Tamu;
+DROP TABLE IF EXISTS kedatangan;
+DROP TABLE IF EXISTS pelaporan;
+DROP TABLE IF EXISTS departemen;
+DROP TABLE IF EXISTS year;
+DROP TABLE IF EXISTS tamu;
+DROP TABLE IF EXISTS user;
+
 CREATE TABLE tamu (
-	uid VARCHAR (15) not null primary key,
+	id int not null primary key auto_increment,
+	uid VARCHAR (15) ,
 	tipeid VARCHAR(15), 
 	nama_tamu VARCHAR(50),
-	jenis_kelamin BOOLEAN,
+	jenis_kelamin varchar(1),
 	signed_in boolean, 
 	perusahaan boolean, 
 	image VARCHAR(50), 
-	saved boolean
+	nohp varchar(20),
+	saved boolean,
+	unique (uid)
 	);
 
-DROP table if exists departemen;
+
 CREATE table departemen (
 	id int not null auto_increment primary key, 
 	nama_departemen varchar (50), 
-	penanggujawab varchar (50), 
+	penanggungjawab varchar (50), 
 	email varchar(50)
 	
 	);
 
-drop table if exists year;
+
 create table year(
 	year int
 );
 
-drop table if exists kedatangan;
+
 create table kedatangan (
 	id int not null auto_increment primary key, 
 	tanggal_datang datetime, 
@@ -33,6 +42,7 @@ create table kedatangan (
 	keperluan varchar (50), 
 	suhu_badan float(1),
 	luka boolean, 
+	durasi int,
 	sakit varchar(50), 
 	signedout boolean,
     tamu varchar(15),
@@ -45,7 +55,7 @@ create table kedatangan (
 	on DELETE CASCADE
 	);
 
-drop table if exists pelaporan;
+
 create table pelaporan(
 	id int not null auto_increment primary key,
 	nama_pelapor varchar(50),
@@ -69,7 +79,7 @@ create table pelaporan(
 	on delete cascade
 );
 
-drop table if exists user;
+
 create table user(
 	pk int not null auto_increment primary key,
 	user varchar(30),
@@ -77,3 +87,16 @@ create table user(
 	is_super boolean,
 	unique (user)
 );
+
+use bukutamudb;
+
+insert into user(
+	user, pass, is_super)
+	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true);
+
+
+insert into departemen(nama_departemen, penanggungjawab, email) 
+	values('testdep1', 'test1', 'test.test@test1');
+
+insert into departemen(nama_departemen, penanggungjawab, email) 
+	values('testdep2', 'test2', 'test.test@test2');
