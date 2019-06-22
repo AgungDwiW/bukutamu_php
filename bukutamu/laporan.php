@@ -14,6 +14,9 @@
       body {
         background-size: cover;
       }
+      .formgroup {
+        margin-top: 10px;
+      }
     </style>
 
 </head>
@@ -26,10 +29,10 @@
       	<div class="form-group row"><!-- UID -->
 	          <label class="control-label col-sm-3" for="UID">UID:</label>
 	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value = {{uid}}  > 
+	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  > 
 	          </div>
 	          <div class="col-sm-3">
-	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value = {{tamu.tipeid}} >
+	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value =  >
 	            	<option>KTP</option>
 	            	<option {%if tipid%}selected{%endif%}>Kartu Pegawai</option>
 	            	<option {%if tipid%}selected{%endif%}>SIM</option>
@@ -40,35 +43,50 @@
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama"  value = {{tamu.nama_tamu}} {%endif%}  >
+	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama"  value =   >
 	          </div>
 	        </div>
 	        <div class="form-group row"><!-- Jenis kelamin -->
 	          <label class="control-label col-sm-3" for="kelamin">Positif Atau Negatif Action:</label>
 	          <div class="col-sm-9">  
-	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P" value = {{tamu.jenis_kelamin}} >
+	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P" value = >
 	            	<option selected>Negatif</option>
 				    <option >Positif</option>
 	            </select>
 	          </div>
 	        </div>
+          <div class="form-group row"> <!-- Keperluan -->
+            <label class="control-label col-sm-3" for="Keperluan">Action plan 1:</label>
+            <div class="col-sm-9">  
+              <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Plant 1" required value =  >
+            </div>
+          </div>
+          <div class="form-group row"> <!-- Keperluan -->
+            <label class="control-label col-sm-3" for="Keperluan">Action plan 2:</label>
+            <div class="col-sm-9">  
+              <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Plan 2" required value =  >
+            </div>
+          </div>
+          <div class="form-group row"> <!-- Keperluan -->
+            <label class="control-label col-sm-3" for="Keperluan">Keterangan:</label>
+            <div class="col-sm-9">  
+              <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Keterangan" required value = >
+            </div>
+          </div>
     </div>
     <div class="col-sm-6 v-divider">
-        {%if flag%}
-          <form method = "POST" action = {%url 'bukutamu:signin'%} class = "text-left"  onsubmit="validateForm()">
-        {%else%}
-            <form method = "POST" action = {%url 'bukutamu:signout'%} class = "text-left">
-        {%endif%}
-  			{% csrf_token %}
+       
+        <form method = "POST" action = {%url 'bukutamu:signin'%} class = "text-left"  onsubmit="validateForm()">
+        
   			<input type="hidden" name="image_location" id="image_location" value="/images/bleh.jpg" 
   			 {%if not flag%} readonly {%endif%}><br>
 	        <div class="form-group row"><!-- UID -->
 	          <label class="control-label col-sm-3" for="UID">UID:</label>
 	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value = {{uid}} readonly > 
+	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =   > 
 	          </div>
 	          <div class="col-sm-3">
-	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value = {{tamu.tipeid}} {%if not flag%} readonly {%endif%}>
+	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value = >
 	            	<option>KTP</option>
 	            	<option {%if tipid%}selected{%endif%}>Kartu Pegawai</option>
 	            	<option {%if tipid%}selected{%endif%}>SIM</option>
@@ -79,28 +97,29 @@
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama" {%if not flag%} readonly {%endif%} required  {%if tamu.nama_tamu%} readonly value = {{tamu.nama_tamu}} {%endif%}  >
+	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama"  value =   >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="NoHP">Nomor HP:</label>
 	          <div class="col-sm-9">  
-	            <input type="number" class="form-control inputsm" name="NoHP" id="NoHP" placeholder="08xxxxxxxxxx" autocomplete="off" required {%if tamu.no_hp_tamu%} readonly value = {{tamu.no_hp_tamu}} {%endif%} {%if not flag%} readonly {%endif%}>
+	            <input type="number" class="form-control inputsm" name="NoHP" id="NoHP" placeholder="08xxxxxxxxxx" autocomplete="off" required  value = >
 	          </div>
 	        </div>
 	        <div class="form-group row"><!-- Jenis kelamin -->
 	          <label class="control-label col-sm-3" for="kelamin">Jenis Kelamin:</label>
 	          <div class="col-sm-9">  
-	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P" {%if tamu.jenis_kelamin %} disabled value = {{tamu.jenis_kelamin}} {%endif%} {%if not flag%} readonly {%endif%}>
-	            	<option>Laki laki</option>
-				    <option {%if kelamin%}selected{%endif%}>Perempuan</option>
+	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"  value = >
+	            	<option selected disabled> Pilih</option>
+                <option>Laki laki</option>
+				        <option {%if kelamin%}selected{%endif%}>Perempuan</option>
 	            </select>
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- Institusi  -->
 	          <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required {% if tamu.perusahaan%} readonly value = {{tamu.perusahaan}} {%endif%} {%if not flag%} readonly {%endif%}>
+	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value =>
 	          </div>
 	        </div>
 
@@ -109,7 +128,7 @@
 	          <div class="col-sm-9">  
 	            <select type="text" class="form-control inputsm" name="departemen" id="departemen" required 
 	            >
-	            	<option disabled>Pilih</option>
+	            	<option selected disabled>Pilih</option>
                             <option >Work at Height</option>
                             <option >Chemical Product</option>
                             <option >Confined Space</option>
@@ -126,7 +145,7 @@
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
-	          <label class="control-label col-sm-3" for="Bertemu">Departemen:</label>
+	          <label class="control-label col-sm-3" for="">Sub kategori:</label>
 	          <div class="col-sm-9">  
 	            <select type="text" class="form-control inputsm" name="departemen" id="departemen" required 
 	            >
@@ -196,25 +215,6 @@
 	          </div>
 	        </div>
 
-	        <div class="form-group row"> <!-- Keperluan -->
-	          <label class="control-label col-sm-3" for="Keperluan">Action plan 1:</label>
-	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value =  {%if not flag%} readonly {%endif%}>
-	          </div>
-	        </div>
-	        <div class="form-group row"> <!-- Keperluan -->
-	          <label class="control-label col-sm-3" for="Keperluan">Action plan 2:</label>
-	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value =  {%if not flag%} readonly {%endif%}>
-	          </div>
-	        </div>
-	        <div class="form-group row"> <!-- Keperluan -->
-	          <label class="control-label col-sm-3" for="Keperluan">Keterangan:</label>
-	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value =  {%if not flag%} readonly {%endif%}>
-	          </div>
-	        </div>
-	        
 	        <div class="form-group row"  >
   		    	<input type="hidden" id = "Image" name = "Image">
   				<div class="col-sm-6"> 
