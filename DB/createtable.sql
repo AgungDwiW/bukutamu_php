@@ -47,6 +47,7 @@ create table kedatangan (
 	signedout boolean,
     tamu varchar(15),
     departemen int,
+    bertemu varchar(50),
 	foreign key fk_tamu_ked (tamu)
 	references tamu(uid)
 	ON DELETE CASCADE,

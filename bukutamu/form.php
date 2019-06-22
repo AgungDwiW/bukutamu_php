@@ -8,8 +8,20 @@
 	if (mysqli_num_rows($result_tamu) ==0){
 		$flag_tamu = 0;
 	}
-	echo $flag_tamu;
+	// echo $flag_tamu;
 	$flag_sign = 0;
+	$nama = "";
+	$tid = "";
+	$hp = "";
+	$kelamin = "";
+	$flag_sign = "";
+	$perusahaan = "";
+	$image = "";
+	$keperluan = "";
+	$suhu = "";
+	$luka = "";
+	$sakit = "";
+	$bertemu = "";
 	if (mysqli_num_rows($result_tamu) > 0) {
 		
 	    // output data of each row
@@ -22,6 +34,20 @@
 	    	$perusahaan = $row ['perusahaan'];
 	    	$image = $row['image'];
 	    	
+	    }
+	}
+	if ($flag_sign == null){
+		$flag_sign = 0;
+	}
+	else{
+		$sql = "SELECT * FROM kedatangan where signed_in = true";
+		while($row = mysqli_fetch_assoc($result_tamu)) {
+	    	$keperluan = $row['keperluan'];
+	    	$suhu = $row['suhu_badan'];
+	    	$luka = $row['luka'];
+	    	$sakit = $row['sakit'];
+	    	$bertemu = $row['bertemu'];
+
 	    }
 	}
  ?>
@@ -87,7 +113,13 @@
     </div>
     <div class="col-sm-6 v-divider">
       
-          <form method = "POST" action = submit.php class = "text-left"  onsubmit="validateForm()">
+          <form method = "POST" action = <?php
+          	if ($flag_sign) echo "logout.php";
+        	else echo "submit.php ";
+           
+           ?>
+
+           class = "text-left"  onsubmit="validateForm()">
        
         <!--     <form method = "POST" action = {%url 'bukutamu:signout'%} class = "text-left">
          -->
@@ -154,14 +186,14 @@
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
 	          <div class="col-sm-9">  
-	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx,x" required value =   >
+	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx,x" required value = <?php $suhu?>  >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
 	          <label class="control-label col-sm-3" for="Bertemu">Bertemu dengan:</label>
 	          <div class="col-sm-9">  
 	            <input type="text" class="form-control inputsm" name="Bertemu" id="Bertemu"
-	            placeholder="Bapak/Ibu" required value =    >
+	            placeholder="Bapak/Ibu" required value =  <?php $bertemu ?> >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
@@ -186,7 +218,7 @@
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keperluan:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value =    >
+	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php $keperluan ?>   >
 	          </div>
 	        </div>
 	        <div class="form-group row ">
@@ -228,19 +260,26 @@
 	        </div>
 	        <div class="form-group row"  >
   			<input type="hidden" id = "Image" name = "Image" >
-  				<div class="col-sm-6"> 
-		  			<a href="index.php"><input type="button" name="cancel" id = "cancel" class="col-sm-11 center" value="cancel"></a>
-	  			</div>
+  			<?php  
+  				if (!$flag_sign){
+  			?>
   				
-	  			<div class="col-sm-6"> 
-		  			<input type="submit" name="submit" id = "submit" class="col-sm-11 btn">
-	  			</div>
+		  			<a href="index.php"><input type="button" name="cancel" id = "cancel" class="col-sm-6 btn" value="cancel"></a>
 	  			
-	  			<!-- <div class="col-sm-6"> 
+  				
+	  			 
+		  			<input type="submit" name="submit" id = "submit" class="col-sm-6 btn">
+	  			
+	  		<?php
+	  			}
+	  			else{
+	  			?>
+	  			
 	  				<input id="cancel " type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value = "logout">
-	  			</div>
-	  			 -->
 	  			
+	  			 <?php
+	  			}
+	  		?>
   			</div>
   		</form>
     </div>
@@ -250,11 +289,13 @@
 
 
 <script>
-  
-     const player = document.getElementById('player');
+	<?php  if (!$flag_sign){
+		echo "const player = document.getElementById('player');
      const canvas = document.getElementById('canvas');
      const context = canvas.getContext('2d');
-     const image = document.getElementById('Image')
+     const image = document.getElementById('Image');";
+	}
+	?>  
      const radio_sakit = document.getElementById('sakit_radio_y')
      const radio_sakitn = document.getElementById('sakit_radio_n')
      const sakit = document.getElementById('Sakit')
@@ -273,13 +314,27 @@
      const flag_sign = <?php echo $flag_sign; ?>;
      const departemen = document.getElementById("departemen")
      const kelamin =  document.getElementById("Kelamin")
+     const institusi = document.getElementById("Institusi")
+     const tid = document.getElementById("TID")
      if(flag_tamu){
+     	tid.disabled = true;
      	nama.readOnly = true;
      	hp.readOnly = true;
      	kelamin.disabled = true;
-     	departemen.readOnly = true;
+     	// departemen.readOnly = true;
      }
-
+     if (flag_sign){
+     	institusi.readOnly= true	
+     	suhu_badan.readOnly = true
+     	bertemu.readOnly = true
+     	keperluan.readOnly = true
+     	radio_sakit.disabled = true
+     	radio_sakitn.disabled = true
+     	// submit.readOnly = true
+     	lukay.disabled = true
+     	lukan.disabled = true
+     	departemen.disabled = true	
+     }
      // if (!flag){
      // 	suhu_badan.readOnly = true
      // 	bertemu.readOnly = true
@@ -292,13 +347,13 @@
      // 	departemen.disabled = true
      // 	alert("anda telah melakukan pelanggaran lebih dari 3 kali")
      // }
-
-     const constraints = {
+     <?php  if (!$flag_sign){
+     	echo 'const constraints = {
        video: true,
      };
      function cameracapture (){
      	// Draw the video frame to the canvas.
-       handler = document.getElementById('image_location')
+       handler = document.getElementById("image_location")
        handler = player
        context.drawImage(player, 0, 0, canvas.width, canvas.height);
         //get image
@@ -311,10 +366,18 @@
      	if (sakit_flag == true){
      		sakit.value = "";
      	}
-     	jenis_kelamin.disabled = false;
+     	kelamin.disabled = false;
      	cameracapture();
      }
-
+     // Attach the video stream to the video element and autoplay.
+     navigator.mediaDevices.getUserMedia(constraints)
+       .then((stream) => {
+         player.srcObject = stream;
+       });
+     ';
+     
+ 	}
+ 	?>
      function sakit_aktive(){
 		 sakit_flag = !sakit_flag
 		 sakit.readOnly = sakit_flag
@@ -322,11 +385,7 @@
      }
 
 
-     // Attach the video stream to the video element and autoplay.
-     navigator.mediaDevices.getUserMedia(constraints)
-       .then((stream) => {
-         player.srcObject = stream;
-       });
+     
      sakit_aktive()
 </script>
 

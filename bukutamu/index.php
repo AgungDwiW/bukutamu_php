@@ -30,10 +30,10 @@
         <form method="POST" action="form.php" class="center">
 			
           <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" aria-label="Search" required autofocus>
-          <br>
+          <br> <input style="margin-top: 40px; width: 45%; text-align: center;" type="submit" class="" value="Log In">
            <a href="../index.php" style="margin-top: 40px; width: 40%; text-align: center;"><input type="button" name="back" id = "back" class="col-sm-11 center" value="back"></a>
                     
-          <input style="margin-top: 40px; width: 45%; text-align: center;" type="submit" class="" value="Log In">
+         
          
           
 

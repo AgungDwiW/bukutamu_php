@@ -9,17 +9,37 @@
 	catch(Exception $e){
 		echo $e;
 	}
-	file_put_contents($output,$image);
 
-	$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp)
+	file_put_contents($output,$image);
+	$uid = (int)$_POST["UID"];
+	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
+	$result_tamu = mysqli_query($conn, $sql);
+	if (mysqli_num_rows($result_tamu) ==0){
+		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, bertemu)
 	 		VALUES (".$_POST['UID'].",'".$_POST['TID']."', '".$_POST['Nama']."','".
-	 		$_POST['Kelamin']."',". true.",'". $_POST['Institusi']."','". $output."',". $_POST['save'].",".$_POST['NoHP'].")";
-	// var_dump($sql);
-	$result = mysqli_query($conn, $sql);
-	if ($result === TRUE) {
-    	echo "New record created successfully";
-	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
+	 		$_POST['Kelamin']."',". true.",'". $_POST['Institusi']."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$_POST['Bertemu']."'')";
+		// var_dump($sql);
+		$result = mysqli_query($conn, $sql);
+		if ($result === TRUE) {
+	    	echo "New record created successfully";
+		} else {
+		    echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+	else{
+		while($row = mysqli_fetch_assoc($result_tamu)) {
+	    	$flag_sign = $row ['signed_in'];
+	    }
+		$sql = "UPDATE TAMU SET signed_in = true WHERE UID = ".$uid;
+		$result = mysqli_query($conn, $sql);
+		if ($result === TRUE) {
+	    	echo "New record created successfully";
+		} else {
+		    echo "Error: " . $sql . "<br>" . $conn->error;
+		}	
+	}
+	if($flag_sign){
+		header('Location: index.php');
 	}
 	$tz_object = new DateTimeZone('Asia/Jakarta');
 	$datetime = new DateTime();
@@ -49,6 +69,5 @@
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}
-	// header('Location: index.php');
-(2019-06-22 11:01:10,'', '123','123',0,'','',11111,'1')
+	header('Location: index.php');
 ?>
