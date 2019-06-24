@@ -361,22 +361,25 @@ function get_pelanggaran(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+        // console.log(this.responseText);
+        // cur = this.responseText;
+        // console.log("a");
         cur = JSON.parse(this.responseText)
         console.log(cur);
         pelanggaran(cur);
     }};
     var str_12 = tipe12.options[tipe12.selectedIndex].text
     var str_sub = sub.options[sub.selectedIndex].text
-    str_12 = str_12.replace(/ /g, "_");
-    str_sub = str_sub.replace(/ /g, "_");
-    query = "/pelaporan/pelanggaran_ajax/" +uid.value+"/"+str_12+"/"+ str_sub
+    str_12 = str_12.replace(/ /g, "+");
+    str_sub = str_sub.replace(/ /g, "+");
+    query = "ajax/get_pelanggaran.php?uid=" +uid.value+"&akt="+str_12+"&sub="+ str_sub
     console.log(query)
-    xhttp.open("GET", query, true);
+    xhttp.open("GET","ajax/get_pelanggaran.php?uid=" +uid.value+"&akt="+str_12+"&sub="+ str_sub, true);
     xhttp.send();
 }
 var flag = 0
 function pelanggaran(json){
-    content = json.pelanggaran
+    content = json
     ap1.hidden = true
     ap1.readOnly = false
     ap1.required = true
@@ -385,7 +388,7 @@ function pelanggaran(json){
     ap2.hidden =true
     ap2_lab.hidden  = true
     ap2.formNoValidate = true
-    if (content.length == 0){
+    if (content['error']){
         hide.hidden = true
         ap1_lab.hidden = false
         ap1.hidden = false

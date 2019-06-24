@@ -37,7 +37,7 @@
 	    }
 	    $sql = "SELECT * FROM kedatangan where signedout = false and tamu = ".$uid;
 		// echo $sql;
-		echo $perusahaan;
+		// echo $perusahaan;
 		$result_tamu = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 			// var_dump($row);
@@ -89,7 +89,7 @@
     <div class="col-sm-6" >
     	<?php  
     		if ($flag_sign){
-    			echo "<img src = ".$image." width=100%></img>";
+    			echo "<img src = ".$image."?1 width=100%></img>";
     		}
     		else{
     			echo '<video id="player" controls autoplay width="90%" ></video>

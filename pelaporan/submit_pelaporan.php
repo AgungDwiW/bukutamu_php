@@ -51,5 +51,6 @@
 				";
 	$result = mysqli_query($conn, $sql);
 	echo $sql;
+	header('Location: listpelaporan.php');	
 
 ?>

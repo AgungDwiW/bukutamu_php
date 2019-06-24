@@ -31,6 +31,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php  
+                                        require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+                                            $sql = "SELECT * FROM tamu";
+                                        $result = mysqli_query($conn, $sql);
+                                        if ($result &&(mysqli_num_rows($result) !=0)){
+                                            $no = 1;
+                                        while($row = mysqli_fetch_assoc($result)) {
+
+                                        ?>
+                                              
+                                            <tr class='clickable-row' data-href=user_detail.php?uid=<?php echo $row['uid']; ?>>
+                                             <td style="vertical-align:middle;"><?php echo $no;$no+=1; ?></td>
+                                             <td style="text-align:left;"><?php echo $row['nama_tamu']; ?></td>
+                                             <td style="text-align:left;"><?php echo $row['perusahaan']; ?></td>
+                                             <td style="text-align:left;"><?php echo $row['uid']; ?></td>
+                                             <td style="text-align:left;"><?php echo $row['tipeid']; ?></td>
+                                             <td style="text-align:left;"><?php echo $row['terakhir_datang']; ?></td>
+                                             <td style="text-align:left;"><?php echo $row['signed_in']; ?></td>
+
+                                             </tr>
+
+                                        <?php
+                                        }}
+
+                                    ?>
                                 </tbody>
                                
                             </table>
@@ -44,3 +69,19 @@
     </div>
     
 </body>
+
+ <script>
+        $(function () {
+            $('#example1').DataTable({
+                "searching": true,
+            });
+        });
+        
+
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+   
