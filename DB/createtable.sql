@@ -13,7 +13,7 @@ CREATE TABLE tamu (
 	nama_tamu VARCHAR(50),
 	jenis_kelamin varchar(1),
 	signed_in boolean, 
-	perusahaan boolean, 
+	perusahaan varchar(50), 
 	image VARCHAR(50), 
 	nohp varchar(20),
 	saved boolean,

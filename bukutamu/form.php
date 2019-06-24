@@ -33,23 +33,35 @@
 	    	$flag_sign = $row ['signed_in'];
 	    	$perusahaan = $row ['perusahaan'];
 	    	$image = $row['image'];
-	    	
+	    	$flag_tamu = $row['saved'];
 	    }
-	}
-	if ($flag_sign == null){
-		$flag_sign = 0;
-	}
-	else{
-		$sql = "SELECT * FROM kedatangan where signed_in = true";
+	    $sql = "SELECT * FROM kedatangan where signedout = false and tamu = ".$uid;
+		// echo $sql;
+		echo $perusahaan;
+		$result_tamu = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_assoc($result_tamu)) {
+			// var_dump($row);
 	    	$keperluan = $row['keperluan'];
 	    	$suhu = $row['suhu_badan'];
 	    	$luka = $row['luka'];
 	    	$sakit = $row['sakit'];
 	    	$bertemu = $row['bertemu'];
-
+	    	$departemen = $row['departemen'];
 	    }
 	}
+
+	else{
+
+	}
+		if (!$flag_tamu){
+			if (!$flag_sign)
+				$perusahaan = "";
+	}
+	if ($flag_sign == null){
+		$flag_sign = 0;
+	}
+
+	// var_dump($tid);
  ?>
 <head>
     <link href="../assets/bootstrap/css/bootstrap.min.css"  rel="stylesheet" id="bootstrap-css">
@@ -76,7 +88,7 @@
    <div class="row vertical-align">
     <div class="col-sm-6" >
     	<?php  
-    		if ($flag_tamu && $flag_sign){
+    		if ($flag_sign){
     			echo "<img src = ".$image." width=100%></img>";
     		}
     		else{
@@ -98,13 +110,21 @@
 		      </tr>
 		    </thead>
 		    <tbody>
-		    
-		      <tr >
-		        <td>{{item.tanggal_keluar}}</td>
-		        <td>{{item.bertemu_dengan}}</td>
-		        <td>{{item.alasan_kedatangan }}</td>
-		      </tr>
-		    
+		    	<?php  
+		    		$sql = "SELECT * FROM kedatangan where tamu = ". $_POST["UID"]." ORDER BY id DESC LIMIT 3";
+		    		
+		    		$result = mysqli_query($conn, $sql);
+		    		if (mysqli_num_rows($result) > 0) {
+				    // output data of each row
+				    while($row = mysqli_fetch_assoc($result)) {
+				    	
+				?>
+				      <tr >
+				        <td><?php echo  $row['tanggal_datang'];?></td>
+				        <td><?php echo  $row['bertemu'];?></td>
+				        <td><?php echo  $row['keperluan'];?></td>
+				      </tr>
+		    <?php }}?>
 		    </tbody>
 		  </table>
 		</div>
@@ -130,24 +150,25 @@
 	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
 	          </div>
 	          <div class="col-sm-3">
-	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value =   >
-	            	<option selected disabled>Pilih</option>
-	            	<option <?php 
+	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
+	            	
+	            	<option value="KTP"<?php 
+
 	            		if ($tid == "KTP") {
 	            			echo "selected";
 	            		}
 	            	 ?>>KTP</option>
-	            	<option <?php 
+	            	<option value="Kartu Pegawai"<?php 
 	            		if ($tid == "Kartu Pegawai") {
 	            			echo "selected";
 	            		}
 	            	 ?>
 	            	>Kartu Pegawai</option>
-	            	<option <?php 
+	            	<option value="SIM"> <?php 
 	            		if ($tid == "SIM") {
 	            			echo "selected";
 	            		}
-	            	 ?>>SIM</option>
+	            	 ?>SIM</option>
 	            </select>
 	          </div>
 	        </div>
@@ -180,20 +201,20 @@
 	        <div class="form-group row"> <!-- Institusi  -->
 	          <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php  $perusahaan ?>     >
+	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
 	          <div class="col-sm-9">  
-	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx,x" required value = <?php $suhu?>  >
+	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx,x" required value = <?php echo $suhu?>  >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
 	          <label class="control-label col-sm-3" for="Bertemu">Bertemu dengan:</label>
 	          <div class="col-sm-9">  
 	            <input type="text" class="form-control inputsm" name="Bertemu" id="Bertemu"
-	            placeholder="Bapak/Ibu" required value =  <?php $bertemu ?> >
+	            placeholder="Bapak/Ibu" required value =  <?php echo  $bertemu ?> >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
@@ -201,14 +222,20 @@
 	          <div class="col-sm-9">  
 	            <select type="text" class="form-control inputsm" name="departemen" id="departemen" required    
 	            >
-	            	<option selected disabled>Pilih</option>
+	            	
 	            	<?php  
 	            	$sql = "SELECT * FROM departemen";	
 	            	$result_dep = mysqli_query($conn, $sql);
 	            	if (mysqli_num_rows($result_dep) > 0) {
 					    // output data of each row
 					    while($row = mysqli_fetch_assoc($result_dep)) {
+					    	if ($row['id'] == $departemen)
+					    	{
+					    	echo "<option name= 'departemen' value=".$row['id']." selected >".$row['nama_departemen']."</option>";	
+					    	}
+					    	else{
 					    	echo "<option name= 'departemen' value=".$row['id']." >".$row['nama_departemen']."</option>";
+					    }
 					    }
 					}
 	            	?>
@@ -218,7 +245,7 @@
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keperluan:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php $keperluan ?>   >
+	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
 	          </div>
 	        </div>
 	        <div class="form-group row ">
@@ -255,7 +282,7 @@
 	            <input type="radio"  name="save" id="save_radio_y" value="1" checked  "> Ya
 	        	</label>
 	        	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="save" id="save_radio_n" value = "0" {% if not save%}checked=true  {%endif%}{%if not flag%} disabled {%endif%}> Tidak
+	            <input type="radio"  name="save" id="save_radio_n" value = "0" > Tidak
 	        	</label>
 	        </div>
 	        <div class="form-group row"  >
@@ -264,18 +291,14 @@
   				if (!$flag_sign){
   			?>
   				
-		  			<a href="index.php"><input type="button" name="cancel" id = "cancel" class="col-sm-6 btn" value="cancel"></a>
-	  			
-  				
-	  			 
-		  			<input type="submit" name="submit" id = "submit" class="col-sm-6 btn">
+		  			<input type="button" name="cancel" id = "cancel" class="col-sm-5 btn" value="cancel" onclick="location.href = 'index.php';"><input type="submit" name="submit" id = "submit" class="col-sm-5 btn">
 	  			
 	  		<?php
 	  			}
 	  			else{
 	  			?>
 	  			
-	  				<input id="cancel " type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value = "logout">
+	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value = "logout" onclick="location.href = 'logout.php';">
 	  			
 	  			 <?php
 	  			}
@@ -316,11 +339,12 @@
      const kelamin =  document.getElementById("Kelamin")
      const institusi = document.getElementById("Institusi")
      const tid = document.getElementById("TID")
-     if(flag_tamu){
+     if(flag_tamu || flag_sign){
      	tid.disabled = true;
      	nama.readOnly = true;
      	hp.readOnly = true;
      	kelamin.disabled = true;
+     	institusi.readOnly = true;
      	// departemen.readOnly = true;
      }
      if (flag_sign){
@@ -347,8 +371,8 @@
      // 	departemen.disabled = true
      // 	alert("anda telah melakukan pelanggaran lebih dari 3 kali")
      // }
-     <?php  if (!$flag_sign){
-     	echo 'const constraints = {
+     <?php  if (!$flag_sign){?>
+     	const constraints = {
        video: true,
      };
      function cameracapture (){
@@ -366,6 +390,7 @@
      	if (sakit_flag == true){
      		sakit.value = "";
      	}
+     	tid.disabled = false
      	kelamin.disabled = false;
      	cameracapture();
      }
@@ -374,7 +399,7 @@
        .then((stream) => {
          player.srcObject = stream;
        });
-     ';
+     <?php ;
      
  	}
  	?>

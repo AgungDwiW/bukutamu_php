@@ -9,35 +9,55 @@
 	catch(Exception $e){
 		echo $e;
 	}
-
+	// echo $_POST['TID'];
 	file_put_contents($output,$image);
 	$uid = (int)$_POST["UID"];
 	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
+	// var_dump($_POST);
 	$result_tamu = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result_tamu) ==0){
-		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, bertemu)
+		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp)
 	 		VALUES (".$_POST['UID'].",'".$_POST['TID']."', '".$_POST['Nama']."','".
-	 		$_POST['Kelamin']."',". true.",'". $_POST['Institusi']."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$_POST['Bertemu']."'')";
+	 		$_POST['Kelamin']."',". true.",'". $_POST['Institusi']."','". $output."',". $_POST['save'].",".$_POST['NoHP'].")";
 		// var_dump($sql);
 		$result = mysqli_query($conn, $sql);
-		if ($result === TRUE) {
-	    	echo "New record created successfully";
-		} else {
-		    echo "Error: " . $sql . "<br>" . $conn->error;
-		}
+
 	}
+
 	else{
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 	    	$flag_sign = $row ['signed_in'];
+	    	$saved = $row ['saved'];
 	    }
-		$sql = "UPDATE TAMU SET signed_in = true WHERE UID = ".$uid;
+	    if (!$saved){
+			$sql = "UPDATE TAMU 
+			SET signed_in = true,
+			nama_tamu ='".$_POST['Nama']."',
+			jenis_kelamin = '".$_POST['Kelamin']."',
+			perusahaan = '". $_POST['Institusi']."',
+			saved = '".$_POST['save']."',
+			nohp = '".$_POST['NoHP']."',
+			tipeid = '".$_POST['TID']."'
+			WHERE UID = ".$uid;}
+		else{
+			$sql = "UPDATE TAMU 
+			SET signed_in = true,
+			saved = '".$_POST['save']."'
+			WHERE UID = ".$uid;
+		}
 		$result = mysqli_query($conn, $sql);
-		if ($result === TRUE) {
-	    	echo "New record created successfully";
-		} else {
-		    echo "Error: " . $sql . "<br>" . $conn->error;
-		}	
+
+	
 	}
+
+	$year =  date("Y");
+	$sql = "SELECT * FROM year where year = ".$year;
+	$result_year = mysqli_query($conn, $sql);
+	if (mysqli_num_rows($result_year) ==0){
+		$sql = "insert into year(year) values (".$year.")";
+		$result_year = mysqli_query($conn, $sql);
+	}
+
 	if($flag_sign){
 		header('Location: index.php');
 	}
@@ -45,29 +65,11 @@
 	$datetime = new DateTime();
     $datetime->setTimezone($tz_object);
     $now = $datetime->format('Y\-m\-d\ h:i:s');
-    // sleep(2);
-    // $datetime = new DateTime();
-    // $datetime->setTimezone($tz_object);
-    // $now2 = $datetime->format('Y\-m\-d\ h:i:s');
-    // $d1 = strtotime($now);
-    // $d2 =  strtotime($now2);
-    // var_dump($d1-$d2);
-    // echo "\n";
-    // var_dump($d1);
-    // echo "\n";
-    // var_dump($d2);
-	// var_dump($now);
-	// $d = new DateTime($now);
-	// $d->setTimezone($tz_object);
-	// var_dump($d);
-	$sql = "INSERT INTO Kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, tamu, departemen)
-	 		VALUES ('".$now."','".NULL."', '".$_POST['Keperluan']."',".$_POST['Suhu'].",". $_POST['Luka'].",'". $_POST['Sakit']."','". false."',". $_POST['UID'].",'".  $_POST['departemen']."')";
+
+	$sql = "INSERT INTO Kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, tamu, departemen, bertemu)
+	 		VALUES ('".$now."','".NULL."', '".$_POST['Keperluan']."',".$_POST['Suhu'].",". $_POST['Luka'].",'". $_POST['Sakit']."','". false."',". $_POST['UID'].",'".  $_POST['departemen']."','".$_POST['Bertemu']."')";
 	// var_dump($sql);
 	$result = mysqli_query($conn, $sql);
-	if ($result === TRUE) {
-    	echo "New record created successfully";
-	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
-	}
+
 	header('Location: index.php');
 ?>
