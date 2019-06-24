@@ -26,7 +26,7 @@
  
 <div class="container ">
     <div class="wrapper col">
-      <a href="pelaporan/dashboard.php" class="formContent boxshadow">
+      <a href="pelaporan/index.php" class="formContent boxshadow">
         <div class=" Laporan ">
           
           	<div><i class="nav-icon fa fa-users fa-5x" aria-hidden="true"></i>

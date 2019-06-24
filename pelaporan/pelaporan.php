@@ -17,7 +17,7 @@
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
-                            <form id="msform" style="height:auto; width:auto;" method="post" onsubmit="return validateform()" action={% url 'pelaporan:submit'%} >
+                            <form id="msform" style="height:auto; width:auto;" method="post" onsubmit="return validateform()" action="submit_pelaporan.php" >
                             <!-- fieldsets -->
                            
                                 <fieldset>
@@ -248,3 +248,198 @@
                     <!-- /.content -->
     </div>
 </body>
+<script type="text/javascript">
+const tanggal = document.getElementById("tgl_langgar")
+const nama = document.getElementById("nama")
+const institusi = document.getElementById("institusi")
+const no_hp = document.getElementById("no_hp")
+const uid = document.getElementById("uid_pelaku")
+const tid = document.getElementById("tid_pelaku")
+const tipe12 = document.getElementById('aktivitas_12')
+const sub = document.getElementById('Subketegori')
+const hide = document.getElementById('table')
+const table = document.getElementById('table').getElementsByTagName('tbody')[0];
+const positif = document.getElementById('positivity')
+const ap1 = document.getElementById('AP1')
+const ap2 = document.getElementById('AP2')
+const ap1_lab = document.getElementById('AP1_lab')
+const ap2_lab = document.getElementById('AP2_lab')
+const ket = document.getElementById('keterangan')
+const area = document.getElementById('area')
+var valid = false
+function activate(){
+    tipe12.disabled = false
+    sub.disabled = false
+    positif.disabled = false
+    ap1.disabled = false
+    ap2.disabled = false
+    ket.disabled = false
+    tanggal.disabled = false
+    area.disabled = false
+}
+
+function deactivate(){
+    tipe12.disabled = true
+    sub.disabled = true
+    positif.disabled = true
+    ap1.disabled = true
+    ap2.disabled = true
+    ket.disabled = true   
+    tanggal.disabled = true
+    area.disabled = true
+}
+
+function validateform(){
+    var str_12 = tipe12.options[tipe12.selectedIndex].text
+    var str_sub = sub.options[sub.selectedIndex].text
+    if (str_12== "Pilih"  || str_sub== "Pilih"){
+        return false
+    }
+    return valid
+    
+}
+
+uid.addEventListener("keyup", 
+    function (event) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText)
+            cur = JSON.parse(this.responseText)
+            activate()
+            valid = true
+            get_tamu(cur[0]);
+
+        }
+        if (this.readyState == 4 &&this.status == 500) {
+            deactivate();
+            valid = false
+            alert("data tamu tak dapat ditemukan")
+        }
+        };
+        event.preventDefault();
+        if (event.which == 13 || event.keyCode == 13) {
+           console.log("get_tamu?uid=" + uid.value)
+            xhttp.open("GET", "ajax/get_tamu.php?uid=" + uid.value, true);
+            xhttp.send();
+            return false;
+    }
+    });
+function get_tamu(cur){
+    console.log(cur)
+    institusi.value = cur['perusahaan']
+    nama.value = cur['nama']
+    no_hp.value = cur['hp']
+    if (!cur['saved']){
+        nama.value = "Deleted"
+        no_hp.value = "Deleted"
+        tid.value = "Deleted"
+    }
+    if (cur['tid'] == "KTP"){
+        tid.options[0].selected = true
+        console.log(tid.options[0].selected)
+    }
+    else{
+        tid.options[2].selected = false
+    }
+    kedatangan  = cur['kedatangan']
+    for (key in kedatangan){
+        var option = document.createElement("option");
+        option.text = kedatangan[key]
+        option.value = key
+        tanggal.add(option)
+    }
+
+};
+
+function get_pelanggaran(){
+    
+    if (!((uid.value != "") && (tipe12.options[tipe12.selectedIndex].text != "Pilih" && sub.options[sub.selectedIndex].text!="Pilih"))){
+        
+        return false
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        cur = JSON.parse(this.responseText)
+        console.log(cur);
+        pelanggaran(cur);
+    }};
+    var str_12 = tipe12.options[tipe12.selectedIndex].text
+    var str_sub = sub.options[sub.selectedIndex].text
+    str_12 = str_12.replace(/ /g, "_");
+    str_sub = str_sub.replace(/ /g, "_");
+    query = "/pelaporan/pelanggaran_ajax/" +uid.value+"/"+str_12+"/"+ str_sub
+    console.log(query)
+    xhttp.open("GET", query, true);
+    xhttp.send();
+}
+var flag = 0
+function pelanggaran(json){
+    content = json.pelanggaran
+    ap1.hidden = true
+    ap1.readOnly = false
+    ap1.required = true
+    ap1.value = ""
+    ap1_lab.hidden = true
+    ap2.hidden =true
+    ap2_lab.hidden  = true
+    ap2.formNoValidate = true
+    if (content.length == 0){
+        hide.hidden = true
+        ap1_lab.hidden = false
+        ap1.hidden = false
+        console.log(ap1.hidden)
+
+    }
+    else{
+        
+        count = table.childElementCount
+        
+        for (a = 0; a<count; a++){
+            
+            table.deleteRow(0)
+        }
+
+        
+        for (a = 0; a<content.length;a++)
+        {
+            console.log(content[a])
+            row = table.insertRow(0)
+            cell1 = row.insertCell(0)
+            cell2 = row.insertCell(1)
+            cell3 = row.insertCell(2)
+            hide.hidden = false 
+            cell1.innerHTML = content[a].tanggal
+            cell2.innerHTML = content[a].area
+            cell3.innerHTML = content[a].departemen
+            if (content[a].ap1!=""){
+                ap1.hidden = false
+                ap1_lab.hidden = false
+                ap1.readOnly = true
+                ap1.value = content[a].ap1
+                ap1.required = true
+                flag = 1
+                ap2.hidden = false
+                ap2.required = true
+                ap2_lab.hidden = false
+                ap2.formNoValidate = false
+            }
+            if (content[a].ap2!=""){
+                ap2.value = content[a].ap2
+                
+                ap2_lab.hidden= false
+                ap2.readOnly = true
+                
+                flag = 2
+            }
+        }
+        
+    }
+}
+
+
+$('form input').on('keypress', function(e) {
+    return e.which !== 13;
+});
+</script>

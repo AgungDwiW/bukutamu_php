@@ -2,6 +2,9 @@
 <html>
 
 <head>
+<?php  
+        require "auth/login_middleware.php"
+    ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Pelaporan</title>
@@ -157,7 +160,7 @@
                     <div class="modal-body">Tekan tombol logout untuk mengakhiri sesi anda!</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="index.html">Logout</a>
+                        <a class="btn btn-primary" href="auth/logout.php">Logout</a>
                     </div>
                 </div>
             </div>

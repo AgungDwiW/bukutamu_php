@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS departemen;
 DROP TABLE IF EXISTS year;
 DROP TABLE IF EXISTS tamu;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS session;
 
 CREATE TABLE tamu (
 	id int not null primary key auto_increment,
@@ -82,11 +83,17 @@ create table pelaporan(
 
 
 create table user(
-	pk int not null auto_increment primary key,
+	id int not null auto_increment primary key,
 	user varchar(30),
-	pass varchar(30),
+	pass varchar(40),
 	is_super boolean,
 	unique (user)
+);
+
+create table session(
+	id int not null auto_increment primary key,
+	session_key varchar(100),
+	is_super boolean
 );
 
 use bukutamudb;
