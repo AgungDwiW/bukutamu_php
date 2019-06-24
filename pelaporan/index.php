@@ -1,16 +1,16 @@
 
 <head>
-    {% load static %}
-    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" id="bootstrap-css">
+   
+    <link href="../assets/bootstrap/css/bootstrap.min.css"  rel="stylesheet" id="bootstrap-css">
 
-    <link href="{% static "bukutamu/css/index.css" %}" rel="stylesheet">
-    <script src="{% static "jquery.js" %}"></script>
-    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <link href="css/index.css"  rel="stylesheet">
+    <script src="../assets/js/jquery.js" ></script>
+    <script src="..assets/bootstrap/js/bootstrap.min.js" ></script>
  
     <title>Bukutamu</title>
 </head>
 
-<body background="{% static "indexbackground.jpg" %}" >
+<body background="../assets/bg/indexbackground.jpg"  >
     <div class="wrapper ">
       <div id="formContent">
         <div class=" ">
@@ -21,8 +21,8 @@
           <!-- Icon -->
           
           <!-- Login Form -->
-          <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
+          <form method="POST" action='login' >
+        
           <div style="margin: auto;" class="">
             <input type="text" id="id_username" class="form-control" placeholder="ID" aria-label="Search" name = "username" required autofocus>
           
@@ -35,7 +35,7 @@
             <input type="hidden" name="next" value="{{ next }}" />
              <!-- {{form.username}}
              {{form.password}} -->
-  {% if form.errors %}
+ <!--  {% if form.errors %}
       <script type="text/javascript">
         alert("Username atau password salah")
       </script>
@@ -49,7 +49,7 @@
       </script>
       
     
-  {% endif %}
+  {% endif %} -->
 
             <input style="margin-top: 20px" type="submit" class="" value="Log In">
           </form>

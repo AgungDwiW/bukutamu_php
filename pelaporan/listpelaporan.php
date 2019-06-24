@@ -1,47 +1,50 @@
-{% extends "pelaporan/template_table.html" %}
-{%block title%} List pelaporan {%endblock%}
-{%block style%}
-td a {
-    display:block;
-    width:100%;
-}
-{%endblock%}
-{%block title-table %}
-List pelaporan
-{%endblock%}
+<?php include('template.php'); ?> 
 
-{%block header-table%}
-
-<th style="min-width:5%;">No.</th>
-<th style="min-width:5%; max-width: 10%">Nama Pelapor</th>
-<th style="min-width:5%;">Tanggal Pelanggaran</th>
-<th style="min-width:5%;">UID Pelanggar</th>
-<th style="min-width:5%; max-width: 10%">Nama Pelanggar</th>
-<th style="min-width:8%;">12 Basic</th>
-<th style="min-width:7%;">Sub Kategori</th>
-<th style="min-width:5%;">+/-</th>
-<th style="min-width:5%; max-width: 15%">Action Plan 1</th>
-<th style="min-width:5%; max-width: 15%">Action Plan 2</th>
-<th style="min-width:5%; max-width: 15%">Keterangan</th>
-{%endblock%}
-
-{%block content-table%}
-{% for item in items%}
-<tr>
- <td style="vertical-align:middle;">{{item.no}}</td>
-<td style="vertical-align:middle;">{{item.nama_pelapor}}</td>
-<td style="vertical-align:middle;">{{item.tanggal}}</td>
-<td style="vertical-align:middle;">{{item.uid_pelaku}}</td>
-<td style="vertical-align:middle;">
-	<a href="\pelaporan\users\{{item.uid_pelaku}}">{{item.nama_pelaku}}</a>
-
-</td>
-<td style="vertical-align:middle;">{{item.12}}</td>
-<td style="vertical-align:middle;">{{item.subkategori}}</td>
-<td style="vertical-align:middle;">{{item.positivity}}</td>
-<td style="vertical-align:middle;">{{item.ap1}}</td>
-<td style="vertical-align:middle;">{{item.ap2}}</td>
-<td style="vertical-align:middle;">{{item.keterangan}}</td>
- </tr>
-{%endfor%}
-{%endblock%}
+<body class="hold-transition sidebar-mini">
+    <br>
+    <br>
+    <div class="content-wrapper" style="background: #fbfbfb !important;">
+                    <!-- Content Header (Page header) -->
+                    
+                    <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col">
+                            
+                    <div class="card table-responsive" style="border-radius: 0px !important;">
+                        <!-- /.card-header -->
+                        <div class="card-header">                              
+                            Dashboard                            
+                        </div>
+                        <div class="card-body">
+                                <!-- Grid -->
+                            <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center; vertical-align:middle;">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width:5%;">No.</th>
+                                        <th style="min-width:5%; max-width: 10%">Nama Pelapor</th>
+                                        <th style="min-width:5%;">Tanggal Pelanggaran</th>
+                                        <th style="min-width:5%;">UID Pelanggar</th>
+                                        <th style="min-width:5%; max-width: 10%">Nama Pelanggar</th>
+                                        <th style="min-width:8%;">12 Basic</th>
+                                        <th style="min-width:7%;">Sub Kategori</th>
+                                        <th style="min-width:5%;">+/-</th>
+                                        <th style="min-width:5%; max-width: 15%">Action Plan 1</th>
+                                        <th style="min-width:5%; max-width: 15%">Action Plan 2</th>
+                                        <th style="min-width:5%; max-width: 15%">Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                               
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+                    <!-- /.content -->
+    </div>
+    
+</body>
