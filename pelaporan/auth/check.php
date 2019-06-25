@@ -4,7 +4,7 @@
 
 function check_login(){
 	
-	require $_SERVER['DOCUMENT_ROOT']."/db/db_con.php";
+	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
     if (isset($_COOKIE["key"])){
     	$sql = "SELECT * FROM session where session_key = '".$_COOKIE["key"]."'";
     	// echo $sql;

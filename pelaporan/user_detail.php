@@ -1,4 +1,19 @@
-<?php include('template.php'); ?> 
+<?php include('template.php'); 
+if (!isset($_GET['uid']))
+  header('Location: users.php');
+else
+  $uid = $_GET['uid'];
+require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+$sql = "SELECT * FROM tamu where uid = ".$uid;
+
+$result = mysqli_query($conn, $sql);
+
+while($row = mysqli_fetch_assoc($result)) {
+  $tamu = $row;  
+}
+
+
+?> 
 <body class="hold-transition sidebar-mini">
     <br>
     <br>
@@ -20,22 +35,22 @@
                               <div style="margin: auto;">
                                   <div class="row vertical-align">
                                       <div class="col-sm-6 center" style="margin: auto" >
-                                          <img src = "{{tamu.image.url}}" width=80%  ></img>
+                                          <img src = "../bukutamu/<?php echo $tamu['image']; ?>" width=80%  ></img>
                                           
                                           
                                       </div>
                                       <div class="col-sm-6 v-divider">
                                           
-                                            <form action = class = "text-left"  onsubmit="validateForm()">
+                                            <form class = "text-left" >
                                           
 
                                               <div class="form-group row"><!-- UID -->
                                                 <label class="control-label col-sm-3" for="UID">UID:</label>
                                                 <div class="col-sm-6">  
-                                                  <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value = {{tamu.uid}} readonly > 
+                                                  <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value = <?php echo $tamu['uid']; ?> readonly > 
                                                 </div>
                                                 <div class="col-sm-3">
-                                                  <input class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value = {{tamu.tipeid}} readonly>
+                                                  <input class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value = <?php echo $tamu['tipeid']; ?> readonly>
                                                       
                                                 </div>
                                               </div>
@@ -45,7 +60,7 @@
                                               <div class="form-group row"> <!-- nama -->
                                                 <label class="control-label col-sm-3" for="Nama">Nama:</label>
                                                 <div class="col-sm-9">  
-                                                  <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama" readonly required  {%if tamu.nama_tamu%} readonly value = {{tamu.nama_tamu}} {%endif%}  >
+                                                  <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama" readonly value = <?php echo $tamu['nama_tamu']; ?>   >
                                                 </div>
                                               </div>
                                               
@@ -54,7 +69,7 @@
                                               <div class="form-group row"> <!-- no HP -->
                                                 <label class="control-label col-sm-3" for="NoHP">Nomor HP:</label>
                                                 <div class="col-sm-9">  
-                                                  <input type="number" class="form-control inputsm" name="NoHP" id="NoHP" placeholder="08xxxxxxxxxx" required {%if tamu.no_hp_tamu%} readonly value = {{tamu.no_hp_tamu}} {%endif%} readonly>
+                                                  <input type="number" class="form-control inputsm" name="NoHP" id="NoHP" placeholder="08xxxxxxxxxx"  readonly value = <?php echo $tamu['nohp']; ?> {%endif%} readonly>
                                                 </div>
                                               </div>
                                               
@@ -63,7 +78,7 @@
                                               <div class="form-group row"><!-- Jenis kelamin -->
                                                 <label class="control-label col-sm-3" for="kelamin">Jenis Kelamin:</label>
                                                 <div class="col-sm-9">  
-                                                  <input class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P" {%if tamu.jenis_kelamin %} readonly value = {{tamu.jenis_kelamin}} {%endif%} readonly>
+                                                  <input class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P" value = <?php echo $tamu['jenis_kelamin']; ?>  readonly>
                                                 </div>
                                               </div>
                                               
@@ -72,7 +87,7 @@
                                               <div class="form-group row"> <!-- Institusi  -->
                                                 <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
                                                 <div class="col-sm-9">  
-                                                  <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required {% if tamu.perusahaan%} readonly value = {{tamu.perusahaan}} {%endif%} readonly>
+                                                  <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required readonly value = <?php echo $tamu['perusahaan']; ?>  readonly>
                                                 </div>
                                               </div>
                                               
@@ -112,13 +127,21 @@
                                                 </tr>
                                               </thead>
                                               <tbody>
-                                              {%for item in kedatangan%}
+                                              <?php
+                                              $sql = "SELECT * FROM kedatangan where tamu = ".$uid;
+
+                                              $result = mysqli_query($conn, $sql);
+
+                                              while($row = mysqli_fetch_assoc($result)) {
+                                              ?>
                                                 <tr >
-                                                  <td>{{item.tanggal_keluar}}</td>
-                                                  <td>{{item.bertemu_dengan}}</td>
-                                                  <td>{{item.alasan_kedatangan }}</td>
+                                                  <td><?php echo $row['tanggal_keluar']; ?></td>
+                                                  <td><?php echo $row['bertemu']; ?></td>
+                                                  <td><?php echo $row['keperluan']; ?></td>
                                                 </tr>
-                                              {%endfor%}
+                                              <?php
+                                            }
+                                              ?>
                                               </tbody>
                                             </table>
                                           </div>
@@ -141,17 +164,26 @@
                                                 </tr>
                                               </thead>
                                               <tbody>
-                                              {% for item in pelanggaran%}
-                                              <tr>
-                                                  <td style="vertical-align:middle;">{{item.tanggal_pelanggaran}}</td>
-                                                  <td style="vertical-align:middle;">{{item.tipe_aktivitas_12}}</td>
-                                                  <td style="vertical-align:middle;">{{item.sub_kategori}}</td>
-                                                  <td style="vertical-align:middle;">{% if item.positif%} + {%else%} - {%endif%}</td>
-                                                  <td style="vertical-align:middle;">{{item.action_plan1}}</td>
-                                                  <td style="vertical-align:middle;">{{item.action_plan2}}</td>
-                                                  <td style="vertical-align:middle;">{{item.keterangan}}</td>
+                                                 <?php
+                                              $sql = "SELECT * FROM pelaporan where pelanggar = ".$uid;
+
+                                              $result = mysqli_query($conn, $sql);
+
+                                              while($row = mysqli_fetch_assoc($result)) {
+                                              ?>
+                                               <tr>
+                                                  <td style="vertical-align:middle;"><?php echo $row['tanggal_pelanggaran']; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['tipe_12']; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['subkategori']; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['positif']?'+':'-';?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['ap1']; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['ap2']; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?></td>
                                               </tr>
-                                              {%endfor%}
+                                              <?php
+                                            }
+                                            ?>
+                                            
                                               </tbody>
                                             </table>
                                           </div>
