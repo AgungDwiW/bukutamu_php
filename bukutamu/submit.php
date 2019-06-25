@@ -22,7 +22,7 @@
 	if (mysqli_num_rows($result_tamu) ==0){
 		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang)
 	 		VALUES (".$_POST['UID'].",'".$_POST['TID']."', '".$_POST['Nama']."','".
-	 		$_POST['Kelamin']."',". true.",'". $_POST['Institusi']."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$now."')";
+	 		$_POST['Kelamin']."',". true.",'". strtolower($_POST['Institusi'])."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$now."')";
 		// var_dump($sql);
 		$result = mysqli_query($conn, $sql);
 

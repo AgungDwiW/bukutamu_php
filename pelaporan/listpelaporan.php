@@ -1,4 +1,9 @@
-<?php include('template.php'); ?> 
+<?php include("template.php") ;
+
+if (isset($_GET['year']))
+  $year = $_GET['year'];
+else
+  $year = date('Y');?>
 
 <body class="hold-transition sidebar-mini">
     <br>
@@ -14,7 +19,25 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            List Pelaporan                           
+                            List Pelaporan             
+                             <select style="position: absolute;right: 10px;"  name="forma" onchange="location = this.value;">
+                              <?php
+                               require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+                                  $sql = 'SELECT year from year' ;
+                                  $result = mysqli_query($conn, $sql);
+                                  if ($result&& mysqli_num_rows($result) !=0){
+                                      while($row = mysqli_fetch_assoc($result)) {
+                                        $selected = "";
+                                        if ($row['year'] == $year)
+                                          $selected = "selected";
+                                        echo "<option value =listpelaporan.php?year=".$row['year'].
+                                          " ".$selected.
+
+                                        ">".$row['year']."</option> " ;
+                                    }
+                                  }
+                              ?>
+                            </select>                      
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
@@ -40,7 +63,7 @@
                                 <tbody>
                                     <?php  
                                         require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-                                            $sql = "SELECT * FROM pelaporan";
+                                            $sql = "SELECT * FROM pelaporan  where  YEAR(STR_TO_DATE(tanggal_pelanggaran, '%Y-%m-%d')) = ".$year;
                                         $result = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){
                                             $no = 1;

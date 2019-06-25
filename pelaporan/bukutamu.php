@@ -1,4 +1,9 @@
-<?php include("template.php") ?>
+<?php include("template.php") ;
+
+if (isset($_GET['year']))
+  $year = $_GET['year'];
+else
+  $year = date('Y');?>
 <body class="hold-transition sidebar-mini">
     <br>
     <br>
@@ -13,7 +18,25 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            Buku Tamu                           
+                            Buku Tamu            
+                            <select style="position: absolute;right: 10px;"  name="forma" onchange="location = this.value;">
+                              <?php
+                               require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+                                  $sql = 'SELECT year from year' ;
+                                  $result = mysqli_query($conn, $sql);
+                                  if ($result&& mysqli_num_rows($result) !=0){
+                                      while($row = mysqli_fetch_assoc($result)) {
+                                        $selected = "";
+                                        if ($row['year'] == $year)
+                                          $selected = "selected";
+                                        echo "<option value =bukutamu.php?year=".$row['year'].
+                                          " ".$selected.
+
+                                        ">".$row['year']."</option> " ;
+                                    }
+                                  }
+                              ?>
+                            </select>                             
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
@@ -33,8 +56,8 @@
                                 </thead>
                                 <tbody>
                                      <?php  
-                                        require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-                                            $sql = "SELECT * FROM kedatangan";
+                                       
+                                            $sql = "SELECT * FROM kedatangan where  YEAR(STR_TO_DATE(tanggal_datang, '%Y-%m-%d')) = ".$year;
                                         $result = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){
                                             $no = 1;
