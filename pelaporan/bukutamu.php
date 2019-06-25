@@ -69,7 +69,7 @@ else
                                                 }
 
                                         ?>
-                                                <tr class='clickable-row' data-href=user_detail.php?uid = <?php echo $row['tamu']; ?>>
+                                                <tr class='clickable-row' data-href=user_detail.php?uid=<?php echo $row['tamu']; ?>>
                                                  <td style="vertical-align:middle;"><?php echo $no; $no+=1;?></td>
                                                  <td style="text-align:left;"><?php echo $nama; ?></td>
                                                  <td style="text-align:left;"><?php echo $row['tanggal_datang']; ?></td>

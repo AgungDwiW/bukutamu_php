@@ -1,5 +1,6 @@
 <?php
 	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require 'mail.php';
 	$sql = "SELECT * FROM kedatangan where id = '". $_POST["tgl_langgar"]."'";
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) ==0){
@@ -50,7 +51,54 @@
 				)
 				";
 	$result = mysqli_query($conn, $sql);
-	echo $sql;
+	// echo $sql;
+	$sql = "SELECT COUNT(*) AS count FROM PELAPORAN WHERE PELANGGAR = ".$uid;
+	// echo $sql;
+	$result = mysqli_query($conn, $sql);
+	if (mysqli_num_rows($result) !=0){
+		while($row = mysqli_fetch_assoc($result)) {
+			// echo $row['count'];
+			// echo "<br>";
+			if ($row['count']>=3){
+				echo "aaaaa";
+				$sql = "SELECT * FROM TAMU WHERE UID = ".$uid;
+				echo "$sql";
+				$result2 = mysqli_query($conn, $sql);
+				if (mysqli_num_rows($result2) !=0){
+				while($row2 = mysqli_fetch_assoc($result2)) {
+					$nama = $row2['nama'];
+				}
+				$subject = "Pelanggaran melebihi 3 kali oleh".$nama;
+				$body = "Detail pelanggaran :<br>";
+				$sql = "SELECT * FROM PELAPORAN WHERE PELANGGAR = ".$uid;
+				echo "$sql";
+				$result3 = mysqli_query($conn, $sql);
+				if (mysqli_num_rows($result3) !=0){
+					while($row3 = mysqli_fetch_assoc($result3)) {
+					$body = $body."==========================================================<br>";
+					$body = $body."tanggal_pelanggaran = ".$row3['tanggal_pelanggaran']."<br>";
+					$body = $body."area = ".$row3['area']."<br>";
+					$body = $body."tipe aktivitas 12 = ".$row3['tipe_12']."<br>";
+					$body = $body."subkategori = ".$row3['subkategori']."<br>";
+					$body = $body."action plan 1 = ".$row3['ap1']."<br>";
+					$body = $body."action plan 2 = ".$row3['ap2']."<br>";
+					$body = $body."keterangan= ".$row3['keterangan']."<br>";
+				}
+				
+				$sql = "SELECT * FROM DEPARTEMEN WHERE ID = ".$departemen;
+				$result4 = mysqli_query($conn, $sql);
+				if (mysqli_num_rows($result4) !=0){
+					while($row4 = mysqli_fetch_assoc($result4)) {
+					$to_name = $row4['nama_departemen'];
+					$to_address = $row4['email'];
+				}
+				// echo "aaa";
+				// echo "$body";
+				send_mail($subject, $body, $to_address, $to_name);
+			}
+		}
+	}
+}}}
 	header('Location: listpelaporan.php');	
 
 ?>

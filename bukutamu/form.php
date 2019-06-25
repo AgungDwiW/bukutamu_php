@@ -359,17 +359,32 @@
      	lukan.disabled = true
      	departemen.disabled = true	
      }
+     <?php
+    $sql = "SELECT COUNT(*) AS count FROM PELAPORAN WHERE PELANGGAR = ".$uid;
+	$flag = 0;
+	$result = mysqli_query($conn, $sql);
+	if (mysqli_num_rows($result) !=0){
+		while($row = mysqli_fetch_assoc($result)) {
+			if ($row['count']>=3)
+				$flag = 1;
+		}
+	}
+	if ($flag){
+	?>
+			// echo $row['count'];
      // if (!flag){
-     // 	suhu_badan.readOnly = true
-     // 	bertemu.readOnly = true
-     // 	keperluan.readOnly = true
-     // 	radio_sakit.disabled = true
-     // 	radio_sakitn.disabled = true
-     // 	submit.readOnly = true
-     // 	lukay.disabled = true
-     // 	lukan.disabled = true
-     // 	departemen.disabled = true
-     // 	alert("anda telah melakukan pelanggaran lebih dari 3 kali")
+     	suhu_badan.readOnly = true
+     	bertemu.readOnly = true
+     	keperluan.readOnly = true
+     	radio_sakit.disabled = true
+     	radio_sakitn.disabled = true
+     	submit.readOnly = true
+     	submit.disabled = true
+     	lukay.disabled = true
+     	lukan.disabled = true
+     	departemen.disabled = true
+     	alert("anda telah melakukan pelanggaran lebih dari 3 kali")
+     <?php }?>
      // }
      <?php  if (!$flag_sign){?>
      	const constraints = {

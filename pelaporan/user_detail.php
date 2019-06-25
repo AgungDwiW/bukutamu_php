@@ -1,8 +1,9 @@
-<?php include('template.php'); 
+<?php 
 if (!isset($_GET['uid']))
   header('Location: users.php');
 else
   $uid = $_GET['uid'];
+include('template.php'); 
 require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
 $sql = "SELECT * FROM tamu where uid = ".$uid;
 

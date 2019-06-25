@@ -62,7 +62,7 @@ if ($result&& mysqli_num_rows($result) !=0){
                     
                     $perusahaan_name[$cur]=$row2['perusahaan'];
                     $perusahaan_pel[$cur]=1;
-                    $perusahaan_datang[$cur] = 1;
+                    $perusahaan_datang[$cur] = 0;
                     $cur+=1;}
                 else{
                     foreach ($perusahaan_name as $key => $value) {
