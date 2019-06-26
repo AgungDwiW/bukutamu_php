@@ -1,16 +1,17 @@
- <footer class="page-footer font-small black">
 
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2019 Copyright
-            <br>
-            Mochammad Affan Ghaffar Zakaria 
-            <br>
-            Agung Dwi Wicaksono
-            <br>
-            ITS 2016 : Jurusan Informatika 
+    <footer class="main-footer" style="text-align:center;">
+        <strong>Copyright &copy; 2019 </strong>
+        All rights reserved. <a class="scroll-to-top rounded" href="#top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        <br>
+        Agung Dwi Wicaksono
+        <br>
+        Muhammad Affan Ghaffar
+        <!-- Scroll to Top Button-->
         
-      </div>
-      <!-- Copyright -->
+
+        <!-- Modal Logout -->
+       
 
     </footer>
-    <!-- Footer -->

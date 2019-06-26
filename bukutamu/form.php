@@ -84,7 +84,7 @@
 
 </head>
 
-<body background="../assets/bg/indexbackground.jpg"  style="font-size: 15px" >
+<body background="../assets/bg/indexbackground.jpg"  style="font-size: 15px;" >
  <div class="wrapper" > 
   <div id="formContent">
    <div class="row vertical-align">
