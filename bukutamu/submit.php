@@ -19,11 +19,12 @@
     $datetime->setTimezone($tz_object);
     $now = $datetime->format('Y\-m\-d\ h:i:s');
 	$result_tamu = mysqli_query($conn, $sql);
+	$flag_sign = false;
 	if (mysqli_num_rows($result_tamu) ==0){
 		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang)
-	 		VALUES (".$_POST['UID'].",'".$_POST['TID']."', '".$_POST['Nama']."','".
-	 		$_POST['Kelamin']."',". true.",'". strtolower($_POST['Institusi'])."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$now."')";
-		// var_dump($sql);
+	 		VALUES (".$_POST['UID'].",'".$_POST['TID']."', '". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
+	 		$_POST['Kelamin']."',". true.",'".  mysqli_real_escape_string($conn,strtolower($_POST['Institusi']))."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$now."')";
+		echo $sql;
 		$result = mysqli_query($conn, $sql);
 
 	}
@@ -36,19 +37,21 @@
 	    if (!$saved){
 			$sql = "UPDATE TAMU 
 			SET signed_in = true,
-			nama_tamu ='".$_POST['Nama']."',
+			nama_tamu ='".mysqli_real_escape_string($conn,$_POST['Nama'])."',
 			jenis_kelamin = '".$_POST['Kelamin']."',
-			perusahaan = '". $_POST['Institusi']."',
+			perusahaan = '". mysqli_real_escape_string($conn,strtolower($_POST['Institusi']))."',
 			saved = '".$_POST['save']."',
 			nohp = '".$_POST['NoHP']."',
 			tipeid = '".$_POST['TID']."',
-			terakhir_datang = '".$now."'
+			terakhir_datang = '".$now."',
+			image = '$output'
 			WHERE UID = ".$uid;}
 		else{
 			$sql = "UPDATE TAMU 
 			SET signed_in = true,
 			saved = '".$_POST['save']."',
-			terakhir_datang = '".$now."'
+			terakhir_datang = '".$now."',
+			image = '$output'
 			WHERE UID = ".$uid;
 		}
 		$result = mysqli_query($conn, $sql);
@@ -70,7 +73,7 @@
 	
 
 	$sql = "INSERT INTO Kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, tamu, departemen, bertemu)
-	 		VALUES ('".$now."','".NULL."', '".$_POST['Keperluan']."',".$_POST['Suhu'].",". $_POST['Luka'].",'". $_POST['Sakit']."','". false."',". $_POST['UID'].",'".  $_POST['departemen']."','".$_POST['Bertemu']."')";
+	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$_POST['Suhu'].",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $_POST['UID'].",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
 	// var_dump($sql);
 	$result = mysqli_query($conn, $sql);
 

@@ -34,6 +34,7 @@
 	    	$perusahaan = $row ['perusahaan'];
 	    	$image = $row['image'];
 	    	$flag_tamu = $row['saved'];
+	    	$saved = $row['saved'];
 	    }
 	    $sql = "SELECT * FROM kedatangan where signedout = false and tamu = ".$uid;
 		// echo $sql;
@@ -279,10 +280,10 @@
 	        <div class="form-group row">
 	          <label class="control-label col-sm-5" for="sakit"> Simpan data diri 	:</label>
 	          	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="save" id="save_radio_y" value="1" checked  "> Ya
+	            <input type="radio"  name="save" id="save_radio_y" value="1" > Ya
 	        	</label>
 	        	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="save" id="save_radio_n" value = "0" > Tidak
+	            <input type="radio"  name="save" id="save_radio_n" value = "0"  <?php if(!$saved)echo "checked"	;?>> Tidak
 	        	</label>
 	        </div>
 	        <div class="form-group row"  >

@@ -82,7 +82,7 @@ include('template.php');
                                               <div class="form-group row"><!-- Jenis kelamin -->
                                                 <label class="control-label col-sm-3" for="kelamin">Jenis Kelamin:</label>
                                                 <div class="col-sm-9">  
-                                                  <input class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P" value = <?php echo $tamu['jenis_kelamin']; ?>  readonly>
+                                                  <input class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"  readonly value = <?php echo $tamu['jenis_kelamin']; ?>>
                                                 </div>
                                               </div>
                                               
@@ -125,6 +125,7 @@ include('template.php');
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
                                               <thead>
                                                 <tr >
+                                                  <th >No</th>
                                                   <th class="w-25">Tanggal</th>
                                                    <th class="w-25">Bertemu dengan</th>
                                                   <th class="w-50">Keperluan</th>
@@ -135,10 +136,11 @@ include('template.php');
                                               $sql = "SELECT * FROM kedatangan where tamu = ".$uid;
 
                                               $result = mysqli_query($conn, $sql);
-
+                                              $no =1;
                                               while($row = mysqli_fetch_assoc($result)) {
                                               ?>
                                                 <tr >
+                                                  <td><?php echo $no;$no+=1; ?></td>
                                                   <td><?php echo $row['tanggal_keluar']; ?></td>
                                                   <td><?php echo $row['bertemu']; ?></td>
                                                   <td><?php echo $row['keperluan']; ?></td>
@@ -158,6 +160,7 @@ include('template.php');
                                             <table id="table" class="table table-bordered table-hover"
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
                                                 <tr >
+                                                  <th >No</th>
                                                   <th style="min-width:5%;">Tanggal Pelanggaran</th>
                                                   <th style="min-width:8%;">12 Basic</th>
                                                   <th style="min-width:7%;">Sub Kategori</th>
@@ -170,12 +173,13 @@ include('template.php');
                                               <tbody>
                                                  <?php
                                               $sql = "SELECT * FROM pelaporan where pelanggar = ".$uid;
-
+                                              $no = 0;
                                               $result = mysqli_query($conn, $sql);
 
                                               while($row = mysqli_fetch_assoc($result)) {
                                               ?>
                                                <tr>
+                                                   <td style="vertical-align:middle;"><?php echo $no;$no+=1; ?></td>
                                                   <td style="vertical-align:middle;"><?php echo $row['tanggal_pelanggaran']; ?></td>
                                                   <td style="vertical-align:middle;"><?php echo $row['tipe_12']; ?></td>
                                                   <td style="vertical-align:middle;"><?php echo $row['subkategori']; ?></td>
@@ -203,71 +207,131 @@ include('template.php');
     </div>
     
 </body>
+<?php 
+if (isset($_GET['year']))
+  $year = $_GET['year'];
+else
+  $year = date('Y');
 
+require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+$month = array('01','02','03','04','05','06','07','08','09','10','11','12');
+$count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
+for ($x = 0; $x<12; $x+=1){
+  $sql = 'SELECT count(*) as count from kedatangan where tamu= '.$uid.' and MONTH(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$month[$x].'';
+  // echo "$sql";
+  $result = mysqli_query($conn, $sql);
+  if ($result&& mysqli_num_rows($result) !=0){
+    while($row = mysqli_fetch_assoc($result)) {
+      $count_month[$x] = intval($row['count']);
+    }
+  }
+}
+
+$month = array('01','02','03','04','05','06','07','08','09','10','11','12');
+$count_durasi = array(0,0,0,0,0,0,0,0,0,0,0,0);
+for ($x = 0; $x<12; $x+=1){
+  $sql = 'SELECT durasi from kedatangan where tamu= '.$uid.' and MONTH(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$month[$x].'';
+  // echo "$sql";
+  $result = mysqli_query($conn, $sql);
+  if ($result&& mysqli_num_rows($result) !=0){
+    while($row = mysqli_fetch_assoc($result)) {
+      $count_durasi[$x] += intval($row['durasi']);
+    }
+  }
+}
+$month = array('01','02','03','04','05','06','07','08','09','10','11','12');
+$count_pel = array(0,0,0,0,0,0,0,0,0,0,0,0);
+for ($x = 0; $x<12; $x+=1){
+  $sql = 'SELECT count(*) as count from pelaporan where pelanggar= '.$uid.' and MONTH(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$month[$x].'';
+  // echo "$sql";
+  $result = mysqli_query($conn, $sql);
+  if ($result&& mysqli_num_rows($result) !=0){
+    while($row = mysqli_fetch_assoc($result)) {
+      $count_pel[$x] = intval($row['count']);
+    }
+  }
+}
+
+?>
 <script type="text/javascript">
-var ctxL = document.getElementById("dpengunjung").getContext('2d');
-  var mydpengunjung = new Chart(ctxL, {
-    type: 'line',
-    data: {
 
-      labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli" , "Agustus" , "September", "Oktober","November", "Desember"],
-      datasets: [{
-          label: "Jumlah kedatangan",
-          data: [
-            
-          ],
-          backgroundColor: [
-            'rgba(105, 0, 132, .2)',
-          ],
-          borderColor: [
-            'rgba(200, 99, 132, .7)',
-          ],
-          borderWidth: 2
+
+    var ctxL = document.getElementById("dpengunjung").getContext('2d');
+      var mydpengunjung = new Chart(ctxL, {
+        type: 'line',
+        data: {
+
+          labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli" , "Agustus" , "September", "Oktober","November", "Desember"],
+          datasets: [{
+              label: "Kali tamu datang",
+              data: [
+              <?php
+                  foreach ($count_month as $key ) {
+                      echo "$key,";
+                  }
+                  
+                ?>
+              ],
+              backgroundColor: [
+                'rgba(105, 0, 132, .2)',
+              ],
+              borderColor: [
+                'rgba(200, 99, 132, .7)',
+              ],
+              borderWidth: 2
+            },
+            {
+              label: "Pelanggaran Oleh tamu",
+              data: [
+                 <?php
+                  foreach ($count_pel as $key ) {
+                      echo "$key,";
+                  }
+                  
+                ?>
+              ],
+              backgroundColor: [
+                'rgba(0, 137, 132, .2)',
+              ],
+              borderColor: [
+                'rgba(0, 10, 130, .7)',
+              ],
+              borderWidth: 2
+            }
+          ]
         },
-        {
-          label: "Jumlah Pelanggaran",
-          data: [
-          
-          ],
-          backgroundColor: [
-            'rgba(0, 137, 132, .2)',
-          ],
-          borderColor: [
-            'rgba(0, 10, 130, .7)',
-          ],
-          borderWidth: 2
-        
-      
-    ,
-    options: {
-      responsive: true
-    }
-  ;
-
+        options: {
+          responsive: true
+        }
+      });
 var ctxL = document.getElementById("djampengunjung").getContext('2d');
-  var mydpengunjung = new Chart(ctxL, {
-    type: 'line',
-    data: {
+      var mydpengunjung = new Chart(ctxL, {
+        type: 'line',
+        data: {
 
-      labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli" , "Agustus" , "September", "Oktober","November", "Desember"],
-      datasets: [{
-          label: "Jam kedatangan",
-          data: [
-            
-          ],
-          backgroundColor: [
-            'rgba(105, 0, 132, .2)',
-          ],
-          borderColor: [
-            'rgba(200, 99, 132, .7)',
-          ],
-          borderWidth: 2
+          labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli" , "Agustus" , "September", "Oktober","November", "Desember"],
+          datasets: [{
+              label: "Durasi kedatangan tamu dalam jam",
+              data: [
+              <?php
+                  foreach ($count_durasi as $key ) {
+                      echo "$key/60,";
+                  }
+                  
+                ?>
+              ],
+              backgroundColor: [
+                'rgba(105, 0, 132, .2)',
+              ],
+              borderColor: [
+                'rgba(200, 99, 132, .7)',
+              ],
+              borderWidth: 2
+            }
+          ]
         },
-        
-      ]
-    },
-    options: {
-      responsive: true
-    }
-  );
+        options: {
+          responsive: true
+        }
+      });
 </script>

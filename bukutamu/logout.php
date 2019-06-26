@@ -3,14 +3,18 @@
 	$uid = $_POST['UID'];
 	$sql = "SELECT saved FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);
+	$output = "media/".$_POST['UID'].".jpg";
+	$noimage = "media/noimage.jpg";
 	if (mysqli_num_rows($result_tamu) !=0){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 	    	$saved = $row ['saved'];
 	   }
 	}
+	// echo $saved;
 	if ($saved){
 		$sql = "UPDATE tamu
-				SET signed_in = false
+				SET signed_in = false,
+				image = '$output'
 				WHERE uid = ".$uid;
 		$result_tamu = mysqli_query($conn, $sql);
 	}
@@ -19,9 +23,10 @@
 				SET signed_in = false,
 				nama_tamu = '', 
 				nohp = '',  
-				jenis_kelamin = ''
+				jenis_kelamin = '',
+				image = '$noimage'
 				WHERE uid = ".$uid;
-		echo $sql;
+		// echo $sql;
 		$result_tamu = mysqli_query($conn, $sql);	
 	}
 	$tz_object = new DateTimeZone('Asia/Jakarta');
@@ -40,6 +45,8 @@
 	    	$in = $row ['tanggal_datang'];
 	   }
 	}
+	else
+		header('Location: index.php');	
 	$datetime1 = strtotime($in);
 	$datetime2 = strtotime($now);
 
