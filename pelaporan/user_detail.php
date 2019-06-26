@@ -3,16 +3,19 @@ if (!isset($_GET['uid']))
   header('Location: users.php');
 else
   $uid = $_GET['uid'];
-include('template.php'); 
+
 require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
 $sql = "SELECT * FROM tamu where uid = ".$uid;
 
 $result = mysqli_query($conn, $sql);
-
+if(!$result)
+{
+  header('Location: users.php');
+}
 while($row = mysqli_fetch_assoc($result)) {
   $tamu = $row;  
 }
-
+include('template.php'); 
 
 ?> 
 <body class="hold-transition sidebar-mini">

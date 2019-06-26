@@ -101,9 +101,9 @@ else
                                         <td style="vertical-align:middle;"><?php echo $row['ap2']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?> </td>
                                         <td style="vertical-align:middle;">
-	                                        <a href="" class="nav-link" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal"><i
+	                                        <a href="" class="nav-link" onclick="document.getElementById('link').href =  '<?php echo "hapus.php?id=".$row["id"]; ?>'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i
 						                        class="fa fa-fw fa-trash"></i>
-						                    <span class="nav-link-text">Hapus</span></a>
+						                    <span class="nav-link-text" >Hapus</span></a>
 					               		 </td>
                                          </tr>
 
@@ -126,7 +126,24 @@ else
         </section>
                     <!-- /.content -->
     </div>
-    
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Tekan tombol hapus untuk mengkonfirmasi penghapusan!</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" id = "link" href="auth/logout.php">hapus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
     <script>
         $(function () {

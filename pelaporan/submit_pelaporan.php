@@ -1,5 +1,6 @@
 <?php
 	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require 'auth/login_middleware.php';
 	require 'mail.php';
 	$sql = "SELECT * FROM kedatangan where id = '". $_POST["tgl_langgar"]."'";
 	$result = mysqli_query($conn, $sql);

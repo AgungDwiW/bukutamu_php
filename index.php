@@ -40,7 +40,7 @@
         </div>
       </a>
     </div>
-    <div class="wrapper col">
+    <!-- <div class="wrapper col">
       <a href="bukutamu/laporan.php" class="formContent boxshadow">
         <div class=" Laporan ">
           
@@ -54,7 +54,7 @@
           
         </div>
       </a>
-    </div>
+    </div> -->
 
     <div class="wrapper col">
       <a href="bukutamu/index.php" class="formContent boxshadow">
