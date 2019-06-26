@@ -58,7 +58,9 @@ else
                                         <th style="min-width:5%; max-width: 15%">Action Plan 1</th>
                                         <th style="min-width:5%; max-width: 15%">Action Plan 2</th>
                                         <th style="min-width:5%; max-width: 15%">Keterangan</th>
+                                    	<th style="min-width:5%; max-width: 15%">delete</th>
                                     </tr>
+
                                 </thead>
                                 <tbody>
                                     <?php  
@@ -98,12 +100,19 @@ else
                                         <td style="vertical-align:middle;"><?php echo $row['ap1']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['ap2']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?> </td>
+                                        <td style="vertical-align:middle;">
+	                                        <a href="" class="nav-link" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal"><i
+						                        class="fa fa-fw fa-trash"></i>
+						                    <span class="nav-link-text">Hapus</span></a>
+					               		 </td>
                                          </tr>
 
                                         <?php
                                         }}
 
-                                    ?>
+	                                    ?>
+
+
 
                                 </tbody>
                                
