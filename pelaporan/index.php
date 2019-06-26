@@ -65,9 +65,12 @@
   {% endif %} -->
 
             <input style="margin-top: 20px" type="submit" class="" value="Log In">
+            <a href="../index.php" style="margin-top: 40px; width: 40%; text-align: center;"><input type="button" name="back" id = "back" class="col-sm-11 center" value="back"></a>
           </form>
 
         </div>
       </div>
     </div>
+
+    <?php include("footer.php") ; ?>
 </body>

@@ -205,6 +205,8 @@ include('template.php');
         </section>
                     <!-- /.content -->
     </div>
+        
+    <?php include("footer.php") ; ?>    
     
 </body>
 <?php 

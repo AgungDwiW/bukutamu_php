@@ -462,4 +462,6 @@ foreach ($departemen_name as $key => $value) {
       });
        
     </script>
+
+    <?php include("footer.php") ; ?>
 </body>

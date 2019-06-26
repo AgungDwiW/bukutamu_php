@@ -97,7 +97,7 @@ else
         </section>
                     <!-- /.content -->
     </div>
-    
+  <?php include("footer.php") ; ?>  
 </body>
 
  <script>

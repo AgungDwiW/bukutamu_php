@@ -3,7 +3,7 @@
 
 <head>
     
-
+    <?php include("bukutamu/meta.php") ?>
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
      <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
     <link href="bukutamu/css/daftar.css" rel="stylesheet">
@@ -73,6 +73,6 @@
     </div>
 </div>
 
-    
+    <?php include("pelaporan/footer.php") ; ?>
 </body>
 </html>

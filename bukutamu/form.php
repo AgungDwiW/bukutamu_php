@@ -22,6 +22,7 @@
 	$luka = "";
 	$sakit = "";
 	$bertemu = "";
+	$saved = true;
 	if (mysqli_num_rows($result_tamu) > 0) {
 		
 	    // output data of each row
@@ -280,7 +281,7 @@
 	        <div class="form-group row">
 	          <label class="control-label col-sm-5" for="sakit"> Simpan data diri 	:</label>
 	          	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="save" id="save_radio_y" value="1" > Ya
+	            <input type="radio"  name="save" id="save_radio_y" value="1" checked > Ya
 	        	</label>
 	        	<label class="radio-inline col-sm-2">
 	            <input type="radio"  name="save" id="save_radio_n" value = "0"  <?php if(!$saved)echo "checked"	;?>> Tidak
@@ -292,7 +293,9 @@
   				if (!$flag_sign){
   			?>
   				
-		  			<input type="button" name="cancel" id = "cancel" class="col-sm-5 btn" value="cancel" onclick="location.href = 'index.php';"><input type="submit" name="submit" id = "submit" class="col-sm-5 btn">
+		  			<input type="button" name="cancel" id = "cancel" class="col-sm-5 btn" value="cancel" onclick="location.href = 'index.php';">
+
+		  			<input type="submit" name="submit" id = "submit" class="col-sm-5 btn" value="submit">
 	  			
 	  		<?php
 	  			}

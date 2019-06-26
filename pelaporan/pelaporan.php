@@ -247,6 +247,8 @@
         </section>
                     <!-- /.content -->
     </div>
+
+    <?php include("footer.php") ; ?>
 </body>
 <script type="text/javascript">
 const tanggal = document.getElementById("tgl_langgar")

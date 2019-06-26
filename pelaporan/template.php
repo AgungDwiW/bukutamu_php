@@ -138,7 +138,8 @@
 
 <body class="hold-transition sidebar-mini">
     
-
+<!-- Footer -->
+    
 
     <footer class="main-footer" style="text-align:center;">
         <!-- <strong>Copyright &copy; 2019 SI Lomba Mahasiswa.</strong>
