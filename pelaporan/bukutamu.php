@@ -45,6 +45,7 @@ else
                                 <thead>
                                     <tr>
                                       <th style="min-width:5%;">No.</th>
+                                        <th style="min-width:5%; max-width: 10%">UID</th>
                                         <th style="min-width:5%; max-width: 10%">Nama</th>
                                         <th style="min-width:30%;">Tanggal datang</th>
                                         <th style="min-width:30%;">Tanggal keluar</th>
@@ -71,6 +72,7 @@ else
                                         ?>
                                                 <tr class='clickable-row' data-href=user_detail.php?uid=<?php echo $row['tamu']; ?>>
                                                  <td style="vertical-align:middle;"><?php echo $no; $no+=1;?></td>
+                                                 <td style="text-align:left;"><?php echo $row['tamu']; ?></td>
                                                  <td style="text-align:left;"><?php echo $nama; ?></td>
                                                  <td style="text-align:left;"><?php echo $row['tanggal_datang']; ?></td>
                                                  <td style="text-align:left;"><?php echo $row['tanggal_keluar']; ?></td>
