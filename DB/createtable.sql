@@ -19,6 +19,7 @@ CREATE TABLE tamu (
 	image VARCHAR(50), 
 	nohp varchar(20),
 	saved boolean,
+	count_pelanggaran int,
 	unique (uid)
 	);
 
@@ -105,7 +106,7 @@ insert into user(
 
 
 insert into departemen(nama_departemen, penanggungjawab, email) 
-	values('testdep1', 'test1', 'test.test@test1');
+	values('testdep1', 'test1', 'pif.zwei@gmail.com');
 
 insert into departemen(nama_departemen, penanggungjawab, email) 
-	values('testdep2', 'test2', 'test.test@test2');
+	values('testdep2', 'test2', 'pif.zwei@gmail.com');

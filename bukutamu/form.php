@@ -23,8 +23,11 @@
 	$sakit = "";
 	$bertemu = "";
 	$saved = true;
+	$count = 0;
+	$flag_avail = false;
+	$image = 'media/noimage.jpg';
 	if (mysqli_num_rows($result_tamu) > 0) {
-		
+		$flag_avail = true;
 	    // output data of each row
 	    while($row = mysqli_fetch_assoc($result_tamu)) {
 	    	$nama = $row['nama_tamu'];
@@ -36,6 +39,7 @@
 	    	$image = $row['image'];
 	    	$flag_tamu = $row['saved'];
 	    	$saved = $row['saved'];
+	    	$count = $row['count_pelanggaran'];
 	    }
 	    $sql = "SELECT * FROM kedatangan where signedout = false and tamu = ".$uid;
 		// echo $sql;
@@ -90,8 +94,13 @@
    <div class="row vertical-align">
     <div class="col-sm-6" >
     	<?php  
-    		if ($flag_sign){
-    			echo "<img src = ".$image."?1 width=100%></img>";
+    		if ($flag_tamu){
+    			echo "<img src = ".$image."?1 width=100% id  = 'image'></img>";
+    			echo '<video id="player" controls autoplay width="90%" hidden></video>
+          <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px"></canvas>';
+    		}
+    		else if ($flag_sign){
+    			echo "<img src = ".$image."?1 width=100% id  = 'image'></img>";
     		}
     		else{
     			echo '<video id="player" controls autoplay width="90%" ></video>
@@ -292,9 +301,14 @@
   			<?php  
   				if (!$flag_sign){
   			?>
-  				
-		  			<input type="button" name="cancel" id = "cancel" class="col-sm-5 btn" value="cancel" onclick="location.href = 'index.php';">
-
+  			<?php
+  			if (!$flag_tamu){
+  			?>
+  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="capture" onclick="cameracapture()">
+  			<?php 
+  			}else {?>
+  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="capture" onclick="cameracapture()">
+  			<?php }?>
 		  			<input type="submit" name="submit" id = "submit" class="col-sm-5 btn" value="submit">
 	  			
 	  		<?php
@@ -307,6 +321,11 @@
 	  			 <?php
 	  			}
 	  		?>
+  			</div>
+  			<div class="form-group-row">
+  				
+		  			<input type="button" name="cancel" id = "cancel" class="col-sm-11 btn" value="cancel" onclick="location.href = 'index.php';">
+
   			</div>
   		</form>
     </div>
@@ -343,6 +362,7 @@
      const kelamin =  document.getElementById("Kelamin")
      const institusi = document.getElementById("Institusi")
      const tid = document.getElementById("TID")
+     var flag_camera = false;
      if(flag_tamu || flag_sign){
      	tid.disabled = true;
      	nama.readOnly = true;
@@ -364,16 +384,8 @@
      	departemen.disabled = true	
      }
      <?php
-    $sql = "SELECT COUNT(*) AS count FROM PELAPORAN WHERE PELANGGAR = ".$uid;
-	$flag = 0;
-	$result = mysqli_query($conn, $sql);
-	if (mysqli_num_rows($result) !=0){
-		while($row = mysqli_fetch_assoc($result)) {
-			if ($row['count']>=3)
-				$flag = 1;
-		}
-	}
-	if ($flag){
+    
+	if ($count>3){
 	?>
 			// echo $row['count'];
      // if (!flag){
@@ -396,6 +408,8 @@
      };
      function cameracapture (){
      	// Draw the video frame to the canvas.
+     	console.log(flag_camera);
+     	if (flag_camera){
        handler = document.getElementById("image_location")
        handler = player
        context.drawImage(player, 0, 0, canvas.width, canvas.height);
@@ -403,6 +417,18 @@
          var Pic = document.getElementById("canvas").toDataURL();
          Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "");
          image.value = Pic
+         if (!player.paused)
+       		player.pause();
+       	else
+       		player.play();
+       document.getElementById("capture").value = "take a photo"
+   		}
+   		else{
+   			flag_camera = true;
+   			document.getElementById("image").hidden = true;
+   			player.hidden = false;
+   		}
+
      }
 
      function validateForm(){
@@ -411,7 +437,7 @@
      	}
      	tid.disabled = false
      	kelamin.disabled = false;
-     	cameracapture();
+     	// cameracapture();
      }
      // Attach the video stream to the video element and autoplay.
      navigator.mediaDevices.getUserMedia(constraints)

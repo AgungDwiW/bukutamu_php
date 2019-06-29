@@ -21,9 +21,9 @@
 	$result_tamu = mysqli_query($conn, $sql);
 	$flag_sign = false;
 	if (mysqli_num_rows($result_tamu) ==0){
-		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang)
+		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang, count_pelanggaran)
 	 		VALUES (".$_POST['UID'].",'".$_POST['TID']."', '". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
-	 		$_POST['Kelamin']."',". true.",'".  mysqli_real_escape_string($conn,strtolower($_POST['Institusi']))."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$now."')";
+	 		$_POST['Kelamin']."',". true.",'".  mysqli_real_escape_string($conn,strtolower($_POST['Institusi']))."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$now."',0)";
 		echo $sql;
 		$result = mysqli_query($conn, $sql);
 

@@ -53,26 +53,33 @@
 				";
 	$result = mysqli_query($conn, $sql);
 	// echo $sql;
-	$sql = "SELECT COUNT(*) AS count FROM PELAPORAN WHERE PELANGGAR = ".$uid;
+
+	$sql = "SELECT count_pelanggaran AS count FROM TAMU WHERE UID = ".$uid;
 	// echo $sql;
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) !=0){
+		// var_dump($result);
 		while($row = mysqli_fetch_assoc($result)) {
+			$count = $row['count'];
+			$count+=1;
+			$sql2 = "UPDATE TAMU SET COUNT_PELANGGARAN = $count WHERE UID = $uid";
+			$result = mysqli_query($conn, $sql2);
+			// echo "$sql2";
 			// echo $row['count'];
 			// echo "<br>";
 			if ($row['count']>=3){
-				echo "aaaaa";
+				// echo "aaaaa";
 				$sql = "SELECT * FROM TAMU WHERE UID = ".$uid;
-				echo "$sql";
+				// echo "$sql";
 				$result2 = mysqli_query($conn, $sql);
 				if (mysqli_num_rows($result2) !=0){
 				while($row2 = mysqli_fetch_assoc($result2)) {
-					$nama = $row2['nama'];
+					$nama = $row2['nama_tamu'];
 				}
 				$subject = "Pelanggaran melebihi 3 kali oleh".$nama;
 				$body = "Detail pelanggaran :<br>";
 				$sql = "SELECT * FROM PELAPORAN WHERE PELANGGAR = ".$uid;
-				echo "$sql";
+				// echo "$sql";
 				$result3 = mysqli_query($conn, $sql);
 				if (mysqli_num_rows($result3) !=0){
 					while($row3 = mysqli_fetch_assoc($result3)) {
