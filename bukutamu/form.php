@@ -150,7 +150,7 @@
            
            ?>
 
-           class = "text-left"  onsubmit="validateForm()">
+           class = "text-left"  onsubmit="return validateForm()">
        
         <!--     <form method = "POST" action = {%url 'bukutamu:signout'%} class = "text-left">
          -->
@@ -437,6 +437,10 @@
      	}
      	tid.disabled = false
      	kelamin.disabled = false;
+     	if(!player.paused && flag_camera){
+     		alert("belum mengambil foto");
+     		return false;
+     	}
      	// cameracapture();
      }
      // Attach the video stream to the video element and autoplay.
