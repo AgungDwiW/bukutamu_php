@@ -88,7 +88,7 @@
 
 </head>
 
-<body background="../assets/bg/indexbackground.jpg"  style="font-size: 15px;" >
+<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height:auto"  style="font-size: 10px;" id = "body">
  <div class="wrapper" > 
   <div id="formContent">
    <div class="row vertical-align">
@@ -462,5 +462,5 @@
      
      sakit_aktive()
 </script>
-
+<?php include("footer.php") ; ?>
 </body>

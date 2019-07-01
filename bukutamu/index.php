@@ -18,7 +18,7 @@
     </style>
 </head>
 
-<body background="../assets/bg/indexbackground.jpg" >
+<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height:auto">
     <div class="wrapper ">
       <div id="formContent">
         <!-- Tabs Titles -->
@@ -44,5 +44,5 @@
       </div>
     </div>
 
-    <?php include("../pelaporan/footer.php") ; ?>
+    <?php include("footer.php") ; ?>
 </body>
