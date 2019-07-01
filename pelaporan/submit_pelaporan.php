@@ -61,9 +61,12 @@
 		// var_dump($result);
 		while($row = mysqli_fetch_assoc($result)) {
 			$count = $row['count'];
+			
+			if (!$positif){
 			$count+=1;
 			$sql2 = "UPDATE TAMU SET COUNT_PELANGGARAN = $count WHERE UID = $uid";
 			$result = mysqli_query($conn, $sql2);
+			}
 			// echo "$sql2";
 			// echo $row['count'];
 			// echo "<br>";
