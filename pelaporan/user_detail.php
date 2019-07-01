@@ -101,22 +101,23 @@ include('template.php');
                                   </div>
                               </div>
                               <br>
-
+                              <center><h2>Grafik kunjungan</h2></center><br>
                               <div style="margin: auto;">
                                   <div class="row vertical-align">
                                       <div class="col-sm-6 center" style="margin: auto" >
-                                          <h3 style="text-align: center;">Data Jam kunjungan</h3>
+                                          <h4 style="text-align: center;">Grafik Jam kunjungan</h4>
                                           <canvas id="djampengunjung"></canvas>
                                           
                                       </div>
                                       <div class="col-sm-6 v-divider">
-                                          <h3 style="text-align: center;">Data kunjungan</h3>
+                                          <h4 style="text-align: center;">Grafik kunjungan</h4>
                                           <canvas id="dpengunjung"></canvas>
                                             
                                       </div>
                                   </div>
                               </div>
                               <br>
+                              <center><h2>Histori kunjungan</h2></center><br>
                               <div>
                                   <div class="row">
                                           <div class="table-responsive col-sm-12" style="overflow-y: scroll;
@@ -154,10 +155,12 @@ include('template.php');
                                   </div>
                                   <br>
                                   <br>
+                                  <center><h2>Histori Pelanggaran</h2></center><br>
                                   <div class="row">
+                                    
                                           <div class="table-responsive col-sm-12" style="overflow-y: scroll;
                                   max-height:250px;">
-                                            <table id="table" class="table table-bordered table-hover"
+                                            <table id="table2" class="table table-bordered table-hover"
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
                                                 <tr >
                                                   <th >No</th>
@@ -336,4 +339,19 @@ var ctxL = document.getElementById("djampengunjung").getContext('2d');
           responsive: true
         }
       });
+    $(function () {
+            $('#table').DataTable({
+                "searching": true,
+                "paging": false
+            });
+        });
+    $(function () {
+            $('#table2').DataTable({
+                "searching": true,
+                "paging": false
+            });
+        });
+        
+
+        
 </script>
