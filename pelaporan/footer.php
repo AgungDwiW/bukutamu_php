@@ -5,9 +5,9 @@
             <i class="fa fa-angle-up"></i>
         </a>
         <br>
-        Agung Dwi Wicaksono
+        Agung Dwi Wicaksono | agung.dwi.temp@gmail.com
         <br>
-        Muhammad Affan Ghaffar
+        Muhammad Affan Ghaffar | magzksky@gmail.com
         <!-- Scroll to Top Button-->
         
 

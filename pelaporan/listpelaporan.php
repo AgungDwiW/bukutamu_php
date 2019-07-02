@@ -89,7 +89,7 @@ else
                                         <td style="vertical-align:middle;"><?php echo $row['nama_pelapor']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['tanggal_pelanggaran']; ?></td>
                                         <td style="vertical-align:middle;">
-                                        <a href="\pelaporan\user_detail.php?uid = <?php echo $row['pelanggar']; ?>"><?php echo $row['pelanggar']; ?></a>
+                                        <a href="user_detail.php?uid=<?php echo $row['pelanggar']; ?>"><?php echo $row['pelanggar']; ?></a>
                                         </td>
                                         <td style="vertical-align:middle;"><?php echo $nama; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $departemen; ?></td>

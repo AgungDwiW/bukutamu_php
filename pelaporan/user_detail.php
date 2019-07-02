@@ -121,14 +121,14 @@ include('template.php');
                               <div>
                                   <div class="row">
                                           <div class="table-responsive col-sm-12" style="overflow-y: scroll;
-                                  max-height:250px;">
+                                  max-height:500px;">
                                             <table id="table" class="table table-bordered table-hover"
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
                                               <thead>
                                                 <tr >
                                                   <th >No</th>
-                                                  <th class="w-25">Tanggal</th>
-                                                   <th class="w-25">Bertemu dengan</th>
+                                                  <th class="w-25">Tanggal Datang</th>
+                                                   <th class="w-25">Bertemu Dengan</th>
                                                   <th class="w-50">Keperluan</th>
                                                 </tr>
                                               </thead>
@@ -142,7 +142,7 @@ include('template.php');
                                               ?>
                                                 <tr >
                                                   <td><?php echo $no;$no+=1; ?></td>
-                                                  <td><?php echo $row['tanggal_keluar']; ?></td>
+                                                  <td><?php echo $row['tanggal_datang']; ?></td>
                                                   <td><?php echo $row['bertemu']; ?></td>
                                                   <td><?php echo $row['keperluan']; ?></td>
                                                 </tr>
@@ -157,11 +157,12 @@ include('template.php');
                                   <br>
                                   <center><h2>Histori Pelanggaran</h2></center><br>
                                   <div class="row">
-                                    
+
                                           <div class="table-responsive col-sm-12" style="overflow-y: scroll;
-                                  max-height:250px;">
+                                  max-height:500px;  ">
                                             <table id="table2" class="table table-bordered table-hover"
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
+                                                <thead>
                                                 <tr >
                                                   <th >No</th>
                                                   <th style="min-width:5%;">Tanggal Pelanggaran</th>
@@ -176,7 +177,7 @@ include('template.php');
                                               <tbody>
                                                  <?php
                                               $sql = "SELECT * FROM pelaporan where pelanggar = ".$uid;
-                                              $no = 0;
+                                              $no = 1;
                                               $result = mysqli_query($conn, $sql);
 
                                               while($row = mysqli_fetch_assoc($result)) {

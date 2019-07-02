@@ -226,7 +226,7 @@ if ($result&& mysqli_num_rows($result) !=0){
                                     <canvas id="areapelanggaran" ></canvas>
                                   </div>
                                   <div class="column" >
-                                    <h3>Divisi Penanggung Jawab</h3>
+                                    <h3>Departemen Penanggung Jawab</h3>
                                     <canvas id="Divisibar"></canvas>
                                   </div>
                                 </div>
@@ -428,7 +428,11 @@ foreach ($perusahaan_name as $key => $value) {
         "type": "horizontalBar",
         "data": {
           "labels": [
+          <?php
+foreach ($departemen_name as $key => $value) {
+    echo "'$departemen_name[$key]',";
 
+}?>
 ],
           "datasets": [{
             "label": "Pelanggaran Oleh Tamu Divisi",
