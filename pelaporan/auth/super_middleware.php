@@ -1,5 +1,5 @@
 <?php 
-// require "auth/check.php";
+require "auth/check.php";
 // echo check_login();
 // echo check_super();
 if (!check_super()){

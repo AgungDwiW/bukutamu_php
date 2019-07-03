@@ -106,14 +106,7 @@
                             </p>
                         </a>
                         </li>
-                        <li class="nav-item" >
-                        <a href="daftararea.php" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>
-                                List area
-                            </p>
-                        </a>
-                        </li>
+                        
                        <li class="nav-item" >
                         <a href="daftaradmin.php" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
@@ -130,14 +123,7 @@
                             </p>
                         </a>
                         </li>
-                        <li class="nav-item" >
-                        <a href="daftararea.php" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>
-                                Daftar area baru
-                            </p>
-                        </a>
-                        </li>
+                       
                     <?php }?>
                 </ul>
             </nav>

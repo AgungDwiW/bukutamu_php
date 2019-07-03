@@ -73,6 +73,6 @@
     </div>
 </div>
 
-    <?php include("pelaporan/footer.php") ; ?>
+    <?php include("bukutamu/footer.php") ; ?>
 </body>
 </html>
