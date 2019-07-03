@@ -85,6 +85,60 @@
                             </p>
                         </a>
                         </li>
+                    <?php
+                    // require "auth/check.php";
+                    // echo check_super();
+                    if (check_super()){
+                    ?>
+                      <li class="nav-item" >
+                        <a href="daftaradmin.php" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                List admin
+                            </p>
+                        </a>
+                        </li>
+                        <li class="nav-item" >
+                        <a href="daftardepartemen.php" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                List departemen
+                            </p>
+                        </a>
+                        </li>
+                        <li class="nav-item" >
+                        <a href="daftararea.php" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                List area
+                            </p>
+                        </a>
+                        </li>
+                       <li class="nav-item" >
+                        <a href="daftaradmin.php" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Daftar admin baru
+                            </p>
+                        </a>
+                        </li>
+                        <li class="nav-item" >
+                        <a href="daftardepartemen.php" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Daftar departemen baru
+                            </p>
+                        </a>
+                        </li>
+                        <li class="nav-item" >
+                        <a href="daftararea.php" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Daftar area baru
+                            </p>
+                        </a>
+                        </li>
+                    <?php }?>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
