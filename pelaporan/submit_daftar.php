@@ -14,6 +14,6 @@
 				)
 				";
 	$result = mysqli_query($conn, $sql);
-	echo "$sql";
-	// header('Location: listpelaporan.php');
+	// echo "$sql";
+	header('Location: listadmin.php');
 ?>

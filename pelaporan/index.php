@@ -72,5 +72,5 @@
       </div>
     </div>
 
-    <?php include("footer.php") ; ?>
+    <?php include("../bukutamu/footer.php") ; ?>
 </body>

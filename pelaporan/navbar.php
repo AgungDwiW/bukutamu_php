@@ -91,7 +91,7 @@
                     if (check_super()){
                     ?>
                       <li class="nav-item" >
-                        <a href="daftaradmin.php" class="nav-link">
+                        <a href="listadmin.php" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
                             <p>
                                 List admin
@@ -99,7 +99,7 @@
                         </a>
                         </li>
                         <li class="nav-item" >
-                        <a href="daftardepartemen.php" class="nav-link">
+                        <a href="listdepartemen.php" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
                             <p>
                                 List departemen
