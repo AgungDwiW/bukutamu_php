@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS bukutamudb;
+CREATE DATABASE bukutamudb;
+
 USE bukutamudb;
 DROP TABLE IF EXISTS kedatangan;
 DROP TABLE IF EXISTS pelaporan;
@@ -105,8 +108,3 @@ insert into user(
 	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true);
 
 
-insert into departemen(nama_departemen, penanggungjawab, email) 
-	values('testdep1', 'test1', 'pif.zwei@gmail.com');
-
-insert into departemen(nama_departemen, penanggungjawab, email) 
-	values('testdep2', 'test2', 'pif.zwei@gmail.com');
