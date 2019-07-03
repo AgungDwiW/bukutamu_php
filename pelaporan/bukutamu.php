@@ -79,7 +79,7 @@ else
                                                  <td style="text-align:left;"><?php echo $row['bertemu']; ?></td>
                                                  <td style="text-align:left;"><?php echo $row['departemen']; ?></td>
                                                  <td style="text-align:left;"><?php echo $row['keperluan']; ?></td>
-                                                 <td style="text-align:left;"><?php echo $row['signedout']; ?></td>
+                                                 <td style="text-align:left;"><?php echo $row['signedout']?"Keluar":"Didalam"; ?></td>
                                                  </tr>
 
                                         <?php

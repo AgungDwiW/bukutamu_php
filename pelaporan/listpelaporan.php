@@ -96,7 +96,7 @@ else
                                         <td style="vertical-align:middle;"><?php echo $row['area']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['tipe_12']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['subkategori']; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['positif']; ?></td>
+                                        <td style="vertical-align:middle;"><?php echo $row['positif']?"+":"-"; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['ap1']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['ap2']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?> </td>

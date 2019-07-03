@@ -5,6 +5,9 @@
 	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);
 	$flag_tamu = 1;
+	if (!$result_tamu){
+		header('Location: index.php');
+	}
 	if (mysqli_num_rows($result_tamu) ==0){
 		$flag_tamu = 0;
 	}
@@ -88,7 +91,7 @@
 
 </head>
 
-<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height:auto"  style="font-size: 10px;" id = "body">
+<body background="../assets/bg/indexbackground.jpg"  style="font-size: 15px;" >
  <div class="wrapper" > 
   <div id="formContent">
    <div class="row vertical-align">
@@ -103,6 +106,8 @@
     			echo "<img src = ".$image."?1 width=100% id  = 'image'></img>";
     		}
     		else{
+    			    			echo "<img src = ".$image."?1 width=100% id  = 'image' hidden></img>";
+
     			echo '<video id="player" controls autoplay width="90%" ></video>
           <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px"></canvas>';
     		}
@@ -444,10 +449,7 @@
      	// cameracapture();
      }
      // Attach the video stream to the video element and autoplay.
-     navigator.mediaDevices.getUserMedia(constraints)
-       .then((stream) => {
-         player.srcObject = stream;
-       });
+ 
      <?php ;
      
  	}
@@ -462,5 +464,5 @@
      
      sakit_aktive()
 </script>
-<?php include("footer.php") ; ?>
+ <?php include("footer.php") ; ?>
 </body>

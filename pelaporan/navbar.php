@@ -30,7 +30,7 @@
     <!-- Main Sidebar Container -->
     
     <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 450px !important;">
-        <a href="{%url 'pelaporan:bukutamu'" class="brand-link">   
+        <a href="dashboard.php" class="brand-link">   
             <img src="../assets/img/logo.png"  alt="Logo Aqua" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
             <span class="brand-text font-weight-light">Pelaporan</span>
