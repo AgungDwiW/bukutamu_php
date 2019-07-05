@@ -22,7 +22,7 @@ else
                             List Pelaporan             
                              <select style="position: absolute;right: 10px;"  name="forma" onchange="location = this.value;">
                               <?php
-                               require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+                               require "../db/db_con.php";
                                   $sql = 'SELECT year from year' ;
                                   $result = mysqli_query($conn, $sql);
                                   if ($result&& mysqli_num_rows($result) !=0){
@@ -55,8 +55,8 @@ else
                                         <th style="min-width:8%;">12 Basic</th>
                                         <th style="min-width:7%;">Sub Kategori</th>
                                         <th style="min-width:5%;">+/-</th>
-                                        <th style="min-width:5%; max-width: 15%">Action Plan 1</th>
-                                        <th style="min-width:5%; max-width: 15%">Action Plan 2</th>
+                                        <th style="min-width:5%; max-width: 15%">Action Plan </th>
+                                        
                                         <th style="min-width:5%; max-width: 15%">Keterangan</th>
                                     	<th style="min-width:5%; max-width: 15%">delete</th>
                                     </tr>
@@ -64,7 +64,7 @@ else
                                 </thead>
                                 <tbody>
                                     <?php  
-                                        require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+                                        require "../db/db_con.php";
                                             $sql = "SELECT * FROM pelaporan  where  YEAR(STR_TO_DATE(tanggal_pelanggaran, '%Y-%m-%d')) = ".$year;
                                         $result = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){
@@ -97,8 +97,8 @@ else
                                         <td style="vertical-align:middle;"><?php echo $row['tipe_12']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['subkategori']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['positif']?"+":"-"; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['ap1']; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['ap2']; ?></td>
+                                        <td style="vertical-align:middle;"><?php echo $row['ap']; ?></td>
+                                        
                                         <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?> </td>
                                         <td style="vertical-align:middle;">
 	                                        <a href="" class="nav-link" onclick="document.getElementById('link').href =  '<?php echo "hapus.php?id=".$row["id"]; ?>'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i

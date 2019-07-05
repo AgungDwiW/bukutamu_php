@@ -32,7 +32,7 @@
                                 </thead>
                                 <tbody>
                                     <?php  
-                                        require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+                                        require "../db/db_con.php";
                                             $sql = "SELECT * FROM tamu";
                                         $result = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){

@@ -4,7 +4,7 @@ if (isset($_GET['year']))
 else
   $year = date('Y');
 
-require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+require "../db/db_con.php";
 $month = array('01','02','03','04','05','06','07','08','09','10','11','12');
 $count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
 for ($x = 0; $x<12; $x+=1){

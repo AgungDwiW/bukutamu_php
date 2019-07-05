@@ -1,5 +1,5 @@
 <?php  
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "../db/db_con.php";
 	$image = base64_decode($_POST['Image']);
 	$output = "media/".$_POST['UID'].".jpg";
 

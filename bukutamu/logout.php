@@ -1,5 +1,5 @@
 <?php 
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "../db/db_con.php";
 	$uid = $_POST['UID'];
 	$sql = "SELECT saved FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);

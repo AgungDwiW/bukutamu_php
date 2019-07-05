@@ -1,5 +1,5 @@
 <?php
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "../db/db_con.php";
 	require 'auth/login_middleware.php';
 	require 'mail.php';
 	$sql = "SELECT * FROM kedatangan where id = '". $_POST["tgl_langgar"]."'";
@@ -23,8 +23,7 @@
 	$nama_pelapor = $_POST['nama_pelapor'];
     $uid_pelapor = $_POST['uid_pelapor'];
     $tid_pelapor = $_POST['tid_pelapor'];
-	$ap1 = $_POST['AP1'];
-	$ap2 = $_POST['AP2'];
+	$ap = $_POST['ap'];
     $tanggal_pelaporan = $now;
     $tipe_12 = $_POST['aktivitas_12'];
     $subkategori = $_POST['Subkategori'];
@@ -33,7 +32,7 @@
     $keterangan = $_POST['keterangan'];
     $area = $_POST['area'];
     $uid = $_POST['uid_pelaku'];
-	$sql = "INSERT INTO pelaporan(nama_pelapor, uid_pelapor, tanggal_pelanggaran, 			tanggal_pelaporan, tipe_12, subkategori, positif, area, ap1, ap2, 
+	$sql = "INSERT INTO pelaporan(nama_pelapor, uid_pelapor, tanggal_pelanggaran, 			tanggal_pelaporan, tipe_12, subkategori, positif, area, ap, 
 				keterangan, pelanggar, departemen)
 			VALUES(
 				'".$nama_pelapor."',
@@ -44,21 +43,21 @@
 				'".$subkategori."',
 				'".$positif."',
 				".$area.",
-				'".$ap1."',
-				'".$ap2."',
+				'".$ap."',
+				
 				'".$keterangan."',
 				".$uid.",
 				".$departemen."
 				)
 				";
 	$result = mysqli_query($conn, $sql);
-	// echo $sql;
+	echo $sql;
 
 	$sql = "SELECT count_pelanggaran AS count FROM TAMU WHERE UID = ".$uid;
 	// echo $sql;
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) !=0){
-		// var_dump($result);
+		var_dump($result);
 		while($row = mysqli_fetch_assoc($result)) {
 			$count = $row['count'];
 			
@@ -68,7 +67,7 @@
 			$result = mysqli_query($conn, $sql2);
 			}
 			// echo "$sql2";
-			// echo $row['count'];
+			echo $row['count'];
 			// echo "<br>";
 			if ($row['count']>=3){
 				// echo "aaaaa";
@@ -92,7 +91,8 @@
 					$body = $body."tipe aktivitas 12 = ".$row3['tipe_12']."<br>";
 					$body = $body."subkategori = ".$row3['subkategori']."<br>";
 					$body = $body."action plan 1 = ".$row3['ap1']."<br>";
-					$body = $body."action plan 2 = ".$row3['ap2']."<br>";
+					if ($row3['ap2']!="")
+						$body = $body."action plan 2 = ".$row3['ap2']."<br>";
 					$body = $body."keterangan= ".$row3['keterangan']."<br>";
 				}
 				

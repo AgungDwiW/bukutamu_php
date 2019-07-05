@@ -17,12 +17,12 @@
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
-                            <form id="msform" style="height:auto; width:auto;" method="post" onsubmit="return validateform()" action="submit_pelaporan.php" >
+                            <form id="msform" style="height:auto; width:auto; text-align: left;" method="post" onsubmit="return validateform()" action="submit_pelaporan.php" >
                             <!-- fieldsets -->
                            
                                 <fieldset>
                                     
-                                    <div style="margin:auto;">
+                                    <div style="margin:auto;" id = "dynform">
                                         
                                         <h4>Data Pelapor</h4>
                                         <br>
@@ -61,7 +61,10 @@
                                                 <option >Kartu Pegawai</option>
                                                 <option >SIM</option>
                                             </select>
+                                              
                                           </div>
+                                        <label id = "hidme" hidden="">Data tamu tidak ditemukan </label>
+
                                         </div>  
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Nama Pelapor:</label>
@@ -193,9 +196,10 @@
 
                                             </div>
                                         </div>   
-                                    
+                                        <div id = "hid" hidden>
+                                        <label>Pelanggaran sebelumnya:</label>
                                         <table id="table" class="table table-bordered table-hover"
-                                                        style="font-size:10pt; text-align:center; vertical-align:middle;" hidden>
+                                                        style="font-size:10pt; text-align:center; vertical-align:middle;">
                                                         <thead>
                                                             <th style="min-width:25%;">Tanggal</th>
                                                     <th style="min-width:5%;">Area</th>
@@ -206,6 +210,7 @@
                                                         </tbody>
                                                 </tfoot>
                                                 </table>
+                                        </div>
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Positif/Negatif</label>
                                             <div class="col-sm-10">
@@ -216,18 +221,8 @@
                                             </select>
                                             </div>
                                         </div>
-                                         <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2"  hidden id = "AP1_lab" for="Action plan 1">Action plan 1:</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="AP1" id = "AP1" hidden  class = "form-control inputsm" placeholder="Action plan 1" hidden></div>
-                                        </div>
-
-                                        <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" id = "AP2_lab" hidden for="Action plan 2">Action plan 2:</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="AP2" id = "AP2"  class = "form-control inputsm" placeholder="Action plan 2" hidden></div>
-                                        </div>
-                                        <div class="form-group row" style="padding-bottom:1rem;">
+                                      
+                                        <div class="form-group row" id = "before" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="Action plan 2">Keterangan:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="keterangan" disabled id = "keterangan"  class = "form-control inputsm" placeholder="Keterangan"></div>
@@ -259,7 +254,7 @@ const uid = document.getElementById("uid_pelaku")
 const tid = document.getElementById("tid_pelaku")
 const tipe12 = document.getElementById('aktivitas_12')
 const sub = document.getElementById('Subketegori')
-const hide = document.getElementById('table')
+const hide = document.getElementById('hid')
 const table = document.getElementById('table').getElementsByTagName('tbody')[0];
 const positif = document.getElementById('positivity')
 const ap1 = document.getElementById('AP1')
@@ -269,12 +264,32 @@ const ap2_lab = document.getElementById('AP2_lab')
 const ket = document.getElementById('keterangan')
 const area = document.getElementById('area')
 var valid = false
+var no = 1;
+function addinput(value){
+    $(' <div class="form-group row dyn" style="padding-bottom:1rem;"><label class="control-label col-sm-2"   for="Action plan 2">Action plan '+no+':</label><div class="col-sm-10 "><input type="text" disabled   class = "form-control inputsm "  value = '+value+'></div></div>').insertBefore($('#before')[0]); //add input box
+}
+
+function addinput2(){
+    $(' <div class="form-group row dyn" style="padding-bottom:1rem;"><label class="control-label col-sm-2"   for="Action plan 2">Action plan '+no+':</label><div class="col-sm-10 "><input type="text" id = "ap" name = "ap" class = "form-control inputsm " placeholder="Action Plan"></div></div>').insertBefore($('#before')[0]); //add input box
+}
+
+function del (){
+    a = document.getElementsByClassName('dyn');
+    console.log(a.length)
+    len  = a.length
+    for (x=0; x<len;x++){
+        console.log(x)
+        b = a[0];
+        // console.log(b);
+        b.parentElement.removeChild(b);
+    }
+}
+
 function activate(){
     tipe12.disabled = false
     sub.disabled = false
     positif.disabled = false
-    ap1.disabled = false
-    ap2.disabled = false
+
     ket.disabled = false
     tanggal.disabled = false
     area.disabled = false
@@ -284,8 +299,7 @@ function deactivate(){
     tipe12.disabled = true
     sub.disabled = true
     positif.disabled = true
-    ap1.disabled = true
-    ap2.disabled = true
+
     ket.disabled = true   
     tanggal.disabled = true
     area.disabled = true
@@ -308,9 +322,9 @@ uid.addEventListener("keyup",
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
             cur = JSON.parse(this.responseText)
-            activate()
+            
             valid = true
-            get_tamu(cur[0]);
+            get_tamu(cur);
 
         }
         if (this.readyState == 4 &&this.status == 500) {
@@ -328,7 +342,17 @@ uid.addEventListener("keyup",
     }
     });
 function get_tamu(cur){
-    console.log(cur)
+    // console.log(cur)
+    if (cur['error']){
+        document.getElementById('hidme').hidden = false;
+        deactivate()
+        return false;
+        valid = 0;
+        
+    }
+    cur = cur[0];
+    activate()
+    document.getElementById('hidme').hidden = true;
     institusi.value = cur['perusahaan']
     nama.value = cur['nama']
     no_hp.value = cur['hp']
@@ -339,7 +363,7 @@ function get_tamu(cur){
     }
     if (cur['tid'] == "KTP"){
         tid.options[0].selected = true
-        console.log(tid.options[0].selected)
+        // console.log(tid.options[0].selected)
     }
     else{
         tid.options[2].selected = false
@@ -381,66 +405,30 @@ function get_pelanggaran(){
 }
 var flag = 0
 function pelanggaran(json){
-    content = json
-    ap1.hidden = true
-    ap1.readOnly = false
-    ap1.required = true
-    ap1.value = ""
-    ap1_lab.hidden = true
-    ap2.hidden =true
-    ap2_lab.hidden  = true
-    ap2.formNoValidate = true
-    if (content['error']){
-        hide.hidden = true
-        ap1_lab.hidden = false
-        ap1.hidden = false
-        console.log(ap1.hidden)
-
+    count = table.childElementCount
+        
+    for (a = 0; a<count; a++){
+        
+        table.deleteRow(0)
     }
-    else{
-        
-        count = table.childElementCount
-        
-        for (a = 0; a<count; a++){
-            
-            table.deleteRow(0)
-        }
-
-        
-        for (a = 0; a<content.length;a++)
-        {
-            console.log(content[a])
-            row = table.insertRow(0)
-            cell1 = row.insertCell(0)
-            cell2 = row.insertCell(1)
-            cell3 = row.insertCell(2)
-            hide.hidden = false 
-            cell1.innerHTML = content[a].tanggal
-            cell2.innerHTML = content[a].area
-            cell3.innerHTML = content[a].departemen
-            if (content[a].ap1!=""){
-                ap1.hidden = false
-                ap1_lab.hidden = false
-                ap1.readOnly = true
-                ap1.value = content[a].ap1
-                ap1.required = true
-                flag = 1
-                ap2.hidden = false
-                ap2.required = true
-                ap2_lab.hidden = false
-                ap2.formNoValidate = false
-            }
-            if (content[a].ap2!=""){
-                ap2.value = content[a].ap2
-                
-                ap2_lab.hidden= false
-                ap2.readOnly = true
-                
-                flag = 2
-            }
-        }
-        
+    no = 1;
+    hide.hidden = true;
+    del();
+    len = json.length;
+    for (z = 0; z<len;z++){
+        addinput(json[z]['ap']);    
+        no+=1;
+        // console.log(content[a])
+        row = table.insertRow(0)
+        cell1 = row.insertCell(0)
+        cell2 = row.insertCell(1)
+        cell3 = row.insertCell(2)
+        hide.hidden = false;
+        cell1.innerHTML = json[z].tanggal
+        cell2.innerHTML = json[z].area
+        cell3.innerHTML = json[z].departemen
     }
+    addinput2();
 }
 
 

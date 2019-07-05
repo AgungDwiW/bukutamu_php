@@ -1,5 +1,5 @@
 <?php 
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "../db/db_con.php";
 	
 	$uid = (int)$_POST["UID"];
 	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
@@ -309,7 +309,7 @@
   			<?php
   			if (!$flag_tamu){
   			?>
-  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="capture" onclick="cameracapture()">
+  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="TAKE A PHOTO" onclick="cameracapture()">
   			<?php 
   			}else {?>
   					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="capture" onclick="cameracapture()">
@@ -368,6 +368,8 @@
      const institusi = document.getElementById("Institusi")
      const tid = document.getElementById("TID")
      var flag_camera = false;
+     if (!flag_tamu)
+     	flag_camera = true;
      if(flag_tamu || flag_sign){
      	tid.disabled = true;
      	nama.readOnly = true;

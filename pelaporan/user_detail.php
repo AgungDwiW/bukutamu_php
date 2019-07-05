@@ -4,7 +4,7 @@ if (!isset($_GET['uid']))
 else
   $uid = $_GET['uid'];
 
-require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+require "../db/db_con.php";
 $sql = "SELECT * FROM tamu where uid = ".$uid;
 
 $result = mysqli_query($conn, $sql);
@@ -169,8 +169,8 @@ include('template.php');
                                                   <th style="min-width:8%;">12 Basic</th>
                                                   <th style="min-width:7%;">Sub Kategori</th>
                                                   <th style="min-width:5%;">+/-</th>
-                                                  <th style="min-width:10%; max-width: 15%">Action Plan 1</th>
-                                                  <th style="min-width:10%; max-width: 15%">Action Plan 2</th>
+                                                  <th style="min-width:10%; max-width: 15%">Action Plan </th>
+                                                  
                                                   <th style="min-width:15%; max-width: 25%">Keterangan</th>
                                                 </tr>
                                               </thead>
@@ -188,8 +188,8 @@ include('template.php');
                                                   <td style="vertical-align:middle;"><?php echo $row['tipe_12']; ?></td>
                                                   <td style="vertical-align:middle;"><?php echo $row['subkategori']; ?></td>
                                                   <td style="vertical-align:middle;"><?php echo $row['positif']?'+':'-';?></td>
-                                                  <td style="vertical-align:middle;"><?php echo $row['ap1']; ?></td>
-                                                  <td style="vertical-align:middle;"><?php echo $row['ap2']; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['ap']; ?></td>
+                                                  
                                                   <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?></td>
                                               </tr>
                                               <?php
@@ -219,7 +219,7 @@ if (isset($_GET['year']))
 else
   $year = date('Y');
 
-require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+require "../db/db_con.php";
 $month = array('01','02','03','04','05','06','07','08','09','10','11','12');
 $count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
 for ($x = 0; $x<12; $x+=1){

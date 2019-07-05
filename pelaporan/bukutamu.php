@@ -21,7 +21,7 @@ else
                             Buku Tamu            
                             <select style="position: absolute;right: 10px;"  name="forma" onchange="location = this.value;">
                               <?php
-                               require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+                               require "../db/db_con.php";
                                   $sql = 'SELECT year from year' ;
                                   $result = mysqli_query($conn, $sql);
                                   if ($result&& mysqli_num_rows($result) !=0){

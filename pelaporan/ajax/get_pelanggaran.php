@@ -14,20 +14,18 @@
 	else{
 		$uid = $_GET['uid'];
 		require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-		$sql = "SELECT * FROM pelaporan where pelanggar = ".$uid." and tipe_12 = '".$_GET['akt']."' and subkategori = '".$_GET['sub']."'";
+		$sql = "SELECT * FROM pelaporan where pelanggar = ".$uid." and tipe_12 = '".$_GET['akt']."' and subkategori = '".$_GET['sub']."' and positif = false";
 		$result = mysqli_query($conn, $sql);
 		$return['sql'] = $sql;
 		// echo json_encode($return);			
 		if ($result && mysqli_num_rows($result) !=0){
 			$return=array();
 			while($row = mysqli_fetch_assoc($result)) {
-				$temp ['ap1'] = "";
-				$temp ['ap2'] = "";
+				$temp ['ap'] = "";
 				$temp ['tanggal'] = $row['tanggal_pelanggaran'];
 				$temp ['area'] = $row['area'];
 				$temp ['departemen'] = $row['departemen'];
-				$temp ['ap1'] = $row['ap1'];
-				$temp ['ap2'] = $row['ap2'];
+				$temp ['ap'] = $row['ap'];
 				array_push($return, $temp);
 			}
 			// array_push($return, $sql);

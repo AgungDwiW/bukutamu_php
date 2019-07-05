@@ -4,7 +4,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
  
-require_once $_SERVER['DOCUMENT_ROOT']."/bukutamu_php/vendor/autoload.php";
+require_once "../vendor/autoload.php";
 function send_mail($subject, $body, $address_to, $address_name)
 {
     $mail = new PHPMailer(true);
