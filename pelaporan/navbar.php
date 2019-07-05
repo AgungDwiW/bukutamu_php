@@ -43,7 +43,9 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                               with font-awesome or any other icon font library -->
+                               with font-awesome or any other icon font library -->\
+                    
+
                     <li class="nav-item">
                         <a href="dashboard.php" class="nav-link">
                             <i class="nav-icon fa  fa-area-chart" aria-hidden="true"></i>
@@ -54,20 +56,25 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="pelaporan.php" class="nav-link">
-                            <i class="nav-icon fa fa-file" aria-hidden="true"></i>
-                            <p>
-                                Form Pelaporan
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="listpelaporan.php" class="nav-link">
-                            <i class="nav-icon fa fa-file" aria-hidden="true"></i>
-                            <p>
-                                List Pelaporan
-                            </p>
-                        </a>
+                        <div class="" >
+                        <a href="#homeSubmenu"  aria-expanded="false" class="nav-link dropdown-toggle" data-toggle="collapse" >
+                        <i class="nav-icon fa fa-file" aria-hidden="true" ></i>
+                        <p>Pelaporan</p></a>
+                            <div  id="homeSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="pelaporan.php" class="dropdown-item nav-link navdrop">
+                                    
+                                    <p>
+                                        Form Pelaporan
+                                    </p>
+                                </a>
+                                <a href="listpelaporan.php" class=" nav-link ">
+                                    
+                                    <p>
+                                        List Pelaporan
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item" >
                         <a href="bukutamu.php" class="nav-link">
@@ -84,7 +91,7 @@
                                 List tamu
                             </p>
                         </a>
-                        </li>
+                    </li>
                     <?php
                     // require "auth/check.php";
                     // echo check_super();
