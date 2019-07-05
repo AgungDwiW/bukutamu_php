@@ -90,9 +90,7 @@
 					$body = $body."area = ".$row3['area']."<br>";
 					$body = $body."tipe aktivitas 12 = ".$row3['tipe_12']."<br>";
 					$body = $body."subkategori = ".$row3['subkategori']."<br>";
-					$body = $body."action plan 1 = ".$row3['ap1']."<br>";
-					if ($row3['ap2']!="")
-						$body = $body."action plan 2 = ".$row3['ap2']."<br>";
+					$body = $body."action plan = ".$row3['ap']."<br>";
 					$body = $body."keterangan= ".$row3['keterangan']."<br>";
 				}
 				

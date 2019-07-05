@@ -138,6 +138,7 @@ foreach ($departemen_name as $key => $value) {
 if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
         // var_dump($row);
+      if($row['departemen'])
         $departemen_datang[$row['departemen']]+=1;
     }
 }

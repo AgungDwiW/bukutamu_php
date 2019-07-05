@@ -59,7 +59,7 @@ create table kedatangan (
 	ON DELETE CASCADE,
 	foreign key fk_dep_ked(departemen)
 	references departemen(id)
-	on DELETE CASCADE
+	ON DELETE SET NULL
 	);
 
 
@@ -82,7 +82,7 @@ create table pelaporan(
 	on DELETE CASCADE,
 	foreign key fk_dep_pel(departemen)
 	references departemen(id)
-	on delete cascade
+	ON DELETE SET NULL
 );
 
 

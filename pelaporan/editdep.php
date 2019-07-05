@@ -65,8 +65,9 @@ include('template.php');
                                         </div>  
                                         <input type="text" hidden required class="form-control inputsm" name="id" id="id" value="<?php echo($tamu['id'])?>"> 
 
-                                        <div class="col-sm-12 center"> 
-                                            <input type="submit" name="submit" id = "submit" class="col-sm-12">
+                                        <div class="form-group row"> 
+                                            <input type="submit" name="submit" id = "submit" class="col-sm-6">
+                                             <button type="button" name="submit" id = "submit" onclick="document.getElementById('link').href =  '<?php echo "hapusdep.php?id=".$id; ?>'" class="col-sm-6" data-toggle="modal" data-target="#exampleModal2">delete</button>
                                         </div>
                         
                                 </fieldset>
@@ -81,6 +82,25 @@ include('template.php');
     </div>
 
     <?php include("footer.php") ; ?>
+
+      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Tekan tombol hapus untuk mengkonfirmasi penghapusan!</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" id = "link" href="hapusadmin.php">hapus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 <script type="text/javascript">
 
