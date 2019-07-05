@@ -461,6 +461,11 @@
      }
 
 
+  // Attach the video stream to the video element and autoplay.
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+      player.srcObject = stream;
+    });
      
      sakit_aktive()
 </script>
