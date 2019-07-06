@@ -15,8 +15,8 @@
         <ul class="nav navbar-nav ml-auto">
 
             <li class="nav-item">
-                <a href="" class="nav-link" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal"><i
-                        class="fa fa-fw fa-sign-out"></i>
+                <a href="" class="nav-link" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-arrow-right"></i>
                     <span class="nav-link-text">Keluar</span></a>
             </li>
         </ul>
