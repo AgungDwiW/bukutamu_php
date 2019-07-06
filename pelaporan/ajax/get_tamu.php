@@ -33,7 +33,8 @@
                     "perusahaan" => $row['perusahaan'],
                     "tipeid" => $row['tipeid'],
                     'saved' => $row['saved'],
-                    "kedatangan" => $temp2
+                    "kedatangan" => $temp2,
+                    "counter" => $row['count_pelanggaran']
                 	);
 			}
 			echo json_encode($return_arr);

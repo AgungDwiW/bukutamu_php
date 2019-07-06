@@ -372,7 +372,7 @@
 
      if (flag_sign){
      	sakit_val = "<?php echo "$sakit";?>";
-     	luka_val = <?php echo "$luka";?>;
+     	luka_val = "<?php echo "$luka";?>";
      	sakit_radio_y.checked = sakit_val==""?false:true;
      	sakit.value = sakit_val;
      	lukay.checked = luka_val

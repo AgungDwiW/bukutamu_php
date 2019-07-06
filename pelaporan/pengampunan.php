@@ -13,11 +13,11 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            Form pelaporan                            
+                            Form pengampunan 
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
-                            <form id="msform" style="height:auto; width:auto; text-align: left;" method="post" onsubmit="return validateform()" action="submit_pelaporan.php" >
+                            <form id="msform" style="height:auto; width:auto; text-align: left;" enctype="multipart/form-data" method="post" onsubmit="return validateform()" action="submit_pengampunan.php" >
                             <!-- fieldsets -->
                            
                                 <fieldset>
@@ -82,9 +82,13 @@
                                             <div class="col-sm-10">
                                                 <input type="text" name="hp_pelaku" readonly  id = "no_hp" class = "form-control inputsm" placeholder="No. Handphone pelanggar"></div>
                                         </div>
-
-                                         <div class="table-responsive col-sm-12" style="overflow-y: scroll; max-height:500px;  ">
-                                            <table id="table2" class="table table-bordered table-hover"
+                                         <div class="form-group row" style="padding-bottom:1rem;">
+                                            <label class="control-label col-sm-2" for="nama">Counter pelanggaran :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="hp_pelaku" readonly  id = "counter" class = "form-control inputsm" placeholder="Counter pelanggaran"></div>
+                                        </div>
+                                         <div class="table-responsive col-sm-12" style="overflow-y: scroll; max-height:500px;  " id = "hid" hidden="">
+                                            <table id="table" class="table table-bordered table-hover"
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
                                                 <thead>
                                                 <tr >
@@ -99,26 +103,6 @@
                                                 </tr>
                                               </thead>
                                               <tbody>
-                                                 <?php
-                                              $sql = "SELECT * FROM pelaporan where pelanggar = ".$uid;
-                                              $no = 1;
-                                              $result = mysqli_query($conn, $sql);
-
-                                              while($row = mysqli_fetch_assoc($result)) {
-                                              ?>
-                                               <tr>
-                                                   <td style="vertical-align:middle;"><?php echo $no;$no+=1; ?></td>
-                                                  <td style="vertical-align:middle;"><?php echo $row['tanggal_pelanggaran']; ?></td>
-                                                  <td style="vertical-align:middle;"><?php echo $row['tipe_12']; ?></td>
-                                                  <td style="vertical-align:middle;"><?php echo $row['subkategori']; ?></td>
-                                                  <td style="vertical-align:middle;"><?php echo $row['positif']?'+':'-';?></td>
-                                                  <td style="vertical-align:middle;"><?php echo $row['ap']; ?></td>
-                                                  
-                                                  <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?></td>
-                                              </tr>
-                                              <?php
-                                            }
-                                            ?>
                                             
                                               </tbody>
                                             </table>
@@ -146,23 +130,15 @@
     <?php include("footer.php") ; ?>
 </body>
 <script type="text/javascript">
-const tanggal = document.getElementById("tgl_langgar")
 const nama = document.getElementById("nama")
 const institusi = document.getElementById("institusi")
 const no_hp = document.getElementById("no_hp")
 const uid = document.getElementById("uid_pelaku")
 const tid = document.getElementById("tid_pelaku")
-const tipe12 = document.getElementById('aktivitas_12')
 const sub = document.getElementById('Subketegori')
 const hide = document.getElementById('hid')
+const counter = document.getElementById('counter')
 const table = document.getElementById('table').getElementsByTagName('tbody')[0];
-const positif = document.getElementById('positivity')
-const ap1 = document.getElementById('AP1')
-const ap2 = document.getElementById('AP2')
-const ap1_lab = document.getElementById('AP1_lab')
-const ap2_lab = document.getElementById('AP2_lab')
-const ket = document.getElementById('keterangan')
-const area = document.getElementById('area')
 var valid = false
 var no = 1;
 function addinput(value){
@@ -185,25 +161,6 @@ function del (){
     }
 }
 
-function activate(){
-    tipe12.disabled = false
-    sub.disabled = false
-    positif.disabled = false
-
-    ket.disabled = false
-    tanggal.disabled = false
-    area.disabled = false
-}
-
-function deactivate(){
-    tipe12.disabled = true
-    sub.disabled = true
-    positif.disabled = true
-
-    ket.disabled = true   
-    tanggal.disabled = true
-    area.disabled = true
-}
 
 function validateform(){
     var str_12 = tipe12.options[tipe12.selectedIndex].text
@@ -245,17 +202,18 @@ function get_tamu(cur){
     // console.log(cur)
     if (cur['error']){
         document.getElementById('hidme').hidden = false;
-        deactivate()
+        hide.hidden = true;
         return false;
         valid = 0;
         
     }
     cur = cur[0];
-    activate()
+    hide.hidden = false;
     document.getElementById('hidme').hidden = true;
     institusi.value = cur['perusahaan']
     nama.value = cur['nama']
     no_hp.value = cur['hp']
+    counter.value = cur['counter']
     if (!cur['saved']){
         nama.value = "Deleted"
         no_hp.value = "Deleted"
@@ -268,22 +226,12 @@ function get_tamu(cur){
     else{
         tid.options[2].selected = false
     }
-    kedatangan  = cur['kedatangan']
-    for (key in kedatangan){
-        var option = document.createElement("option");
-        option.text = kedatangan[key]
-        option.value = key
-        tanggal.add(option)
-    }
-
+    get_pelanggaran()
 };
 
 function get_pelanggaran(){
     
-    if (!((uid.value != "") && (tipe12.options[tipe12.selectedIndex].text != "Pilih" && sub.options[sub.selectedIndex].text!="Pilih"))){
-        
-        return false
-    }
+    
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -294,13 +242,9 @@ function get_pelanggaran(){
         console.log(cur);
         pelanggaran(cur);
     }};
-    var str_12 = tipe12.options[tipe12.selectedIndex].text
-    var str_sub = sub.options[sub.selectedIndex].text
-    str_12 = str_12.replace(/ /g, "+");
-    str_sub = str_sub.replace(/ /g, "+");
-    query = "ajax/get_pelanggaran.php?uid=" +uid.value+"&akt="+str_12+"&sub="+ str_sub
+    query = "ajax/get_pelanggaran2.php?uid=" +uid.value
     console.log(query)
-    xhttp.open("GET","ajax/get_pelanggaran.php?uid=" +uid.value+"&akt="+str_12+"&sub="+ str_sub, true);
+    xhttp.open("GET","ajax/get_pelanggaran2.php?uid="+uid.value, true);
     xhttp.send();
 }
 var flag = 0
@@ -323,10 +267,18 @@ function pelanggaran(json){
         cell1 = row.insertCell(0)
         cell2 = row.insertCell(1)
         cell3 = row.insertCell(2)
+        cell4 = row.insertCell(3)
+        cell5 = row.insertCell(4)
+        cell6 = row.insertCell(5)
+        cell7 = row.insertCell(6)
         hide.hidden = false;
-        cell1.innerHTML = json[z].tanggal
-        cell2.innerHTML = json[z].area
-        cell3.innerHTML = json[z].departemen
+        cell1.innerHTML = z+1
+        cell2.innerHTML = json[z].tanggal
+        cell3.innerHTML = json[z].tipe12
+        cell4.innerHTML = json[z].sub
+        cell5.innerHTML = json[z].positif?"+":"-";
+        cell6.innerHTML = json[z].ap
+        cell7.innerHTML = json[z].keterangan
     }
     addinput2();
 }

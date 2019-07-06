@@ -100,6 +100,17 @@ create table session(
 	is_super boolean
 );
 
+create table pengampunan(
+	id int not null auto_increment primary key,
+	uid_pengampun varchar(15),
+	pelanggar varchar(15),
+	nama_pengampun varchar(50),
+	mou varchar(50),
+	foreign key fk_pelanggar (pelanggar)
+	references tamu(uid)
+	on DELETE CASCADE,
+);
+
 use bukutamudb;
 
 insert into user(
