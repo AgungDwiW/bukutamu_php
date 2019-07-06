@@ -1,6 +1,6 @@
 <?php 
 	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-	require "encrypt.php";
+	// require "encrypt.php";
 	$id = $_POST['id'];
 	$pass = $_POST['password'];
 	$algo = "md5";

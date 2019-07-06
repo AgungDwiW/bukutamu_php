@@ -7,7 +7,7 @@
 	$email = $_POST['email'];
 	
 
-	$sql = "UPDATE DEPARTEMEN
+	$sql = "UPDATE departemen
 			SET
 				nama_departemen = '".$nama."',
 				penanggungjawab = '".$jawab."',

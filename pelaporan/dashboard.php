@@ -17,6 +17,16 @@ for ($x = 0; $x<12; $x+=1){
   }
 
 }
+$count_month_pel = array(0,0,0,0,0,0,0,0,0,0,0,0);
+for ($x = 0; $x<12; $x+=1){
+  $sql = 'SELECT count(*) as count from pelaporan where YEAR(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$year.' and MONTH(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$month[$x].'';
+  $result = mysqli_query($conn, $sql);
+  if ($result&& mysqli_num_rows($result) !=0){
+    while($row = mysqli_fetch_assoc($result)) {
+      $count_month_pel[$x] = intval($row['count']);
+    }
+  }
+}
 // foreach ($count_month as $key ) {
 //     echo "$key,";
 // }
@@ -227,7 +237,7 @@ if ($result&& mysqli_num_rows($result) !=0){
                                     <canvas id="areapelanggaran" ></canvas>
                                   </div>
                                   <div class="column" >
-                                    <h3>Departemen Penanggung Jawab</h3>
+                                    <h3>Departemen Dengan Pelanggaran</h3>
                                     <canvas id="Divisibar"></canvas>
                                   </div>
                                 </div>
@@ -308,7 +318,11 @@ if ($result&& mysqli_num_rows($result) !=0){
             {
               label: "Pelanggaran Oleh tamu",
               data: [
-              
+              <?php
+               foreach ($count_month_pel as $key ) {
+                      echo "$key,";
+                  }
+                  ?>
               ],
               backgroundColor: [
                 'rgba(0, 137, 132, .2)',
@@ -436,7 +450,7 @@ foreach ($departemen_name as $key => $value) {
 }?>
 ],
           "datasets": [{
-            "label": "Pelanggaran Oleh Tamu Divisi",
+            "label": "Pelanggaran",
             "data": [
 <?php
 foreach ($departemen_name as $key => $value) {

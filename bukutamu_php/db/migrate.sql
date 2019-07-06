@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS bukutamudb;
+CREATE DATABASE bukutamudb;
+
 USE bukutamudb;
 DROP TABLE IF EXISTS kedatangan;
 DROP TABLE IF EXISTS pelaporan;
@@ -19,6 +22,7 @@ CREATE TABLE tamu (
 	image VARCHAR(50), 
 	nohp varchar(20),
 	saved boolean,
+	count_pelanggaran int,
 	unique (uid)
 	);
 
@@ -55,7 +59,7 @@ create table kedatangan (
 	ON DELETE CASCADE,
 	foreign key fk_dep_ked(departemen)
 	references departemen(id)
-	on DELETE CASCADE
+	ON DELETE SET NULL
 	);
 
 
@@ -69,7 +73,7 @@ create table pelaporan(
 	subkategori varchar(50),
 	positif boolean,
 	area int,
-	ap varchar(50),
+	ap varchar(100),
 	keterangan varchar (100),
 	pelanggar varchar(15),
 	departemen int,
@@ -78,7 +82,7 @@ create table pelaporan(
 	on DELETE CASCADE,
 	foreign key fk_dep_pel(departemen)
 	references departemen(id)
-	on delete cascade
+	ON DELETE SET NULL
 );
 
 
@@ -103,8 +107,3 @@ insert into user(
 	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true);
 
 
-insert into departemen(nama_departemen, penanggungjawab, email) 
-	values('testdep1', 'test1', 'test.test@test1');
-
-insert into departemen(nama_departemen, penanggungjawab, email) 
-	values('testdep2', 'test2', 'test.test@test2');
