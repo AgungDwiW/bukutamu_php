@@ -30,7 +30,7 @@
         <!-- Login Form -->
         <form method="POST" action="form.php" class="center ">
 			       
-          <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" aria-label="Search" required autofocus>
+          <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" required autofocus>
           
             
           <input style="margin-top: 40px; width: 40%; text-align: center;" type="submit" class="col-sm-12" value="Log In">

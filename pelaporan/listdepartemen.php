@@ -70,8 +70,8 @@ else
                                         <td style="vertical-align:middle;"><?php echo $row['penanggungjawab']; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['email']; ?></td>
                                         <td>
-	                                        <a href='<?php echo "editdep.php?id=".$row["id"]; ?>' class="nav-link" style="color: DodgerBlue;"><i
-						                        class="fa fa-fw fa-trash"></i>
+	                                        <a href='<?php echo "editdep.php?id=".$row["id"]; ?>' class="nav-link" style="color: DodgerBlue;"><i class="fa fa-pencil-square-o"></i>
+
 						                    <span class="nav-link-text" >Edit</span></a>
 					               		 </td>
                                          </tr>
