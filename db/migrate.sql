@@ -106,9 +106,9 @@ create table pengampunan(
 	pelanggar varchar(15),
 	nama_pengampun varchar(50),
 	mou varchar(50),
-	foreign key fk_pelanggar (pelanggar)
+	foreign key fk_pengampunan (pelanggar)
 	references tamu(uid)
-	on DELETE CASCADE,
+	on DELETE CASCADE
 );
 
 use bukutamudb;
