@@ -15,7 +15,9 @@
      <link href="../assets/MDB/css/mdb.min.css" rel="stylesheet">
   
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/font-awesome/css/brands.css">
+    <link rel="stylesheet" href="../assets/font-awesome/css/solid.css">
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- Theme style -->
@@ -46,7 +48,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
 
-    <link rel="stylesheet" href= "../assets/css/css.css">
+  
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
 
    
@@ -109,7 +111,20 @@
             -webkit-animation: fadeEffect 1s;
             animation: fadeEffect 1s;
         }
+            .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+                color: #A7ACB4;
+                background-color: #343A40;
+            }
+            
+            .nav-pills .nav-link.active, .nav-pills .show>.nav-link:hover {
+                color: #fff;
+                background-color: #494E53;
+            }
 
+            .nav-pills .nav-link:not(.active):hover {
+                color: #fff;
+                background-color: #494E53;
+            }
         /* Fade in tabs */
         @-webkit-keyframes fadeEffect {
             from {

@@ -57,10 +57,10 @@
 
                     <li class="nav-item">
                         <div class="" >
-                        <a href="#homeSubmenu"  aria-expanded="false" class="nav-link dropdown-toggle" data-toggle="collapse" >
+                        <a href="#pelaporSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
                         <i class="nav-icon fa fa-file" aria-hidden="true" ></i>
                         <p>Pelaporan</p></a>
-                            <div  id="homeSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                            <div  id="pelaporSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
                                 <a href="pelaporan.php" class="dropdown-item nav-link navdrop">
                                     
                                     <p>
@@ -76,62 +76,86 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item" >
-                        <a href="bukutamu.php" class="nav-link">
-                            <i class="nav-icon fa fa-book" aria-hidden="true"></i>
+                    <li class="nav-item">
+                        <div class="" >
+                        <a href="#homeSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
+                        <i class="nav-icon fa fa-book" aria-hidden="true"></i>
+                        <p>Tamu</p></a>
+                            <div  id="homeSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="bukutamu.php" class="dropdown-item nav-link navdrop">
+                                    
+                                    <p>
+                                        Buku Tamu
+                                    </p>
+                                </a>
+                                <a href="users.php" class="dropdown-item  nav-link ">
+                                    
+                                    <p>
+                                        List tamu
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="pengampunan.php" class="nav-link">
+                            <i class="nav-icon fa fa-user-times" aria-hidden="true"></i>
                             <p>
-                                Buku tamu
+                                Pengampunan
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item" >
-                        <a href="users.php" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>
-                                List tamu
-                            </p>
-                        </a>
-                    </li>
+                    
                     <?php
                     // require "auth/check.php";
                     // echo check_super();
                     if (check_super()){
                     ?>
-                      <li class="nav-item" >
-                        <a href="listadmin.php" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>
-                                List admin
-                            </p>
-                        </a>
-                        </li>
-                        <li class="nav-item" >
-                        <a href="listdepartemen.php" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>
-                                List departemen
-                            </p>
-                        </a>
-                        </li>
-                        
-                       <li class="nav-item" >
-                        <a href="daftaradmin.php" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>
-                                Daftar admin baru
-                            </p>
-                        </a>
-                        </li>
-                        <li class="nav-item" >
-                        <a href="daftardepartemen.php" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>
-                                Daftar departemen baru
-                            </p>
-                        </a>
-                        </li>
-                       
+                    <li class="nav-item">
+                        <div class="" >
+                        <a href="#adminSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
+                        <i class="nav-icon fa fa-user" aria-hidden="true"></i>
+                        <p>Admin</p></a>
+                            <div  id="adminSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="daftaradmin.php" class="dropdown-item nav-link navdrop">
+                                    
+                                    <p>
+                                        Daftar admin baru
+                                    </p>
+                                </a>
+                                <a href="listadmin.php" class="dropdown-item  nav-link ">
+                                    
+                                    <p>
+                                        List Admin
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="" >
+                        <a href="#depSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
+                        <i class="nav-icon fa fa-building" aria-hidden="true"></i>
+                        <p>Departemen</p></a>
+                            <div  id="depSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="daftardepartemen.php" class="dropdown-item nav-link navdrop">
+                                    
+                                    <p>
+                                        Daftar departemen baru
+                                    </p>
+                                </a>
+                                <a href="listdepartemen.php" class="dropdown-item  nav-link ">
+                                    
+                                    <p>
+                                        List departemen
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </li>  
                     <?php }?>
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
