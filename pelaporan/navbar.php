@@ -60,7 +60,7 @@
                         <a href="#homeSubmenu"  aria-expanded="false" class="nav-link dropdown-toggle" data-toggle="collapse" >
                         <i class="nav-icon fa fa-file" aria-hidden="true" ></i>
                         <p>Pelaporan</p></a>
-                            <div  id="homeSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                            <div  id="homeSubmenu"  class="collapse navdrop" aria-labelledby="navbarDropdownMenuLink">
                                 <a href="pelaporan.php" class="dropdown-item nav-link navdrop">
                                     
                                     <p>
