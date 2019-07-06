@@ -5,7 +5,7 @@
 	if (!isset($id)){
 		header('Location: listpelaporan.php');	
 	}
-	$sql = "DELETE FROM user WHERE ID = ".$id;
+	$sql = "DELETE FROM user WHERE id = ".$id;
 	$result2 = mysqli_query($conn, $sql);
 	header('Location: listadmin.php');	
 ?>

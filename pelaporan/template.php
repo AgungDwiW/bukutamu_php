@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 
 <head>
@@ -74,6 +74,9 @@
             height: 5rem;
         }
 
+        .nav-link{
+            color :#c2c7d0;
+        }
         .dropdown:hover > .dropdown-menu {
             display: block;
         }

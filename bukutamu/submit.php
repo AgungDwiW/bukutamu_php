@@ -1,4 +1,4 @@
-<?php  
+// <?php  
 	require "../db/db_con.php";
 	$image = base64_decode($_POST['Image']);
 	$output = "media/".$_POST['UID'].".jpg";
@@ -21,7 +21,7 @@
 	$result_tamu = mysqli_query($conn, $sql);
 	$flag_sign = false;
 	if (mysqli_num_rows($result_tamu) ==0){
-		$sql = "INSERT INTO Tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang, count_pelanggaran)
+		$sql = "INSERT INTO tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang, count_pelanggaran)
 	 		VALUES (".$_POST['UID'].",'".$_POST['TID']."', '". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
 	 		$_POST['Kelamin']."',". true.",'".  mysqli_real_escape_string($conn,strtolower($_POST['Institusi']))."','". $output."',". $_POST['save'].",".$_POST['NoHP'].",'".$now."',0)";
 		echo $sql;
@@ -35,7 +35,7 @@
 	    	$saved = $row ['saved'];
 	    }
 	    if (!$saved){
-			$sql = "UPDATE TAMU 
+			$sql = "UPDATE tamu 
 			SET signed_in = true,
 			nama_tamu ='".mysqli_real_escape_string($conn,$_POST['Nama'])."',
 			jenis_kelamin = '".$_POST['Kelamin']."',
@@ -47,7 +47,7 @@
 			image = '$output'
 			WHERE UID = ".$uid;}
 		else{
-			$sql = "UPDATE TAMU 
+			$sql = "UPDATE tamu
 			SET signed_in = true,
 			saved = '".$_POST['save']."',
 			terakhir_datang = '".$now."',
@@ -72,7 +72,7 @@
 	}
 	
 
-	$sql = "INSERT INTO Kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, tamu, departemen, bertemu)
+	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, tamu, departemen, bertemu)
 	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$_POST['Suhu'].",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $_POST['UID'].",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
 	// var_dump($sql);
 	$result = mysqli_query($conn, $sql);

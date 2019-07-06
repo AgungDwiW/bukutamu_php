@@ -53,7 +53,7 @@
 	$result = mysqli_query($conn, $sql);
 	echo $sql;
 
-	$sql = "SELECT count_pelanggaran AS count FROM TAMU WHERE UID = ".$uid;
+	$sql = "SELECT count_pelanggaran AS count FROM tamu WHERE uid = ".$uid;
 	// echo $sql;
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) !=0){
@@ -63,7 +63,7 @@
 			
 			if (!$positif){
 			$count+=1;
-			$sql2 = "UPDATE TAMU SET COUNT_PELANGGARAN = $count WHERE UID = $uid";
+			$sql2 = "UPDATE tamu SET count_pelanggaran = $count WHERE uid = $uid";
 			$result = mysqli_query($conn, $sql2);
 			}
 			// echo "$sql2";
@@ -71,7 +71,7 @@
 			// echo "<br>";
 			if ($row['count']>=3){
 				// echo "aaaaa";
-				$sql = "SELECT * FROM TAMU WHERE UID = ".$uid;
+				$sql = "SELECT * FROM tamu WHERE uid = ".$uid;
 				// echo "$sql";
 				$result2 = mysqli_query($conn, $sql);
 				if (mysqli_num_rows($result2) !=0){
@@ -80,7 +80,7 @@
 				}
 				$subject = "Pelanggaran melebihi 3 kali oleh".$nama;
 				$body = "Detail pelanggaran :<br>";
-				$sql = "SELECT * FROM PELAPORAN WHERE PELANGGAR = ".$uid;
+				$sql = "SELECT * FROM pelaporan WHERE pelanggar = ".$uid;
 				// echo "$sql";
 				$result3 = mysqli_query($conn, $sql);
 				if (mysqli_num_rows($result3) !=0){
@@ -94,7 +94,7 @@
 					$body = $body."keterangan= ".$row3['keterangan']."<br>";
 				}
 				
-				$sql = "SELECT * FROM DEPARTEMEN WHERE ID = ".$departemen;
+				$sql = "SELECT * FROM departemen WHERE id = ".$departemen;
 				$result4 = mysqli_query($conn, $sql);
 				if (mysqli_num_rows($result4) !=0){
 					while($row4 = mysqli_fetch_assoc($result4)) {

@@ -289,7 +289,7 @@
 	        <label class="control-label col-sm-3" for="sakit"> Jenis sakit :</label>
 	          <div class="col-sm-9">  
 	          	
-	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit"  placeholder="Sehat"    required value =   >
+	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit"  placeholder="Sehat"    required   >
 	          </div>
 	        </div>
 	        <div class="form-group row">
@@ -347,6 +347,7 @@
      const image = document.getElementById('Image');";
 	}
 	?>  
+
      const radio_sakit = document.getElementById('sakit_radio_y')
      const radio_sakitn = document.getElementById('sakit_radio_n')
      const sakit = document.getElementById('Sakit')
@@ -368,6 +369,15 @@
      const institusi = document.getElementById("Institusi")
      const tid = document.getElementById("TID")
      var flag_camera = false;
+
+     if (flag_sign){
+     	sakit_val = "<?php echo "$sakit";?>";
+     	luka_val = <?php echo "$luka";?>;
+     	sakit_radio_y.checked = sakit_val==""?false:true;
+     	sakit.value = sakit_val;
+     	lukay.checked = luka_val
+     }
+
      if (!flag_tamu)
      	flag_camera = true;
      if(flag_tamu || flag_sign){

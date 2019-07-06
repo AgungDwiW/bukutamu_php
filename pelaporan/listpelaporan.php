@@ -75,10 +75,10 @@ else
                                                 while($row2 = mysqli_fetch_assoc($result2)) {
                                                     $nama = $row2['nama_tamu'];
                                                 }
-                                             $sql = "SELECT nama_departemen FROM Departemen where id = ".$row['departemen'];
+                                             $sql = "SELECT nama_departemen FROM departemen where id = ".$row['departemen'];
                                                 // echo $sql;
                                                 $result2 = mysqli_query($conn, $sql);
-                                                if ($row2){
+                                                if ($result2){
                                                 while($row2 = mysqli_fetch_assoc($result2)) {
                                                     $departemen = $row2['nama_departemen'];
                                                 }
