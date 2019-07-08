@@ -53,7 +53,7 @@
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
                                           <label class="control-label col-sm-2" for="UID">UID :</label>
                                           <div class="col-sm-7">  
-                                            <input type="text" class="form-control inputsm" required name="uid_pelaku" id="uid_pelaku"  placeholder="UID Pelaku" value =   > 
+                                            <input type="text" class="form-control inputsm" required name="uid_pelaku" id="uid_pelaku"  placeholder="UID Pelaku" > 
                                           </div>
                                           <div class="col-sm-3">
                                             <select class="form-control inputsm" name="tid_pelaku" id="tid_pelaku" placeholder="Tipe id" disabled  value = {{tamu.tipeid}}>
@@ -108,10 +108,14 @@
                                               </tbody>
                                             </table>
                                           </div>
-                                        
+                                         <div class="form-group row" style="padding-bottom:1rem;">
+                                            <label class="control-label col-sm-2" for="nama">MOU :</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" name="fileToUpload" id="fileToUpload" class = "form-control inputsm">
+                                        </div>
                                         
                                         <div class="col-sm-12 center"> 
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
+                                            
                                              <br> 
                                              <br>
                                             <input type="submit" name="submit" id = "submit" class="col-sm-12">
