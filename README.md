@@ -1,6 +1,12 @@
 # bukutamu_php
 
-Kurang : 
+
+
+
+	Report :
+		Filter berdasar durasi
+		tambah tab durasi di list bukutamu
+
 	setting tab di admin :
 		setting departemen
 		setting max pelanggaran
@@ -8,12 +14,7 @@ Kurang :
 		waktu auto delete 
 		setting max induksi
 		setting max suhu tubuh
-
-
-	Report :
-		Filter berdasar durasi
-		tambah tab durasi di list bukutamu
-
+		
 	Query collect data durasi waktu
 
 	Auto delete data
