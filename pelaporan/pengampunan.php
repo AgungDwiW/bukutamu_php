@@ -87,7 +87,7 @@
                                             <div class="col-sm-10">
                                                 <input type="text" name="hp_pelaku" readonly  id = "counter" class = "form-control inputsm" placeholder="Counter pelanggaran"></div>
                                         </div>
-                                         <div class="table-responsive col-sm-12" style="overflow-y: scroll; max-height:500px;  " id = "hid" hidden="">
+                                         <div class="table-responsive col-sm-12 form-group row" style="overflow-y: scroll; max-height:500px;  " id = "hid" hidden="">
                                             <label class="control-label col-sm-12" for ="table" >Histori pelanggaran:</label>
                                             <table id="table" class="table table-bordered table-hover"
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
