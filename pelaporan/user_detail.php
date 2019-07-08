@@ -94,7 +94,12 @@ include('template.php');
                                                   <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required readonly value = <?php echo $tamu['perusahaan']; ?>  readonly>
                                                 </div>
                                               </div>
-                                              
+                                               <div class="form-group row"> <!-- Institusi  -->
+                                                <label class="control-label col-sm-3" for="Count">Counter Pelanggaran:</label>
+                                                <div class="col-sm-9">  
+                                                  <input type="text" class="form-control inputsm" name="Count" id="Count" placeholder="Count" required readonly value = <?php echo $tamu['count_pelanggaran']; ?>  readonly>
+                                                </div>
+                                              </div>
                                               
                                           </form>
                                       </div>

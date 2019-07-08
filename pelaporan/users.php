@@ -49,7 +49,6 @@
                                              <td style="text-align:left;"><?php echo $row['tipeid']; ?></td>
                                              <td style="text-align:left;"><?php echo $row['terakhir_datang']; ?></td>
                                              <td style="text-align:left;"><?php echo !$row['signed_in']?"Didalam":"Diluar"; ?></td>
-
                                              </tr>
 
                                         <?php
