@@ -402,10 +402,11 @@
      }
      <?php
     
-	if ($count>3){
+	if ($count>=3){
 	?>
 			// echo $row['count'];
      // if (!flag){
+
      	suhu_badan.readOnly = true
      	bertemu.readOnly = true
      	keperluan.readOnly = true
@@ -416,6 +417,7 @@
      	lukay.disabled = true
      	lukan.disabled = true
      	departemen.disabled = true
+     	document.getElementById("capture").disabled = true
      	alert("anda telah melakukan pelanggaran lebih dari 3 kali")
      <?php }?>
      // }

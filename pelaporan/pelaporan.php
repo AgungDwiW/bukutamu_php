@@ -266,7 +266,7 @@ const area = document.getElementById('area')
 var valid = false
 var no = 1;
 function addinput(value){
-    $(' <div class="form-group row dyn" style="padding-bottom:1rem;"><label class="control-label col-sm-2"   for="Action plan 2">Action plan '+no+':</label><div class="col-sm-10 "><input type="text" disabled   class = "form-control inputsm "  value = '+value+'></div></div>').insertBefore($('#before')[0]); //add input box
+    $(' <div class="form-group row dyn" style="padding-bottom:1rem;"><label class="control-label col-sm-2"   for="Action plan 2">Action plan '+no+':</label><div class="col-sm-10 "><input type="text" disabled   class = "form-control inputsm "  value = "'+value+'""></div></div>').insertBefore($('#before')[0]); //add input box
 }
 
 function addinput2(){
