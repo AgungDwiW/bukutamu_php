@@ -41,7 +41,7 @@ CREATE TABLE tamu (
 	count_pelanggaran int,
 	blok boolean,	
 	tipe int,
-	last_ind date,
+	terakhir_ind date,
 	unique (uid),
 	foreign key fk_usr_tip(tipe)
 	references tipe_tamu(id)
@@ -57,10 +57,6 @@ CREATE table departemen (
 	
 	);
 
-
-create table year(
-	year int
-);
 
 
 create table kedatangan (
@@ -142,7 +138,7 @@ use bukutamudb;
 
 insert into user(
 	user, pass, is_super)
-	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true);
+	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true, true);
 
 
 insert into setting(nama, value) values
@@ -159,3 +155,9 @@ insert into departemen(nama_departemen, penanggungjawab, email) values
 
 insert into departemen(nama_departemen, penanggungjawab, email) values
 	("TestDep2", "testman", "pif.zwei@gmail.com");
+
+insert into tipe_tamu(tipe) values ("visitor");
+
+insert into tipe_tamu(tipe) values ("vendor");
+
+insert into tipe_tamu(tipe) values ("PKL");

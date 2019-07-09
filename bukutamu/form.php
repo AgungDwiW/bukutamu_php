@@ -2,16 +2,28 @@
 	require "../db/db_con.php";
 	
 	$uid = (int)$_POST["UID"];
-	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
+	
+
+	$max_temp = 0;
+    $sql = "SELECT value FROM setting where nama = 'max_temp' ";
 	$result_tamu = mysqli_query($conn, $sql);
-	$flag_tamu = 1;
-	if (!$result_tamu){
-		header('Location: index.php');
-	}
-	if (mysqli_num_rows($result_tamu) ==0){
-		$flag_tamu = 0;
-	}
+	while($row = mysqli_fetch_assoc($result_tamu)) {
+		$max_temp = $row['value'];
+    }
+	$max_pel =0;
+	 $sql = "SELECT value FROM setting where nama = 'max_pel' ";
+	$result_tamu = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($result_tamu)) {
+		$max_pel = $row['value'];
+    }
+    $max_ind = 0;
+    $sql = "SELECT value FROM setting where nama = 'max_ind' ";
+	$result_tamu = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($result_tamu)) {
+		$max_ind = $row['value'];
+    }
 	// echo $flag_tamu;
+	$no_tamu = '';
 	$flag_sign = 0;
 	$nama = "";
 	$tid = "";
@@ -29,6 +41,16 @@
 	$count = 0;
 	$flag_avail = false;
 	$image = 'media/noimage.jpg';
+	$ind = "Belum induksi";
+	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
+	$result_tamu = mysqli_query($conn, $sql);
+	$flag_tamu = 1;
+	if (!$result_tamu){
+		header('Location: index.php');
+	}
+		if (mysqli_num_rows($result_tamu) ==0){
+		$flag_tamu = 0;
+	}
 	if (mysqli_num_rows($result_tamu) > 0) {
 		$flag_avail = true;
 	    // output data of each row
@@ -42,7 +64,9 @@
 	    	$image = $row['image'];
 	    	$flag_tamu = $row['saved'];
 	    	$saved = $row['saved'];
-	    	$count = $row['count_pelanggaran'];
+	    	$blocked = $row['blok'];
+	    	$ind = $row['terakhir_ind'];
+	    	$tipe = $row['tipe'];
 	    }
 	    $sql = "SELECT * FROM kedatangan where signedout = false and tamu = ".$uid;
 		// echo $sql;
@@ -56,6 +80,7 @@
 	    	$sakit = $row['sakit'];
 	    	$bertemu = $row['bertemu'];
 	    	$departemen = $row['departemen'];
+	    	$no_tamu = $row['id_keplek'];
 	    }
 	}
 
@@ -91,7 +116,7 @@
 
 </head>
 
-<body background="../assets/bg/indexbackground.jpg"  style="font-size: 15px;" >
+<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height:auto" >
  <div class="wrapper" > 
   <div id="formContent">
    <div class="row vertical-align">
@@ -188,12 +213,29 @@
 	            </select>
 	          </div>
 	        </div>
-
+	        
+	         <div class="form-group row"> <!-- no HP -->
+	          <label class="control-label col-sm-3" for="ind">Induksi terakhir:</label>
+	          <div class="col-sm-9">  
+	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" disabled   value = "<?php echo $ind; ?>"    >
+	          </div>
+	        </div>
+	        
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
-	          <div class="col-sm-9">  
+	          <div class="col-sm-6">  
 	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama"    required  value =  <?php echo $nama;  ?> >
 	          </div>
+	          <div class="col-sm-3">  
+	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"   >
+	            	<option value="L" >L</option>
+				    <option value="P" <?php  
+				    	if ($kelamin == "P"){
+				    		echo "selected";
+				    	}
+				    ?>>P</option>
+	            </select>
+	        </div>
 	        </div>
 	        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="NoHP">Nomor HP:</label>
@@ -201,23 +243,40 @@
 	            <input type="number" class="form-control inputsm" name="NoHP" id="NoHP" placeholder="08xxxxxxxxxx" autocomplete="off" required   value = <?php echo $hp; ?>    >
 	          </div>
 	        </div>
-	        <div class="form-group row"><!-- Jenis kelamin -->
-	          <label class="control-label col-sm-3" for="kelamin">Jenis Kelamin:</label>
-	          <div class="col-sm-9">  
-	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"   >
-	            	<option value="L" >Laki laki</option>
-				    <option value="P" <?php  
-				    	if ($kelamin == "P"){
-				    		echo "selected";
-				    	}
-				    ?>>Perempuan</option>
-	            </select>
-	          </div>
-	        </div>
+	      
 	        <div class="form-group row"> <!-- Institusi  -->
 	          <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
 	          <div class="col-sm-9">  
 	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
+	          </div>
+	        </div>
+	         <div class="form-group row"> <!-- Institusi  -->
+	          <label class="control-label col-sm-3" for="tipe">Tipe dan nomor tamu:</label>
+	          <div class="col-sm-6">  
+	             <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
+	            >
+	            	
+	            	<?php  
+	            	$sql = "SELECT * FROM tipe_tamu";	
+	            	$result_dep = mysqli_query($conn, $sql);
+	            	if (mysqli_num_rows($result_dep) > 0) {
+					    // output data of each row
+					    while($row = mysqli_fetch_assoc($result_dep)) {
+					    	if ($row['id'] == $tipe)
+					    	{
+					    	echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";	
+					    	}
+					    	else{
+					    	echo "<option name= 'tipe' value=".$row['id']." >".$row['tipe']."</option>";
+					    }
+					    }
+					}
+	            	?>
+	        	</select>
+
+	          </div>
+	          <div class="col-sm-3">  
+	            <input type="number" step="any" class="form-control inputsm" name="No_tamu" id="No_tamu" placeholder="No" required value = <?php echo $no_tamu?>  >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- SUhu badan -->
@@ -347,7 +406,11 @@
      const image = document.getElementById('Image');";
 	}
 	?>  
-
+	 <?php 
+	 echo "const max_temp = $max_temp; "; 
+	 echo "const max_pel  = $max_pel;";
+	 echo "const max_ind = $max_ind;";
+	 ?>
      const radio_sakit = document.getElementById('sakit_radio_y')
      const radio_sakitn = document.getElementById('sakit_radio_n')
      const sakit = document.getElementById('Sakit')
@@ -368,15 +431,10 @@
      const kelamin =  document.getElementById("Kelamin")
      const institusi = document.getElementById("Institusi")
      const tid = document.getElementById("TID")
+     const tipe_tamu = document.getElementById("tipe")
+     const no_tamu = document.getElementById("No_tamu")
      var flag_camera = false;
-
-     if (flag_sign){
-     	sakit_val = "<?php echo "$sakit";?>";
-     	luka_val = "<?php echo "$luka";?>";
-     	sakit_radio_y.checked = sakit_val==""?false:true;
-     	sakit.value = sakit_val;
-     	lukay.checked = luka_val
-     }
+     var acc_temp = false;
 
      if (!flag_tamu)
      	flag_camera = true;
@@ -389,6 +447,11 @@
      	// departemen.readOnly = true;
      }
      if (flag_sign){
+     	 sakit_val = "<?php echo "$sakit";?>";
+     	luka_val = "<?php echo "$luka";?>";
+     	sakit_radio_y.checked = sakit_val==""?false:true;
+     	sakit.value = sakit_val;
+     	lukay.checked = luka_val
      	institusi.readOnly= true	
      	suhu_badan.readOnly = true
      	bertemu.readOnly = true
@@ -399,10 +462,13 @@
      	lukay.disabled = true
      	lukan.disabled = true
      	departemen.disabled = true	
+     	acc_temp = true;
+     	no_tamu.disabled = true;
+     	tipe_tamu.disabled = true;
      }
      <?php
     
-	if ($count>=3){
+	if ($blocked){
 	?>
 			// echo $row['count'];
      // if (!flag){
@@ -417,8 +483,10 @@
      	lukay.disabled = true
      	lukan.disabled = true
      	departemen.disabled = true
+     		no_tamu.disabled = true;
+     	tipe_tamu.disabled = true;
      	document.getElementById("capture").disabled = true
-     	alert("anda telah melakukan pelanggaran lebih dari 3 kali")
+     	alert("anda telah diblok untuk masuk kedalam pabrik")
      <?php }?>
      // }
      <?php  if (!$flag_sign){?>
@@ -480,7 +548,21 @@
      }
 
 
- 
+    suhu_badan.oninput = function () {
+    	if (this.value > max_temp)
+    	{
+    		submit.disabled = true;
+    		$("#Suhu").addClass('is-invalid')
+			// or
+			
+    	}
+    	else{
+    		$("#Suhu").removeClass('is-invalid')
+    		submit.disabled = false;
+    	}
+    }
+	
+ 	
      sakit_aktive()
 </script>
  <?php include("footer.php") ; ?>

@@ -8,7 +8,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Pelaporan</title>
-    
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
@@ -51,7 +50,8 @@
   
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
 
-   
+       
+
     <link href="../assets/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet">
 
     
@@ -195,6 +195,7 @@
 
     <!-- jQuery -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
+  
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -236,3 +237,4 @@
     <script src="../assets/ckeditor/ckeditor.js" type="text/javascript"></script>
     <script href="../assets/MDB/js/mdb.js"></script>
     <script type="text/javascript" src="../assets/MDB/js/mdb.min.js" ></script>
+
