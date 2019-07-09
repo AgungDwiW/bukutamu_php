@@ -20,6 +20,7 @@
     $now = $datetime->format('Y\-m\-d\ h:i:s');
 
 	
+
 	$nama_pelapor = $_POST['nama_pelapor'];
     $uid_pelapor = $_POST['uid_pelapor'];
     $tid_pelapor = $_POST['tid_pelapor'];
@@ -28,6 +29,7 @@
     $tipe_12 = $_POST['aktivitas_12'];
     $subkategori = $_POST['Subkategori'];
     $positif =$_POST['positivity'];
+    $blok = $_POST['blok'];
     
     $keterangan = $_POST['keterangan'];
     $area = $_POST['area'];
@@ -51,24 +53,52 @@
 				)
 				";
 	$result = mysqli_query($conn, $sql);
-	echo $sql;
-
+	// echo $sql;
+// return false;
 	$sql = "SELECT count_pelanggaran AS count FROM tamu WHERE uid = ".$uid;
 	// echo $sql;
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) !=0){
-		var_dump($result);
+		// var_dump($result);
 		while($row = mysqli_fetch_assoc($result)) {
 			$count = $row['count'];
 			
 			if (!$positif){
 			$count+=1;
-			$sql2 = "UPDATE tamu SET count_pelanggaran = $count WHERE uid = $uid";
+			$sql2 = "UPDATE tamu SET count_pelanggaran = $count, blok = $blok WHERE uid = $uid";
 			$result = mysqli_query($conn, $sql2);
 			}
 			// echo "$sql2";
-			echo $row['count'];
+			// echo $row['count'];
 			// echo "<br>";
+
+			$sql = "SELECT * FROM tamu WHERE uid = ".$uid;
+			$result2 = mysqli_query($conn, $sql);
+			if (mysqli_num_rows($result2) !=0){
+			while($row2 = mysqli_fetch_assoc($result2)) {
+				$nama = $row2['nama_tamu'];
+			}
+			$subject = "Pelanggaran oleh".$nama;
+			$body = "Detail pelanggaran :<br>";
+			$body = $body."tanggal_pelanggaran = ".$tanggal."<br>";
+			$body = $body."area = ".$area."<br>";
+			$body = $body."tipe aktivitas 12 = ".$tipe_12."<br>";
+			$body = $body."subkategori = ".$subkategori."<br>";
+			$body = $body."action plan = ".$ap."<br>";
+			$body = $body."keterangan= ".$keterangan."<br>";
+			
+			
+			$sql = "SELECT * FROM departemen WHERE id = ".$departemen;
+			$result4 = mysqli_query($conn, $sql);
+			if (mysqli_num_rows($result4) !=0){
+				while($row4 = mysqli_fetch_assoc($result4)) {
+				$to_name = $row4['nama_departemen'];
+				$to_address = $row4['email'];
+			}
+			// echo "aaa";
+			// echo "$body";
+			send_mail($subject, $body, $to_address, $to_name);
+
 			if ($row['count']>=3){
 				// echo "aaaaa";
 				$sql = "SELECT * FROM tamu WHERE uid = ".$uid;
@@ -104,7 +134,9 @@
 				// echo "aaa";
 				// echo "$body";
 				send_mail($subject, $body, $to_address, $to_name);
-			}
+				$sql2 = "UPDATE tamu SET blok= 1 WHERE uid = $uid";
+				$result = mysqli_query($conn, $sql2);
+			}}}
 		}
 	}
 }}}

@@ -95,11 +95,19 @@
                                             <label class="control-label col-sm-2" for="Tanggalpelanggaran">Area</label>
                                             <div class="col-sm-10">
                                                 <select name="area" disabled class = "form-control inputsm" id = "area" >
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    <?php  
+                                                    require "../db/db_con.php";
+                    $sql = "SELECT * FROM area";  
+                    $result_dep = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($result_dep) > 0) {
+                        // output data of each row
+                        while($row = mysqli_fetch_assoc($result_dep)) {
+                            
+                            echo "<option name= 'departemen' value=".$row['id']." >".$row['nama_area']."</option>";
+                        }
+                        
+                    }
+                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -213,10 +221,18 @@
                                         </div>
                                         <div class="form-group row"id = "before" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Positif/Negatif</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-4">
                                                 <select class="form-control inputsm" disabled name="positivity" id="positivity" placeholder="Tipe id"  value = {{tamu.tipeid}}>
                                                 <option selected value="0">Negatif</option>
                                                 <option value="1">Positif</option>
+
+                                            </select>
+                                            </div>
+                                            <label class="control-label col-sm-2" for="nama">Langsung blok :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control inputsm" disabled name="blok" id="blok" placeholder="Tipe id"  value = {{tamu.tipeid}}>
+                                                <option selected value="0">tidak</option>
+                                                <option value="1">ya</option>
 
                                             </select>
                                             </div>
@@ -263,6 +279,7 @@ const ap1_lab = document.getElementById('AP1_lab')
 const ap2_lab = document.getElementById('AP2_lab')
 const ket = document.getElementById('keterangan')
 const area = document.getElementById('area')
+const blok = document.getElementById('blok')
 var valid = false
 var no = 1;
 function addinput(value){
@@ -289,7 +306,7 @@ function activate(){
     tipe12.disabled = false
     sub.disabled = false
     positif.disabled = false
-
+    blok.disabled = false
     ket.disabled = false
     tanggal.disabled = false
     area.disabled = false
@@ -299,7 +316,7 @@ function deactivate(){
     tipe12.disabled = true
     sub.disabled = true
     positif.disabled = true
-
+    blok.disabled = true
     ket.disabled = true   
     tanggal.disabled = true
     area.disabled = true

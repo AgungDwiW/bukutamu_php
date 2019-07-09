@@ -161,3 +161,6 @@ insert into tipe_tamu(tipe) values ("visitor");
 insert into tipe_tamu(tipe) values ("vendor");
 
 insert into tipe_tamu(tipe) values ("PKL");
+
+insert into area (nama_area) values("1 : Ismaya");
+insert into area (nama_area) values("2 : Srikandi");
