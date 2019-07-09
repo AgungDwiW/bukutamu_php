@@ -50,6 +50,7 @@
 						$row['departemen'] = $row2['nama'];
 					}
 				}
+				$row['durasi'] = intval($row['durasi'])/60;
 				$row['status'] = $row['signedout']?"Keluar":"Didalam";
 				array_push($return, $row);
 			}

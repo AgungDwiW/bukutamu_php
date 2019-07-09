@@ -38,7 +38,7 @@ require "../db/db_con.php";?>
                                         <th style="min-width:5%; max-width: 10%">Tipe</th>
                                         <th style="min-width:30%;">Tanggal datang</th>
                                         <th style="min-width:30%;">Tanggal keluar</th>
-                                        <th style="min-width:30%;">Durasi</th>
+                                        <th style="min-width:30%;">Durasi (Jam)</th>
                                         <th style="min-width:30%;">Bertemu dengan</th>
                                         <th style="min-width:30%;">Departemen</th>
                                         <th style="min-width:25%;">Keperluan</th>
@@ -80,6 +80,7 @@ require "../db/db_con.php";?>
         $(document).ready(function() {
            
         } );
+        
         function get_data(){
           if (start.value !="" && end.value!=""){
 
@@ -89,13 +90,23 @@ require "../db/db_con.php";?>
               data : {start:start.value,end:end.value},
               success: function(result){
 
-              add_data(JSON.parse(result));
+              add_data(result);
             }});
 
           }
         }
 
       function add_data(json){
+        
+        try {
+          json = JSON.parse(json);
+
+        }
+        catch(err) {
+          t.clear().draw();
+         return false;
+        }
+       
          t.clear().draw();
           counter = 1;
           for (x=0;x<json.length; x++)
