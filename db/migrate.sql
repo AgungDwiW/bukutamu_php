@@ -113,6 +113,7 @@ create table user(
 	user varchar(30),
 	pass varchar(40),
 	is_super boolean,
+    is_superman boolean,
 	unique (user)
 );
 
@@ -137,7 +138,7 @@ create table pengampunan(
 use bukutamudb;
 
 insert into user(
-	user, pass, is_super)
+	user, pass, is_super, is_superman)
 	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true, true);
 
 

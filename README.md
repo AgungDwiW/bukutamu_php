@@ -1,35 +1,37 @@
 # bukutamu_php
 
-
-
-
 	Report :
-		Filter berdasar durasi
-		tambah tab durasi di list bukutamu
+		Filter berdasar durasi v
+		tambah tab durasi di list bukutamu v
+
+	Pengampunan:
+		Pelaku -> pelanggar
+		file -> camera
 
 	setting tab di admin :
-		setting departemen
-		setting max pelanggaran
+		setting departemen v
+		setting max pelanggaran 
 		setting tipe visitor
 		waktu auto delete 
 		setting max induksi
 		setting max suhu tubuh
+		buat super admin
 		
 	Query collect data durasi waktu
 
 	Auto delete data
 
 	bukutamu :
-		tambah form tipe visitor
-		tambah form nomor yg diambil
-		keterangan sudah induksi
-		max suhu tubuh
+		tambah form tipe visitor v
+		tambah form nomor yg diambil v
+		keterangan sudah induksi 
+		max suhu tubuh v
 
 	Minta data karyawan
 
 	Database dummy?
 
-	Langsung blok tamu saat pelaporan pelanggaran
+	Langsung blok tamu saat pelaporan pelanggaran v
 
 
 

@@ -45,6 +45,7 @@
 	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);
 	$flag_tamu = 1;
+	$blocked = 0;
 	if (!$result_tamu){
 		header('Location: index.php');
 	}

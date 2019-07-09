@@ -67,7 +67,7 @@
 
                                         </div>  
                                         <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">Nama Pelapor:</label>
+                                            <label class="control-label col-sm-2" for="nama">Nama Pelanggar:</label>
                                             <div class="col-sm-10">
                                                 <input type = "text" name="nama_pelaku" onchange="get_tamu()"  class = "form-control inputsm" id= "nama" placeholder="Nama Pelanggar" name="nama_pelaku" readonly>
                                                 	</div>
@@ -83,17 +83,18 @@
                                                 <input type="text" name="hp_pelaku" readonly  id = "no_hp" class = "form-control inputsm" placeholder="No. Handphone pelanggar"></div>
                                         </div>
                                         <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="Tanggalpelanggaran">Tanggal Pelanggaran:</label>
-                                            <div class="col-sm-10">
+                                            
+                                        </div>
+                                        
+                                        <div class="form-group row" style="padding-bottom:1rem;">
+                                               <label class="control-label col-sm-2" for="Tanggalpelanggaran">Tanggal Pelanggaran:</label>
+                                            <div class="col-sm-4">
                                                 <select name="tgl_langgar" required disabled class = "form-control inputsm" id = "tgl_langgar">
                                                     
                                                 </select>
                                             </div>
-                                        </div>
-                                        
-                                        <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="Tanggalpelanggaran">Area</label>
-                                            <div class="col-sm-10">
+                                            <label class="control-label col-sm-2" for="Tanggalpelanggaran">Area:</label>
+                                            <div class="col-sm-4">
                                                 <select name="area" disabled class = "form-control inputsm" id = "area" >
                                                     <?php  
                                                     require "../db/db_con.php";
@@ -110,6 +111,7 @@
                     ?>
                                                 </select>
                                             </div>
+                                         
                                         </div>
                                         <hr style="display: block;" size="5">
                                         <div class="form-group row" style="padding-bottom:1rem;">

@@ -1,9 +1,5 @@
 <?php include("template.php") ;
-
-if (isset($_GET['year']))
-  $year = $_GET['year'];
-else
-  $year = date('Y');?>
+?>
 
 <body class="hold-transition sidebar-mini">
     <br>
@@ -19,25 +15,8 @@ else
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            List Pelaporan             
-                             <select style="position: absolute;right: 10px;"  name="forma" onchange="location = this.value;">
-                              <?php
-                               require "../db/db_con.php";
-                                  $sql = 'SELECT year from year' ;
-                                  $result = mysqli_query($conn, $sql);
-                                  if ($result&& mysqli_num_rows($result) !=0){
-                                      while($row = mysqli_fetch_assoc($result)) {
-                                        $selected = "";
-                                        if ($row['year'] == $year)
-                                          $selected = "selected";
-                                        echo "<option value =listpelaporan.php?year=".$row['year'].
-                                          " ".$selected.
-
-                                        ">".$row['year']."</option> " ;
-                                    }
-                                  }
-                              ?>
-                            </select>                      
+                            List Admin
+                              
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
@@ -47,14 +26,15 @@ else
                                     <tr>
                                         <th style="min-width:5%;">No.</th>
                                         <th style="min-width:5%; max-width: 10%">ID</th>
-                                    	<th style="min-width:5%; max-width: 15%">delete</th>
+                                        <th style="min-width:5%; max-width: 10%">Status</th>
+                                    	<th style="min-width:5%; max-width: 15%">Delete</th>
                                     </tr>
 
                                 </thead>
                                 <tbody>
                                     <?php  
                                         require "../db/db_con.php";
-                                            $sql = "SELECT * FROM user where is_super = false";
+                                            $sql = "SELECT * FROM user where is_superman = false";
                                         $result = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){
                                             $no = 1;
@@ -65,6 +45,7 @@ else
                                         <tr>
                                          <td style="vertical-align:middle;"><?php echo $no; $no+=1; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['user']; ?></td>
+                                        <td style="vertical-align:middle;"><?php echo $row['is_superman']?"Super User":($row['is_super']?"Supervisor":"User"); ?></td>
                                         <td>
 	                                        <a href="" class="nav-link" onclick="document.getElementById('link').href =  '<?php echo "hapusadmin.php?id=".$row["id"]; ?>'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i
 						                        class="fa fa-fw fa-trash"></i>
