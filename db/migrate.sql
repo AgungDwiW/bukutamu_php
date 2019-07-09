@@ -10,6 +10,22 @@ DROP TABLE IF EXISTS tamu;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS session;
 
+
+CREATE TABLE setting(
+	nama varchar(50) primary key,
+	value int
+);
+
+CREATE TABLE tipe_tamu(
+	id int not null primary key auto_increment,
+	tipe varchar(20)
+);
+
+CREATE TABLE area(
+	id int not null primary key auto_increment,
+	nama_area varchar(50)
+);
+
 CREATE TABLE tamu (
 	id int not null primary key auto_increment,
 	uid VARCHAR (15) ,
@@ -23,7 +39,13 @@ CREATE TABLE tamu (
 	nohp varchar(20),
 	saved boolean,
 	count_pelanggaran int,
-	unique (uid)
+	blok boolean,	
+	tipe int,
+	last_ind date,
+	unique (uid),
+	foreign key fk_usr_tip(tipe)
+	references tipe_tamu(id)
+	ON DELETE SET NULL
 	);
 
 
@@ -54,6 +76,7 @@ create table kedatangan (
     tamu varchar(15),
     departemen int,
     bertemu varchar(50),
+    id_keplek int,
 	foreign key fk_tamu_ked (tamu)
 	references tamu(uid)
 	ON DELETE CASCADE,
@@ -82,6 +105,9 @@ create table pelaporan(
 	on DELETE CASCADE,
 	foreign key fk_dep_pel(departemen)
 	references departemen(id)
+	ON DELETE SET NULL,
+	foreign key fk_are_pel(area)
+	references area(id)
 	ON DELETE SET NULL
 );
 
@@ -97,7 +123,8 @@ create table user(
 create table session(
 	id int not null auto_increment primary key,
 	session_key varchar(100),
-	is_super boolean
+	is_super boolean,
+	is_superman boolean
 );
 
 create table pengampunan(
@@ -118,3 +145,17 @@ insert into user(
 	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true);
 
 
+insert into setting(nama, value) values
+	("max_temp",36);
+
+insert into setting(nama, value) values
+	("max_pel",3);
+
+insert into setting(nama, value) values
+	("max_ind", 15);
+
+insert into departemen(nama_departemen, penanggungjawab, email) values
+	("TestDep1", "testman", "pif.zwei@gmail.com");
+
+insert into departemen(nama_departemen, penanggungjawab, email) values
+	("TestDep2", "testman", "pif.zwei@gmail.com");
