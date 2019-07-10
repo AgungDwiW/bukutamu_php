@@ -154,48 +154,23 @@
                             </div>
                         </div>
                     </li>  
+                     <li class="nav-item">
+                        <a href="listarea.php" class="nav-link">
+                            <i class="nav-icon fa fa-map" aria-hidden="true"></i>
+                            <p>
+                                Area
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item">
-                        <div class="" >
-                        <a href="#areaSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
-                        <i class="nav-icon fa fa-map" aria-hidden="true"></i>
-                        <p>Area</p></a>
-                            <div  id="areaSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="daftardepartemen.php" class="dropdown-item nav-link navdrop">
-                                    
-                                    <p>
-                                        Daftar departemen baru
-                                    </p>
-                                </a>
-                                <a href="listdepartemen.php" class="dropdown-item  nav-link ">
-                                    
-                                    <p>
-                                        List departemen
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                    </li>  
-                    <li class="nav-item">
-                        <div class="" >
-                        <a href="#tamuSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
-                        <i class="nav-icon fa fa-users" aria-hidden="true"></i>
-                        <p>Tipe tamu</p></a>
-                            <div  id="tamuSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="daftardepartemen.php" class="dropdown-item nav-link navdrop">
-                                    
-                                    <p>
-                                        Daftar departemen baru
-                                    </p>
-                                </a>
-                                <a href="listdepartemen.php" class="dropdown-item  nav-link ">
-                                    
-                                    <p>
-                                        List departemen
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                    </li>  
+                        <a href="listtipetamu.php" class="nav-link">
+                            <i class="nav-icon fa fa-users" aria-hidden="true"></i>
+                            <p>
+                                Tipe tamu
+                            </p>
+                        </a>
+                    </li>
+                    
                     <li class="nav-item">
                         <a href="setting.php" class="nav-link">
                             <i class="nav-icon fa fa-cog" aria-hidden="true"></i>

@@ -30,9 +30,9 @@
 
 	Database dummy? x
 
-	Create delete tipe visitor (form & list) |
+	Create delete tipe visitor (form & list) v
 
-	Create delete area (form & list) |
+	Create delete area (form & list) v
 
 	Dashboard -> dinamyc month
 
