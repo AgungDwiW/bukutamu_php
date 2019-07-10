@@ -2,6 +2,15 @@
 	require "../db/db_con.php";
 	require 'auth/login_middleware.php';
 	require 'mail.php';
+
+	
+	$sql = "select value from setting where nama = 'max_pel'";
+	$result = mysqli_query($conn, $sql);
+	$max_pel  =0;
+	while($row = mysqli_fetch_assoc($result)) {
+	    $max_pel = $row['value'];
+	}
+
 	$sql = "SELECT * FROM kedatangan where id = '". $_POST["tgl_langgar"]."'";
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) ==0){
@@ -18,7 +27,7 @@
 	$datetime = new DateTime();
     $datetime->setTimezone($tz_object);
     $now = $datetime->format('Y\-m\-d\ h:i:s');
-
+    $now_date = $datetime->format('Y\-m\-d\ ');
 	
 
 	$nama_pelapor = $_POST['nama_pelapor'];
@@ -52,6 +61,7 @@
 				".$departemen."
 				)
 				";
+	// echo "$now_date";
 	$result = mysqli_query($conn, $sql);
 	// echo $sql;
 // return false;
@@ -65,7 +75,7 @@
 			
 			if (!$positif){
 			$count+=1;
-			$sql2 = "UPDATE tamu SET count_pelanggaran = $count, blok = $blok WHERE uid = $uid";
+			$sql2 = "UPDATE tamu SET count_pelanggaran = $count, blok = $blok, terakhir_count = '$now_date' WHERE uid = $uid";
 			$result = mysqli_query($conn, $sql2);
 			}
 			// echo "$sql2";
@@ -99,7 +109,7 @@
 			// echo "$body";
 			send_mail($subject, $body, $to_address, $to_name);
 
-			if ($row['count']>=3){
+			if ($row['count']>=$max_pel){
 				// echo "aaaaa";
 				$sql = "SELECT * FROM tamu WHERE uid = ".$uid;
 				// echo "$sql";
@@ -140,6 +150,6 @@
 		}
 	}
 }}}
-	header('Location: listpelaporan.php');	
+// 	header('Location: listpelaporan.php');	
 
 ?>

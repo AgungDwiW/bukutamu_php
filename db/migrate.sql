@@ -42,6 +42,7 @@ CREATE TABLE tamu (
 	blok boolean,	
 	tipe int,
 	terakhir_ind date,
+	terakhir_count date,
 	unique (uid),
 	foreign key fk_usr_tip(tipe)
 	references tipe_tamu(id)
@@ -113,6 +114,7 @@ create table user(
 	user varchar(30),
 	pass varchar(40),
 	is_super boolean,
+    is_superman boolean,
 	unique (user)
 );
 
@@ -137,7 +139,7 @@ create table pengampunan(
 use bukutamudb;
 
 insert into user(
-	user, pass, is_super)
+	user, pass, is_super, is_superman)
 	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true, true);
 
 
@@ -149,6 +151,12 @@ insert into setting(nama, value) values
 
 insert into setting(nama, value) values
 	("max_ind", 15);
+
+insert into setting(nama, value) values
+	("autoreset", 6);
+
+insert into setting(nama, value) values
+	("autodelete", 12);
 
 insert into departemen(nama_departemen, penanggungjawab, email) values
 	("TestDep1", "testman", "pif.zwei@gmail.com");

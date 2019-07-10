@@ -109,16 +109,15 @@
                                             </table>
                                           </div>
                                          <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">MOU :</label>
-                                            <div class="col-sm-10">
-                                                <input type="file" name="fileToUpload" id="fileToUpload" class = "form-control inputsm">
+                                           <video id="player" controls autoplay width="400px" height="300px" ></video>
+                                       <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px"></canvas>
                                         </div>
-                                        
+                                        <input type="hidden" id = "Image" name = "Image" >
                                         <div class="col-sm-12 center"> 
                                             
                                              <br> 
                                              <br>
-                                            <input type="submit" name="submit" id = "submit" class="col-sm-12">
+                                            <button type="button" class="col-sm-6" onclick="cameracapture()"> Capture</button><input type="submit" name="submit" id = "submit" class="col-sm-6">
                                         </div>
                         
                                 </fieldset>
@@ -173,6 +172,16 @@ function validateform(){
     if (str_12== "Pilih"  || str_sub== "Pilih"){
         return false
     }
+   if (sakit_flag == true){
+        sakit.value = "";
+    }
+    tid.disabled = false
+    kelamin.disabled = false;
+    if(!player.paused && flag_camera){
+        alert("belum mengambil foto");
+        return false;
+    }
+    // cameracapture();
     return valid
     
 }
@@ -293,5 +302,34 @@ $('form input').on('keypress', function(e) {
     return e.which !== 13;
 });
 
+// CAMERA
+const constraints = {
+       video: true,
+     };
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+      player.srcObject = stream;
+    });
+
+const player = document.getElementById('player');
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+const image = document.getElementById('Image');
+function cameracapture (){
+    // Draw the video frame to the canvas.
+    
+    
+   handler = document.getElementById("image_location")
+   handler = player
+   context.drawImage(player, 0, 0, canvas.width, canvas.height);
+    //get image
+     var Pic = document.getElementById("canvas").toDataURL();
+     Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "");
+     image.value = Pic
+     if (!player.paused)
+        player.pause();
+    else
+        player.play();
+}
 
 </script>

@@ -154,6 +154,14 @@
                             </div>
                         </div>
                     </li>  
+                    <li class="nav-item">
+                        <a href="setting.php" class="nav-link">
+                            <i class="nav-icon fa fa-user-times" aria-hidden="true"></i>
+                            <p>
+                                Setting
+                            </p>
+                        </a>
+                    </li>
                     <?php }?>
 
                 </ul>
