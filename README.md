@@ -29,7 +29,7 @@
 
 	Minta data karyawan
 
-	Database dummy?
+	Database dummy? x
 
 	Langsung blok tamu saat pelaporan pelanggaran v
 
