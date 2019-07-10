@@ -10,11 +10,10 @@
 
 	setting tab di admin :
 		setting departemen v
-		setting max pelanggaran  |
-		setting tipe visitor - 
-		waktu auto delete  |
-		setting max induksi |
-		setting max suhu tubuh |
+		setting max pelanggaran  v
+		waktu auto delete  v
+		setting max induksi v
+		setting max suhu tubuh v
 		buat super admin v
 		
 	Query collect data durasi waktu v
@@ -24,14 +23,24 @@
 	bukutamu :
 		tambah form tipe visitor v
 		tambah form nomor yg diambil v
-		keterangan sudah induksi -
+		keterangan sudah induksi xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 		max suhu tubuh v
 
 	Minta data karyawan
 
 	Database dummy? x
 
+	Create delete tipe visitor (form & list) |
+
+	Create delete area (form & list) |
+
+	Dashboard -> dinamyc month
+
 	Langsung blok tamu saat pelaporan pelanggaran v
+
+	Download db as csv 
+
+
 
 
 

@@ -56,7 +56,7 @@ while($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
-                            <form id="msform" style="height:auto; width:auto; text-align: left;" method="post" onsubmit="return validateform()" action="submit_pelaporan.php" >
+                            <form id="msform" style="height:auto; width:auto; text-align: left;" method="post" onsubmit="return validateform()" action="submit_setting.php" >
                             <!-- fieldsets -->
                            
                                 <fieldset>

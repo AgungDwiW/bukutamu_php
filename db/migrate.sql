@@ -156,7 +156,7 @@ insert into setting(nama, value) values
 	("autoreset", 6);
 
 insert into setting(nama, value) values
-	("autodelete", 12);
+	("autodelete", 24);
 
 insert into departemen(nama_departemen, penanggungjawab, email) values
 	("TestDep1", "testman", "pif.zwei@gmail.com");
