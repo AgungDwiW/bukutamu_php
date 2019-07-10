@@ -1,9 +1,5 @@
 <?php include("template.php") ;
-
-if (isset($_GET['year']))
-  $year = $_GET['year'];
-else
-  $year = date('Y');?>
+ require "../db/db_con.php"; ?>
 
 <body class="hold-transition sidebar-mini">
     <br>
@@ -20,28 +16,20 @@ else
                         <!-- /.card-header -->
                         <div class="card-header">                              
                             List Pelaporan             
-                             <select style="position: absolute;right: 10px;"  name="forma" onchange="location = this.value;">
-                              <?php
-                               require "../db/db_con.php";
-                                  $sql = 'SELECT year from year' ;
-                                  $result = mysqli_query($conn, $sql);
-                                  if ($result&& mysqli_num_rows($result) !=0){
-                                      while($row = mysqli_fetch_assoc($result)) {
-                                        $selected = "";
-                                        if ($row['year'] == $year)
-                                          $selected = "selected";
-                                        echo "<option value =listpelaporan.php?year=".$row['year'].
-                                          " ".$selected.
-
-                                        ">".$row['year']."</option> " ;
-                                    }
-                                  }
-                              ?>
-                            </select>                      
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
+
                             <div class="col-sm-12" style="overflow-x: scroll">
+                                   <div class="form-group row"><!-- UID -->
+                                          Range data:
+                                          <div class="col-sm-2">  
+                                            <input type="date" name="start" id = "start" class="form-control form-control-sm " onchange= "get_data()">
+                                          </div> - 
+                                          <div class="col-sm-2">
+                                            <input type="date" name="end" id = "end" class="form-control form-control-sm " onchange= "get_data()">
+                                          </div>
+                                        </div>  
                             <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center;">
                                 <thead>
                                     <tr>
@@ -63,57 +51,7 @@ else
 
                                 </thead>
                                 <tbody>
-                                    <?php  
-                                        require "../db/db_con.php";
-                                            $sql = "SELECT * FROM pelaporan  where  YEAR(STR_TO_DATE(tanggal_pelanggaran, '%Y-%m-%d')) = ".$year;
-                                        $result = mysqli_query($conn, $sql);
-                                        if ($result &&(mysqli_num_rows($result) !=0)){
-                                            $no = 1;
-                                        while($row = mysqli_fetch_assoc($result)) {
-                                              $sql = "SELECT nama_tamu FROM tamu where uid = ".$row['pelanggar'];
-                                                $result2 = mysqli_query($conn, $sql);
-                                                while($row2 = mysqli_fetch_assoc($result2)) {
-                                                    $nama = $row2['nama_tamu'];
-                                                }
-                                             $sql = "SELECT nama_departemen FROM departemen where id = ".$row['departemen'];
-                                                // echo $sql;
-                                                $result2 = mysqli_query($conn, $sql);
-                                                if ($result2){
-                                                while($row2 = mysqli_fetch_assoc($result2)) {
-                                                    $departemen = $row2['nama_departemen'];
-                                                }
-                                            }
-                                        ?>
-
-                                        <tr>
-                                         <td style="vertical-align:middle;"><?php echo $no; $no+=1; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['nama_pelapor']; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['tanggal_pelanggaran']; ?></td>
-                                        <td style="vertical-align:middle;">
-                                        <a href="user_detail.php?uid=<?php echo $row['pelanggar']; ?>"><?php echo $row['pelanggar']; ?></a>
-                                        </td>
-                                        <td style="vertical-align:middle;"><?php echo $nama; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $departemen; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['area']; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['tipe_12']; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['subkategori']; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['positif']?"+":"-"; ?></td>
-                                        <td style="vertical-align:middle;"><?php echo $row['ap']; ?></td>
-                                        
-                                        <td style="vertical-align:middle;"><?php echo $row['keterangan']; ?> </td>
-                                        <td style="vertical-align:middle;">
-	                                        <a href="" class="nav-link" onclick="document.getElementById('link').href =  '<?php echo "hapus.php?id=".$row["id"]; ?>'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i
-						                        class="fa fa-fw fa-trash"></i>
-						                    <span class="nav-link-text" >Hapus</span></a>
-					               		 </td>
-                                         </tr>
-
-                                        <?php
-                                        }}
-
-	                                    ?>
-
-
+                               
 
                                 </tbody>
                                
@@ -150,19 +88,72 @@ else
 
 
 </body>
-    <script>
-        $(function () {
-            $('#example1').DataTable({
+
+ <script>
+        var temp = $("#start");
+        const start = temp[0];
+        var temp = $("#end");
+        const end= temp[0];
+        const t = $('#example1').DataTable({
                 "searching": true,
             });
-        });
-        
 
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
                 window.location = $(this).data("href");
             });
         });
+        $(document).ready(function() {
+           
+        } );
+        
+        function get_data(){
+          if (start.value !="" && end.value!=""){
+
+            $.ajax({
+              url: "ajax/get_pelanggaran_list.php", 
+              type : 'POST',
+              data : {start:start.value,end:end.value},
+              success: function(result){
+
+              add_data(result);
+            }});
+
+          }
+        }
+
+      function add_data(json){
+        
+        try {
+          json = JSON.parse(json);
+          console.log(json);  
+        }
+        catch(err) {
+          t.clear().draw();
+         return false;
+        }
+       
+         t.clear().draw();
+          counter = 1;
+          for (x=0;x<json.length; x++)
+           t.row.add( [
+            counter,
+            json[x]['nama_pelapor'],
+            json[x]['tanggal_pelanggaran'],
+            json[x]['uid'],
+            json[x]['pelanggar'],
+            json[x]['departemen'],
+            json[x]['area'],
+            json[x]['tipe_12'],
+            json[x]['subkategori'],
+            json[x]['positif']?"+":"-",
+            json[x]['ap'],
+            json[x]['keterangan'],
+            '<td style="vertical-align:middle;">                                            <a href="" class="nav-link" onclick="document.getElementById("link").href =  "hapuspelaporan.php?id='+json[x]['id']+'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i class="fa fa-fw fa-trash"></i><span class="nav-link-text" >Hapus</span></a></td>'
+            
+        ] ).draw( false );
+ 
+        counter++;
+      }
     </script>
    
-

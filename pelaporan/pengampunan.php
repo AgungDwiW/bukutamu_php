@@ -24,16 +24,16 @@
                                     
                                     <div style="margin:auto;" id = "dynform">
                                         
-                                        <h4>Data Penanggung Jawab</h4>
+                                        <h4>Data Petugas</h4>
                                         <br>
                                         <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">Nama Penanggung Jawab:</label>
+                                            <label class="control-label col-sm-2" for="nama">Nama Petugas:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Pelapor"></div>
                                         </div>
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
-                                          <label class="control-label col-sm-2" for="UID">UID Penanggung Jawab:</label>
+                                          <label class="control-label col-sm-2" for="UID">UID Petugas:</label>
                                           <div class="col-sm-7">  
                                             <input type="text" required class="form-control inputsm" name="uid_pelapor" id="uid_pelapor" placeholder="UID Pelapor" value =   > 
                                           </div>
@@ -47,7 +47,7 @@
                                         </div>  
                                         
                                         <hr style="display: block;" size="5">
-                                        <h4>Data Pelaku</h4>
+                                        <h4>Data Pelanggar</h4>
                                         <br>
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
@@ -67,7 +67,7 @@
 
                                         </div>  
                                         <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">Nama Pelapor:</label>
+                                            <label class="control-label col-sm-2" for="nama">Nama Pelanggar:</label>
                                             <div class="col-sm-10">
                                                 <input type = "text" name="nama_pelaku" onchange="get_tamu()"  class = "form-control inputsm" id= "nama" placeholder="Nama Pelanggar" name="nama_pelaku" readonly>
                                                 	</div>
@@ -88,7 +88,7 @@
                                                 <input type="text" name="hp_pelaku" readonly  id = "counter" class = "form-control inputsm" placeholder="Counter pelanggaran"></div>
                                         </div>
                                          <div class="table-responsive col-sm-12 form-group row" style="overflow-y: scroll; max-height:500px;  " id = "hid" hidden="">
-                                            <label class="control-label col-sm-12" for ="table" >Histori pelanggaran:</label>
+                                            <label class="control-label col-sm-12" for ="table" >Riwayat pelanggaran:</label>
                                             <table id="table" class="table table-bordered table-hover"
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
                                                 <thead>

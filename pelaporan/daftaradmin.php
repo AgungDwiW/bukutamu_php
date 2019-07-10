@@ -17,7 +17,7 @@
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
-                            <form id="msform" style="height:auto; width:auto;" method="post" onsubmit="return validateform()" action="submit_daftar.php" >
+                            <form id="msform" style="height:auto; width:auto;" method="post" onsubmit="return validateform()" action="submit_admin.php" >
                             <!-- fieldsets -->
                            
                                 <fieldset>
@@ -46,9 +46,20 @@
                                           </div>
                                           
                                         </div>  
-                                                                 
+                                        <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
+                                          <label class="control-label col-sm-4" for="UID">Supervisor :</label>
+                                          <div class="col-sm-8">  
+                                            <input type="radio" name="super" id = "supery" value = "1"> Ya   </input>
+                                            <input type="radio" name="super" id = "supern" value = "0" checked> Tidak</input>
+                                          </div>
+                                          
+                                        </div>              
                                         <p id = "hidme" hidden>Password tidak sama</p>
-
+                                        <?php 
+                                            if (isset($_GET['error'])){
+                                                echo '<label style = "text-align:center;">User sudah ada</label> </br></br>';
+                                            }
+                                        ?>
                                         <div class="col-sm-12 center"> 
                                             <input type="submit" name="submit" id = "submit" class="col-sm-12">
                                         </div>

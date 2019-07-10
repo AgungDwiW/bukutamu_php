@@ -88,7 +88,7 @@
                                         Buku Tamu
                                     </p>
                                 </a>
-                                <a href="users.php" class="dropdown-item  nav-link ">
+                                <a href="listtamu.php" class="dropdown-item  nav-link ">
                                     
                                     <p>
                                         List tamu
