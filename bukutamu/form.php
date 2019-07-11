@@ -135,10 +135,12 @@
   <div id="formContent">
    <div class="row vertical-align">
     <div class="col-sm-6" >
+
     	<?php  
     		if ($flag_tamu){
-    			echo "<img src = ".$image."?1 width=100% id  = 'image'></img>";
-    			echo '<video id="player" controls autoplay width="90%" hidden></video>
+
+    			echo "<img src = ".$image."?1 width=90% id  = 'image' border='5'</img>";
+    			echo '<video id="player" controls autoplay width="70%" hidden></video>
           <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px"></canvas>';
     		}
     		else if ($flag_sign){
