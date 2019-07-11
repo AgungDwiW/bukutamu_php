@@ -2,15 +2,17 @@
 	require "../db/db_con.php";
 	$image = base64_decode($_POST['Image']);
 	$output = "media/".$_POST['UID'].".jpg";
-
-	try{
-		unlink($output);	
-	}
-	catch(Exception $e){
-		echo $e;
+	// var_dump();
+	if($_POST['Image']!=""){
+		try{
+			unlink($output);	
+		}
+		catch(Exception $e){
+			echo $e;
+		}
+		file_put_contents($output,$image);
 	}
 	
-	file_put_contents($output,$image);
 	$uid = (int)$_POST["UID"];
 	// ============================================================================================
 	//check tamu
@@ -86,7 +88,7 @@
 		// ============================================================================================
 		header('Location: index.php');
 	}
-	
+	// 
 	// ============================================================================================
 	// input data kedatangan
 	// ============================================================================================
