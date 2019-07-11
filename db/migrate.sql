@@ -62,18 +62,19 @@ CREATE table departemen (
 
 create table kedatangan (
 	id int not null auto_increment primary key, 
+	tamu varchar(15),
 	tanggal_datang datetime, 
 	tanggal_keluar datetime, 
-	keperluan varchar (50), 
+	durasi int,
 	suhu_badan float(1),
 	luka boolean, 
-	durasi int,
 	sakit varchar(50), 
-	signedout boolean,
-    tamu varchar(15),
+	bertemu varchar(50),
+	keperluan varchar (50), 
     departemen int,
-    bertemu varchar(50),
+    signedout boolean,
     id_keplek int,
+    
 	foreign key fk_tamu_ked (tamu)
 	references tamu(uid)
 	ON DELETE CASCADE,
@@ -87,6 +88,8 @@ create table pelaporan(
 	id int not null auto_increment primary key,
 	nama_pelapor varchar(50),
 	uid_pelapor varchar(50),
+	pelanggar varchar(15),
+	departemen int,
 	tanggal_pelanggaran date,
 	tanggal_pelaporan datetime,
 	tipe_12 varchar(50),
@@ -95,8 +98,7 @@ create table pelaporan(
 	area int,
 	ap varchar(100),
 	keterangan varchar (100),
-	pelanggar varchar(15),
-	departemen int,
+	
 	foreign key fk_pelanggar (pelanggar)
 	references tamu(uid)
 	on DELETE CASCADE,

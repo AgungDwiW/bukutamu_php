@@ -106,6 +106,15 @@
                             </p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="downloadcsv.php" class="nav-link">
+                            <i class="nav-icon fa fa-download" aria-hidden="true"></i>
+                            <p>
+                                Download
+                            </p>
+                        </a>
+                    </li>
                     
                     <?php
                     // require "auth/check.php";
