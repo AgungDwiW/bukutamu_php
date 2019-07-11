@@ -34,7 +34,7 @@
 
 	Create delete area (form & list) v
 
-	Dashboard -> dinamyc month
+	Dashboard -> dinamyc month v
 
 	Langsung blok tamu saat pelaporan pelanggaran v
 

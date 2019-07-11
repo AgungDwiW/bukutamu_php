@@ -102,7 +102,7 @@
                         <a href="pengampunan.php" class="nav-link">
                             <i class="nav-icon fa fa-user-times" aria-hidden="true"></i>
                             <p>
-                                Pengampunan
+                                Reset
                             </p>
                         </a>
                     </li>

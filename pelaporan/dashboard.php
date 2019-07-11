@@ -1,49 +1,82 @@
 <?php 
-if (isset($_GET['year']))
-  $year = $_GET['year'];
-else
-  $year = date('Y');
+// if (isset($_GET['year']))
+//   $year = $_GET['year'];
+// else
+//   $year = date('Y');
 
 require "../db/db_con.php";
-$month = array('01','02','03','04','05','06','07','08','09','10','11','12');
-$count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
-for ($x = 0; $x<12; $x+=1){
-  $sql = 'SELECT count(*) as count from kedatangan where YEAR(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$year.' and MONTH(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$month[$x].'';
+$month = array();
+// $count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
+  $sql = 'SELECT STR_TO_DATE(tanggal_kedatangan, "%Y-%m") as month, count(*) as count FROM `kedatangan` GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
-      $count_month[$x] = intval($row['count']);
+      $month[$row['month']] = intval($row['count']);
     }
   }
 
-}
-$count_month_pel = array(0,0,0,0,0,0,0,0,0,0,0,0);
-for ($x = 0; $x<12; $x+=1){
-  $sql = 'SELECT count(*) as count from pelaporan where YEAR(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$year.' and MONTH(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$month[$x].'';
+
+$moth_pel = $month;
+  $sql = 'SELECT STR_TO_DATE(tanggal_pelanggaran, "%Y-%m") as month, count(*) as count FROM `pelaporan` GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
-      $count_month_pel[$x] = intval($row['count']);
+      $month_pel[$row['month']] = intval($row['count']);
     }
   }
-}
+
+// var_dump($month);
+
+
+
+// $count_month_pel = array(0,0,0,0,0,0,0,0,0,0,0,0);
+// for ($x = 0; $x<12; $x+=1){
+//   $sql = 'SELECT count(*) as count from pelaporan where MONTHST(R_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$month[$x].'';
+//   $result = mysqli_query($conn, $sql);
+//   if ($result&& mysqli_num_rows($result) !=0){
+//     while($row = mysqli_fetch_assoc($result)) {
+//       $count_month_pel[$x] = intval($row['count']);
+//     }
+//   }
+// }
 // foreach ($count_month as $key ) {
 //     echo "$key,";
 // }
 // echo "<br>";
 
-$area_pel = array(0,0,0,0,0);
+// $area_pel = array(0,0,0,0,0);
 
-for ($x = 0; $x<5; $x++){
-    $sql = 'SELECT count(*) as count from pelaporan where YEAR(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$year.' and area = '.($x+1);
-    $result = mysqli_query($conn, $sql);
-      if ($result&& mysqli_num_rows($result) !=0){
-        while($row = mysqli_fetch_assoc($result)) {
-          $area_pel[$x] = intval($row['count']);
+// for ($x = 0; $x<5; $x++){
+//     $sql = 'SELECT count(*) as count from pelaporan where  area = '.($x+1);
+//     $result = mysqli_query($conn, $sql);
+//       if ($result&& mysqli_num_rows($result) !=0){
+//         while($row = mysqli_fetch_assoc($result)) {
+//           $area_pel[$x] = intval($row['count']);
+//         }
+//       }
+// }
+
+
+$sql = 'SELECT id, nama_area from area';
+$result = mysqli_query($conn, $sql);
+$area_name = array();
+if ($result&& mysqli_num_rows($result) !=0){
+    while($row = mysqli_fetch_assoc($result)) {
+      // var_dump($row);
+       $area_name[$row['nama_area']] = 0;
+      $sql2 = 'SELECT COUNT(*) as count FROM pelaporan where area ='.$row['id'];
+      // echo "$sql2";
+      $result2 = mysqli_query($conn, $sql2);
+      if ($result2&& mysqli_num_rows($result2) !=0){
+        while($row2 = mysqli_fetch_assoc($result2)) {
+          // var_dump($row2);
+          $area_name[$row['nama_area']] = $row2['count'];
         }
       }
+    }
 }
 
+// var_dump($area_name);
 // foreach ($area_pel as $key ) {
 //     echo "$key,";
 // }
@@ -54,7 +87,7 @@ for ($x = 0; $x<5; $x++){
 // }
 // echo "<br>";
 
-$sql = 'SELECT pelanggar from pelaporan where YEAR(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$year;
+$sql = 'SELECT pelanggar from pelaporan';
 $result = mysqli_query($conn, $sql);
 $perusahaan_pel = array();
 $perusahaan_datang = array();
@@ -87,7 +120,7 @@ if ($result&& mysqli_num_rows($result) !=0){
 }
 }
 
-$sql = 'SELECT tamu from kedatangan where YEAR(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$year;
+$sql = 'SELECT tamu from kedatangan';
 $result = mysqli_query($conn, $sql);
 if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
@@ -130,8 +163,9 @@ $departemen_pel = array();
 foreach ($departemen_name as $key => $value) {
     $departemen_pel[$key] = 0;
 }
-$sql = 'SELECT departemen from pelaporan where YEAR(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$year;
+$sql = 'SELECT departemen from pelaporan';
 // echo $sql;
+// YEAR(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$year;
 $result = mysqli_query($conn, $sql);
 if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
@@ -139,7 +173,7 @@ if ($result&& mysqli_num_rows($result) !=0){
         $departemen_pel[$row['departemen']]+=1;
     }
 }
-$sql = 'SELECT departemen from kedatangan where YEAR(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$year;
+$sql = 'SELECT departemen from kedatangan';
 $result = mysqli_query($conn, $sql);
 $departemen_datang = array();
 foreach ($departemen_name as $key => $value) {
@@ -296,13 +330,18 @@ if ($result&& mysqli_num_rows($result) !=0){
         type: 'line',
         data: {
 
-          labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli" , "Agustus" , "September", "Oktober","November", "Desember"],
+          labels: [<?php
+                  foreach ($month as $key => $value) {
+                     echo "'".$key."', ";
+                  }
+                  
+                ?>],
           datasets: [{
               label: "Jumlah Tamu",
               data: [
               <?php
-                  foreach ($count_month as $key ) {
-                      echo "$key,";
+                  foreach ($month as $key => $value) {
+                     echo "$value, ";
                   }
                   
                 ?>
@@ -317,12 +356,13 @@ if ($result&& mysqli_num_rows($result) !=0){
             },
             {
               label: "Pelanggaran Oleh tamu",
-              data: [
-              <?php
-               foreach ($count_month_pel as $key ) {
-                      echo "$key,";
+              data: [<?php
+              foreach ($month_pel as $key => $value) {
+                     echo "$value, ";
                   }
-                  ?>
+                  
+                ?>
+              
               ],
               backgroundColor: [
                 'rgba(0, 137, 132, .2)',
@@ -344,15 +384,19 @@ if ($result&& mysqli_num_rows($result) !=0){
       var areapelanggaran = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ["Area 1", "Area 2", "Area 3", "Area 4", "Area 5"],
+          labels: [ <?php
+foreach ($area_name as $key => $value) {
+    echo "'$key',";
+
+}?>],
           datasets: [{
             label: 'Area Pelanggaran',
             data: [
-            <?php 
-            foreach ($area_pel as $key ) {
-                echo "$key,";
-            }
-            ?>
+         <?php
+foreach ($area_name as $key => $value) {
+    echo "$area_name[$key],";
+
+}?>
              ],
             backgroundColor: [
               'rgba(155, 99, 132, 0.2)',
@@ -389,15 +433,15 @@ if ($result&& mysqli_num_rows($result) !=0){
         data: {
            labels: [
 <?php
-foreach ($perusahaan_name as $key => $value) {
+foreach ($departemen_name as $key => $value) {
     echo "'$value',";
 }
 ?>
           ],
            datasets: [{
             data: [<?php
-foreach ($perusahaan_datang as $key => $value) {
-    echo "$perusahaan_datang[$key],";
+foreach ($departemen_datang as $key => $value) {
+    echo "$departemen_datang[$key],";
 
 }?>
             ],
