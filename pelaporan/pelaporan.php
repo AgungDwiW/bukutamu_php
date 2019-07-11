@@ -116,7 +116,7 @@
                                         <hr style="display: block;" size="5">
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2"  for="nama">Tipe Aktivitas di 12 Basic:</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-4">
                                                 <select class="form-control inputsm" onchange="get_pelanggaran()" name="aktivitas_12" id="aktivitas_12" placeholder="Tipe id" disabled >
                                                 <option>Pilih</option>
                                                 <option >Work at Height</option>
@@ -134,10 +134,8 @@
 
                                             </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Sub Kategori:</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-4">
                                                 <select class="form-control inputsm" disabled onchange="get_pelanggaran()" name="Subkategori" id="Subketegori"   value = {{tamu.tipeid}}>
                                                 <option selected disabled>Pilih</option>
                                                 <optgroup label="Reaksi Orang">
@@ -205,7 +203,8 @@
                                                 </select>
 
                                             </div>
-                                        </div>   
+                                        </div>
+                                       
                                         <div id = "hid" hidden>
                                         <label>Pelanggaran sebelumnya:</label>
                                         <table id="table" class="table table-bordered table-hover"
