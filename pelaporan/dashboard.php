@@ -7,16 +7,16 @@
 require "../db/db_con.php";
 $month = array();
 // $count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
-  $sql = 'SELECT STR_TO_DATE(tanggal_kedatangan, "%Y-%m") as month, count(*) as count FROM `kedatangan` GROUP BY month';
+  $sql = 'SELECT STR_TO_DATE(tanggal_datang, "%Y-%m") as month, count(*) as count FROM `kedatangan` GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
       $month[$row['month']] = intval($row['count']);
     }
   }
+// echo "$sql";
 
-
-$moth_pel = $month;
+$month_pel = $month;
   $sql = 'SELECT STR_TO_DATE(tanggal_pelanggaran, "%Y-%m") as month, count(*) as count FROM `pelaporan` GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
@@ -25,7 +25,7 @@ $moth_pel = $month;
     }
   }
 
-// var_dump($month);
+
 
 
 
@@ -220,23 +220,7 @@ if ($result&& mysqli_num_rows($result) !=0){
                         <!-- /.card-header -->
                         <div class="card-header">                              
                             Dashboard
-                            <select style="position: absolute;right: 10px;"  name="forma" onchange="location = this.value;">
-                              <?php
-                                  $sql = 'SELECT year from year' ;
-                                  $result = mysqli_query($conn, $sql);
-                                  if ($result&& mysqli_num_rows($result) !=0){
-                                      while($row = mysqli_fetch_assoc($result)) {
-                                        $selected = "";
-                                        if ($row['year'] == $year)
-                                          $selected = "selected";
-                                        echo "<option value =dashboard.php?year=".$row['year'].
-                                          " ".$selected.
-
-                                        ">".$row['year']."</option> " ;
-                                    }
-                                  }
-                              ?>
-                            </select>                            
+                           
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
@@ -254,7 +238,7 @@ if ($result&& mysqli_num_rows($result) !=0){
                                         <canvas id="dpengunjung"></canvas>
                                    </div>
                                   <div class="column" >
-                                    <h3>Data Institusi</h3>
+                                    <h3>Data Kunjungan Institusi</h3>
                                     <canvas id="institusichart"></canvas>
                                   </div>
                                 </div>
