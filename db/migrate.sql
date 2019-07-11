@@ -5,6 +5,7 @@ USE bukutamudb;
 DROP TABLE IF EXISTS kedatangan;
 DROP TABLE IF EXISTS pelaporan;
 DROP TABLE IF EXISTS departemen;
+DROP TABLE IF EXISTS karyawan;
 DROP TABLE IF EXISTS year;
 DROP TABLE IF EXISTS tamu;
 DROP TABLE IF EXISTS user;
@@ -24,6 +25,14 @@ CREATE TABLE tipe_tamu(
 CREATE TABLE area(
 	id int not null primary key auto_increment,
 	nama_area varchar(50)
+);
+
+
+create table karyawan(
+	id int not null auto_increment primary key,
+	nik int,
+	nama varchar(40),
+	unique(nik)
 );
 
 CREATE TABLE tamu (
@@ -86,8 +95,8 @@ create table kedatangan (
 
 create table pelaporan(
 	id int not null auto_increment primary key,
-	nama_pelapor varchar(50),
-	uid_pelapor varchar(50),
+	uid_pelapor int,
+	nama_pelapor varchar(40),
 	pelanggar varchar(15),
 	departemen int,
 	tanggal_pelanggaran date,
@@ -98,7 +107,9 @@ create table pelaporan(
 	area int,
 	ap varchar(100),
 	keterangan varchar (100),
-	
+	foreign key fk_pelanggar_kary (uid_pelapor)
+	references karyawan(nik)
+	on DELETE SET NULL,
 	foreign key fk_pelanggar (pelanggar)
 	references tamu(uid)
 	on DELETE CASCADE,
@@ -137,6 +148,7 @@ create table pengampunan(
 	references tamu(uid)
 	on DELETE CASCADE
 );
+
 
 use bukutamudb;
 

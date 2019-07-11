@@ -26,7 +26,9 @@
 		keterangan sudah induksi |
 		max suhu tubuh v
 
-	Minta data karyawan }
+	Minta data karyawan v
+
+	ajax data karyawan |
 
 	Database dummy? x
 
