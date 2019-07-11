@@ -69,6 +69,14 @@
 			WHERE UID = ".$uid;
 		}
 		$result = mysqli_query($conn, $sql);
+		if ($_POST['Ind'] == "Belum induksi")
+		{
+			$sql = "UPDATE tamu
+			SET 
+			terakhir_ind = '".$now_date."'
+			WHERE UID = ".$uid;		
+			$result = mysqli_query($conn, $sql);
+		}
 
 	
 	}

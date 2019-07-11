@@ -41,11 +41,21 @@
 	$count = 0;
 	$flag_avail = false;
 	$image = 'media/noimage.jpg';
-	$ind = "Belum induksi";
+	$ind = "0";
 	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);
 	$flag_tamu = 1;
 	$blocked = 0;
+	$a = '-'.$max_ind.' day';
+	
+	$b = strtotime($a);
+	
+	$ind_limit = date("Y-m-d", $b);
+	$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
+	// var_dump($ind_limit);
+	
+	
+	// echo "<br>";
 	if (!$result_tamu){
 		header('Location: index.php');
 	}
@@ -66,7 +76,10 @@
 	    	$flag_tamu = $row['saved'];
 	    	$saved = $row['saved'];
 	    	$blocked = $row['blok'];
-	    	$ind = $row['terakhir_ind'];
+	    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
+	    	// var_dump($ymd);
+	    	$ind = $ymd<$ind_limit?"0":"1";
+	    	
 	    	$tipe = $row['tipe'];
 	    }
 	    $sql = "SELECT * FROM kedatangan where signedout = false and tamu = ".$uid;
@@ -218,7 +231,12 @@
 	         <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="ind">Induksi terakhir:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" disabled   value = "<?php echo $ind; ?>"    >
+	          	<?php if($ind){?>
+	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Sudah Induksi"    >
+	        	<?php }
+	        	else {?>
+	        	<input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Belum induksi"    >
+	        		<?php }?>
 	          </div>
 	        </div>
 	        
