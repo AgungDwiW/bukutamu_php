@@ -376,15 +376,15 @@ foreach ($area_name as $key => $value) {
         data: {
            labels: [
 <?php
-foreach ($departemen_name as $key => $value) {
+foreach ($perusahaan_name as $key => $value) {
     echo "'$value',";
 }
 ?>
           ],
            datasets: [{
             data: [<?php
-foreach ($departemen_datang as $key => $value) {
-    echo "$departemen_datang[$key],";
+foreach ($perusahaan_name as $key => $value) {
+    echo "$perusahaan_datang[$key],";
 
 }?>
             ],
