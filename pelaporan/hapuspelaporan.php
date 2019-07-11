@@ -5,7 +5,7 @@
 	if (!isset($id)){
 		header('Location: listpelaporan.php');	
 	}
-	$sql = "DELETE FROM PELAPORAN WHERE ID = ".$id;
+	$sql = "DELETE FROM pelaporan WHERE id = ".$id;
 	$result2 = mysqli_query($conn, $sql);
 	header('Location: listpelaporan.php');	
 ?>

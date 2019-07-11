@@ -157,7 +157,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
             parseInt(json[x]['positif'])?"+":"-",
             json[x]['ap'],
             json[x]['keterangan'],
-            '<td style="vertical-align:middle;">                                            <a href="" class="nav-link" onclick="document.getElementById("link").href =  "hapuspelaporan.php?id='+json[x]['id']+'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i class="fa fa-fw fa-trash"></i><span class="nav-link-text" >Hapus</span></a></td>'
+            '<td style="vertical-align:middle;">                                            <a href="" class="nav-link" onclick="document.getElementById(\'link\').href =  \'hapuspelaporan.php?id='+json[x]['id']+'\'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i class="fa fa-fw fa-trash"></i><span class="nav-link-text" >Hapus</span></a></td>'
             
         ] ).draw( false );
  

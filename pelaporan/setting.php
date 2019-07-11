@@ -66,27 +66,27 @@ while($row = mysqli_fetch_assoc($result)) {
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-10" for="nama">Maximum temperature untuk tamu :</label>
                                             <div class="col-sm-2">
-                                                <input type="number" name="max_temp" id = "max_temp" class = "form-control inputsm" required value = <?php echo $max_temp ?>></div>
+                                                <input type="number" name="max_temp" id = "max_temp" class = "form-control inputsm" required min="0" value = <?php echo $max_temp ?>></div>
                                         </div>
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-10" for="nama">Maximum hari untuk induksi :</label>
                                             <div class="col-sm-2">
-                                                <input type="number" name="max_ind" id = "max_ind" class = "form-control inputsm" required value="<?php echo $max_ind ?>"></div>
+                                                <input type="number" name="max_ind" id = "max_ind" class = "form-control inputsm" required min="0" value="<?php echo $max_ind ?>"></div>
                                         </div>
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-10" for="nama">Maximum pelanggaran tamu :</label>
                                             <div class="col-sm-2">
-                                                <input type="number" name="max_pel" id = "max_pel" class = "form-control inputsm" required value="<?php echo $max_pel ?>"></div>
+                                                <input type="number" name="max_pel" id = "max_pel" class = "form-control inputsm" required min="0" value="<?php echo $max_pel ?>"></div>
                                         </div>
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-10" for="nama">Auto reset count pelanggaran tiap (dalam bulan) :</label>
                                             <div class="col-sm-2">
-                                                <input type="number" name="reset" id = "reset" class = "form-control inputsm" required value="<?php echo $reset ?>"></div>
+                                                <input type="number" name="reset" id = "reset" class = "form-control inputsm" required min="0" value="<?php echo $reset ?>"></div>
                                         </div>
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-10" for="nama">Auto hapus data tiap (dalam bulan) :</label>
                                             <div class="col-sm-2">
-                                                <input type="number" name="delete" id = "delete" class = "form-control inputsm" required value="<?php echo $delete ?>"></div>
+                                                <input type="number" name="delete" id = "delete" class = "form-control inputsm" required min="0" value="<?php echo $delete ?>"></div>
                                         </div>
 
                                         <div class="col-sm-12 center"> 

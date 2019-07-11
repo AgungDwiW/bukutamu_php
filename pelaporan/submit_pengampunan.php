@@ -1,5 +1,6 @@
 <?php
 require "../db/db_con.php";
+	require 'auth/login_middleware.php';
 // var_dump($_POST);
 $uid_jahat = $_POST['uid_pelaku'];
 $uid_baik = $_POST['uid_pelapor'];
