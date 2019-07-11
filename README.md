@@ -23,10 +23,10 @@
 	bukutamu :
 		tambah form tipe visitor v
 		tambah form nomor yg diambil v
-		keterangan sudah induksi xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+		keterangan sudah induksi |
 		max suhu tubuh v
 
-	Minta data karyawan
+	Minta data karyawan }
 
 	Database dummy? x
 
@@ -38,7 +38,7 @@
 
 	Langsung blok tamu saat pelaporan pelanggaran v
 
-	Download db as csv 
+	Download db as csv v 
 
 
 

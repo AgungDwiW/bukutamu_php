@@ -27,36 +27,6 @@ $month_pel = $month;
 
 
 
-
-
-// $count_month_pel = array(0,0,0,0,0,0,0,0,0,0,0,0);
-// for ($x = 0; $x<12; $x+=1){
-//   $sql = 'SELECT count(*) as count from pelaporan where MONTHST(R_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$month[$x].'';
-//   $result = mysqli_query($conn, $sql);
-//   if ($result&& mysqli_num_rows($result) !=0){
-//     while($row = mysqli_fetch_assoc($result)) {
-//       $count_month_pel[$x] = intval($row['count']);
-//     }
-//   }
-// }
-// foreach ($count_month as $key ) {
-//     echo "$key,";
-// }
-// echo "<br>";
-
-// $area_pel = array(0,0,0,0,0);
-
-// for ($x = 0; $x<5; $x++){
-//     $sql = 'SELECT count(*) as count from pelaporan where  area = '.($x+1);
-//     $result = mysqli_query($conn, $sql);
-//       if ($result&& mysqli_num_rows($result) !=0){
-//         while($row = mysqli_fetch_assoc($result)) {
-//           $area_pel[$x] = intval($row['count']);
-//         }
-//       }
-// }
-
-
 $sql = 'SELECT id, nama_area from area';
 $result = mysqli_query($conn, $sql);
 $area_name = array();
@@ -75,17 +45,6 @@ if ($result&& mysqli_num_rows($result) !=0){
       }
     }
 }
-
-// var_dump($area_name);
-// foreach ($area_pel as $key ) {
-//     echo "$key,";
-// }
-// echo "<br>";
-
-// foreach ($area_pel as $key =>$value) {
-//     echo "$key => $value ,";
-// }
-// echo "<br>";
 
 $sql = 'SELECT pelanggar from pelaporan';
 $result = mysqli_query($conn, $sql);
