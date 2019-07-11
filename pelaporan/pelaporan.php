@@ -221,7 +221,12 @@
                                                 </tfoot>
                                                 </table>
                                         </div>
-                                        <div class="form-group row"id = "before" style="padding-bottom:1rem;">
+                                          <div class="form-group row" id = "before"  style="padding-bottom:1rem;">
+                                            <label class="control-label col-sm-2" for="Action plan 2">Keterangan:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="keterangan" disabled id = "keterangan"  class = "form-control inputsm" placeholder="Keterangan"></div>
+                                        </div>
+                                        <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Positif/Negatif</label>
                                             <div class="col-sm-4">
                                                 <select class="form-control inputsm" disabled name="positivity" id="positivity" placeholder="Tipe id"  value = {{tamu.tipeid}}>
@@ -240,11 +245,7 @@
                                             </div>
                                         </div>
                                       
-                                        <div class="form-group row"  style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="Action plan 2">Keterangan:</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="keterangan" disabled id = "keterangan"  class = "form-control inputsm" placeholder="Keterangan"></div>
-                                        </div>
+                                      
 
                                         <div class="col-sm-12 center"> 
                                             <input type="submit" name="submit" id = "submit" class="col-sm-12">

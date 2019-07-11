@@ -150,6 +150,6 @@
 		}
 	}
 }}}
-// 	header('Location: listpelaporan.php');	
+	header('Location: listpelaporan.php');	
 
 ?>
