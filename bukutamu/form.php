@@ -232,10 +232,10 @@
 	          <label class="control-label col-sm-3" for="ind">Induksi terakhir:</label>
 	          <div class="col-sm-9">  
 	          	<?php if($ind){?>
-	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Sudah Induksi"    >
+	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Sudah Induksi"  style="background-color: #78be20"  >
 	        	<?php }
 	        	else {?>
-	        	<input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Belum induksi"    >
+	        	<input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Belum induksi"  style="background-color: red"  >
 	        		<?php }?>
 	          </div>
 	        </div>
