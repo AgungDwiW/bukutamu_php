@@ -121,5 +121,11 @@ body {
 #cancel {
   background-color: red;
 }
+#image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+} 
 
 @media all and (min-width:1920px) { #container { width: 1850px; } }
