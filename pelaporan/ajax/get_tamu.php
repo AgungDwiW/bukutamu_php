@@ -15,7 +15,7 @@
 		require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
 		$sql = "SELECT * FROM tamu where uid = ".$uid."";
 		$result = mysqli_query($conn, $sql);
-		if (mysqli_num_rows($result) !=0){
+		if ($result && mysqli_num_rows($result) !=0){
 			while($row = mysqli_fetch_assoc($result)) {
 				$sql = "SELECT * FROM kedatangan where tamu = ".$uid."";
 				$result2 = mysqli_query($conn, $sql);

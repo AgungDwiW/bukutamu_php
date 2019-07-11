@@ -29,7 +29,7 @@
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Nama Pelapor:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Pelapor"></div>
+                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Pelapor" readonly=""></div>
                                         </div>
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
@@ -39,11 +39,10 @@
                                           </div>
                                           <div class="col-sm-3" style="padding-bottom:1rem;">
                                             <select class="form-control inputsm" name="tid_pelapor" id="tid_pelapor" placeholder="Tipe id" >
-                                                <option>KTP</option>
-                                                <option selected>Kartu Pegawai</option>
-                                                <option >SIM</option>
+                                                <option>NIK</option>
                                             </select>
                                           </div>
+                                           <label id = "hidme2" hidden="">Data karawan tidak ditemukan </label>
                                         </div>  
                                         
                                         <hr style="display: block;" size="5">
@@ -282,6 +281,8 @@ const ap2_lab = document.getElementById('AP2_lab')
 const ket = document.getElementById('keterangan')
 const area = document.getElementById('area')
 const blok = document.getElementById('blok')
+const uid_pel = document.getElementById('uid_pelapor');
+const nama_pelapor = document.getElementById('nama_pelapor');
 var valid = false
 var no = 1;
 function addinput(value){
@@ -353,21 +354,20 @@ uid.addEventListener("keyup",
         }
         };
         event.preventDefault();
-        if (event.which == 13 || event.keyCode == 13) {
-           console.log("get_tamu?uid=" + uid.value)
+        
+           
             xhttp.open("GET", "ajax/get_tamu.php?uid=" + uid.value, true);
             xhttp.send();
             return false;
-    }
+    
     });
 function get_tamu(cur){
     // console.log(cur)
     if (cur['error']){
         document.getElementById('hidme').hidden = false;
         deactivate()
-        return false;
         valid = 0;
-        
+        return false;
     }
     cur = cur[0];
     activate()
@@ -449,6 +449,45 @@ function pelanggaran(json){
     }
     addinput2();
 }
+
+
+
+uid_pel.addEventListener("keyup", 
+    function (event) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText)
+            cur = JSON.parse(this.responseText)
+            
+            valid = true
+            get_kary(cur);
+
+        }
+        };
+        event.preventDefault();
+        
+           console.log("ajax/get_karyawan.php?uid=" + uid_pel.value)
+            xhttp.open("GET", "ajax/get_karyawan.php?uid=" + uid_pel.value, true);
+            xhttp.send();
+            return false;
+
+    });
+function get_kary(cur){
+    // console.log(cur)
+    if (cur['error']){
+        document.getElementById('hidme2').hidden = false;
+        // deactivate()
+        nama_pelapor.value = "";
+        valid = 0;
+        return false;
+    }
+    else   {
+        document.getElementById('hidme2').hidden = true;
+        nama_pelapor.value = cur['nama'];
+    }
+
+};
 
 
 $('form input').on('keypress', function(e) {

@@ -23,12 +23,12 @@ file_put_contents($output,$image);
 // 	        //failed
 // 	}
 // }
-$sql2 = "UPDATE tamu SET count_pelanggaran = 0 WHERE uid = $uid_jahat";
+$sql2 = "UPDATE tamu SET count_pelanggaran = 0, blok = 0 WHERE uid = $uid_jahat";
 // echo "$sql2";
 $result = mysqli_query($conn, $sql2);
 
 
-$sql = "insert into pengampunan(uid_pengampun, nama_pengampun, pelanggar, mou) values( $uid_baik, '$nama', $uid_jahat, '$output')";
+$sql = "insert into pengampunan(uid_pengampun, nama_pengampun, pelanggar, mou) values( $uid_baik, '".$nama."', $uid_jahat, '$output')";
 $result = mysqli_query($conn, $sql);
 // echo "$sql";
 header('Location: dashboard.php');	

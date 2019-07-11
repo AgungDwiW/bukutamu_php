@@ -1,5 +1,12 @@
 <?php include("template.php") ;
- require "../db/db_con.php"; ?>
+ require "../db/db_con.php"; 
+ $tz_object = new DateTimeZone('Asia/Jakarta');
+$datetime = new DateTime();
+$datetime->setTimezone($tz_object);
+$now_date = $datetime->format('Y\-m\-d');
+$now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( date("Y-m-d") ) ) . "-1 month" ) );
+
+?>
 
 <body class="hold-transition sidebar-mini">
     <br>
@@ -24,10 +31,10 @@
                                    <div class="form-group row"><!-- UID -->
                                           Range data:
                                           <div class="col-sm-2">  
-                                            <input type="date" name="start" id = "start" class="form-control form-control-sm " onchange= "get_data()">
+                                            <input type="date" name="start" id = "start" class="form-control form-control-sm " onchange= "get_data()" value="<?php echo $now_date_old ?>">
                                           </div> - 
                                           <div class="col-sm-2">
-                                            <input type="date" name="end" id = "end" class="form-control form-control-sm " onchange= "get_data()">
+                                            <input type="date" name="end" id = "end" class="form-control form-control-sm " onchange= "get_data()" value=<?php echo '"'.$now_date.'"' ?>>
                                           </div>
                                         </div>  
                             <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center;">
@@ -90,6 +97,7 @@
 </body>
 
  <script>
+    
         var temp = $("#start");
         const start = temp[0];
         var temp = $("#end");
@@ -104,7 +112,7 @@
             });
         });
         $(document).ready(function() {
-           
+           get_data();
         } );
         
         function get_data(){
@@ -146,7 +154,7 @@
             json[x]['area'],
             json[x]['tipe_12'],
             json[x]['subkategori'],
-            json[x]['positif']?"+":"-",
+            parseInt(json[x]['positif'])?"+":"-",
             json[x]['ap'],
             json[x]['keterangan'],
             '<td style="vertical-align:middle;">                                            <a href="" class="nav-link" onclick="document.getElementById("link").href =  "hapuspelaporan.php?id='+json[x]['id']+'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i class="fa fa-fw fa-trash"></i><span class="nav-link-text" >Hapus</span></a></td>'

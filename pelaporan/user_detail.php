@@ -225,60 +225,48 @@ else
   $year = date('Y');
 
 require "../db/db_con.php";
-$month = array('01','02','03','04','05','06','07','08','09','10','11','12');
-$count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
-for ($x = 0; $x<12; $x+=1){
-  $sql = 'SELECT count(*) as count from kedatangan where tamu= '.$uid.' and MONTH(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$month[$x].'';
-  // echo "$sql";
+$month = array();
+$count_durasi= array();
+// $count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
+  $sql = 'SELECT STR_TO_DATE(tanggal_datang, "%Y-%m") as month, count(*) as count, sum(durasi) as durasi FROM `kedatangan` where tamu='.$uid.' GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
-      $count_month[$x] = intval($row['count']);
+      $month[$row['month']] = intval($row['count']);
+      $count_durasi[$row['month']] = intval($row['durasi']);
     }
   }
-}
+// echo "$sql";
 
-$month = array('01','02','03','04','05','06','07','08','09','10','11','12');
-$count_durasi = array(0,0,0,0,0,0,0,0,0,0,0,0);
-for ($x = 0; $x<12; $x+=1){
-  $sql = 'SELECT durasi from kedatangan where tamu= '.$uid.' and MONTH(STR_TO_DATE(tanggal_datang, "%Y-%m-%d")) = '.$month[$x].'';
-  // echo "$sql";
+$month_pel = $month;
+  $sql = 'SELECT STR_TO_DATE(tanggal_pelanggaran, "%Y-%m") as month, count(*) as count FROM `pelaporan` where pelanggar='.$uid.' GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
-      $count_durasi[$x] += intval($row['durasi']);
+      $month_pel[$row['month']] = intval($row['count']);
     }
   }
-}
-$month = array('01','02','03','04','05','06','07','08','09','10','11','12');
-$count_pel = array(0,0,0,0,0,0,0,0,0,0,0,0);
-for ($x = 0; $x<12; $x+=1){
-  $sql = 'SELECT count(*) as count from pelaporan where pelanggar= '.$uid.' and MONTH(STR_TO_DATE(tanggal_pelanggaran, "%Y-%m-%d")) = '.$month[$x].'';
-  // echo "$sql";
-  $result = mysqli_query($conn, $sql);
-  if ($result&& mysqli_num_rows($result) !=0){
-    while($row = mysqli_fetch_assoc($result)) {
-      $count_pel[$x] = intval($row['count']);
-    }
-  }
-}
 
 ?>
 <script type="text/javascript">
-
 
     var ctxL = document.getElementById("dpengunjung").getContext('2d');
       var mydpengunjung = new Chart(ctxL, {
         type: 'line',
         data: {
 
-          labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli" , "Agustus" , "September", "Oktober","November", "Desember"],
+          labels: [<?php
+                  foreach ($month as $key => $value) {
+                     echo "'".$key."', ";
+                  }
+                  
+                ?>],
           datasets: [{
-              label: "Kali tamu datang",
+              label: "Jumlah Tamu",
               data: [
               <?php
-                  foreach ($count_month as $key ) {
-                      echo "$key,";
+                  foreach ($month as $key => $value) {
+                     echo "$value, ";
                   }
                   
                 ?>
@@ -293,13 +281,13 @@ for ($x = 0; $x<12; $x+=1){
             },
             {
               label: "Pelanggaran Oleh tamu",
-              data: [
-                 <?php
-                  foreach ($count_pel as $key ) {
-                      echo "$key,";
+              data: [<?php
+              foreach ($month_pel as $key => $value) {
+                     echo "$value, ";
                   }
                   
                 ?>
+              
               ],
               backgroundColor: [
                 'rgba(0, 137, 132, .2)',
@@ -320,7 +308,12 @@ var ctxL = document.getElementById("djampengunjung").getContext('2d');
         type: 'line',
         data: {
 
-          labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli" , "Agustus" , "September", "Oktober","November", "Desember"],
+          labels: [<?php
+                  foreach ($month as $key => $value) {
+                     echo "'".$key."', ";
+                  }
+                  
+                ?>],
           datasets: [{
               label: "Durasi kedatangan tamu dalam jam",
               data: [

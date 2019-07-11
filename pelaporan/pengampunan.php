@@ -17,7 +17,7 @@
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
-                            <form id="msform" style="height:auto; width:auto; text-align: left;" enctype="multipart/form-data" method="post" onsubmit="return validateform()" action="submit_pengampunan.php" >
+                            <form id="msform" style="height:auto; width:auto; text-align: left;" enctype="multipart/form-data" onsubmit="return validateform()" method="POST" action="submit_pengampunan.php"  >
                             <!-- fieldsets -->
                            
                                 <fieldset>
@@ -29,7 +29,7 @@
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Nama Petugas:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Pelapor"></div>
+                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Pelapor" readonly=""></div>
                                         </div>
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
@@ -39,11 +39,13 @@
                                           </div>
                                           <div class="col-sm-3" style="padding-bottom:1rem;">
                                             <select class="form-control inputsm" name="tid_pelapor" id="tid_pelapor" placeholder="Tipe id" >
-                                                <option>KTP</option>
-                                                <option selected>Kartu Pegawai</option>
-                                                <option >SIM</option>
+                                                <option>NIK</option>
+                                           
                                             </select>
+
+
                                           </div>
+                                          <label id = "hidme2" hidden="">Data karyawan tidak ditemukan </label>
                                         </div>  
                                         
                                         <hr style="display: block;" size="5">
@@ -143,6 +145,8 @@ const sub = document.getElementById('Subketegori')
 const hide = document.getElementById('hid')
 const counter = document.getElementById('counter')
 const table = document.getElementById('table').getElementsByTagName('tbody')[0];
+const uid_pel = document.getElementById('uid_pelapor');
+const nama_pelapor = document.getElementById('nama_pelapor');
 var valid = false
 var no = 1;
 function addinput(value){
@@ -167,22 +171,13 @@ function del (){
 
 
 function validateform(){
-    var str_12 = tipe12.options[tipe12.selectedIndex].text
-    var str_sub = sub.options[sub.selectedIndex].text
-    if (str_12== "Pilih"  || str_sub== "Pilih"){
-        return false
-    }
-   if (sakit_flag == true){
-        sakit.value = "";
-    }
-    tid.disabled = false
-    kelamin.disabled = false;
+  
     if(!player.paused && flag_camera){
         alert("belum mengambil foto");
         return false;
     }
     // cameracapture();
-    return valid
+    return valid;
     
 }
 
@@ -205,12 +200,12 @@ uid.addEventListener("keyup",
         }
         };
         event.preventDefault();
-        if (event.which == 13 || event.keyCode == 13) {
+        
            console.log("get_tamu?uid=" + uid.value)
             xhttp.open("GET", "ajax/get_tamu.php?uid=" + uid.value, true);
             xhttp.send();
             return false;
-    }
+    
     });
 function get_tamu(cur){
     // console.log(cur)
@@ -301,7 +296,7 @@ function pelanggaran(json){
 $('form input').on('keypress', function(e) {
     return e.which !== 13;
 });
-
+flag_camera = 1;
 // CAMERA
 const constraints = {
        video: true,
@@ -317,8 +312,7 @@ const context = canvas.getContext('2d');
 const image = document.getElementById('Image');
 function cameracapture (){
     // Draw the video frame to the canvas.
-    
-    
+    flag_camera = !flag_camera;
    handler = document.getElementById("image_location")
    handler = player
    context.drawImage(player, 0, 0, canvas.width, canvas.height);
@@ -331,5 +325,44 @@ function cameracapture (){
     else
         player.play();
 }
+
+
+uid_pel.addEventListener("keyup", 
+    function (event) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText)
+            cur = JSON.parse(this.responseText)
+            
+            valid = true
+            get_kary(cur);
+
+        }
+        };
+        event.preventDefault();
+        
+           console.log("ajax/get_karyawan.php?uid=" + uid_pel.value)
+            xhttp.open("GET", "ajax/get_karyawan.php?uid=" + uid_pel.value, true);
+            xhttp.send();
+            return false;
+
+    });
+function get_kary(cur){
+    // console.log(cur)
+    if (cur['error']){
+        document.getElementById('hidme2').hidden = false;
+        // deactivate()
+        nama_pelapor.value = "";
+        valid = 0;
+        return false;
+    }
+    else   {
+        document.getElementById('hidme2').hidden = true;
+        nama_pelapor.value = cur['nama'];
+    }
+
+};
+
 
 </script>

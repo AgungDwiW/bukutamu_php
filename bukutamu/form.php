@@ -310,7 +310,7 @@
 	          <label class="control-label col-sm-3" for="Bertemu">Bertemu dengan:</label>
 	          <div class="col-sm-9">  
 	            <input type="text" class="form-control inputsm" name="Bertemu" id="Bertemu"
-	            placeholder="Bapak/Ibu" required value =  <?php echo  $bertemu ?> >
+	            placeholder="Bapak/Ibu" autocomplete="off" required value =  <?php echo  $bertemu ?> >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
@@ -369,7 +369,7 @@
 	        <label class="control-label col-sm-3" for="sakit"> Jenis sakit :</label>
 	          <div class="col-sm-9">  
 	          	
-	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit"  placeholder="Sehat"    required   >
+	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit" autocomplete="off" placeholder="Sehat"    required   >
 	          </div>
 	        </div>
 	        <div class="form-group row">

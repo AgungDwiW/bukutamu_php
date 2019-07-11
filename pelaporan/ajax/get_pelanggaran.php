@@ -16,7 +16,7 @@
 		require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
 		$sql = "SELECT * FROM pelaporan where pelanggar = ".$uid." and tipe_12 = '".$_GET['akt']."' and subkategori = '".$_GET['sub']."' and positif = false";
 		$result = mysqli_query($conn, $sql);
-		$return['sql'] = $sql;
+		// $return['sql'] = $sql;
 		// echo json_encode($return);			
 		if ($result && mysqli_num_rows($result) !=0){
 			$return=array();
@@ -24,7 +24,21 @@
 				$temp ['ap'] = "";
 				$temp ['tanggal'] = $row['tanggal_pelanggaran'];
 				$temp ['area'] = $row['area'];
+
+				$sql = "select nama_area as nama from area where id = ".$row['area'];
+				$result2 = mysqli_query($conn, $sql);
+				while($row2 = mysqli_fetch_assoc($result2)) {
+					$temp['area'] = $row2['nama'];
+				}
+
 				$temp ['departemen'] = $row['departemen'];
+				$sql = "select nama_departemen as nama from departemen where id = ".$row['area'];
+				$result2 = mysqli_query($conn, $sql);
+				while($row2 = mysqli_fetch_assoc($result2)) {
+					$temp['departemen'] = $row2['nama'];
+				}
+
+
 				$temp ['ap'] = $row['ap'];
 				array_push($return, $temp);
 			}
