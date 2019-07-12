@@ -30,7 +30,7 @@
 		ON COMPLETION PRESERVE 
 		ENABLE 
 		DO 
-		UPDATE tamu SET count_pelanggaran = 0 , terakhir_count =STR_TO_DATE(CURDATE(), '%Y-%m-%d')
+		UPDATE tamu SET count_pelanggaran = 0 , terakhir_count =STR_TO_DATE(CURDATE(), '%Y-%m-%d'), blok = 0
 		where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL ".$_POST['reset']." MONTH > STR_TO_DATE(`terakhir_count`, '%Y-%m-%d');
 		";
 	
