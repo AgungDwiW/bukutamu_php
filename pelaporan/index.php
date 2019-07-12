@@ -15,7 +15,7 @@
     <title>Bukutamu</title>
 </head>
 
-<body background="../assets/bg/indexbackground.jpg"  >
+<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat;" id = "body" >
 
     <div class="wrapper ">
       <div id="formContent">

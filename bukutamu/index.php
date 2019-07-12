@@ -18,7 +18,7 @@
     </style>
 </head>
 
-<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height:auto" id = "body">
+<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat;" id = "body">
     <div class="wrapper ">
       <div id="formContent">
         <!-- Tabs Titles -->
