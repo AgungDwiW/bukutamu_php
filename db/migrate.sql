@@ -154,7 +154,7 @@ use bukutamudb;
 
 insert into user(
 	user, pass, is_super, is_superman)
-	values ('admin', 'f6fdffe48c908deb0f4c3bd36c032e72', true, true);
+	values ('pandaan0', 'ad82b52fc58558e72ba3f4837cd4ed60', true, true);
 
 
 insert into setting(nama, value) values
@@ -172,17 +172,3 @@ insert into setting(nama, value) values
 insert into setting(nama, value) values
 	("autodelete", 24);
 
-insert into departemen(nama_departemen, penanggungjawab, email) values
-	("TestDep1", "testman", "pif.zwei@gmail.com");
-
-insert into departemen(nama_departemen, penanggungjawab, email) values
-	("TestDep2", "testman", "pif.zwei@gmail.com");
-
-insert into tipe_tamu(tipe) values ("visitor");
-
-insert into tipe_tamu(tipe) values ("vendor");
-
-insert into tipe_tamu(tipe) values ("PKL");
-
-insert into area (nama_area) values("1 : Ismaya");
-insert into area (nama_area) values("2 : Srikandi");

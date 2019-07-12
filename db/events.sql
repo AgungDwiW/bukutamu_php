@@ -1,5 +1,5 @@
 SET GLOBAL event_scheduler = ON;
-
+use bukutamudb;
 
 DROP EVENT IF EXISTS `autoresetpel`;
 DROP EVENT IF EXISTS `autodelete_ked` ;
