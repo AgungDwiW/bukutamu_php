@@ -36,6 +36,7 @@
                                           <label class="control-label col-sm-2" for="UID">UID Petugas:</label>
                                           <div class="col-sm-7">  
                                             <input type="text" required class="form-control inputsm" name="uid_pelapor" id="uid_pelapor" placeholder="NIK" value =   > 
+                                            <input type="text" required class="form-control inputsm" name="id_kary" id="id_kary" hidden> 
                                           </div>
                                           <div class="col-sm-3" style="padding-bottom:1rem;">
                                             <select class="form-control inputsm" name="tid_pelapor" id="tid_pelapor" placeholder="Tipe id" >
@@ -63,6 +64,7 @@
                                                 <option >Kartu Pegawai</option>
                                                 <option >SIM</option>
                                             </select>
+                                            <input type="text" required class="form-control inputsm" name="id_tamu" id="id_tamu" hidden> 
                                               
                                           </div>
                                         <label id = "hidme" hidden="">Data tamu tidak ditemukan </label>
@@ -223,6 +225,7 @@ function get_tamu(cur){
     nama.value = cur['nama']
     no_hp.value = cur['hp']
     counter.value = cur['counter']
+    document.getElementById('id_tamu').value = cur['id'];
     if (!cur['saved']){
         nama.value = "Deleted"
         no_hp.value = "Deleted"
@@ -360,6 +363,7 @@ function get_kary(cur){
     else   {
         document.getElementById('hidme2').hidden = true;
         nama_pelapor.value = cur['nama'];
+        document.getElementById('id_kary').value = cur['id'];
     }
 
 };

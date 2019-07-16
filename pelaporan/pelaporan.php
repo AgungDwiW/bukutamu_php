@@ -97,7 +97,7 @@
                                                 <select name="area" disabled class = "form-control inputsm" id = "area" >
                                                     <?php  
                                                     require "../db/db_con.php";
-                    $sql = "SELECT * FROM area";  
+                    $sql = "SELECT * FROM area order by nama_area";  
                     $result_dep = mysqli_query($conn, $sql);
                     if (mysqli_num_rows($result_dep) > 0) {
                         // output data of each row

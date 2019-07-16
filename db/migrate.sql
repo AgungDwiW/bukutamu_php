@@ -4,6 +4,7 @@ CREATE DATABASE bukutamudb;
 USE bukutamudb;
 DROP TABLE IF EXISTS kedatangan;
 DROP TABLE IF EXISTS pelaporan;
+DROP TABLE IF EXISTS pengampunan;
 DROP TABLE IF EXISTS departemen;
 DROP TABLE IF EXISTS karyawan;
 DROP TABLE IF EXISTS year;
@@ -142,8 +143,8 @@ create table pengampunan(
 	id int not null auto_increment primary key,
 	id_karyawan int,
 	id_tamu int,
-	nama_pengampun varchar(50),
 	mou varchar(50),
+	tanggal_pengampunan date,
 	foreign key fk_pengampunan (id_tamu)
 	references tamu(id)
 	on DELETE CASCADE,
@@ -181,6 +182,7 @@ use bukutamudb;
 DROP EVENT IF EXISTS `autoresetpel`;
 DROP EVENT IF EXISTS `autodelete_ked` ;
 DROP EVENT IF EXISTS `autodelete_pel` ;
+DROP EVENT IF EXISTS `autodelete_res`;
 
 CREATE EVENT `autoresetpel` 
 ON SCHEDULE EVERY 1 MONTH 
@@ -206,4 +208,15 @@ ENABLE
 DO 
 DELETE FROM pelaporan
 where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL 24 MONTH > STR_TO_DATE(`tanggal_pelanggaran`, '%Y-%m-%d');
+
+
+
+CREATE EVENT `autodelete_res` 
+ON SCHEDULE EVERY 1 MONTH 
+ON COMPLETION PRESERVE 
+ENABLE 
+DO 
+DELETE FROM pengampunan
+where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL 24 MONTH > STR_TO_DATE(`tanggal_pengampunan`, '%Y-%m-%d');
+
 

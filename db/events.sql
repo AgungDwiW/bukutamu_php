@@ -4,6 +4,7 @@ use bukutamudb;
 DROP EVENT IF EXISTS `autoresetpel`;
 DROP EVENT IF EXISTS `autodelete_ked` ;
 DROP EVENT IF EXISTS `autodelete_pel` ;
+DROP EVENT IF EXISTS `autodelete_res`;
 
 CREATE EVENT `autoresetpel` 
 ON SCHEDULE EVERY 1 MONTH 
@@ -29,4 +30,14 @@ ENABLE
 DO 
 DELETE FROM pelaporan
 where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL 24 MONTH > STR_TO_DATE(`tanggal_pelanggaran`, '%Y-%m-%d');
+
+
+
+CREATE EVENT `autodelete_res` 
+ON SCHEDULE EVERY 1 MONTH 
+ON COMPLETION PRESERVE 
+ENABLE 
+DO 
+DELETE FROM pengampunan
+where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL 24 MONTH > STR_TO_DATE(`tanggal_pengampunan`, '%Y-%m-%d');
 

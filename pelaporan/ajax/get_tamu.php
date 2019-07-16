@@ -29,6 +29,7 @@
 					}
 				}
 				$return_arr[] = array("nama" => $row['nama_tamu'],
+					"id" => $row['id'],
                     "hp" => $row['nohp'],
                     "perusahaan" => $row['perusahaan'],
                     "tipeid" => $row['tipeid'],

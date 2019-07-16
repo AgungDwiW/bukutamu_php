@@ -22,6 +22,9 @@
 	
 	$sql = "DROP EVENT IF EXISTS `autodelete_pel` ";
 	$result = mysqli_query($conn, $sql);
+
+	$sql = "DROP EVENT IF EXISTS `autodelete_res` ";
+	$result = mysqli_query($conn, $sql);
 	
 			
 	$sql = 	"
@@ -57,6 +60,19 @@
 		where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL ".$_POST['delete']." MONTH > STR_TO_DATE(`tanggal_pelanggaran`, '%Y-%m-%d');
 		";
 	$result = mysqli_query($conn, $sql);	
+
+	$sql ="
+		CREATE EVENT `autodelete_res` 
+		ON SCHEDULE EVERY 1 MONTH 
+		ON COMPLETION PRESERVE 
+		ENABLE 
+		DO 
+		DELETE FROM pengampunan
+		where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL".$_POST['delete']."MONTH > STR_TO_DATE(`tanggal_pengampunan`, '%Y-%m-%d');
+
+		";
+	$result = mysqli_query($conn, $sql);	
+
 	// echo "$sql";
 	header('Location: setting.php');
 

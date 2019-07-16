@@ -322,7 +322,7 @@
 	            >
 	            	
 	            	<?php  
-	            	$sql = "SELECT * FROM departemen";	
+	            	$sql = "SELECT * FROM departemen order by nama_departemen";	
 	            	$result_dep = mysqli_query($conn, $sql);
 	            	if (mysqli_num_rows($result_dep) > 0) {
 					    // output data of each row

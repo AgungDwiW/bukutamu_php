@@ -32,7 +32,7 @@
                                 <tbody>
                                     <?php  
                                         require "../db/db_con.php";
-                                            $sql = "SELECT * FROM area";
+                                            $sql = "SELECT * FROM area order by nama_area";
                                         $result = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){
                                             $no = 1;

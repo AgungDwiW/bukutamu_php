@@ -17,8 +17,8 @@
 	while($row = mysqli_fetch_assoc($result)) {
 		
 		$id = $row['id'];
-		if (!$row['signed_in'])
-			header('Location: index.php');
+		// if (!$row['signed_in'])
+			// header('Location: index.php');
 	}
 	// echo "$sql";
 	if ($saved){
@@ -31,8 +31,8 @@
 	else{
 		$sql = "UPDATE tamu
 				SET signed_in = false,
-				nama_tamu = '', 
-				nohp = '',  
+				nama_tamu = 'dihapus', 
+				nohp = 'dihapus',  
 				jenis_kelamin = '',
 				image = '$noimage'
 				WHERE id = ".$id;
@@ -48,24 +48,25 @@
     		FROM kedatangan 
     		where id_tamu = ". $id."
     		and signedout = false";
-    // echo $sql;
     $result_tamu = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result_tamu) !=0){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 	    	$in = $row ['tanggal_datang'];
+	
 	   }
 	}
 	else
-		// echo "$sql";
-		// header('Location: index.php');	
+		header('Location: index.php');	
+
 	$datetime1 = strtotime($in);
+	$a=strtotime($in);
 	$datetime2 = strtotime($now);
 
-	$secs = $datetime2 - $datetime1;// == <seconds between the two times>
+	$secs = $datetime2 - $a;// == <seconds between the two times>
 	$min =intval ($secs/60);
 
-
-
+	// echo "$min";
+	
     $sql = "UPDATE kedatangan
 			SET signedout = true,
 				tanggal_keluar ='". $now."',
