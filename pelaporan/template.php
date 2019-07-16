@@ -232,8 +232,11 @@
     <!-- AdminLTE for demo purposes -->
     <script src="../assets/dist/js/demo.js"></script>
     <!-- DataTables -->
-    <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/datatables/css/dataTables.jqueryui.min.css"/>
+  <link rel="stylesheet" type="text/css" href="../assets/datatables/css/dataTables.bootstrap4.min.css"/>
+<script type="text/javascript" src="../assets/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../assets/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="../assets/datatables/js/dataTables.jqueryui.min.js"></script>
     <script src="../assets/ckeditor/ckeditor.js" type="text/javascript"></script>
     <script href="../assets/MDB/js/mdb.js"></script>
     <script type="text/javascript" src="../assets/MDB/js/mdb.min.js" ></script>

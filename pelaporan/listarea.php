@@ -124,6 +124,10 @@
 </body>
 <script >
 
+    const t = $('#example1').DataTable({
+                
+            });
+
 function canc(){
     console.log("aaa");
     document.getElementById("is_edit").value = -1;

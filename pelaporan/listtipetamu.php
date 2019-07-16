@@ -79,7 +79,7 @@
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Nama tipe tamu:</label>
                                             <div class="col-sm-5">
-                                                <input type="text" name="nama" id = "nama" class = "form-control inputsm" required placeholder="Nama area baru"></div>
+                                                <input type="text" name="nama" id = "nama" class = "form-control inputsm" required placeholder="Nama tipe tamu baru"></div>
                                             <div class="col-sm-5 center"> 
                                             <input type="hidden"  hidden name="is_edit" id = "is_edit" class = "form-control inputsm" required value ="-1">
                                             <button type="button" onclick="canc()" id = "cancel" class="col-sm-5" hidden >cancel</button>
@@ -123,6 +123,10 @@
     <?php include("footer.php") ; ?>
 </body>
 <script >
+
+    const t = $('#example1').DataTable({
+                
+            });
 
 function canc(){
     console.log("aaa");
