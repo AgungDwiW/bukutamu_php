@@ -13,7 +13,7 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            Daftar Departemen
+                            Daftar Area
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->

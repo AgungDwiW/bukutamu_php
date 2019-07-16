@@ -23,6 +23,8 @@
 			$tanggal = $row['tanggal_datang'];
 		}
 	}
+	
+
 	$tz_object = new DateTimeZone('Asia/Jakarta');
 	$datetime = new DateTime();
     $datetime->setTimezone($tz_object);
@@ -43,11 +45,23 @@
     $keterangan = $_POST['keterangan'];
     $area = $_POST['area'];
     $uid = $_POST['uid_pelaku'];
-	$sql = "INSERT INTO pelaporan(nama_pelapor, uid_pelapor, tanggal_pelanggaran, 			tanggal_pelaporan, tipe_12, subkategori, positif, area, ap, 
-				keterangan, pelanggar, departemen)
+
+    $sql = "SELECT id FROM karyawan where NIK = ". $uid_pelapor;
+	$result = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($result)) {
+		$id_pelapor = $row['id'];
+	}
+	$sql = "SELECT id FROM tamu where uid = ". $uid;
+	$result = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($result)) {
+		$id = $row['id'];
+	}
+
+	$sql = "INSERT INTO pelaporan(nama_pelapor, id_karyawan, tanggal_pelanggaran, 			tanggal_pelaporan, tipe_12, subkategori, positif, area, ap, 
+				keterangan, id_tamu, departemen)
 			VALUES(
 				'".$nama_pelapor."',
-				'".$uid_pelapor."',
+				'".$id_pelapor."',
 				'".$tanggal."',
 				'".$tanggal_pelaporan."',
 				'".$tipe_12."',
@@ -55,9 +69,8 @@
 				'".$positif."',
 				".$area.",
 				'".$ap."',
-				
 				'".$keterangan."',
-				".$uid.",
+				".$id.",
 				".$departemen."
 				)
 				";
@@ -65,7 +78,7 @@
 	$result = mysqli_query($conn, $sql);
 	// echo $sql;
 // return false;
-	$sql = "SELECT count_pelanggaran AS count FROM tamu WHERE uid = ".$uid;
+	$sql = "SELECT count_pelanggaran AS count FROM tamu WHERE id = ".$id;
 	// echo $sql;
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) !=0){
@@ -75,7 +88,7 @@
 			
 			if (!$positif){
 			$count+=1;
-			$sql2 = "UPDATE tamu SET count_pelanggaran = $count, blok = $blok, terakhir_count = '$now_date' WHERE uid = $uid";
+			$sql2 = "UPDATE tamu SET count_pelanggaran = $count, blok = $blok, terakhir_count = '$now_date' WHERE id = $id";
 			$result = mysqli_query($conn, $sql2);
 			}
 			// echo "$sql2";
@@ -111,7 +124,7 @@
 
 			if ($row['count']>=$max_pel){
 				// echo "aaaaa";
-				$sql = "SELECT * FROM tamu WHERE uid = ".$uid;
+				$sql = "SELECT * FROM tamu WHERE id = ".$id;
 				// echo "$sql";
 				$result2 = mysqli_query($conn, $sql);
 				if (mysqli_num_rows($result2) !=0){
@@ -144,7 +157,7 @@
 				// echo "aaa";
 				// echo "$body";
 				send_mail($subject, $body, $to_address, $to_name);
-				$sql2 = "UPDATE tamu SET blok= 1 WHERE uid = $uid";
+				$sql2 = "UPDATE tamu SET blok= 1 WHERE id = $id";
 				$result = mysqli_query($conn, $sql2);
 			}}}
 		}

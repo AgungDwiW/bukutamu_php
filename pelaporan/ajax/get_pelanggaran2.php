@@ -14,7 +14,13 @@
 	else{
 		$uid = $_GET['uid'];
 		require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-		$sql = "SELECT * FROM pelaporan where pelanggar = ".$uid;
+		$sql = "SELECT id FROM tamu where uid = ". $uid;
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)) {
+			$id = $row['id'];
+		}
+
+		$sql = "SELECT * FROM pelaporan where id_tamu = ".$id;
 		$result = mysqli_query($conn, $sql);
 		// $return['sql'] = $sql;
 		// echo json_encode($return);			

@@ -37,11 +37,10 @@
 			$return=array();
 			while($row = mysqli_fetch_assoc($result)) {
 				$row['id'] = $no;
-				$row['uid'] = $row['tamu'];
 				$no+=1;
-			    $temp = $row['tamu'];
-				if ($row['tamu']){
-					$sql = "SELECT nama_tamu as nama, tipe from tamu where uid = ".$row['tamu'];
+			    $temp = $row['id_tamu'];
+				if ($row['id_tamu']){
+					$sql = "SELECT nama_tamu as nama, tipe, uid from tamu where id = ".$row['id_tamu'];
 					$result2 = mysqli_query($conn, $sql);
 					while($row2 = mysqli_fetch_assoc($result2)) {
 						
@@ -53,6 +52,7 @@
 							$row['tipe'] = $row3['tipe'];
 						}
 						$row['tamu'] = $row2['nama'];
+						$row['uid'] = $row2['uid'];
 					}
 				}
 				
@@ -82,9 +82,9 @@
 			 ->setCellValue('F1', 'Tanggal keluar')
 			 ->setCellValue('G1', 'Durasi')
 			 ->setCellValue('H1', 'Suhu badan')
-			 ->setCellValue('J1', 'Luka')
-			 ->setCellValue('K1', 'Sakit')
-			 ->setCellValue('L1', 'Bertemu dengan')
+			 ->setCellValue('I1', 'Luka')
+			 ->setCellValue('J1', 'Sakit')
+			 ->setCellValue('K1', 'Bertemu dengan')
 			 ->setCellValue('L1', 'Departemen')
 			 ->setCellValue('M1', 'Keperluan')
 			 ->setCellValue('N1', 'Status');
@@ -133,13 +133,15 @@
 						 ->setCellValue('F'.$no, $row['tanggal_keluar'])
 						 ->setCellValue('G'.$no, $row['durasi'])
 						 ->setCellValue('H'.$no, $row['suhu_badan'])
-						 ->setCellValue('I'.$no, $row['luka'])
+						 ->setCellValue('I'.$no, $row['luka']?"+":"-")
 						 ->setCellValue('J'.$no, $row['sakit'])
 						 ->setCellValue('K'.$no, $row['bertemu'])
 						 ->setCellValue('L'.$no, $row['departemen'])
 						 ->setCellValue('M'.$no, $row['keperluan'])
 						 ->setCellValue('N'.$no, $row['signedout']);
 	 				$spreadsheet->getActiveSheet()->getStyle('A'.$no.':N'.$no)->applyFromArray($cell_st2);
+	 				$no+=1;
+	 				$num+=1;
 
 			    }
 			}

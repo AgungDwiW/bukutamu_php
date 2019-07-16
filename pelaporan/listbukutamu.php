@@ -114,10 +114,8 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
         }
 
       function add_data(json){
-        
         try {
           json = JSON.parse(json);
-
         }
         catch(err) {
           t.clear().draw();

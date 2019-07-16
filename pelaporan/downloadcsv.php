@@ -13,7 +13,7 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            Download CSV
+                            Download excel
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
@@ -83,7 +83,7 @@ function exportked()
             if (startked.value != "" && endked.value !="")
             {
 
-                var conf = confirm("Export data bukutamu ke CSV?");
+                var conf = confirm("Export data bukutamu ke excel?");
                 if(conf == true)
                 {
                     window.open("ajax/exportked.php?start='"+startked.value+"'&end='"+endked.value+"'", '_blank');
@@ -97,7 +97,7 @@ function exportpel()
             if (startpel.value != "" && endpel.value !="")
             {
 
-                var conf = confirm("Export data bukutamu ke CSV?");
+                var conf = confirm("Export data bukutamu ke excel?");
                 if(conf == true)
                 {
                     window.open("ajax/exportpel.php?start='"+startpel.value+"'&end='"+endpel.value+"'", '_blank');

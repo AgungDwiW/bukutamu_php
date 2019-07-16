@@ -13,7 +13,7 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            Form pengampunan 
+                            Form reset 
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
@@ -29,13 +29,13 @@
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Nama Petugas:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Pelapor" readonly=""></div>
+                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Petugas" readonly=""></div>
                                         </div>
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
                                           <label class="control-label col-sm-2" for="UID">UID Petugas:</label>
                                           <div class="col-sm-7">  
-                                            <input type="text" required class="form-control inputsm" name="uid_pelapor" id="uid_pelapor" placeholder="UID Pelapor" value =   > 
+                                            <input type="text" required class="form-control inputsm" name="uid_pelapor" id="uid_pelapor" placeholder="NIK" value =   > 
                                           </div>
                                           <div class="col-sm-3" style="padding-bottom:1rem;">
                                             <select class="form-control inputsm" name="tid_pelapor" id="tid_pelapor" placeholder="Tipe id" >

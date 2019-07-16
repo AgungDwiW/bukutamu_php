@@ -14,8 +14,25 @@
 	else{
 		$uid = $_GET['uid'];
 		require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-		$sql = "SELECT * FROM pelaporan where pelanggar = ".$uid." and tipe_12 = '".$_GET['akt']."' and subkategori = '".$_GET['sub']."' and positif = false";
+		$sql = "SELECT id FROM tamu where uid = ". $uid;
 		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)) {
+			$id = $row['id'];
+		}
+
+
+
+		$sql = "SELECT id FROM tamu where uid = ". $uid;
+
+		$result = mysqli_query($conn, $sql);
+		while($row = mysqli_fetch_assoc($result)) {
+			
+			$id = $row['id'];
+		}
+
+		$sql = "SELECT * FROM pelaporan where id_tamu = ".$id." and tipe_12 = '".$_GET['akt']."' and subkategori = '".$_GET['sub']."' and positif = false";
+		$result = mysqli_query($conn, $sql);
+
 		// $return['sql'] = $sql;
 		// echo json_encode($return);			
 		if ($result && mysqli_num_rows($result) !=0){

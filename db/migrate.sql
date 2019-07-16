@@ -30,7 +30,7 @@ CREATE TABLE area(
 
 create table karyawan(
 	id int not null auto_increment primary key,
-	nik int,
+	nik varchar(10),
 	nama varchar(40),
 	unique(nik)
 );
@@ -71,7 +71,7 @@ CREATE table departemen (
 
 create table kedatangan (
 	id int not null auto_increment primary key, 
-	tamu varchar(15),
+	id_tamu int,
 	tanggal_datang datetime, 
 	tanggal_keluar datetime, 
 	durasi int,
@@ -84,8 +84,8 @@ create table kedatangan (
     signedout boolean,
     id_keplek int,
     
-	foreign key fk_tamu_ked (tamu)
-	references tamu(uid)
+	foreign key fk_tamu_ked (id_tamu)
+	references tamu(id)
 	ON DELETE CASCADE,
 	foreign key fk_dep_ked(departemen)
 	references departemen(id)
@@ -95,9 +95,9 @@ create table kedatangan (
 
 create table pelaporan(
 	id int not null auto_increment primary key,
-	uid_pelapor int,
+	id_karyawan int,
 	nama_pelapor varchar(40),
-	pelanggar varchar(15),
+	id_tamu int,
 	departemen int,
 	tanggal_pelanggaran date,
 	tanggal_pelaporan datetime,
@@ -107,11 +107,11 @@ create table pelaporan(
 	area int,
 	ap varchar(100),
 	keterangan varchar (100),
-	foreign key fk_pelanggar_kary (uid_pelapor)
-	references karyawan(nik)
+	foreign key fk_pelanggar_kary (id_karyawan)
+	references karyawan(id)
 	on DELETE SET NULL,
-	foreign key fk_pelanggar (pelanggar)
-	references tamu(uid)
+	foreign key fk_pelanggar (id_tamu)
+	references tamu(id)
 	on DELETE CASCADE,
 	foreign key fk_dep_pel(departemen)
 	references departemen(id)
@@ -140,13 +140,16 @@ create table session(
 
 create table pengampunan(
 	id int not null auto_increment primary key,
-	uid_pengampun varchar(15),
-	pelanggar varchar(15),
+	id_karyawan int,
+	id_tamu int,
 	nama_pengampun varchar(50),
 	mou varchar(50),
-	foreign key fk_pengampunan (pelanggar)
-	references tamu(uid)
-	on DELETE CASCADE
+	foreign key fk_pengampunan (id_tamu)
+	references tamu(id)
+	on DELETE CASCADE,
+	foreign key fk_pengampunan_kary (id_karyawan)
+	references karyawan(id)
+	on DELETE SET NULL
 );
 
 
@@ -171,4 +174,36 @@ insert into setting(nama, value) values
 
 insert into setting(nama, value) values
 	("autodelete", 24);
+
+SET GLOBAL event_scheduler = ON;
+use bukutamudb;
+
+DROP EVENT IF EXISTS `autoresetpel`;
+DROP EVENT IF EXISTS `autodelete_ked` ;
+DROP EVENT IF EXISTS `autodelete_pel` ;
+
+CREATE EVENT `autoresetpel` 
+ON SCHEDULE EVERY 1 MONTH 
+ON COMPLETION PRESERVE 
+ENABLE 
+DO 
+UPDATE tamu SET count_pelanggaran = 0 , terakhir_count =STR_TO_DATE(CURDATE(), '%Y-%m-%d'), blok = 0
+where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL 6 MONTH > STR_TO_DATE(`terakhir_count`, '%Y-%m-%d');
+
+CREATE EVENT `autodelete_ked` 
+ON SCHEDULE EVERY 1 MONTH 
+ON COMPLETION PRESERVE 
+ENABLE 
+DO 
+DELETE FROM kedatangan
+where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL 24 MONTH > STR_TO_DATE(`tanggal_datang`, '%Y-%m-%d');
+
+
+CREATE EVENT `autodelete_pel` 
+ON SCHEDULE EVERY 1 MONTH 
+ON COMPLETION PRESERVE 
+ENABLE 
+DO 
+DELETE FROM pelaporan
+where STR_TO_DATE(CURDATE(), '%Y-%m-%d') - INTERVAL 24 MONTH > STR_TO_DATE(`tanggal_pelanggaran`, '%Y-%m-%d');
 

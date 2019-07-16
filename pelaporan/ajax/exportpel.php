@@ -28,13 +28,22 @@
 			if ($result && mysqli_num_rows($result) !=0){
 			$return=array();
 			while($row = mysqli_fetch_assoc($result)) {
-				$row['uid_pelanggar'] = $row['pelanggar'];
-				if ($row['pelanggar']){
-					$sql = "SELECT nama_tamu as nama, tipe from tamu where uid = ".$row['pelanggar'];
+				$row['uid_pelanggar'] = $row['id_tamu'];
+				if ($row['id_tamu']){
+					$sql = "SELECT nama_tamu as nama,  uid from tamu where id = ".$row['id_tamu'];
 					$result2 = mysqli_query($conn, $sql);
 					while($row2 = mysqli_fetch_assoc($result2)) {
 						$row['pelanggar'] = $row2['nama'];
+						$row['uid_pelanggar'] = $row2['uid'];
 					}
+				}
+				if($row['id_karyawan']){
+					$sql = "SELECT nik from karyawan where id = ".$row['id_karyawan'];
+					$result2 = mysqli_query($conn, $sql);
+					while($row2 = mysqli_fetch_assoc($result2)) {
+						
+						$row['uid_pelapor'] = $row2['nik'];
+					}	
 				}
 
 				if ($row['departemen']){
@@ -122,7 +131,8 @@
 				 ->setCellValue('L'.$no, $row['ap'])
 				 ->setCellValue('M'.$no, $row['keterangan']);
 				$spreadsheet->getActiveSheet()->getStyle('A'.$no.':M'.$no)->applyFromArray($cell_st2);
-
+				$no+=1;
+				$num+=1;
 	    }
 		}
 		$writer = new Xlsx($spreadsheet);

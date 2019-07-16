@@ -46,7 +46,7 @@ if ($result&& mysqli_num_rows($result) !=0){
     }
 }
 
-$sql = 'SELECT pelanggar from pelaporan';
+$sql = 'SELECT id_tamu from pelaporan';
 $result = mysqli_query($conn, $sql);
 $perusahaan_pel = array();
 $perusahaan_datang = array();
@@ -54,7 +54,7 @@ $perusahaan_name = array();
 $cur = 0;
 if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
-        $sql = 'SELECT perusahaan from tamu where uid = '.$row['pelanggar'];
+        $sql = 'SELECT perusahaan from tamu where id = '.$row['id_tamu'];
         $result2 = mysqli_query($conn, $sql);
         if ($result2&& mysqli_num_rows($result2) !=0){
             
@@ -79,11 +79,11 @@ if ($result&& mysqli_num_rows($result) !=0){
 }
 }
 
-$sql = 'SELECT tamu from kedatangan';
+$sql = 'SELECT id_tamu from kedatangan';
 $result = mysqli_query($conn, $sql);
 if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
-        $sql = 'SELECT perusahaan from tamu where uid = '.$row['tamu'];
+        $sql = 'SELECT perusahaan from tamu where id = '.$row['id_tamu'];
         $result2 = mysqli_query($conn, $sql);
         if ($result2&& mysqli_num_rows($result2) !=0){
             

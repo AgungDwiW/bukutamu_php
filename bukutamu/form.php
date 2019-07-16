@@ -79,13 +79,14 @@
 	    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
 	    	// var_dump($ymd);
 	    	$ind = $ymd<$ind_limit?"0":"1";
-	    	
+	    	$id = $row['id'];
 	    	$tipe = $row['tipe'];
 	    }
-	    $sql = "SELECT * FROM kedatangan where signedout = false and tamu = ".$uid;
+	    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id;
 		// echo $sql;
 		// echo $perusahaan;
 		$result_tamu = mysqli_query($conn, $sql);
+		if ($result_tamu){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 			// var_dump($row);
 	    	$keperluan = $row['keperluan'];
@@ -96,7 +97,7 @@
 	    	$departemen = $row['departemen'];
 	    	$no_tamu = $row['id_keplek'];
 	    }
-	}
+	}}
 
 	else{
 
@@ -171,16 +172,17 @@
 		    		$sql = "SELECT * FROM kedatangan where tamu = ". $_POST["UID"]." ORDER BY id DESC LIMIT 3";
 		    		
 		    		$result = mysqli_query($conn, $sql);
-		    		if (mysqli_num_rows($result) > 0) {
+		    		if ($result && mysqli_num_rows($result) > 0) {
 				    // output data of each row
 				    while($row = mysqli_fetch_assoc($result)) {
 				    	
 				?>
 				      <tr >
-				        <td><?php echo  $row['tanggal_datang'];?></td>
+				        <td><?php echo  DateTime::createFromFormat('Y-m-d', $row['tanggal_datang']);?></td>
 				        <td><?php echo  $row['bertemu'];?></td>
 				        <td><?php echo  $row['keperluan'];?></td>
 				      </tr>
+
 		    <?php }}?>
 		    </tbody>
 		  </table>

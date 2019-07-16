@@ -16,23 +16,27 @@
 			require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
 			$start = $_POST['start'];
 			$end = $_POST['end'];
+			// echo json_encode($_POST);
 			// $return ['1'] = "SELECT * from kedatangan where";
 			// $return ['2'] =  "STR_TO_DATE(tanggal_datang) > STR_TO_DATE('".$start.") and STR_TO_DATE(tanggal_datang) > STR_TO_DATE(".$end.") ";
 			// $return['3'] = "SELECT * from kedatangan where ".
 			//   "STR_TO_DATE(tanggal_datang, '%Y-%m-%d') > STR_TO_DATE('".$start."', '%Y-%m-%d') and STR_TO_DATE(tanggal_datang, '%Y-%m-%d') < STR_TO_DATE('".$end."', '%Y-%m-%d') ";
 			$sql = "SELECT * from kedatangan where ".
 			  "STR_TO_DATE(tanggal_datang, '%Y-%m-%d') >= STR_TO_DATE('".$start."', '%Y-%m-%d') and STR_TO_DATE(tanggal_datang, '%Y-%m-%d') <= STR_TO_DATE('".$end."', '%Y-%m-%d') ";
-			
+			// $return ['sql'] = $sql;
+			// $return['bobo'] ="qontol";
+			// echo json_encode($return);			
+			// return true; 
 			$result = mysqli_query($conn, $sql);
 			if ($result && mysqli_num_rows($result) !=0){
 			$return=array();
 			while($row = mysqli_fetch_assoc($result)) {
-				$row['uid'] = $row['tamu'];
-				if ($row['tamu']){
-					$sql = "SELECT nama_tamu as nama, tipe from tamu where uid = ".$row['tamu'];
+				if ($row['id_tamu']){
+					$sql = "SELECT nama_tamu as nama, tipe, uid from tamu where id = ".$row['id_tamu'];
 					$result2 = mysqli_query($conn, $sql);
 					while($row2 = mysqli_fetch_assoc($result2)) {
 						$row['tamu'] = $row2['nama'];
+						$row['uid'] = $row2['uid'];
 						$sql = "SELECT tipe from tipe_tamu where id = ".$row2['tipe'];
 						// echo "$sql";
 						// var_dump($row2);
@@ -54,10 +58,13 @@
 				$row['status'] = $row['signedout']?"Keluar":"Didalam";
 				array_push($return, $row);
 			}
-			echo json_encode($return);			
-		
+			
+		echo json_encode($return);			
 		
 		}
 	}
 	      
+
+	
+
 ?>

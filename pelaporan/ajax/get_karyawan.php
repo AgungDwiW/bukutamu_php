@@ -14,7 +14,7 @@
 	else{
 		$uid = $_GET['uid'];
 		require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-		$sql = "SELECT * FROM karyawan where nik = ".$uid;
+		$sql = "SELECT * FROM karyawan where nik = '".$uid."'";
 		$result = mysqli_query($conn, $sql);
 		// $return['sql'] = $sql;
 		// echo json_encode($return);			

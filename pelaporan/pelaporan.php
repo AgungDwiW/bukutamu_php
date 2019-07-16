@@ -35,7 +35,7 @@
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
                                           <label class="control-label col-sm-2" for="UID">UID Pelapor:</label>
                                           <div class="col-sm-7">  
-                                            <input type="text" required class="form-control inputsm" name="uid_pelapor" id="uid_pelapor" placeholder="UID Pelapor" value =   > 
+                                            <input type="text" required class="form-control inputsm" name="uid_pelapor" id="uid_pelapor" placeholder="NIK" value =   > 
                                           </div>
                                           <div class="col-sm-3" style="padding-bottom:1rem;">
                                             <select class="form-control inputsm" name="tid_pelapor" id="tid_pelapor" placeholder="Tipe id" >
@@ -295,12 +295,9 @@ function addinput2(){
 
 function del (){
     a = document.getElementsByClassName('dyn');
-    console.log(a.length)
     len  = a.length
     for (x=0; x<len;x++){
-        console.log(x)
         b = a[0];
-        // console.log(b);
         b.parentElement.removeChild(b);
     }
 }
@@ -340,7 +337,6 @@ uid.addEventListener("keyup",
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText)
             cur = JSON.parse(this.responseText)
             
             valid = true
@@ -362,7 +358,9 @@ uid.addEventListener("keyup",
     
     });
 function get_tamu(cur){
-    // console.log(cur)
+    while (tanggal.hasChildNodes()) {
+      tanggal.removeChild(tanggal.childNodes[0]);
+    }
     if (cur['error']){
         document.getElementById('hidme').hidden = false;
         deactivate()
@@ -382,7 +380,6 @@ function get_tamu(cur){
     }
     if (cur['tid'] == "KTP"){
         tid.options[0].selected = true
-        // console.log(tid.options[0].selected)
     }
     else{
         tid.options[2].selected = false
@@ -406,11 +403,8 @@ function get_pelanggaran(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        // console.log(this.responseText);
-        // cur = this.responseText;
-        // console.log("a");
+
         cur = JSON.parse(this.responseText)
-        console.log(cur);
         pelanggaran(cur);
     }};
     var str_12 = tipe12.options[tipe12.selectedIndex].text
@@ -418,12 +412,12 @@ function get_pelanggaran(){
     str_12 = str_12.replace(/ /g, "+");
     str_sub = str_sub.replace(/ /g, "+");
     query = "ajax/get_pelanggaran.php?uid=" +uid.value+"&akt="+str_12+"&sub="+ str_sub
-    console.log(query)
     xhttp.open("GET","ajax/get_pelanggaran.php?uid=" +uid.value+"&akt="+str_12+"&sub="+ str_sub, true);
     xhttp.send();
 }
 var flag = 0
 function pelanggaran(json){
+
     count = table.childElementCount
         
     for (a = 0; a<count; a++){
@@ -437,7 +431,6 @@ function pelanggaran(json){
     for (z = 0; z<len;z++){
         addinput(json[z]['ap']);    
         no+=1;
-        // console.log(content[a])
         row = table.insertRow(0)
         cell1 = row.insertCell(0)
         cell2 = row.insertCell(1)
@@ -457,7 +450,6 @@ uid_pel.addEventListener("keyup",
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText)
             cur = JSON.parse(this.responseText)
             
             valid = true
@@ -467,14 +459,12 @@ uid_pel.addEventListener("keyup",
         };
         event.preventDefault();
         
-           console.log("ajax/get_karyawan.php?uid=" + uid_pel.value)
             xhttp.open("GET", "ajax/get_karyawan.php?uid=" + uid_pel.value, true);
             xhttp.send();
             return false;
 
     });
 function get_kary(cur){
-    // console.log(cur)
     if (cur['error']){
         document.getElementById('hidme2').hidden = false;
         // deactivate()

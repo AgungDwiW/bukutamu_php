@@ -11,11 +11,21 @@
 	   }
 	}
 	// echo $saved;
+	$sql = "SELECT id FROM tamu where uid = ". $_POST["UID"];
+
+	$result = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($result)) {
+		
+		$id = $row['id'];
+		if (!$row['signed_in'])
+			header('Location: index.php');
+	}
+	// echo "$sql";
 	if ($saved){
 		$sql = "UPDATE tamu
 				SET signed_in = false,
 				image = '$output'
-				WHERE uid = ".$uid;
+				WHERE id = ".$id;
 		$result_tamu = mysqli_query($conn, $sql);
 	}
 	else{
@@ -25,7 +35,7 @@
 				nohp = '',  
 				jenis_kelamin = '',
 				image = '$noimage'
-				WHERE uid = ".$uid;
+				WHERE id = ".$id;
 		// echo $sql;
 		$result_tamu = mysqli_query($conn, $sql);	
 	}
@@ -36,7 +46,7 @@
 
     $sql = "SELECT tanggal_datang 
     		FROM kedatangan 
-    		where tamu = ". $_POST["UID"]."
+    		where id_tamu = ". $id."
     		and signedout = false";
     // echo $sql;
     $result_tamu = mysqli_query($conn, $sql);
@@ -46,7 +56,8 @@
 	   }
 	}
 	else
-		header('Location: index.php');	
+		// echo "$sql";
+		// header('Location: index.php');	
 	$datetime1 = strtotime($in);
 	$datetime2 = strtotime($now);
 
@@ -59,9 +70,10 @@
 			SET signedout = true,
 				tanggal_keluar ='". $now."',
 				durasi =". $min."
-			WHERE tamu = ".$uid. 
+			WHERE id_tamu = ".$id. 
 			" AND signedout = false";
-	echo $sql;
+	// echo $sql;
 	$result_tamu = mysqli_query($conn, $sql);
+
 	header('Location: index.php');
  ?>

@@ -82,7 +82,7 @@
                         <i class="nav-icon fa fa-book" aria-hidden="true"></i>
                         <p>Tamu</p></a>
                             <div  id="homeSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="bukutamu.php" class="dropdown-item nav-link navdrop">
+                                <a href="listbukutamu.php" class="dropdown-item nav-link navdrop">
                                     
                                     <p>
                                         Buku Tamu
