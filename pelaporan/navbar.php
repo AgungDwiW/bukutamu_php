@@ -98,23 +98,26 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="pengampunan.php" class="nav-link">
-                            <i class="nav-icon fa fa-user-times" aria-hidden="true"></i>
-                            <p>
-                                Reset
-                            </p>
-                        </a>
+                                        <li class="nav-item">
+                        <div class="" >
+                        <a href="#resSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
+                        <i class="nav-icon fa fa-user-times" aria-hidden="true"></i>
+                        <p>Reset</p></a>
+                            <div  id="resSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="pengampunan.php" class="nav-link">
+                                    <p>
+                                        Form Reset
+                                    </p>
+                                </a>
+                                <a href="listpengampunan.php" class="nav-link">
+                                    <p>
+                                        List reset
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="listpengampunan.php" class="nav-link">
-                            <i class="nav-icon fa fa-picture-o" aria-hidden="true"></i>
-                            <p>
-                                List reset
-                            </p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="downloadcsv.php" class="nav-link">
                             <i class="nav-icon fa fa-download" aria-hidden="true"></i>
@@ -171,22 +174,8 @@
                             </div>
                         </div>
                     </li>  
-                     <li class="nav-item">
-                        <a href="listarea.php" class="nav-link">
-                            <i class="nav-icon fa fa-map" aria-hidden="true"></i>
-                            <p>
-                                Area
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="listtipetamu.php" class="nav-link">
-                            <i class="nav-icon fa fa-users" aria-hidden="true"></i>
-                            <p>
-                                Tipe tamu
-                            </p>
-                        </a>
-                    </li>
+                     
+                    
                     <li class="nav-item">
                         <a href="daftarkaryawan.php" class="nav-link">
                             <i class="nav-icon fa fa-users" aria-hidden="true"></i>
@@ -196,13 +185,30 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="setting.php" class="nav-link">
-                            <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
-                            <p>
-                                Setting
-                            </p>
-                        </a>
-                    </li>
+                        <div class="" >
+                        <a href="#setSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
+                        <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
+                        <p>Setting</p></a>
+                            <div  id="setSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="listtipetamu.php" class="nav-link">
+                                    <p>
+                                        Tipe tamu
+                                    </p>
+                                </a>
+                                <a href="listarea.php" class="nav-link">
+                                    <p>
+                                        Area
+                                    </p>
+                                </a>
+                                <a href="setting.php" class="nav-link">
+                                    <p>
+                                        Other
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </li>  
+                    
                     <?php }?>
 
                 </ul>
