@@ -1,5 +1,5 @@
 <?php 
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "../../db/db_con.php";
 	// require "encrypt.php";
 	$id = $_POST['id'];
 	$pass = $_POST['password'];
@@ -18,7 +18,8 @@
 	    return implode('', $pieces);
 	}
 	if (mysqli_num_rows($result_tamu) ==0){
-		header('Location: ../index.php?status=1');
+		echo "$sql";
+		// header('Location: ../index.php?status=1');
 	}
 	else
 	{

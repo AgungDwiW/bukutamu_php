@@ -15,9 +15,9 @@
 		echo json_encode($return);
 	}	
 	else{
-			require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php".'/vendor/autoload.php';
+			require '../../vendor/autoload.php';
 			
-			require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+			require "../../db/db_con.php";
 			
 
 			//object of the Spreadsheet class to create the excel data

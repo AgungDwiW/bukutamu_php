@@ -15,8 +15,8 @@
 		echo json_encode($return);
 	}	
 	else{
-			require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
-			require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php".'/vendor/autoload.php';
+			require "../../db/db_con.php";
+			require '../../vendor/autoload.php';
 			
 
 			$start = $_GET['start'];

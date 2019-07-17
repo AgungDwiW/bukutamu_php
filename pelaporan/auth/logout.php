@@ -1,6 +1,6 @@
 <?php  
 	
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "../../db/db_con.php";
 	$key = $_COOKIE["key"];
 	$sql = "DELETE FROM session WHERE session_key = '".$key."'";
 	// echo $sql;

@@ -4,7 +4,7 @@
 
 function check_login(){
 	
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "db_con.php";
     if (isset($_COOKIE["key"])){
     	$sql = "SELECT * FROM session where session_key = '".$_COOKIE["key"]."'";
     	// echo $sql;
@@ -18,7 +18,7 @@ function check_login(){
 }
 function check_super(){
 
-	require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+	require "db_con.php";
 	if (!check_login()) return 0;
 	$sql = "SELECT is_super FROM session where session_key = '".$_COOKIE["key"]."'";
 	$result = mysqli_query($conn, $sql);

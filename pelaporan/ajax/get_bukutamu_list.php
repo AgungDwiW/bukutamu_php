@@ -1,6 +1,6 @@
 <?php 
 	// echo json_encode($_GET);
-	require "../auth/check.php";
+	require "check.php";
 	if (!check_login())
 	{
 		$return['error'] = "not loged in";
@@ -13,7 +13,7 @@
 		echo json_encode($return);
 	}	
 	else{
-			require $_SERVER['DOCUMENT_ROOT']."/bukutamu_php"."/db/db_con.php";
+			require "../../db/db_con.php";
 			$start = $_POST['start'];
 			$end = $_POST['end'];
 			// echo json_encode($_POST);
