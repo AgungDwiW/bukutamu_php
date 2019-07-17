@@ -11,7 +11,7 @@
         <section class="content">
             <div class="row">
                 <div class="col">
-                            
+                    
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
@@ -20,6 +20,7 @@
                         <div class="card-body">
                                 <!-- Grid -->
                             <div class="col-sm-12" style="overflow-x: scroll">
+                                <a href="daftardepartemen.php"><button type="button" class="btn btn-primary " style="">Daftar Departement</button></a>
                             <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center;">
                                 <thead>
                                     <tr>

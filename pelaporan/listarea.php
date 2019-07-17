@@ -18,7 +18,8 @@
                         <div class="card-body">
                                 <!-- Grid -->
 
-                                  <div class="col-sm-12" style="overflow-x: scroll">
+                            <div class="col-sm-12" style="overflow-x: scroll">
+
                             <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center;">
                                 <thead>
                                     <tr>

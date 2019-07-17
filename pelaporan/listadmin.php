@@ -21,6 +21,7 @@
                         <div class="card-body">
                                 <!-- Grid -->
                             <div class="col-sm-12" style="overflow-x: scroll">
+                                <a href="daftaradmin.php"><button type="button" class="btn btn-primary " style="">Daftar Admin</button></a>
                             <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center;">
                                 <thead>
                                     <tr>

@@ -46,7 +46,8 @@
                                             }
                                         ?>
                                         <div class="col-sm-12 center"> 
-                                            <input type="submit" name="submit" id = "submit" class="col-sm-12">
+                                           <button type="input" class="btn btn-primary" style="width: 50%">Submit</button>
+                                        
                                         </div>
                         
                                 </fieldset>
