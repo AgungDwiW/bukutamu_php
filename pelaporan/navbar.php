@@ -132,67 +132,24 @@
                     // echo check_super();
                     if (check_super()){
                     ?>
-                    <li class="nav-item">
-                        <div class="" >
-                        <a href="#adminSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
-                        <i class="nav-icon fa fa-user" aria-hidden="true"></i>
-                        <p>Admin</p></a>
-                            <div  id="adminSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="daftaradmin.php" class="dropdown-item nav-link navdrop">
-                                    
-                                    <p>
-                                        Daftar admin baru
-                                    </p>
-                                </a>
-                                <a href="listadmin.php" class="dropdown-item  nav-link ">
-                                    
-                                    <p>
-                                        List Admin
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="" >
-                        <a href="#depSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
-                        <i class="nav-icon fa fa-building" aria-hidden="true"></i>
-                        <p>Departemen</p></a>
-                            <div  id="depSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="daftardepartemen.php" class="dropdown-item nav-link navdrop">
-                                    
-                                    <p>
-                                        Daftar departemen baru
-                                    </p>
-                                </a>
-                                <a href="listdepartemen.php" class="dropdown-item  nav-link ">
-                                    
-                                    <p>
-                                        List departemen
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                    </li>  
+                    
                      
                     
-                    <li class="nav-item">
-                        <a href="daftarkaryawan.php" class="nav-link">
-                            <i class="nav-icon fa fa-users" aria-hidden="true"></i>
-                            <p>
-                                Daftar karyawan
-                            </p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <div class="" >
                         <a href="#setSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
                         <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
                         <p>Setting</p></a>
                             <div  id="setSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="listtipetamu.php" class="nav-link">
+                                <a href="listadmin.php" class="dropdown-item  nav-link ">
+                                    
                                     <p>
-                                        Tipe tamu
+                                        Admin
+                                    </p>
+                                </a>
+                                <a href="listdepartemen.php" class="dropdown-item  nav-link ">   
+                                    <p>
+                                        Departemen
                                     </p>
                                 </a>
                                 <a href="listarea.php" class="nav-link">
@@ -200,11 +157,23 @@
                                         Area
                                     </p>
                                 </a>
+                                <a href="daftarkaryawan.php" class="nav-link">
+                                    <p>
+                                        Karyawan
+                                    </p>
+                                </a>
+                                <a href="listtipetamu.php" class="nav-link">
+                                    <p>
+                                        Tipe tamu
+                                    </p>
+                                </a>
+                                
                                 <a href="setting.php" class="nav-link">
                                     <p>
                                         Other
                                     </p>
                                 </a>
+                                
                             </div>
                         </div>
                     </li>  

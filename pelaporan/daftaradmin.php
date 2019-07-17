@@ -61,7 +61,8 @@
                                             }
                                         ?>
                                         <div class="col-sm-12 center"> 
-                                            <input type="submit" name="submit" id = "submit" class="col-sm-12">
+                                           <button type="input" class="btn btn-primary" style="width: 50%">Submit</button>
+                                           <a href="listadmin.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
                                         </div>
                         
                                 </fieldset>
