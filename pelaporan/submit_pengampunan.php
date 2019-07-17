@@ -40,5 +40,5 @@ $result = mysqli_query($conn, $sql2);
 $sql = "insert into pengampunan(id_karyawan, id_tamu, mou, tanggal_pengampunan) values( '$id_kary',  '$id_tamu', '$output', '$now_date')";
 $result = mysqli_query($conn, $sql);
 echo "$sql";
-// header('Location: dashboard.php');	
+header('Location: dashboard.php');	
 ?>
