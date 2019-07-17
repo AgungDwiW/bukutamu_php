@@ -154,7 +154,7 @@ create table pengampunan(
 );
 
 
-use bukutamudb;
+
 
 insert into user(
 	user, pass, is_super, is_superman)

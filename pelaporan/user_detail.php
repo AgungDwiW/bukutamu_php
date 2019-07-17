@@ -15,6 +15,14 @@ if(!$result)
 while($row = mysqli_fetch_assoc($result)) {
   $tamu = $row;  
 }
+require "../db/db_con.php";
+
+
+$sql = "SELECT id FROM tamu where uid = ". $uid;
+$result = mysqli_query($conn, $sql);
+while($row = mysqli_fetch_assoc($result)) {
+  $id = $row['id'];
+}
 include('template.php'); 
 
 ?> 
@@ -139,7 +147,7 @@ include('template.php');
                                               </thead>
                                               <tbody>
                                               <?php
-                                              $sql = "SELECT * FROM kedatangan where tamu = ".$uid;
+                                              $sql = "SELECT * FROM kedatangan where id_tamu = ".$id;
 
                                               $result = mysqli_query($conn, $sql);
                                               $no =1;
@@ -181,7 +189,7 @@ include('template.php');
                                               </thead>
                                               <tbody>
                                                  <?php
-                                              $sql = "SELECT * FROM pelaporan where pelanggar = ".$uid;
+                                              $sql = "SELECT * FROM pelaporan where id_tamu = ".$id;
                                               $no = 1;
                                               $result = mysqli_query($conn, $sql);
 
@@ -224,11 +232,11 @@ if (isset($_GET['year']))
 else
   $year = date('Y');
 
-require "../db/db_con.php";
+
 $month = array();
 $count_durasi= array();
 // $count_month = array(0,0,0,0,0,0,0,0,0,0,0,0);
-  $sql = 'SELECT STR_TO_DATE(tanggal_datang, "%Y-%m") as month, count(*) as count, sum(durasi) as durasi FROM `kedatangan` where tamu='.$uid.' GROUP BY month';
+  $sql = 'SELECT STR_TO_DATE(tanggal_datang, "%Y-%m") as month, count(*) as count, sum(durasi) as durasi FROM `kedatangan` where id_tamu='.$id.' GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
@@ -239,7 +247,7 @@ $count_durasi= array();
 // echo "$sql";
 
 $month_pel = $month;
-  $sql = 'SELECT STR_TO_DATE(tanggal_pelanggaran, "%Y-%m") as month, count(*) as count FROM `pelaporan` where pelanggar='.$uid.' GROUP BY month';
+  $sql = 'SELECT STR_TO_DATE(tanggal_pelanggaran, "%Y-%m") as month, count(*) as count FROM `pelaporan` where id_tamu='.$id.' GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
