@@ -89,6 +89,7 @@
 		if ($result_tamu){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 			// var_dump($row);
+			$id_ked = $row['id_ked'];
 	    	$keperluan = $row['keperluan'];
 	    	$suhu = $row['suhu_badan'];
 	    	$luka = $row['luka'];
@@ -96,6 +97,10 @@
 	    	$bertemu = $row['bertemu'];
 	    	$departemen = $row['departemen'];
 	    	$no_tamu = $row['id_keplek'];
+
+	    }
+	    if ($no_tamu == ""){
+	    	header('Location: kartu.php?id='.$id_ked);
 	    }
 	}}
 
