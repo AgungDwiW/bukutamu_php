@@ -292,32 +292,7 @@
 	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
 	          </div>
 	        </div>
-	         <div class="form-group row"> <!-- Institusi  -->
-	          <label class="control-label col-sm-3" for="tipe">Kategori :</label>
-	          <div class="col-sm-9">  
-	             <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
-	            >
-	            	
-	            	<?php  
-	            	$sql = "SELECT * FROM tipe_tamu";	
-	            	$result_dep = mysqli_query($conn, $sql);
-	            	if (mysqli_num_rows($result_dep) > 0) {
-					    // output data of each row
-					    while($row = mysqli_fetch_assoc($result_dep)) {
-					    	if ($row['id'] == $tipe)
-					    	{
-					    	echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";	
-					    	}
-					    	else{
-					    	echo "<option name= 'tipe' value=".$row['id']." >".$row['tipe']."</option>";
-					    }
-					    }
-					}
-	            	?>
-	        	</select>
-
-	          </div>
-	          
+	        
 	        </div>
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>

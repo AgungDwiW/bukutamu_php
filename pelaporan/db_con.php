@@ -1,3 +1,3 @@
 <?php
-require "../db/db_con.php";
+require '../db/db_con.php'
 ?>

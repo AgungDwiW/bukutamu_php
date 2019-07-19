@@ -11,14 +11,7 @@ DROP TABLE IF EXISTS year;
 DROP TABLE IF EXISTS tamu;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS session;
-create table kartu_tamu(
-	id int not null auto_increment primary key,
-	tipe_kartu varchar(30),
-	nomor_kartu int,
-	uid varchar(50),
-	unique(uid)
-	
-);
+
 
 CREATE TABLE setting(
 	nama varchar(50) primary key,
@@ -28,6 +21,18 @@ CREATE TABLE setting(
 CREATE TABLE tipe_tamu(
 	id int not null primary key auto_increment,
 	tipe varchar(20)
+);
+
+create table kartu_tamu(
+	id int not null auto_increment primary key,
+	tipe_kartu int,
+	nomor_kartu int,
+	uid varchar(50),
+	unique(uid),
+	foreign key fk_kartu_tipe(tipe_kartu)
+	references tipe_tamu(id)
+	on DELETE CASCADE
+	
 );
 
 CREATE TABLE area(
@@ -57,13 +62,9 @@ CREATE TABLE tamu (
 	saved boolean,
 	count_pelanggaran int,
 	blok boolean,	
-	tipe int,
 	terakhir_ind date,
 	terakhir_count date,
-	unique (uid),
-	foreign key fk_usr_tip(tipe)
-	references tipe_tamu(id)
-	ON DELETE SET NULL
+	unique (uid)
 	);
 
 
