@@ -33,7 +33,7 @@
         <a href="dashboard.php" class="brand-link">   
             <img src="../assets/img/logo.png"  alt="Logo Aqua" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
-            <span class="brand-text font-weight-light">Pelaporan</span>
+            <span class="brand-text font-weight-light">Buku Tamu</span>
         </a>
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
@@ -64,13 +64,13 @@
                                 <a href="pelaporan.php" class="dropdown-item nav-link navdrop">
                                     
                                     <p>
-                                        Form Pelaporan
+                                        Laporan Pelanggaran
                                     </p>
                                 </a>
                                 <a href="listpelaporan.php" class=" nav-link ">
                                     
                                     <p>
-                                        List Pelaporan
+                                        List Pelanggar
                                     </p>
                                 </a>
                             </div>
@@ -106,7 +106,7 @@
                             <div  id="resSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
                                 <a href="pengampunan.php" class="nav-link">
                                     <p>
-                                        Form Reset
+                                        Laporan Reset
                                     </p>
                                 </a>
                                 <a href="listpengampunan.php" class="nav-link">
@@ -117,22 +117,8 @@
                             </div>
                         </div>
                     </li>
-
-                      <li class="nav-item">
-
-                        <a href="downloadcsv.php" class="nav-link">
-                            <i class="nav-icon fa fa-download" aria-hidden="true"></i>
-                            <p>
-                                Download
-                            </p>
-                        </a>
-                    </li>
                     
-                    <?php
-                    // require "auth/check.php";
-                    // echo check_super();
-                    if (check_super()){
-                    ?>
+                    
                     
                      
                     
@@ -142,6 +128,17 @@
                         <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
                         <p>Setting</p></a>
                             <div  id="setSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="downloadcsv.php" class="nav-link">
+                                    <p>
+                                        Download
+                                    </p>
+                                </a>
+                                 <?php
+                                // require "auth/check.php";
+                                // echo check_super();
+                                if (check_super()){
+                                ?>
+
                                 <a href="listadmin.php" class="dropdown-item  nav-link ">
                                     
                                     <p>
@@ -167,7 +164,7 @@
                                 </a>
                                 <a href="listtipetamu.php" class="nav-link">
                                     <p>
-                                        Tipe tamu
+                                        Kategori Tamu
                                     </p>
                                 </a>
                                 
@@ -176,12 +173,12 @@
                                         Other
                                     </p>
                                 </a>
-                                
+                                  <?php }?>
                             </div>
                         </div>
                     </li>  
                     
-                    <?php }?>
+                  
 
                 </ul>
             </nav>

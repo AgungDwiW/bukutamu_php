@@ -189,8 +189,7 @@ if ($result&& mysqli_num_rows($result) !=0){
                                   <button class="btnx" onclick="listView()"><i class="fa fa-bars"></i> List</button> 
                                   <button class="btnx active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
                                 </div>
-                                <br>
-                                <br>
+                                <br>  
                                 <div class="row">
                                   <div class="column" >
                                     <h3>Data kunjungan</h3>
@@ -206,15 +205,15 @@ if ($result&& mysqli_num_rows($result) !=0){
                                 <div class="row">
                                   
                                   <div class="column" >
-                                    <h3> Jumlah Pelanggaran Institusi</h3>
+                                    <h3>Data Pelanggaran Institusi</h3>
                                     <canvas id="institusipelchart"></canvas>
                                   </div>
                                   <div class="column" >
-                                    <h3>Area Pelanggaran</h3>
-                                    <canvas id="areapelanggaran" ></canvas>
+                                    <h3>Data Area Pelanggaran</h3>
+                                    <canvas id="areapelanggaran"></canvas>
                                   </div>
                                   <div class="column" >
-                                    <h3>Departemen Dengan Pelanggaran</h3>
+                                    <h3>Data Departemen Pelanggaran</h3>
                                     <canvas id="Divisibar"></canvas>
                                   </div>
                                 </div>
@@ -347,8 +346,18 @@ foreach ($area_name as $key => $value) {
               'rgba(255, 206, 86, 0.2)',
               'rgba(75, 192, 192, 0.2)',
               'rgba(153, 102, 255, 0.2)',
+              'rgba(155, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
             ],
             borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
               'rgba(255,99,132,1)',
               'rgba(54, 162, 235, 1)',
               'rgba(255, 206, 86, 1)',
@@ -426,11 +435,12 @@ foreach ($perusahaan_name as $key => $value) {
       });
 
     //Pelangaran divisi
-       new Chart(document.getElementById("Divisibar"), {
-        "type": "horizontalBar",
-        "data": {
-          "labels": [
-          <?php
+
+     var ctx = document.getElementById("Divisibar").getContext('2d');
+      var areapelanggaran = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [ <?php
 foreach ($departemen_name as $key => $value) {
     echo "'$departemen_name[$key]',";
 
@@ -444,28 +454,45 @@ foreach ($departemen_name as $key => $value) {
     echo "$departemen_pel[$key],";
 
 }?>
-],
-            "fill": false,
-            "backgroundColor": ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)",
-              "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)",
-              "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"
+             ],
+            backgroundColor: [
+              'rgba(155, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(155, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
             ],
-            "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)",
-              "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
             ],
-            "borderWidth": 1
+            borderWidth: 1
           }]
         },
-        "options": {
-          "scales": {
-            "xAxes": [{
-              "ticks": {
-                "beginAtZero": true
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
               }
             }]
           }
         }
       });
+     
        
     </script>
 
