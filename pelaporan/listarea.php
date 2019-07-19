@@ -84,7 +84,7 @@
                                             <div class="col-sm-5 center"> 
                                             <input type="hidden"  hidden name="is_edit" id = "is_edit" class = "form-control inputsm" required value ="-1">
                                             <button type="button" onclick="canc()" id = "cancel" class="col-sm-5" hidden >cancel</button>
-                                            <input type="submit"  name="submit" id = "submit" class="col-sm-10" value="Tambah Area">
+                                            <input type="submit"  name="submit" id = "submit" class="col-sm-10 btn btn-primary  " value="Tambah Area">
                                             
                                         </div>
                                         </div>

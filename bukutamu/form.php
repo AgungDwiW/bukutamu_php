@@ -176,7 +176,7 @@
 	  		?>
       
        <div class="form-group row"> <!-- no HP -->
-	          <label class="control-label col-sm-3" for="ind">Induksi terakhir:</label>
+	          <label class="control-label col-sm-3" for="ind">Status Induksi:</label>
 	          <div class="col-sm-6">  
 	          	<?php if($ind){?>
 	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Sudah Induksi"  style="background-color: #78be20"  >

@@ -13,7 +13,7 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            Form pelaporan                            
+                            Laporan Pelanggaran                          
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->

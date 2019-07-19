@@ -77,13 +77,13 @@
                                         
                                         <br>
                                         <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">Nama tipe tamu:</label>
+                                            <label class="control-label col-sm-2" for="nama">Nama Kategori tamu:</label>
                                             <div class="col-sm-5">
-                                                <input type="text" name="nama" id = "nama" class = "form-control inputsm" required placeholder="Nama tipe tamu baru"></div>
+                                                <input type="text" name="nama" id = "nama" class = "form-control inputsm" required placeholder="Nama kategori tamu baru"></div>
                                             <div class="col-sm-5 center"> 
                                             <input type="hidden"  hidden name="is_edit" id = "is_edit" class = "form-control inputsm" required value ="-1">
                                             <button type="button" onclick="canc()" id = "cancel" class="col-sm-5" hidden >cancel</button>
-                                            <input type="submit"  name="submit" id = "submit" class="col-sm-10" value="Tambah Tipe Tamu">
+                                            <input type="submit"  name="submit" id = "submit" class="col-sm-10 btn btn-primary" value="Tambah Kategori Tamu">
                                             
                                         </div>
                                         </div>
