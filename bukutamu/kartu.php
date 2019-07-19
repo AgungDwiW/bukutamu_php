@@ -59,7 +59,7 @@
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText)
+                // console.log(this.responseText)
                 cur = JSON.parse(this.responseText)
                 get_kartu(cur);
 
@@ -79,7 +79,7 @@
 
             if (cur['error']){
                 document.getElementById('hidme').hidden = false;
-                deactivate()
+                
                 valid = false;
                 return false;
             }

@@ -30,9 +30,9 @@
 		// ============================================================================================
 		// Tamu belum terdaftar
 		// ============================================================================================
-		$sql = "INSERT INTO tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang, count_pelanggaran, blok, tipe, terakhir_ind )
+		$sql = "INSERT INTO tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in, perusahaan, image, saved, nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind )
 	 		 VALUES (".$_POST['UID'].",'".$_POST['TID']."', '". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
-	 		$_POST['Kelamin']."',". true.",'".  mysqli_real_escape_string($conn,strtolower($_POST['Institusi']))."','". $output."',". $_POST['save'].",'".$_POST['NoHP']."','".$now."',0,0, ".$_POST['tipe'].", '".$now_date."')";
+	 		$_POST['Kelamin']."',". true.",'".  mysqli_real_escape_string($conn,strtolower($_POST['Institusi']))."','". $output."',". $_POST['save'].",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."')";
 		$result = mysqli_query($conn, $sql);
 		$sql = "SELECT id FROM tamu where uid = ". $_POST["UID"];
 		$result = mysqli_query($conn, $sql);

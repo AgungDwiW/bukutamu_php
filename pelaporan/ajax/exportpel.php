@@ -1,6 +1,6 @@
 <?php 
 	// echo json_encode($_GET);
-	require "../auth/check.php";
+	require "check.php";
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 	if (!check_login())
