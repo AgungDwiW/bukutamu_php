@@ -80,7 +80,7 @@
 	    	// var_dump($ymd);
 	    	$ind = $ymd<$ind_limit?"0":"1";
 	    	$id = $row['id'];
-	    	$tipe = $row['tipe'];
+	    	
 	    }
 	    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id;
 		// echo $sql;
@@ -89,7 +89,7 @@
 		if ($result_tamu){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 			// var_dump($row);
-			$id_ked = $row['id_ked'];
+			// $id_ked = $row['id_ked'];
 	    	$keperluan = $row['keperluan'];
 	    	$suhu = $row['suhu_badan'];
 	    	$luka = $row['luka'];
@@ -145,35 +145,26 @@
     	<?php  
     		if ($flag_tamu){
 
-    			echo "<img src = ".$image."?1 width=90% id  = 'image' border='5'</img>";
-    			echo '<video id="player" width="80%"  controls autoplay ></video>
-          <canvas id="canvas"  hidden width="80%"></canvas>';
+    			echo "<img src = ".$image."?1 width=60% height=40% id  = 'image' </img>";
+    			echo '<video id="player" width="80%"  controls autoplay hidden></video>
+          <canvas id="canvas"  hidden width="100%"></canvas>';
     		}
     		else if ($flag_sign){
-    			echo "<img src = ".$image."?1 width=100% id  = 'image'></img>";
+    			echo "<img src = ".$image."?1 width=80% id  = 'image'></img>";
     		}
     		else{
-    			    			echo "<img src = ".$image."?1 width=100% id  = 'image' hidden></img>";
+    			    			echo "<img src = ".$image."?1 width=80% id  = 'image' hidden></img>";
 
     			echo '<video id="player" autoplay width="80%" controls ></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" width="80%" ></canvas>';
+          <canvas id="canvas" class="col-sm-12" hidden="" width="100%" ></canvas>';
     		}
     	?>
     	<br>
-      <?php  
-  				if (!$flag_sign){
-  			?>
-  			<?php
-  			if (!$flag_tamu){
-  			?>
+    
+  			
   					<input type="button" name="cancel" id = "capture" class="col-sm-8 btn" value="Mengambil Foto" onclick="cameracapture()">
-  			<?php 
-  			}else {?>
-  					<input type="button" name="cancel" id = "capture" class="col-sm-8 btn" value="Foto" onclick="cameracapture()">
-  			<?php }?>
-  			<?php
-	  			}
-	  		?>
+
+  			
       
        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="ind">Status Induksi:</label>
@@ -384,7 +375,7 @@
   			<?php  
   				if (!$flag_sign){
   			?>
-  				<div class="grid-item ">
+  				<div class="grid-item">
 		  			<input type="submit" name="submit" id = "submit"  value="Masuk">
 	  			</div>
 
@@ -393,7 +384,7 @@
 	  			else{
 	  			?>
 	  			<div class="grid-item">
-	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value = "Keluar" onclick="location.href = 'logout.php';">
+	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value ="Keluar" onclick="location.href = 'logout.php';">
 	  			</div>
 	  			 <?php
 	  			}
@@ -507,6 +498,7 @@
      	const constraints = {
        video: true,
      };
+
      function cameracapture (){
      	// Draw the video frame to the canvas.
      	console.log(flag_camera);
@@ -518,7 +510,7 @@
          var Pic = document.getElementById("canvas").toDataURL();
          Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "");
          image.value = Pic
-         if (!player.paused)
+        if (!player.paused)
        		player.pause();
        	else
        		player.play();
