@@ -87,7 +87,7 @@
                                                 <input type="text" name="hp_pelaku" readonly  id = "no_hp" class = "form-control inputsm" placeholder="No. Handphone pelanggar"></div>
                                         </div>
                                          <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">Counter pelanggaran :</label>
+                                            <label class="control-label col-sm-2" for="nama"> pelanggaran :</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="hp_pelaku" readonly  id = "counter" class = "form-control inputsm" placeholder="Counter pelanggaran"></div>
                                         </div>
@@ -121,7 +121,7 @@
                                             
                                              <br> 
                                              <br>
-                                            <button type="button" class="col-sm-6" onclick="cameracapture()"> Capture</button><input type="submit" name="submit" id = "submit" class="col-sm-6">
+                                            <button type="button" class="col-sm-6" onclick="cameracapture()"> Ambil Gambar</button><input type="submit" name="submit" id = "submit" class="col-sm-6" value="Ajukan">
                                         </div>
                         
                                 </fieldset>
