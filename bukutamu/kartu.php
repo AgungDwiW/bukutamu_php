@@ -41,6 +41,9 @@
            required >
            <p id = "hidme" hidden>Id kartu tidak terdaftar</p>
           <input type="text" hidden name="id" id="id" value="<?php echo $id ?>">
+          <br>
+          <input type="checkbox" name="vehicle3" value="Boat" >  Saya bersedia menaati dan melaksanakan seluruh peraturan<br>
+          <br>
           <input style="margin-top: 10px; width: 87%; text-align: center;" type="submit" class="col-sm-12" value="Log In">
 
           </div>

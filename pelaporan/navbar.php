@@ -59,7 +59,7 @@
                         <div class="" >
                         <a href="#pelaporSubmenu"  aria-expanded="false" class="dropdown-toggle nav-link " data-toggle="collapse" >
                         <i class="nav-icon fa fa-file" aria-hidden="true" ></i>
-                        <p>Pelaporan</p></a>
+                        <p>Pelanggaran</p></a>
                             <div  id="pelaporSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
                                 <a href="pelaporan.php" class="dropdown-item nav-link navdrop">
                                     
@@ -70,7 +70,7 @@
                                 <a href="listpelaporan.php" class=" nav-link ">
                                     
                                     <p>
-                                        List Pelanggar
+                                        Daftar Pelanggaran
                                     </p>
                                 </a>
                             </div>
@@ -85,13 +85,13 @@
                                 <a href="listbukutamu.php" class="dropdown-item nav-link navdrop">
                                     
                                     <p>
-                                        Buku Tamu
+                                        Data Kedatangan Tamu
                                     </p>
                                 </a>
                                 <a href="listtamu.php" class="dropdown-item  nav-link ">
                                     
                                     <p>
-                                        List tamu
+                                        Daftar tamu
                                     </p>
                                 </a>
                             </div>
@@ -111,7 +111,7 @@
                                 </a>
                                 <a href="listpengampunan.php" class="nav-link">
                                     <p>
-                                        List reset
+                                        Daftar Laporan Reset
                                     </p>
                                 </a>
                             </div>
@@ -130,7 +130,7 @@
                             <div  id="setSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
                                 <a href="downloadcsv.php" class="nav-link">
                                     <p>
-                                        Download
+                                        Mengungduh
                                     </p>
                                 </a>
                                  <?php
@@ -170,7 +170,7 @@
                                 
                                 <a href="setting.php" class="nav-link">
                                     <p>
-                                        Other
+                                        Lain-lain
                                     </p>
                                 </a>
                                   <?php }?>
