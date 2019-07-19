@@ -293,7 +293,7 @@
 	          </div>
 	        </div>
 	        
-	        </div>
+	        
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
 	          <div class="col-sm-9">  

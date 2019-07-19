@@ -130,7 +130,7 @@
                             <div  id="setSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
                                 <a href="downloadcsv.php" class="nav-link">
                                     <p>
-                                        Mengungduh
+                                        Mengunduh
                                     </p>
                                 </a>
                                  <?php
@@ -165,6 +165,11 @@
                                 <a href="listtipetamu.php" class="nav-link">
                                     <p>
                                         Kategori Tamu
+                                    </p>
+                                </a>
+                                <a href="listkartu.php" class="nav-link">
+                                    <p>
+                                        Kartu Tamu
                                     </p>
                                 </a>
                                 
