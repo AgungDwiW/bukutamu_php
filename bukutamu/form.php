@@ -133,16 +133,16 @@
 
 <body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height:auto" >
  <div class="wrapper" > 
-  <div id="formContent">
-   <div class="row vertical-align">
+  <div id="formContent" style="top: 0px">
+   <div class="row vertical-align" >
     <div class="col-sm-6" >
 
     	<?php  
     		if ($flag_tamu){
 
     			echo "<img src = ".$image."?1 width=90% id  = 'image' border='5'</img>";
-    			echo '<video id="player" controls autoplay width="70%" hidden></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px"></canvas>';
+    			echo '<video id="player" width="80%px"  controls autoplay ></video>
+          <canvas id="canvas"  hidden="" width="80%"></canvas>';
     		}
     		else if ($flag_sign){
     			echo "<img src = ".$image."?1 width=100% id  = 'image'></img>";
@@ -150,13 +150,37 @@
     		else{
     			    			echo "<img src = ".$image."?1 width=100% id  = 'image' hidden></img>";
 
-    			echo '<video id="player" controls autoplay width="90%" ></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px"></canvas>';
+    			echo '<video id="player" autoplay width="80%"  controls ></video>
+          <canvas id="canvas" class="col-sm-12" hidden="" width="80%" ></canvas>';
     		}
     	?>
+    	<br>
+      <?php  
+  				if (!$flag_sign){
+  			?>
+  			<?php
+  			if (!$flag_tamu){
+  			?>
+  					<input type="button" name="cancel" id = "capture" class="col-sm-8 btn" value="Mengambil Foto" onclick="cameracapture()">
+  			<?php 
+  			}else {?>
+  					<input type="button" name="cancel" id = "capture" class="col-sm-8 btn" value="Foto" onclick="cameracapture()">
+  			<?php }?>
+  			<?php
+	  			}
+	  		?>
       
-      <br>
-      <br>
+       <div class="form-group row"> <!-- no HP -->
+	          <label class="control-label col-sm-3" for="ind">Induksi terakhir:</label>
+	          <div class="col-sm-6">  
+	          	<?php if($ind){?>
+	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Sudah Induksi"  style="background-color: #78be20"  >
+	        	<?php }
+	        	else {?>
+	        	<input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Belum induksi"  style="background-color: red"  >
+	        		<?php }?>
+	          </div>
+	        </div>
       <div class="row">
       	<div class="table-responsive col-sm-12">
 		  <table class="table ">
@@ -232,17 +256,7 @@
 	          </div>
 	        </div>
 	        
-	         <div class="form-group row"> <!-- no HP -->
-	          <label class="control-label col-sm-3" for="ind">Induksi terakhir:</label>
-	          <div class="col-sm-9">  
-	          	<?php if($ind){?>
-	            <input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Sudah Induksi"  style="background-color: #78be20"  >
-	        	<?php }
-	        	else {?>
-	        	<input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Belum induksi"  style="background-color: red"  >
-	        		<?php }?>
-	          </div>
-	        </div>
+	        
 	        
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
@@ -274,7 +288,7 @@
 	          </div>
 	        </div>
 	         <div class="form-group row"> <!-- Institusi  -->
-	          <label class="control-label col-sm-3" for="tipe">Tipe dan nomor tamu:</label>
+	          <label class="control-label col-sm-3" for="tipe">Kategori :</label>
 	          <div class="col-sm-6">  
 	             <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
 	            >
@@ -385,34 +399,33 @@
 	        </div>
 	        <div class="form-group row"  >
   			<input type="hidden" id = "Image" name = "Image" >
+  			
+  			<div class="" style="display: inline-grid; text-align: center; grid-column-start: 1; grid-column-end: 3;">
+            
+          	 
   			<?php  
   				if (!$flag_sign){
   			?>
-  			<?php
-  			if (!$flag_tamu){
-  			?>
-  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="AMBIL FOTO" onclick="cameracapture()">
-  			<?php 
-  			}else {?>
-  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="AMBIL FOTO" onclick="cameracapture()">
-  			<?php }?>
-		  			<input type="submit" name="submit" id = "submit" class="col-sm-5 btn" value="submit">
-	  			
+  				<div class="grid-item ">
+		  			<input type="submit" name="submit" id = "submit"  value="Masuk">
+	  			</div>
+
 	  		<?php
 	  			}
 	  			else{
 	  			?>
-	  			
-	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value = "logout" onclick="location.href = 'logout.php';">
-	  			
+	  			<div class="grid-item">
+	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value = "Keluar" onclick="location.href = 'logout.php';">
+	  			</div>
 	  			 <?php
 	  			}
 	  		?>
   			</div>
-  			<div class="form-group-row">
-  				
-		  			<input type="button" name="cancel" id = "cancel" class="col-sm-11 btn" value="cancel" onclick="location.href = 'index.php';">
+	  			<div class="grid-item">
+	  				
+			  			<input type="button" name="cancel" id = "cancel"  value="Kembali" onclick="location.href = 'index.php';">
 
+	  			</div>
   			</div>
   		</form>
     </div>

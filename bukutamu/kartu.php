@@ -43,6 +43,7 @@
           <input type="text" hidden name="id" id="id" value="<?php echo $id ?>">
           <input style="margin-top: 10px; width: 87%; text-align: center;" type="submit" class="col-sm-12" value="Log In">
 
+<<<<<<< HEAD
           </div>
     </div>
 
@@ -63,6 +64,13 @@
             }
             };
             event.preventDefault();
+=======
+          <input type="text" id="UID" class="form-control" name="ID Kartu" placeholder="ID Kartu" required >
+          
+          
+          <input style="margin-top: 40px; width: 40%; text-align: center;" type="submit" class="col-sm-12" value="Log In">
+           <a href="../index.php" style="margin-top: 40px; width: 40%; text-align: center;"><input type="button" name="back" id = "back" class="col-sm-11 center" value="back"></a>
+>>>>>>> c975b75ac5c268eea83b70be0b05e05fd87e9112
             
                
                 xhttp.open("GET", "ajax/get_kartu.php?uid='" + uid.value+"'", true);
