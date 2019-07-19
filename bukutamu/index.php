@@ -28,14 +28,18 @@
         <!-- Icon -->
         
         <!-- Login Form -->
-        <form method="POST" action="form.php" class="center ">
+        <form method="POST" action="form.php" class="center">
 			       
           <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" required autofocus>
           
-            
-          <input style="margin-top: 40px; width: 40%; text-align: center;" type="submit" class="col-sm-12" value="Log In">
-           <a href="../index.php" style="margin-top: 40px; width: 40%; text-align: center;"><input type="button" name="back" id = "back" class="col-sm-11 center" value="back"></a>
-            
+          <div class="center" style="display: inline-grid; grid-template-columns: auto auto auto">
+            <div class="grid-item">
+              <input  style="margin-top: 20px;  text-align: center;"  type="submit"  value="Masuk">
+            </div>
+            <div class="grid-item">
+            <a  href="../index.php"  ><input style="margin-top: 20px;  text-align: center;" type="button" name="back" id = "back" class="center" value="Kembali"></a>
+            </div>
+          </div>   
          
          
           
