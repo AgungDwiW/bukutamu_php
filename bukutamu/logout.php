@@ -11,14 +11,20 @@
 	   }
 	}
 	// echo $saved;
-	$sql = "SELECT id FROM tamu where uid = ". $_POST["UID"];
+	$sql = "SELECT id, tipeid FROM tamu where uid = ". $_POST["UID"];
 
 	$result = mysqli_query($conn, $sql);
 	while($row = mysqli_fetch_assoc($result)) {
-		
+		$tipeid = $row['tipeid'];
 		$id = $row['id'];
 		// if (!$row['signed_in'])
 			// header('Location: index.php');
+	}
+
+	if ($tipeid != "KTP"){
+		$sql = "DELETE FROM tamu where id = $id";
+		$result = mysqli_query($conn, $sql);
+		header('Location: index.php');
 	}
 	// echo "$sql";
 	if ($saved){

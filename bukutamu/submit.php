@@ -1,4 +1,4 @@
- <?php  
+<?php  
 	require "../db/db_con.php";
 	$image = base64_decode($_POST['Image']);
 	$output = "media/".$_POST['UID'].".jpg";
@@ -100,11 +100,17 @@
 	// ============================================================================================
 	// input data kedatangan
 	// ============================================================================================
-	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, id_keplek)
-	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$_POST['Suhu'].",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."',".$_POST['No_tamu'].")";
+	
+	
+	$suhu = str_replace(",", ".", $_POST['Suhu']);
+	
+	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu)
+	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
 	
 	$result = mysqli_query($conn, $sql);
-	// echo "$sql";
-	// echo "$id";
-	header('Location: index.php');
+	
+	
+	$id = mysqli_insert_id($conn);
+	
+	header('Location: kartu.php?id='.$id);
 ?>

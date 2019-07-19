@@ -11,7 +11,14 @@ DROP TABLE IF EXISTS year;
 DROP TABLE IF EXISTS tamu;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS session;
-
+create table kartu_tamu(
+	id int not null auto_increment primary key,
+	tipe_kartu varchar(30),
+	nomor_kartu int,
+	uid varchar(50),
+	unique(uid)
+	
+);
 
 CREATE TABLE setting(
 	nama varchar(50) primary key,
@@ -84,7 +91,9 @@ create table kedatangan (
     departemen int,
     signedout boolean,
     id_keplek int,
-    
+    foreign key fk_tamu_keplek (id_keplek)
+    references kartu_tamu(id)
+    on delete set null,
 	foreign key fk_tamu_ked (id_tamu)
 	references tamu(id)
 	ON DELETE CASCADE,

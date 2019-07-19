@@ -156,11 +156,13 @@
                                         Admin
                                     </p>
                                 </a>
+                                
                                 <a href="listdepartemen.php" class="dropdown-item  nav-link ">   
                                     <p>
                                         Departemen
                                     </p>
                                 </a>
+                                
                                 <a href="listarea.php" class="nav-link">
                                     <p>
                                         Area

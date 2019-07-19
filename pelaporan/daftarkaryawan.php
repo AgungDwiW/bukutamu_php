@@ -46,7 +46,7 @@
                                             }
                                         ?>
                                         <div class="col-sm-12 center"> 
-                                           <button type="input" class="btn btn-primary" style="width: 50%">Submit</button>
+                                           <button type="input" class="btn btn-primary" style="width: 100%">Submit</button>
                                         
                                         </div>
                         

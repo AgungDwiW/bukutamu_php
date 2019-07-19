@@ -223,11 +223,11 @@
 	            		}
 	            	 ?>
 	            	>Kartu Pegawai</option>
-	            	<option value="SIM"> <?php 
+	            	<option value="SIM" <?php 
 	            		if ($tid == "SIM") {
 	            			echo "selected";
 	            		}
-	            	 ?>SIM</option>
+	            	 ?>>SIM</option>
 	            </select>
 	          </div>
 	        </div>
@@ -391,10 +391,10 @@
   			<?php
   			if (!$flag_tamu){
   			?>
-  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="TAKE A PHOTO" onclick="cameracapture()">
+  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="AMBIL FOTO" onclick="cameracapture()">
   			<?php 
   			}else {?>
-  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="capture" onclick="cameracapture()">
+  					<input type="button" name="cancel" id = "capture" class="col-sm-5 btn" value="AMBIL FOTO" onclick="cameracapture()">
   			<?php }?>
 		  			<input type="submit" name="submit" id = "submit" class="col-sm-5 btn" value="submit">
 	  			
@@ -531,7 +531,6 @@
        		player.pause();
        	else
        		player.play();
-       document.getElementById("capture").value = "take a photo"
    		}
    		else{
    			flag_camera = true;
