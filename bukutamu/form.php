@@ -289,7 +289,7 @@
 	        </div>
 	         <div class="form-group row"> <!-- Institusi  -->
 	          <label class="control-label col-sm-3" for="tipe">Kategori :</label>
-	          <div class="col-sm-6">  
+	          <div class="col-sm-9">  
 	             <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
 	            >
 	            	
@@ -312,9 +312,7 @@
 	        	</select>
 
 	          </div>
-	          <div class="col-sm-3">  
-	            <input type="number" step="any" class="form-control inputsm" name="No_tamu" id="No_tamu" placeholder="No" required value = <?php echo $no_tamu?>  >
-	          </div>
+	          
 	        </div>
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
