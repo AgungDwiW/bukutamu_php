@@ -141,8 +141,8 @@
     		if ($flag_tamu){
 
     			echo "<img src = ".$image."?1 width=90% id  = 'image' border='5'</img>";
-    			echo '<video id="player" width="80%px"  controls autoplay ></video>
-          <canvas id="canvas"  hidden="" width="80%"></canvas>';
+    			echo '<video id="player" width="80%"  controls autoplay ></video>
+          <canvas id="canvas"  hidden width="80%"></canvas>';
     		}
     		else if ($flag_sign){
     			echo "<img src = ".$image."?1 width=100% id  = 'image'></img>";
@@ -150,7 +150,7 @@
     		else{
     			    			echo "<img src = ".$image."?1 width=100% id  = 'image' hidden></img>";
 
-    			echo '<video id="player" autoplay width="80%"  controls ></video>
+    			echo '<video id="player" autoplay width="80%" controls ></video>
           <canvas id="canvas" class="col-sm-12" hidden="" width="80%" ></canvas>';
     		}
     	?>

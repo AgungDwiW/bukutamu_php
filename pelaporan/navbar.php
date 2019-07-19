@@ -118,14 +118,6 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="listpengampunan.php" class="nav-link">
-                            <i class="nav-icon fa fa-picture-o" aria-hidden="true"></i>
-                            <p>
-                                List reset
-                            </p>
-                        </a>
-                    </li>
                       <li class="nav-item">
 
                         <a href="downloadcsv.php" class="nav-link">
