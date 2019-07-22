@@ -179,16 +179,7 @@
 	        </div> 
 	       <div class="form-group row col-sm-12" id = "indikator" style="height: 20px; background-color: red">  
 	       </div>
-	        <?php  
-	        		if (isset($id)){
-		    		$sql = "SELECT * FROM kedatangan where id_tamu = ". $id." ORDER BY id DESC LIMIT 3";
-		    		
-		    		$result = mysqli_query($conn, $sql);
-		    		if ($result && mysqli_num_rows($result) > 0) {
-				    // output data of each row
-				   
-				    	
-				?>
+	        
       <div class="row">
       	<div class="table-responsive col-sm-12">
 		  <table class="table ">
@@ -201,6 +192,16 @@
 		    </thead>
 		    <tbody>
 		    	<?php 
+		    	
+	        		if (isset($id)){
+		    		$sql = "SELECT * FROM kedatangan where id_tamu = ". $id." ORDER BY id DESC LIMIT 3";
+		    		
+		    		$result = mysqli_query($conn, $sql);
+		    		if ($result && mysqli_num_rows($result) > 0) {
+				    // output data of each row
+				   
+				    	
+				
 		    	 while($row = mysqli_fetch_assoc($result)) {
 		    	 	$date = strtotime($row['tanggal_datang']);
 		    	 	$date =  date('d-m-Y',$date);
@@ -212,12 +213,12 @@
 				        <td><?php echo  $row['keperluan'];?></td>
 				      </tr>
 				  <?php }?>
-		    
+		<?php }}?>	    
 		    </tbody>
 		  </table>
 		</div>
       </div>
-      <?php }}?>
+      
     </div>
     <div class="col-sm-6 v-divider">
       

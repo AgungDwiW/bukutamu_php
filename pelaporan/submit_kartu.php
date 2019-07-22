@@ -15,5 +15,5 @@
 				";
 	$result = mysqli_query($conn, $sql);
 	// echo "$sql";
-	header('Location: listkartu.php');
+	header('Location: daftarkartu.php');
 ?>
