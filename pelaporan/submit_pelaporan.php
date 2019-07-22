@@ -79,15 +79,15 @@
 	// echo $sql;
 // return false;
 	$sql = "SELECT count_pelanggaran AS count FROM tamu WHERE id = ".$id;
-	// echo $sql;
 	$result = mysqli_query($conn, $sql);
-	if (mysqli_num_rows($result) !=0){
-		// var_dump($result);
+
+	if ($result && mysqli_num_rows($result) !=0){		
 		while($row = mysqli_fetch_assoc($result)) {
 			$count = $row['count'];
-			
+
 			if (!$positif){
 			$count+=1;
+			
 			$sql2 = "UPDATE tamu SET count_pelanggaran = $count, blok = $blok, terakhir_count = '$now_date' WHERE id = $id";
 			$result = mysqli_query($conn, $sql2);
 			}
@@ -120,8 +120,8 @@
 			}
 			// echo "aaa";
 			// echo "$body";
-			send_mail($subject, $body, $to_address, $to_name);
-
+			// send_mail($subject, $body, $to_address, $to_name);
+			echo $count>=$max_pel;
 			if ($row['count']>=$max_pel){
 				// echo "aaaaa";
 				$sql = "SELECT * FROM tamu WHERE id = ".$id;
@@ -133,7 +133,7 @@
 				}
 				$subject = "Pelanggaran melebihi 3 kali oleh".$nama;
 				$body = "Detail pelanggaran :<br>";
-				$sql = "SELECT * FROM pelaporan WHERE pelanggar = ".$uid;
+				$sql = "SELECT * FROM pelaporan WHERE id_tamu = ".$id;
 				// echo "$sql";
 				$result3 = mysqli_query($conn, $sql);
 				if (mysqli_num_rows($result3) !=0){
@@ -156,13 +156,13 @@
 				}
 				// echo "aaa";
 				// echo "$body";
-				send_mail($subject, $body, $to_address, $to_name);
+				// send_mail($subject, $body, $to_address, $to_name);
 				$sql2 = "UPDATE tamu SET blok= 1 WHERE id = $id";
 				$result = mysqli_query($conn, $sql2);
 			}}}
 		}
 	}
 }}}
-	header('Location: listpelaporan.php');	
+	// header('Location: listpelaporan.php');	
 
 ?>

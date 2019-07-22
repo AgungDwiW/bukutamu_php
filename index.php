@@ -14,7 +14,7 @@
     <link href="assets/MDB/css/mdb.min.css" rel="stylesheet">
   
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- Theme style -->
@@ -57,7 +57,7 @@
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <!-- <link href=""bukutamu/css/form.css" " rel="stylesheet"> -->
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link href="bukutamu/css/daftar.css" rel="stylesheet">
     <script src="assets/js/jquery.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
