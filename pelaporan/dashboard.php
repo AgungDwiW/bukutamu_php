@@ -186,8 +186,8 @@ if ($result&& mysqli_num_rows($result) !=0){
                             <div class="wrapper" style="text-align: center;">
                                 <h1 style="text-align: center;">Dashboard</h1>
                                 <div id="btnContainer">
-                                  <button class="btnx" onclick="listView()"><i class="fa fa-bars"></i> List</button> 
-                                  <button class="btnx active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
+                                  <button class="btnx btn" onclick="listView()"><i class="fa fa-bars"></i> List</button> 
+                                  <button class="btnx btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
                                 </div>
                                 <br>  
                                 <div class="row">
@@ -236,7 +236,7 @@ if ($result&& mysqli_num_rows($result) !=0){
     // List View
     function listView() {
       for (i = 0; i < elements.length; i++) {
-        elements[i].style.width = "100%";
+        elements[i].style.width = "80%";
       }
     };
 
@@ -245,7 +245,7 @@ if ($result&& mysqli_num_rows($result) !=0){
     function gridView() {
       for (i = 0; i < elements.length; i++) {
         if (i<2){  
-            elements[i].style.width = "50%";
+            elements[i].style.width = "45%";
           }
         else {
           elements[i].style.width = "33%";
