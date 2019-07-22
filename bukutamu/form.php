@@ -177,8 +177,7 @@
 	        		<?php }?>
 	          </div>
 	        </div> 
-	       <div class="form-group row col-sm-12" id = "indikator" style="height: 20px; background-color: red">  
-	       </div>
+	     
 	        
       <div class="row">
       	<div class="table-responsive col-sm-12">
@@ -407,12 +406,9 @@
 	  			</div>
   			</div>
   			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#basicExample">
-			    Test Button
-			</button>
 
 			<!-- Modal -->
-			<div class="modal fade" id="basicExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			    <div class="modal-dialog" role="document">
 			        <!--Content-->
 			        <div class="modal-content">
@@ -427,8 +423,9 @@
 			            </div>
 			            <!--Footer-->
 			            <div class="modal-footer">
-			                <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
-			                <button type="button" class="btn btn-danger">Yakin</button>
+			            	 <a class="btn btn-primary" id = "link" href="index.php">Tutup</a>
+			                
+			                <button type="button" class="btn btn-danger" data-dismiss="modal">Yakin</button>
 			            </div>
 			        </div>
 			        <!--/.Content-->
@@ -604,10 +601,8 @@
 
      function change_indikator(){
      	if (luka_flag || sakit_flag || temp_flag){
-     		indikator.style['background-color'] = rej_color;
-     	}
-     	else{
-     		indikator.style['background-color'] = acc_color;
+     		
+     		$('#modal1').modal('show');
      	}
      }
 
