@@ -143,7 +143,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
        
          t.clear().draw();
           counter = 1;
-          for (x=0;x<json.length; x++)
+          for (x=0;x<json.length; x++){
            t.row.add( [
             counter,
             json[x]['nama_pelapor'],
@@ -160,8 +160,8 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
             '<td style="vertical-align:middle;">                                            <a href="" class="nav-link" onclick="document.getElementById(\'link\').href =  \'hapuspelaporan.php?id='+json[x]['id']+'\'" style="color: DodgerBlue;" data-toggle="modal" data-target="#exampleModal2" ><i class="fa fa-fw fa-trash"></i><span class="nav-link-text" >Hapus</span></a></td>'
             
         ] ).draw( false );
- 
-        counter++;
+    counter++;
+        }
       }
     </script>
    

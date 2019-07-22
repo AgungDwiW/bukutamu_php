@@ -87,7 +87,7 @@
 
 			if (!$positif){
 			$count+=1;
-			
+
 			$sql2 = "UPDATE tamu SET count_pelanggaran = $count, blok = $blok, terakhir_count = '$now_date' WHERE id = $id";
 			$result = mysqli_query($conn, $sql2);
 			}
@@ -120,9 +120,9 @@
 			}
 			// echo "aaa";
 			// echo "$body";
-			// send_mail($subject, $body, $to_address, $to_name);
-			echo $count>=$max_pel;
-			if ($row['count']>=$max_pel){
+			send_mail($subject, $body, $to_address, $to_name);
+
+			if ($count>=$max_pel){
 				// echo "aaaaa";
 				$sql = "SELECT * FROM tamu WHERE id = ".$id;
 				// echo "$sql";
@@ -156,13 +156,14 @@
 				}
 				// echo "aaa";
 				// echo "$body";
-				// send_mail($subject, $body, $to_address, $to_name);
+				send_mail($subject, $body, $to_address, $to_name);
 				$sql2 = "UPDATE tamu SET blok= 1 WHERE id = $id";
+				// echo "$sql2";
 				$result = mysqli_query($conn, $sql2);
 			}}}
 		}
 	}
 }}}
-	// header('Location: listpelaporan.php');	
+	header('Location: listpelaporan.php');	
 
 ?>

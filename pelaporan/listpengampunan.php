@@ -119,7 +119,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
 
          t.clear().draw();
           counter = 1;
-          for (x=0;x<json.length; x++)
+          for (x=0;x<json.length; x++){
            t.row.add( [
             counter,
             json[x]['nik'],
@@ -132,7 +132,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
             
         ] ).draw( false );
  
-        counter++;
+        counter++;}
       }
     </script>
    
