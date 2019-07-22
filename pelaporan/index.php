@@ -10,7 +10,7 @@ header('Location: dashboard.php');
 
     <link href="css/index.css"  rel="stylesheet">
     <script src="../assets/js/jquery.js" ></script>
-    <script src="..assets/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js" ></script>
     
     <title>Bukutamu</title>
 </head>

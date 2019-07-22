@@ -274,7 +274,7 @@ if ($result&& mysqli_num_rows($result) !=0){
 
           labels: [<?php
                   foreach ($month as $key => $value) {
-                     echo "'".$key."', ";
+                     echo "'".substr($key, 0, 7)."', ";
                   }
                   
                 ?>],
@@ -317,8 +317,16 @@ if ($result&& mysqli_num_rows($result) !=0){
           ]
         },
         options: {
-          responsive: true
+          responsive: true,
+           scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
         }
+         
+  }
       });
 
     //Area Pelanggaran  
@@ -430,7 +438,14 @@ foreach ($perusahaan_name as $key => $value) {
           }]
         },
         options: {
-          responsive: true
+          responsive: true,
+           scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                }
+              }]
+        }
         }
       });
 
