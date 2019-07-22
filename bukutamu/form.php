@@ -89,7 +89,7 @@
 		if ($result_tamu){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 			// var_dump($row);
-			// $id_ked = $row['id_ked'];
+			$id_ked = $row['id'];
 	    	$keperluan = $row['keperluan'];
 	    	$suhu = $row['suhu_badan'];
 	    	$luka = $row['luka'];
@@ -114,7 +114,7 @@
 	if ($flag_sign == null){
 		$flag_sign = 0;
 	}
-
+	
 	// var_dump($tid);
  ?>
 <head>
@@ -176,7 +176,19 @@
 	        	<input type="text" class="form-control inputsm" name="Ind" id="Ind" placeholder="" autocomplete="off" readonly   value = "Belum induksi"  style="background-color: red"  >
 	        		<?php }?>
 	          </div>
-	        </div>
+	        </div> 
+	       <div class="form-group row col-sm-12" id = "indikator" style="height: 20px; background-color: red">  
+	       </div>
+	        <?php  
+	        		if (isset($id)){
+		    		$sql = "SELECT * FROM kedatangan where id_tamu = ". $id." ORDER BY id DESC LIMIT 3";
+		    		
+		    		$result = mysqli_query($conn, $sql);
+		    		if ($result && mysqli_num_rows($result) > 0) {
+				    // output data of each row
+				   
+				    	
+				?>
       <div class="row">
       	<div class="table-responsive col-sm-12">
 		  <table class="table ">
@@ -188,32 +200,29 @@
 		      </tr>
 		    </thead>
 		    <tbody>
-		    	<?php  
-		    		$sql = "SELECT * FROM kedatangan where tamu = ". $_POST["UID"]." ORDER BY id DESC LIMIT 3";
-		    		
-		    		$result = mysqli_query($conn, $sql);
-		    		if ($result && mysqli_num_rows($result) > 0) {
-				    // output data of each row
-				    while($row = mysqli_fetch_assoc($result)) {
-				    	
-				?>
+		    	<?php 
+		    	 while($row = mysqli_fetch_assoc($result)) {
+		    	 	$date = strtotime($row['tanggal_datang']);
+		    	 	$date =  date('d-m-Y',$date);
+		    	?>
+		    	
 				      <tr >
-				        <td><?php echo  DateTime::createFromFormat('Y-m-d', $row['tanggal_datang']);?></td>
+				        <td><?php echo  $date;?></td>
 				        <td><?php echo  $row['bertemu'];?></td>
 				        <td><?php echo  $row['keperluan'];?></td>
 				      </tr>
-
-		    <?php }}?>
+				  <?php }?>
+		    
 		    </tbody>
 		  </table>
 		</div>
       </div>
-      
+      <?php }}?>
     </div>
     <div class="col-sm-6 v-divider">
       
           <form method = "POST" action = <?php
-          	if ($flag_sign) echo "logout.php";
+          	if ($flag_sign) echo "logout.php?next=index.php";
         	else echo "submit.php ";
            
            ?>
@@ -334,10 +343,10 @@
 	      	<!-- </div>
 	      	<div class="form-group row"> -->
 	          	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="Luka" id="Luka1"  checked=true          value = "1"> Ya
+	            <input type="radio"  name="Luka" id="Luka1"  checked=true     onchange="luka_aktive()"     value = "1"> Ya
 	        	</label>
 	        	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="Luka" id ="Luka2"    checked=true  value="0"> Tidak
+	            <input type="radio"  name="Luka" id ="Luka2"  onchange="luka_aktive()"  checked=true  value="0"> Tidak
 	        	</label>
 	        </div>
 	        <div class="form-group row">
@@ -354,7 +363,7 @@
 	        <label class="control-label col-sm-3" for="sakit"> Jenis sakit :</label>
 	          <div class="col-sm-9">  
 	          	
-	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit" autocomplete="off" placeholder="Sehat"    required   >
+	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit" autocomplete="off" placeholder="Sehat"  readonly required   >
 	          </div>
 	        </div>
 	        <div class="form-group row">
@@ -375,7 +384,7 @@
   			<?php  
   				if (!$flag_sign){
   			?>
-  				<div class="grid-item">
+  				<div class="grid-item col-sm 6">
 		  			<input type="submit" name="submit" id = "submit"  value="Masuk">
 	  			</div>
 
@@ -384,13 +393,13 @@
 	  			else{
 	  			?>
 	  			<div class="grid-item">
-	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value ="Keluar" onclick="location.href = 'logout.php';">
+	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value ="Keluar" >
 	  			</div>
 	  			 <?php
 	  			}
 	  		?>
   			</div>
-	  			<div class="grid-item">
+	  			<div class="grid-item col-sm-6">
 	  				
 			  			<input type="button" name="cancel" id = "cancel"  value="Kembali" onclick="location.href = 'index.php';">
 
@@ -416,12 +425,17 @@
 	 echo "const max_pel  = $max_pel;";
 	 echo "const max_ind = $max_ind;";
 	 ?>
+	 const acc_color = '#78be20'
+	 const rej_color = 'red'
+	 const indikator = document.getElementById('indikator')
      const radio_sakit = document.getElementById('sakit_radio_y')
      const radio_sakitn = document.getElementById('sakit_radio_n')
      const sakit = document.getElementById('Sakit')
      const lukay = document.getElementById('Luka1')
      const lukan = document.getElementById('Luka2')
-     var sakit_flag = false
+     var sakit_flag = true
+     var luka_flag = false
+     var temp_flag = false
      const nama = document.getElementById("Nama")
      const hp = document.getElementById("NoHP")
      const inst = document.getElementById("Institusi")
@@ -437,7 +451,7 @@
      const institusi = document.getElementById("Institusi")
      const tid = document.getElementById("TID")
      const tipe_tamu = document.getElementById("tipe")
-     const no_tamu = document.getElementById("No_tamu")
+     
      var flag_camera = false;
      var acc_temp = false;
 
@@ -468,8 +482,8 @@
      	lukan.disabled = true
      	departemen.disabled = true	
      	acc_temp = true;
-     	no_tamu.disabled = true;
-     	tipe_tamu.disabled = true;
+     	
+     	
      }
      <?php
     
@@ -488,8 +502,8 @@
      	lukay.disabled = true
      	lukan.disabled = true
      	departemen.disabled = true
-     		no_tamu.disabled = true;
-     	tipe_tamu.disabled = true;
+     		
+     	
      	document.getElementById("capture").disabled = true
      	alert("anda telah diblok untuk masuk kedalam pabrik")
      <?php }?>
@@ -548,8 +562,22 @@
  	?>
      function sakit_aktive(){
 		 sakit_flag = !sakit_flag
-		 sakit.readOnly = sakit_flag
-		 sakit.required = !sakit_flag
+		 sakit.readOnly = !sakit_flag
+		 sakit.required = sakit_flag
+		 change_indikator();
+     }
+     function luka_aktive(){
+     	luka_flag = !luka_flag
+     	change_indikator();
+     }
+
+     function change_indikator(){
+     	if (luka_flag || sakit_flag || temp_flag){
+     		indikator.style['background-color'] = rej_color;
+     	}
+     	else{
+     		indikator.style['background-color'] = acc_color;
+     	}
      }
 
 
@@ -559,11 +587,14 @@
     		submit.disabled = true;
     		$("#Suhu").addClass('is-invalid')
 			// or
-			
+			temp_flag = true;
+			change_indikator();
     	}
     	else{
     		$("#Suhu").removeClass('is-invalid')
     		submit.disabled = false;
+    		temp_flag = false
+    		change_indikator();
     	}
     }
 	

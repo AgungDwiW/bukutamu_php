@@ -33,7 +33,7 @@
         <!-- Icon -->
         
         <!-- Login Form -->
-        <form method="POST" action="submit2.php" class="center" onsubmit="validate()">
+        <form method="POST" action="submit2.php" class="center" onsubmit="return validate()">
 			
           <input type="text" id="tip" class="form-control" name="tip" placeholder="Tipe kartu" disabled>
           <input type="text" id="no" class="form-control" name="no" placeholder="Nomor kartu" disabled >
@@ -42,7 +42,7 @@
            <p id = "hidme" hidden>Id kartu tidak terdaftar</p>
           <input type="text" hidden name="id" id="id" value="<?php echo $id ?>">
           <br>
-          <input type="checkbox" name="vehicle3" value="Boat" >  Saya bersedia menaati dan melaksanakan seluruh peraturan<br>
+          <input type="checkbox" required>  Saya bersedia menaati dan melaksanakan seluruh peraturan<br>
           <br>
           <input style="margin-top: 10px; width: 87%; text-align: center;" type="submit" class="col-sm-12" value="Log In">
 
@@ -66,10 +66,6 @@
             }
             };
             event.preventDefault();
-
-          
-            
-               
                 xhttp.open("GET", "ajax/get_kartu.php?uid='" + uid.value+"'", true);
                 xhttp.send();
                 return false;
@@ -79,7 +75,10 @@
 
             if (cur['error']){
                 document.getElementById('hidme').hidden = false;
-                
+                document.getElementById('tip').value ="";
+                document.getElementById('no').value = "";   
+                $("#uid").addClass('is-invalid')
+   
                 valid = false;
                 return false;
             }
@@ -87,6 +86,7 @@
             document.getElementById('hidme').hidden = true;
             document.getElementById('tip').value = cur['tipe_kartu'];
             document.getElementById('no').value = cur['nomor_kartu'];
+            $("#uid").removeClass('is-invalid')
             valid =true;
 
         };

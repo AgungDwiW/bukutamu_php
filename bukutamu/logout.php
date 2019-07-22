@@ -1,6 +1,7 @@
 <?php 
 	require "../db/db_con.php";
 	$uid = $_POST['UID'];
+	$next = $_GET['next'];
 	$sql = "SELECT saved FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);
 	$output = "media/".$_POST['UID'].".jpg";
@@ -11,12 +12,13 @@
 	   }
 	}
 	// echo $saved;
-	$sql = "SELECT id, tipeid FROM tamu where uid = ". $_POST["UID"];
+	$sql = "SELECT id, tipeid, image FROM tamu where uid = ". $_POST["UID"];
 
 	$result = mysqli_query($conn, $sql);
 	while($row = mysqli_fetch_assoc($result)) {
 		$tipeid = $row['tipeid'];
 		$id = $row['id'];
+		$image = $row['image'];
 		// if (!$row['signed_in'])
 			// header('Location: index.php');
 	}
@@ -24,7 +26,10 @@
 	if ($tipeid != "KTP"){
 		$sql = "DELETE FROM tamu where id = $id";
 		$result = mysqli_query($conn, $sql);
-		header('Location: index.php');
+		if (file_exists($output) && $output != $noimage){
+			unlink($output);	
+		}
+		header('Location: '.$next);
 	}
 	// echo "$sql";
 	if ($saved){
@@ -62,7 +67,7 @@
 	   }
 	}
 	else
-		header('Location: index.php');	
+		header('Location: '.$next);	
 
 	$datetime1 = strtotime($in);
 	$a=strtotime($in);
@@ -79,7 +84,7 @@
 				durasi =". $min."
 			WHERE id_tamu = ".$id. 
 			" AND signedout = false";
-	// echo $sql;
+	echo $sql;
 	$result_tamu = mysqli_query($conn, $sql);
 
 	header('Location: index.php');
