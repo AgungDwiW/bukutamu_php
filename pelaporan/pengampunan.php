@@ -113,15 +113,15 @@
                                             </table>
                                           </div>
                                          <div class="form-group row" style="padding-bottom:1rem;">
-                                           <video id="player" controls autoplay width="400px" height="300px" style="  display: block; margin-left: auto; margin-right: auto; width: 50%;"></video>
-                                       <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px" ></canvas>
+                                           <video id="player" controls autoplay width="800px" height="600px" style="  display: block; margin-left: auto; margin-right: auto; width: 50%;"></video>
+                                       <canvas id="canvas" class="col-sm-12" hidden="" width="800px" height="600px" ></canvas>
                                         </div>
                                         <input type="hidden" id = "Image" name = "Image" >
-                                        <div class="col-sm-12 center"> 
+                                        <div style="left: 50%;"> 
                                             
                                              <br> 
                                              <br>
-                                            <button type="button" class="col-sm-6" onclick="cameracapture()"> Ambil Gambar</button><input type="submit" name="submit" id = "submit" class="col-sm-6" value="Ajukan">
+                                            <button type="button" class="btn btn-primary" style="width: 40%" onclick="cameracapture()"> Ambil Gambar</button><input type="submit" name="submit" id = "submit" class="btn btn-primary" value="Ajukan" style="width: 50%">
                                         </div>
                         
                                 </fieldset>
