@@ -1,7 +1,7 @@
 <?php 
 	require "../db/db_con.php";
 	
-	$uid = (int)$_POST["UID"];
+	$uid = $_POST["UID"];
 	
 
 	$max_temp = 0;
@@ -23,7 +23,7 @@
 		$max_ind = $row['value'];
     }
 	// echo $flag_tamu;
-	$no_tamu = '';
+	$no_tamu = -101;
 	$flag_sign = 0;
 	$nama = "";
 	$tid = "";

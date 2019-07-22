@@ -1,4 +1,9 @@
-
+<?php 
+require "auth/check.php";
+if (check_login()){
+header('Location: dashboard.php');
+}
+?>
 <head>
    
     <link href="../assets/bootstrap/css/bootstrap.min.css"  rel="stylesheet" id="bootstrap-css">
@@ -6,12 +11,7 @@
     <link href="css/index.css"  rel="stylesheet">
     <script src="../assets/js/jquery.js" ></script>
     <script src="..assets/bootstrap/js/bootstrap.min.js" ></script>
-    <?php 
-     require "auth/check.php";
-     if (check_login()){
-      header('Location: dashboard.php');
-     }
-     ?>
+    
     <title>Bukutamu</title>
 </head>
 

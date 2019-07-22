@@ -18,8 +18,8 @@
 	    return implode('', $pieces);
 	}
 	if (mysqli_num_rows($result_tamu) ==0){
-		echo "$sql";
-		// header('Location: ../index.php?status=1');
+		// echo "$sql";
+		header('Location: ../index.php?status=1');
 	}
 	else
 	{
