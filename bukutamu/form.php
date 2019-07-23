@@ -673,6 +673,10 @@
      $(document).ready(function() {
      	 var counter = 1;
     $("#add").click(function() {
+    	if(counter>2){
+            alert("Only 10 textboxes allow");
+            return false;
+    } 
         var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
         var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
