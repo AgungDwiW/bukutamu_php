@@ -136,27 +136,64 @@
 
 </head>
 
-<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height:auto" >
+<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height: auto;" >
  <div class="wrapper" > 
-  <div id="formContent" style="top: 0px">
+  <div id="formContent" style="top: 0px ;	width: 95% ;">
+  	<form method = "POST" action = <?php
+          	if ($flag_sign) echo "logout.php?next=index.php";
+        	else echo "submit.php ";
+           
+           ?>
+
+           class = ""  onsubmit="return validateForm()">
    <div class="row vertical-align" >
-    <div class="col-sm-6" >
+    <div class="col-sm-6" style="top: 0px">
+
+    	<div class="form-group row text-left"><!-- UID -->
+	          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
+	          <div class="col-sm-6">  
+	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
+	          </div>
+	          <div class="col-sm-3">
+	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
+	            	
+	            	<option value="KTP"<?php 
+
+	            		if ($tid == "KTP") {
+	            			echo "selected";
+	            		}
+	            	 ?>>KTP</option>
+	            	<option value="Kartu Pegawai"<?php 
+	            		if ($tid == "Kartu Pegawai") {
+	            			echo "selected";
+	            		}
+	            	 ?>
+	            	>Kartu Pegawai</option>
+	            	<option value="SIM" <?php 
+	            		if ($tid == "SIM") {
+	            			echo "selected";
+	            		}
+	            	 ?>>SIM</option>
+	            </select>
+	          </div>
+	        </div>
+	        
 
     	<?php  
     		if ($flag_tamu){
 
     			echo "<img src = ".$image."?1 width=60% height=40% id  = 'image' </img>";
-    			echo '<video id="player" width="80%"  controls autoplay hidden></video>
-          <canvas id="canvas"  hidden width="100%"></canvas>';
+    			echo '<video id="player" width="60%"  controls autoplay hidden></video>
+          <canvas id="canvas"  hidden width="60%"></canvas>';
     		}
     		else if ($flag_sign){
-    			echo "<img src = ".$image."?1 width=80% id  = 'image'></img>";
+    			echo "<img src = ".$image."?1 width=60% id  = 'image'></img>";
     		}
     		else{
-    			    			echo "<img src = ".$image."?1 width=80% id  = 'image' hidden></img>";
+    			echo "<img src = ".$image."?1 width=60% id  = 'image' hidden></img>";
 
-    			echo '<video id="player" autoplay width="80%" controls ></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" width="100%" ></canvas>';
+    			echo '<video id="player" autoplay width="60%" controls ></video>
+          <canvas id="canvas" class="col-sm-12" hidden="" width="60%" ></canvas>';
     		}
     	?>
     	<br>
@@ -219,48 +256,12 @@
       </div>
       
     </div>
-    <div class="col-sm-6 v-divider">
+    <div class="col-sm-6 v-divider text-left">
       
-          <form method = "POST" action = <?php
-          	if ($flag_sign) echo "logout.php?next=index.php";
-        	else echo "submit.php ";
-           
-           ?>
-
-           class = "text-left"  onsubmit="return validateForm()">
-       
+          
         <!--     <form method = "POST" action = {%url 'bukutamu:signout'%} class = "text-left">
          -->
-  			<br>
-	        <div class="form-group row"><!-- UID -->
-	          <label class="control-label col-sm-3" for="UID">UID:</label>
-	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
-	          </div>
-	          <div class="col-sm-3">
-	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
-	            	
-	            	<option value="KTP"<?php 
-
-	            		if ($tid == "KTP") {
-	            			echo "selected";
-	            		}
-	            	 ?>>KTP</option>
-	            	<option value="Kartu Pegawai"<?php 
-	            		if ($tid == "Kartu Pegawai") {
-	            			echo "selected";
-	            		}
-	            	 ?>
-	            	>Kartu Pegawai</option>
-	            	<option value="SIM" <?php 
-	            		if ($tid == "SIM") {
-	            			echo "selected";
-	            		}
-	            	 ?>>SIM</option>
-	            </select>
-	          </div>
-	        </div>
-	        
+  			
 	        
 	        
 	        <div class="form-group row"> <!-- nama -->
@@ -289,7 +290,17 @@
 	        <div class="form-group row"> <!-- Institusi  -->
 	          <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
+	            <select type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
+	            	<option>TIV</option>
+	            </select>
+	          </div>
+	        </div>
+	        <div class="form-group row"> <!-- Institusi  -->
+	          <label class="control-label col-sm-3" for="Institusi"></label>
+	          <div class="col-sm-9">  
+	            <select type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
+	            	<option>TIV Kebon Candi</option>
+	            </select>
 	          </div>
 	        </div>
 	        
@@ -298,13 +309,6 @@
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
 	          <div class="col-sm-9">  
 	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx,x" required value = <?php echo $suhu?>  >
-	          </div>
-	        </div>
-	        <div class="form-group row"> <!-- BErtemu dengan -->
-	          <label class="control-label col-sm-3" for="Bertemu">Bertemu dengan:</label>
-	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Bertemu" id="Bertemu"
-	            placeholder="Bapak/Ibu" autocomplete="off" required value =  <?php echo  $bertemu ?> >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
@@ -332,6 +336,14 @@
 	        	</select>
 	          </div>
 	        </div>
+	        <div class="form-group row"> <!-- BErtemu dengan -->
+	          <label class="control-label col-sm-3" for="Bertemu">Bertemu:</label>
+	          <div class="col-sm-9">  
+	            <input type="text" class="form-control inputsm" name="Bertemu" id="Bertemu"
+	            placeholder="Bapak/Ibu" autocomplete="off" required value =  <?php echo  $bertemu ?> >
+	          </div>
+	        </div>
+	        
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keperluan:</label>
 	          <div class="col-sm-9">  
@@ -366,15 +378,7 @@
 	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit" autocomplete="off" placeholder="Sehat"  readonly required   >
 	          </div>
 	        </div>
-	        <div class="form-group row">
-	          <label class="control-label col-sm-5" for="sakit"> Simpan data diri 	:</label>
-	          	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="save" id="save_radio_y" value="1" checked > Ya
-	        	</label>
-	        	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="save" id="save_radio_n" value = "0"  <?php if(!$saved)echo "checked"	;?>> Tidak
-	        	</label>
-	        </div>
+	        
 	        <div class="form-group row"  >
   			<input type="hidden" id = "Image" name = "Image" >
   			
@@ -432,7 +436,7 @@
 			    </div>
 			</div>
 			<!-- Modal -->
-
+		</div></div>
   		</form>
     </div>
   </div>
