@@ -178,41 +178,7 @@
            class = ""  onsubmit="return validateForm()">
    <div class="row vertical-align" >
     <div class="col-sm-6" style="top: 0px">
-    	<div id="buildyourform">
-	    	<div class="form-group row text-left"><!-- UID -->
-		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
-		          <div class="col-sm-6">  
-		            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
-		          </div>
-		          <div class="col-sm-3">
-		            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
-		            	
-		            	<option value="KTP"<?php 
-
-		            		if ($tid == "KTP") {
-		            			echo "selected";
-		            		}
-		            	 ?>>KTP</option>
-		            	<option value="Kartu Pegawai"<?php 
-		            		if ($tid == "Kartu Pegawai") {
-		            			echo "selected";
-		            		}
-		            	 ?>
-		            	>Kartu Pegawai</option>
-		            	<option value="SIM" <?php 
-		            		if ($tid == "SIM") {
-		            			echo "selected";
-		            		}
-		            	 ?>>SIM</option>
-		            </select>
-		          </div>
-		          
-		    </div>
-		    
-	    </div>   
-	    <input type="button" value="+" class="add btn" id="add" /> 
-	    <input type="button" value="-" class="removed btn" id="removed" /> 
-	    <br>   
+    	 
 			
 
     	<?php  
@@ -297,9 +263,42 @@
           
         <!--     <form method = "POST" action = {%url 'bukutamu:signout'%} class = "text-left">
          -->
-  			
-	        
-	        
+  			<div id="buildyourform">
+	    	
+		    
+	    
+	        <div class="form-group row text-left"><!-- UID -->
+		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
+		          <div class="col-sm-4">  
+		            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
+		          </div>
+		          <div class="col-sm-2">
+		            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
+		            	
+		            	<option value="KTP"<?php 
+
+		            		if ($tid == "KTP") {
+		            			echo "selected";
+		            		}
+		            	 ?>>KTP</option>
+		            	<option value="Kartu Pegawai"<?php 
+		            		if ($tid == "Kartu Pegawai") {
+		            			echo "selected";
+		            		}
+		            	 ?>
+		            	>Kartu Pegawai</option>
+		            	<option value="SIM" <?php 
+		            		if ($tid == "SIM") {
+		            			echo "selected";
+		            		}
+		            	 ?>>SIM</option>
+		            </select>
+		          </div>
+		          <div class="col-sm-3">
+		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
+		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button></div> 
+		    </div>
+	        </div>   
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
 	          <div class="col-sm-6">  
