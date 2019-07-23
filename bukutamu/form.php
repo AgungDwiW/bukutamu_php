@@ -71,7 +71,6 @@
 	    	$hp = $row['nohp'];
 	    	$kelamin = $row['jenis_kelamin'];
 	    	$flag_sign = $row ['signed_in'];
-	    	$perusahaan = $row ['perusahaan'];
 	    	$image = $row['image'];
 	    	$flag_tamu = $row['saved'];
 	    	$saved = $row['saved'];
@@ -286,13 +285,7 @@
 	          </div>
 	        </div>
 	      
-	        <div class="form-group row"> <!-- Institusi  -->
-	          <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
-	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
-	          </div>
-	        </div>
-	         <div class="form-group row"> <!-- SUhu badan -->
+	        <div class="form-group row"> <!-- SUhu badan -->
 	        <label class="control-label col-sm-3" for="tipe">Kategori :</label>
               <div class="col-sm-9">  
                  <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
@@ -301,19 +294,32 @@
                     <?php  
                     $sql = "SELECT * FROM tipe_tamu";   
                     $result_dep = mysqli_query($conn, $sql);
+                    
+                    
+                    $child = array();
                     if (mysqli_num_rows($result_dep) > 0) {
                         // output data of each row
                         while($row = mysqli_fetch_assoc($result_dep)) {
-                        
+                        	if ($row['parent']){
+                        		if (!isset($child[$row['parent']])){
+                        		 $child[$row['parent']]= array();
+                        		 array_push($child[$row['parent']], $row['tipe']);
+                        		}
+
+                        		else {
+                        			array_push($child[$row['parent']], $row['tipe']);	
+                        		}
+
+                        	}
+                        	else{
                             echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";
-                        
+                        	}
                         }
                     }
                     ?>
                 </select>
 
               </div></div>
-	        
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
 	          <div class="col-sm-9">  
@@ -474,6 +480,7 @@
 	 echo "const max_pel  = $max_pel;";
 	 echo "const max_ind = $max_ind;";
 	 ?>
+	 const tipe_json = JSON.parse('<?php echo json_encode($child) ?>');
 	 const acc_color = '#78be20'
 	 const rej_color = 'red'
 	 const indikator = document.getElementById('indikator')
@@ -497,7 +504,6 @@
      const flag_sign = <?php echo $flag_sign; ?>;
      const departemen = document.getElementById("departemen")
      const kelamin =  document.getElementById("Kelamin")
-     const institusi = document.getElementById("Institusi")
      const tid = document.getElementById("TID")
      const tipe_tamu = document.getElementById("tipe")
      
@@ -511,7 +517,6 @@
      	nama.readOnly = true;
      	hp.readOnly = true;
      	kelamin.disabled = true;
-     	institusi.readOnly = true;
      	// departemen.readOnly = true;
      }
      if (flag_sign){
@@ -520,7 +525,6 @@
      	sakit_radio_y.checked = sakit_val==""?false:true;
      	sakit.value = sakit_val;
      	lukay.checked = luka_val
-     	institusi.readOnly= true	
      	suhu_badan.readOnly = true
      	bertemu.readOnly = true
      	keperluan.readOnly = true

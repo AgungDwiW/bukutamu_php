@@ -14,11 +14,11 @@ require '../db/db_con.php'?>
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            Daftar Kartu Tamu
+                            Daftar Kategori Tamu
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
-                            <form id="msform" style="height:auto; width:auto;" method="post" onsubmit="return validateform()" action="submit_kartu.php" >
+                            <form id="msform" style="height:auto; width:auto;" method="post"  action="submit_tipe.php" >
                             <!-- fieldsets -->
                            
                                 <fieldset>
@@ -27,11 +27,11 @@ require '../db/db_con.php'?>
                                         
                                         
                                          <div class="form-group row" style="padding-bottom:1rem;"> <!-- Institusi  -->
-                                          <label class="control-label col-sm-4" for="tipe">Tipe kartu :</label>
+                                          <label class="control-label col-sm-4" for="tipe">Sub dari :</label>
                                           <div class="col-sm-8">  
                                              <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
                                             >
-                                                
+                                                <option name= 'tipe' value="-1" selected >-</option>
                                                 <?php  
                                                 $sql = "SELECT * FROM tipe_tamu";   
                                                 $result_dep = mysqli_query($conn, $sql);
@@ -39,7 +39,7 @@ require '../db/db_con.php'?>
                                                     // output data of each row
                                                     while($row = mysqli_fetch_assoc($result_dep)) {
                                                     
-                                                        echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";
+                                                        echo "<option name= 'tipe' value=".$row['id']."  >".$row['tipe']."</option>";
                                                     
                                                     }
                                                 }
@@ -50,20 +50,12 @@ require '../db/db_con.php'?>
                                           
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
-                                          <label class="control-label col-sm-4" for="UID">Nomor kartu:</label>
+                                          <label class="control-label col-sm-4" for="nama">Nama kategori :</label>
                                           <div class="col-sm-8">  
-                                            <input type="text" required class="form-control inputsm" name="nomor" id="nomor" placeholder="Nomor kartu"> 
+                                            <input type="text" required class="form-control inputsm" name="nama" id="nama" placeholder="Nama kategori"> 
                                           </div>
-                                          
-                                        </div>  
-                                        <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
-                                          <label class="control-label col-sm-4" for="UID">UID :</label>
-                                          <div class="col-sm-8">  
-                                            <input type="text" required class="form-control inputsm" name="uid" id="uid" placeholder="UID kartu"  > 
                                           </div>
-                                          
-                                        </div>  
-
+                                        <input type="text" id ="is_edit" hidden name="is_edit" value="-1">
                                         <div class="col-sm-12 center"> 
                                            <button type="input" class="btn btn-primary" style="width: 50%">Submit</button>
                                            <a href="listdepartemen.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
@@ -83,15 +75,6 @@ require '../db/db_con.php'?>
     <?php include("footer.php") ; ?>
 </body>
 <script type="text/javascript">
-const pass1 = document.getElementById("password")
-const pass2 = document.getElementById("password2")
-const hidme = document.getElementById("hidme")
-function validateform(){
-    if(pass1.value != pass2.value){
-        hidme.hidden = false
-        return false
-    }
-    return true
-}
+
 
 </script>

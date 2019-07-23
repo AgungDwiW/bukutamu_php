@@ -19,32 +19,47 @@
                                 <!-- Grid -->
 
                                   <div class="col-sm-12" style="overflow-x: scroll">
+                            <a href="daftartipetamu.php"><button type="button" class="btn btn-primary " style="">Daftar Kategori Tamu Baru</button></a>
                             <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center;">
                                 <thead>
                                     <tr>
                                         <th style="width:5%;">No.</th>
-                                        <th style="width:55%;">Nama tipe tamu</th>
+                                        <th style="width:55%;">Nama Kategori</th>
+                                        <th style="width:20%;">Kategori Utama</th>
                                         <th style="width:20%;">Edit</th>
                                         <th style="width:20%;">Hapus</th>
+
                                     </tr>
 
                                 </thead>
                                 <tbody>
                                     <?php  
                                         require "../db/db_con.php";
-                                            $sql = "SELECT * FROM tipe_tamu";
+                                            $sql = "SELECT * FROM tipe_tamu order by tipe";
                                         $result = mysqli_query($conn, $sql);
+                                        $result2 = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){
                                             $no = 1;
+                                        $tipe = array();
+                                        
                                         while($row = mysqli_fetch_assoc($result)) {
-                                              
+                                        $tipe[$row['id']] = $row['tipe'];
+                                        }
+                                        while($row = mysqli_fetch_assoc($result2)) {
+                                        
                                         ?>
 
                                         <tr>
                                          <td style="vertical-align:middle;"><?php echo $no; $no+=1; ?></td>
                                         <td style="vertical-align:middle;"><?php echo $row['tipe']; ?></td>
+                                        <td style="vertical-align:middle;"><?php
+                                        if ($row['parent'] != "")
+                                            echo $tipe[$row['parent']];
+                                         else
+                                            echo "-";
+                                        ?></td>
                                         <td>
-                                            <a  onclick="edit(<?php echo $row['id'].",'".$row['tipe']."'" ?>)" class="nav-link" style="color: DodgerBlue;"><i class="fa fa-pencil-square-o"></i>
+                                            <a  href="edittipe.php?id=<?php echo $row['id'] ?>" class="nav-link" style="color: DodgerBlue;"><i class="fa fa-pencil-square-o"></i>
 
                                             <span class="nav-link-text" >Edit</span></a>
                                          </td>
@@ -67,33 +82,6 @@
                             </table>
                             </div>
                         
-                            <form id="msform" style="height:auto; width:auto;" method="post" onsubmit="return validateform()" action="submit_tipe.php" >
-                            <!-- fieldsets -->
-                           
-                                <fieldset>
-                                    
-                                    <div style="margin:auto;">
-                                        
-                                        
-                                        <br>
-                                        <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">Nama Kategori tamu:</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" name="nama" id = "nama" class = "form-control inputsm" required placeholder="Nama kategori tamu baru"></div>
-                                            <div class="col-sm-5 center"> 
-                                            <input type="hidden"  hidden name="is_edit" id = "is_edit" class = "form-control inputsm" required value ="-1">
-                                            <button type="button" onclick="canc()" id = "cancel" class="col-sm-5" hidden >cancel</button>
-                                            <input type="submit"  name="submit" id = "submit" class="col-sm-10 btn btn-primary" value="Tambah Kategori Tamu">
-                                            
-                                        </div>
-                                        </div>
-                                            
-                                     
-
-                                        
-                        
-                                </fieldset>
-                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>
