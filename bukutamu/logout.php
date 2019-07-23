@@ -34,7 +34,7 @@
     $datetime->setTimezone($tz_object);
     $now = $datetime->format('Y\-m\-d\ h:i:s');
 
-    $sql = "SELECT tanggal_datang 
+    $sql = "SELECT tanggal_datang, id_keplek 
     		FROM kedatangan 
     		where id_tamu = ". $id."
     		and signedout = false";
@@ -42,6 +42,7 @@
     if (mysqli_num_rows($result_tamu) !=0){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 	    	$in = $row ['tanggal_datang'];
+	    	$id_kartu = $row['id_keplek'];
 	
 	   }
 	}

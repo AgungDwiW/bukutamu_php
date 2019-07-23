@@ -3,7 +3,9 @@
 	
 	$uid = $_POST["UID"];
 	
-
+    /* =====================
+	loading settings
+    ========================*/
 	$max_temp = 0;
     $sql = "SELECT value FROM setting where nama = 'max_temp' ";
 	$result_tamu = mysqli_query($conn, $sql);
@@ -22,14 +24,16 @@
 	while($row = mysqli_fetch_assoc($result_tamu)) {
 		$max_ind = $row['value'];
     }
-	// echo $flag_tamu;
+	
 	$no_tamu = -101;
-	$flag_sign = 0;
+	$flag_sign = 0; // wether tamu is signed in
+	$flag_tamu = 0; // wether tamu is exist in db
+	$flag_card = 0; // wether login using card
+	$blocked = 0;
 	$nama = "";
 	$tid = "";
 	$hp = "";
 	$kelamin = "";
-	$flag_sign = "";
 	$perusahaan = "";
 	$image = "";
 	$keperluan = "";
@@ -38,53 +42,59 @@
 	$sakit = "";
 	$bertemu = "";
 	$count = 0;
-	$flag_avail = false;
 	$image = 'media/noimage.jpg';
 	$ind = "0";
-	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
-	$result_tamu = mysqli_query($conn, $sql);
-	$flag_tamu = 1;
-	$blocked = 0;
-	$a = '-'.$max_ind.' day';
-	
-	$b = strtotime($a);
-	
-	$ind_limit = date("Y-m-d", $b);
-	$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
-	// var_dump($ind_limit);
-	
-	
-	// echo "<br>";
-	if (!$result_tamu){
-		header('Location: index.php');
+	/* =====================
+	Searching in kartu_tamu wether it's already taken
+	if taken, then flag _sign is true
+    ========================*/
+	$sql = "select id_tamu from kartu_tamu where uid = ".$uid;
+	$result = mysqli_query($conn, $sql);
+	if ($result){
+		while($row = mysqli_fetch_assoc($result)) {
+			
+			if ($row['id_tamu']){
+				$id = $row['id_tamu'];
+				$flag_sign = 1;
+			}
+		}
 	}
-		if (mysqli_num_rows($result_tamu) ==0){
-		$flag_tamu = 0;
-	}
-	if (mysqli_num_rows($result_tamu) > 0) {
-		$flag_avail = true;
-	    // output data of each row
-	    while($row = mysqli_fetch_assoc($result_tamu)) {
-	    	$nama = $row['nama_tamu'];
-	    	$tid = $row['tipeid'];
-	    	$hp = $row['nohp'];
-	    	$kelamin = $row['jenis_kelamin'];
-	    	$flag_sign = $row ['signed_in'];
-	    	$image = $row['image'];
-	    	$blocked = $row['blok'];
-	    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
-	    	// var_dump($ymd);
-	    	$ind = $ymd<$ind_limit?"0":"1";
-	    	$id = $row['id'];
-	    	
+	/* =====================
+	if tamu is signed in ($flag_sign is true) id_tamu is $id
+    ========================*/
+    if ($flag_sign){
+    	$flag_card = 1;
+    	$id_tamu = $id;
+    	$sql = "SELECT * FROM tamu where id = ". $id_tamu;
+		$result_tamu = mysqli_query($conn, $sql);
+		
+		$a = '-'.$max_ind.' day';
+		$b = strtotime($a);
+		$ind_limit = date("Y-m-d", $b);
+		$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
+		if (!$result_tamu){
+			header('Location: index.php');
+		}
+		if (mysqli_num_rows($result_tamu) > 0) {
+		    // output data of each row
+		    while($row = mysqli_fetch_assoc($result_tamu)) {
+		    	$flag_tamu = 1;  //tamu is exist id db
+		    	$nama = $row['nama_tamu'];
+		    	$tid = $row['tipeid'];
+		    	$hp = $row['nohp'];
+		    	$kelamin = $row['jenis_kelamin'];
+		    	$flag_sign = $row ['signed_in'];
+		    	$image = $row['image'];
+		    	$blocked = $row['blok'];
+		    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
+		    	// var_dump($ymd);
+		    	$ind = $ymd<$ind_limit?"0":"1";
+		    }
 	    }
-	    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id;
-		// echo $sql;
-		// echo $perusahaan;
+	    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
 		$result_tamu = mysqli_query($conn, $sql);
 		if ($result_tamu){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
-			// var_dump($row);
 			$id_ked = $row['id'];
 	    	$keperluan = $row['keperluan'];
 	    	$suhu = $row['suhu_badan'];
@@ -98,23 +108,44 @@
 	    if ($no_tamu == ""){
 	    	session_start();
 			$_SESSION['id']	 = $id_ked;
-	
+			$_SESSION['id_tamu']	 = $id_tamu;
 	    	header('Location: kartu.php');
-	    }
-	}}
+	    }		
+    }}
 
-	else{
-
-	}
-		if (!$flag_tamu){
-			if (!$flag_sign)
-				$perusahaan = "";
-	}
-	if ($flag_sign == null){
-		$flag_sign = 0;
-	}
-	
-	// var_dump($tid);
+    
+    else{
+    	/* =====================
+		if tamu is not signed in ($flag_sign is true) id_tamu is $id
+	    ========================*/
+    	$id_tamu = $_POST['UID'];
+    	$sql = "SELECT * FROM tamu where uid = ". $id_tamu;
+		$result_tamu = mysqli_query($conn, $sql);
+		
+		$a = '-'.$max_ind.' day';
+		$b = strtotime($a);
+		$ind_limit = date("Y-m-d", $b);
+		$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
+		if (!$result_tamu){
+			header('Location: index.php');
+		}
+		if (mysqli_num_rows($result_tamu) > 0) {
+		    while($row = mysqli_fetch_assoc($result_tamu)) {
+		    	$flag_tamu = 1; //tamu is exist id db
+		    	$nama = $row['nama_tamu'];
+		    	$tid = $row['tipeid'];
+		    	$hp = $row['nohp'];
+		    	$kelamin = $row['jenis_kelamin'];
+		    	$flag_sign = $row ['signed_in'];
+		    	$image = $row['image'];
+		    	$blocked = $row['blok'];
+		    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
+		    	// var_dump($ymd);
+		    	$ind = $ymd<$ind_limit?"0":"1";
+		    	$id_tamu = $row['id'];
+		    	}
+		    }
+    }
  ?>
 <head>
     <link href="../assets/bootstrap/css/bootstrap.min.css"  rel="stylesheet" id="bootstrap-css">

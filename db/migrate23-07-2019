@@ -1,5 +1,5 @@
 ALTER TABLE `tipe_tamu` ADD `parent` INT NULL AFTER `tipe`;
 ALTER TABLE `tamu` DROP `perusahaan`;
 ALTER TABLE `tamu` DROP `saved`;
-ALTER TABLE `tipe_tamu` CHANGE `parent` `parent` INT(11) NULL DEFAULT '-1';
 ALTER TABLE `kartu_tamu` ADD `id_tamu` INT NULL AFTER `uid`;
+ALTER TABLE `tamu` ADD `tipe` INT NOT NULL AFTER `terakhir_count`;

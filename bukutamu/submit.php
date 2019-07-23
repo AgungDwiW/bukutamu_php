@@ -40,6 +40,7 @@
 	 		$sql = "INSERT INTO tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in,  image,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
 	 		 VALUES (".$_POST['UID'].",'".$_POST['TID']."', '". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
 	 		$_POST['Kelamin']."',". true.",'". $output."','".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$_POST['subtip'].")";
+	 	echo "$sql";
 		$result = mysqli_query($conn, $sql);
 		$id = mysqli_insert_id($conn);
 	// return true;
@@ -108,6 +109,6 @@
 	
 	session_start();
 	$_SESSION['id']	 = mysqli_insert_id($conn);
-	
+	$_SESSION['id_tamu'] = $id;
 	header('Location: kartu.php');
 ?>

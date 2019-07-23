@@ -4,6 +4,7 @@
     header('Location: index.php');
   }
   $id = $_SESSION['id'];
+  $id_tamu = $_SESSION['id_tamu'];
   session_destroy();
 
 ?>
@@ -44,6 +45,8 @@
            required >
            <p id = "hidme" hidden>Id kartu tidak terdaftar</p>
           <input type="text" hidden name="id" id="id" value="<?php echo $id ?>">
+          <input type="text" hidden name="id_kartu" id="id_kartu" >
+          <input type="text" hidden name="id_tamu" id="id_tamu" value="<?php echo $id_tamu ?>">
           <br>
           <input type="checkbox" required>  Saya bersedia menaati dan melaksanakan seluruh peraturan<br>
           <br>
@@ -80,6 +83,7 @@
                 document.getElementById('hidme').hidden = false;
                 document.getElementById('tip').value ="";
                 document.getElementById('no').value = "";   
+                document.getElementById('id_kartu').value = "";
                 $("#uid").addClass('is-invalid')
    
                 valid = false;
@@ -89,6 +93,7 @@
             document.getElementById('hidme').hidden = true;
             document.getElementById('tip').value = cur['tipe_kartu'];
             document.getElementById('no').value = cur['nomor_kartu'];
+            document.getElementById('id_kartu').value = cur['id'];
             $("#uid").removeClass('is-invalid')
             valid =true;
 
