@@ -147,7 +147,7 @@
 
     			echo "<img src = ".$image."?1 width=60% height=40% id  = 'image' </img>";
     			echo '<video id="player" width="80%"  controls autoplay hidden></video>
-          <canvas id="canvas"  hidden width="100%"></canvas>';
+          <canvas id="canvas"  hidden width="400px" height="300px"></canvas>';
     		}
     		else if ($flag_sign){
     			echo "<img src = ".$image."?1 width=80% id  = 'image'></img>";
@@ -156,15 +156,15 @@
     			    			echo "<img src = ".$image."?1 width=80% id  = 'image' hidden></img>";
 
     			echo '<video id="player" autoplay width="80%" controls ></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" width="100%" ></canvas>';
+          <canvas id="canvas" class="col-sm-12" hidden="" width="400px" height="300px" ></canvas>';
     		}
     	?>
     	<br>
     
-  			
+  			<?php if (!$flag_sign){ ?>
   					<input type="button" name="cancel" id = "capture" class="col-sm-8 btn" value="Mengambil Foto" onclick="cameracapture()">
-
-  			
+			<?php }
+			?>
       
        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="ind">Status Induksi:</label>
@@ -292,7 +292,27 @@
 	            <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
 	          </div>
 	        </div>
-	        
+	         <div class="form-group row"> <!-- SUhu badan -->
+	        <label class="control-label col-sm-3" for="tipe">Kategori :</label>
+              <div class="col-sm-9">  
+                 <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
+                >
+                    
+                    <?php  
+                    $sql = "SELECT * FROM tipe_tamu";   
+                    $result_dep = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($result_dep) > 0) {
+                        // output data of each row
+                        while($row = mysqli_fetch_assoc($result_dep)) {
+                        
+                            echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";
+                        
+                        }
+                    }
+                    ?>
+                </select>
+
+              </div></div>
 	        
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
@@ -304,9 +324,10 @@
 	          <label class="control-label col-sm-3" for="Bertemu">Bertemu dengan:</label>
 	          <div class="col-sm-9">  
 	            <input type="text" class="form-control inputsm" name="Bertemu" id="Bertemu"
-	            placeholder="Bapak/Ibu" autocomplete="off" required value =  <?php echo  $bertemu ?> >
+	            placeholder="Bapak/Ibu" autocomplete="off" value =  <?php echo  $bertemu ?> >
 	          </div>
 	        </div>
+			
 	        <div class="form-group row"> <!-- BErtemu dengan -->
 	          <label class="control-label col-sm-3" for="Bertemu">Departemen:</label>
 	          <div class="col-sm-9">  
@@ -510,7 +531,7 @@
      	lukan.disabled = true
      	departemen.disabled = true	
      	acc_temp = true;
-     	
+     	document.getElementById('tipe').disabled=true;
      	
      }
      <?php
@@ -530,7 +551,7 @@
      	lukay.disabled = true
      	lukan.disabled = true
      	departemen.disabled = true
-     		
+     	document.getElementById('tipe').disabled=true;
      	
      	document.getElementById("capture").disabled = true
      	alert("anda telah diblok untuk masuk kedalam pabrik")
@@ -610,7 +631,6 @@
     suhu_badan.oninput = function () {
     	if (this.value > max_temp)
     	{
-    		submit.disabled = true;
     		$("#Suhu").addClass('is-invalid')
 			// or
 			temp_flag = true;
@@ -618,7 +638,6 @@
     	}
     	else{
     		$("#Suhu").removeClass('is-invalid')
-    		submit.disabled = false;
     		temp_flag = false
     		change_indikator();
     	}

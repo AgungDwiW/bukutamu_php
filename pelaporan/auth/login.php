@@ -10,7 +10,7 @@
 	// echo $sql;
 	function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 	{
-	    $pieces = [];
+	    $pieces = array();
 	    $max = mb_strlen($keyspace, '8bit') - 1;
 	    for ($i = 0; $i < $length; ++$i) {
 	        $pieces []= $keyspace[intval(rand ( 0 , $max ))];

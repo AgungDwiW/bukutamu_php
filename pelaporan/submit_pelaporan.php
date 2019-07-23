@@ -1,7 +1,7 @@
 <?php
 	require "../db/db_con.php";
 	require 'auth/login_middleware.php';
-	require 'mail.php';
+	//require 'mail.php';
 
 	
 	$sql = "select value from setting where nama = 'max_pel'";
@@ -82,7 +82,7 @@
 	$result = mysqli_query($conn, $sql);
 
 	if ($result && mysqli_num_rows($result) !=0){		
-		while($row = mysqli_fetch_assoc($result)) {
+		$row = mysqli_fetch_assoc($result);
 			$count = $row['count'];
 
 			if (!$positif){
@@ -120,7 +120,7 @@
 			}
 			// echo "aaa";
 			// echo "$body";
-			send_mail($subject, $body, $to_address, $to_name);
+			//send_mail($subject, $body, $to_address, $to_name);
 
 			if ($count>=$max_pel){
 				// echo "aaaaa";
@@ -156,11 +156,11 @@
 				}
 				// echo "aaa";
 				// echo "$body";
-				send_mail($subject, $body, $to_address, $to_name);
+				//send_mail($subject, $body, $to_address, $to_name);
 				$sql2 = "UPDATE tamu SET blok= 1 WHERE id = $id";
 				// echo "$sql2";
 				$result = mysqli_query($conn, $sql2);
-			}}}
+			}}
 		}
 	}
 }}}

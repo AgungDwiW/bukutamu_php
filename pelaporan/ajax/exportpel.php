@@ -83,15 +83,15 @@
 		 ->setCellValue('K1', '+/-')
 		 ->setCellValue('L1', 'Action Plan')
 		 ->setCellValue('M1', 'Keterangan');
-				$cell_st =[
-		 'font' =>['bold' => true],
-		 'alignment' =>['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
-		 'borders'=>['allborders' =>['style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM]]
-		];
+				$cell_st =array(
+		 'font' =>array('bold' => true),
+		 'alignment' =>array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER),
+		 'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
+		);
 
-			 $cell_st2 = [
-			 	'borders'=>['allborders' =>['style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM]]
-			];
+			 $cell_st2 = array(
+			 	'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
+			);
 			$spreadsheet->getActiveSheet()->getStyle('A1:M1')->applyFromArray($cell_st);
 			
 			//set columns width
