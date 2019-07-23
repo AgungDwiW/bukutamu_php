@@ -147,36 +147,42 @@
            class = ""  onsubmit="return validateForm()">
    <div class="row vertical-align" >
     <div class="col-sm-6" style="top: 0px">
+    	<div id="buildyourform">
+	    	<div class="form-group row text-left"><!-- UID -->
+		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
+		          <div class="col-sm-6">  
+		            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
+		          </div>
+		          <div class="col-sm-3">
+		            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
+		            	
+		            	<option value="KTP"<?php 
 
-    	<div class="form-group row text-left"><!-- UID -->
-	          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
-	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
-	          </div>
-	          <div class="col-sm-3">
-	            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
-	            	
-	            	<option value="KTP"<?php 
-
-	            		if ($tid == "KTP") {
-	            			echo "selected";
-	            		}
-	            	 ?>>KTP</option>
-	            	<option value="Kartu Pegawai"<?php 
-	            		if ($tid == "Kartu Pegawai") {
-	            			echo "selected";
-	            		}
-	            	 ?>
-	            	>Kartu Pegawai</option>
-	            	<option value="SIM" <?php 
-	            		if ($tid == "SIM") {
-	            			echo "selected";
-	            		}
-	            	 ?>>SIM</option>
-	            </select>
-	          </div>
-	        </div>
-	        
+		            		if ($tid == "KTP") {
+		            			echo "selected";
+		            		}
+		            	 ?>>KTP</option>
+		            	<option value="Kartu Pegawai"<?php 
+		            		if ($tid == "Kartu Pegawai") {
+		            			echo "selected";
+		            		}
+		            	 ?>
+		            	>Kartu Pegawai</option>
+		            	<option value="SIM" <?php 
+		            		if ($tid == "SIM") {
+		            			echo "selected";
+		            		}
+		            	 ?>>SIM</option>
+		            </select>
+		          </div>
+		          
+		    </div>
+		    
+	    </div>   
+	    <input type="button" value="+" class="add btn" id="add" /> 
+	    <input type="button" value="-" class="removed btn" id="removed" /> 
+	    <br>   
+			
 
     	<?php  
     		if ($flag_tamu){
@@ -662,27 +668,44 @@
  	
      sakit_aktive()
 
-     function set_sub(){
-     	if (
-     	tipe_tamu.selectedOptions[0].value in child_json){
-     		subs = child_json[tipe_tamu.selectedOptions[0].value];
-     		sub_tamu.options.length = 0;
-     		sub_tamu.disabled = false;
-			for (x=0;x <subs.length;x++){
-			
-			sub_tamu.options[sub_tamu.options.length] = new Option(
-				tipe_json[subs[x]]
-				, subs[x]);
-			}
-     	}
-     	else{
-     		sub_tamu.disabled = true;
-     		sub_tamu.options.length = 0;
-     		sub_tamu.options[sub_tamu.options.length] = new Option("-", "-1");
-     	}
+     $(document).ready(function() {
+     	 var counter = 1;
+    $("#add").click(function() {
+    	if(counter>2){
+            alert("Only 10 textboxes allow");
+            return false;
+    } 
+        var lastField = $("#buildyourform div:last");
+        var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+        var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
+        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\"> </div>");
+        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"TID\" id=\"TID\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
+        var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
+        removeButton.click(function() {
+            $(this).parent().remove();
+        });
+        fieldWrapper.append(removeButton);
+        fieldWrapper.append(fName);
+        fieldWrapper.append(fType);
+        counter++;
+        $("#buildyourform").append(fieldWrapper);
+    });
+    /**/
+	   $("#removed").click(function () {
+	    if(counter==1){
+	          alert("No more textbox to remove");
+	          return false;
+	       }   
 
+	    counter--;
 
-     }
+	        $("#UID" + counter).remove();
+
+	     });
+});
+
+     
+   
 
 </script>
  <?php include("footer.php") ; ?>
