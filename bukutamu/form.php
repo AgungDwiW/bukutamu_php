@@ -37,7 +37,6 @@
 	$luka = "";
 	$sakit = "";
 	$bertemu = "";
-	$saved = true;
 	$count = 0;
 	$flag_avail = false;
 	$image = 'media/noimage.jpg';
@@ -72,7 +71,6 @@
 	    	$kelamin = $row['jenis_kelamin'];
 	    	$flag_sign = $row ['signed_in'];
 	    	$image = $row['image'];
-	    	$saved = $row['saved'];
 	    	$blocked = $row['blok'];
 	    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
 	    	// var_dump($ymd);

@@ -45,70 +45,74 @@ if ($result&& mysqli_num_rows($result) !=0){
       }
     }
 }
-
-$sql = 'SELECT id_tamu from pelaporan';
-$result = mysqli_query($conn, $sql);
+$perusahaan_name = array();
 $perusahaan_pel = array();
 $perusahaan_datang = array();
-$perusahaan_name = array();
-$cur = 0;
-if ($result&& mysqli_num_rows($result) !=0){
-    while($row = mysqli_fetch_assoc($result)) {
-        $sql = 'SELECT tipe from tamu where id = '.$row['id_tamu'];
-        $result2 = mysqli_query($conn, $sql);
-        if ($result2&& mysqli_num_rows($result2) !=0){
-            
-            $cur_now = 0;
-            while($row2 = mysqli_fetch_assoc($result2)) {
-                if (!in_array($row2['perusahaan'], $perusahaan_name)){
-                    
-                    $perusahaan_name[$cur]=$row2['perusahaan'];
-                    $perusahaan_pel[$cur]=1;
-                    $perusahaan_datang[$cur] = 0;
-                    $cur+=1;}
-                else{
-                    foreach ($perusahaan_name as $key => $value) {
-                        if ($value == $row2['perusahaan']){
-                            $cur_now = $key;
-                            break;
-                        }
-                    }
-                    $perusahaan_pel[$cur_now]+=1;}
-        }
+$sql = 'SELECT * from tipe_tamu order by parent';
+$result2 = mysqli_query($conn, $sql);
+if ($result2&& mysqli_num_rows($result2) !=0){
+  while($row2 = mysqli_fetch_assoc($result2)) {
+    $perusahaan_name[$row2['id']] = $row2['tipe'];
+    $perusahaan_pel[$row2['id']] = 0;
+    $perusahaan_datang[$row2['id']] = 0;
+    if ($row2['parent']){
+      if (isset($perusahaan_name[$row2['parent']])){
+        unset($perusahaan_name[$row2['parent']]);
+        unset($perusahaan_pel[$row2['parent']]);
+        unset($perusahaan_datang[$row2['parent']]);
+      }
     }
+
+  }
 }
+$sql = 'SELECT count(b.id) as count, a.tipe from tamu as a inner join kedatangan as b on a.id = b.id_tamu group by tipe';
+$result = mysqli_query($conn, $sql);
+
+
+$result2 = mysqli_query($conn, $sql);
+if ($result2&& mysqli_num_rows($result2) !=0){
+  while($row = mysqli_fetch_assoc($result2)) {
+    $perusahaan_datang[$row['tipe']] = $row['count'];
+  }
+}
+$sql = 'SELECT count(b.id) as count, a.tipe from tamu as a inner join pelaporan as b on a.id = b.id_tamu group by tipe';
+$result2 = mysqli_query($conn, $sql);
+if ($result2&& mysqli_num_rows($result2) !=0){
+  while($row = mysqli_fetch_assoc($result2)) {
+    $perusahaan_pel[$row['tipe']] = $row['count'];
+  }
 }
 
-$sql = 'SELECT id_tamu from kedatangan';
-$result = mysqli_query($conn, $sql);
-if ($result&& mysqli_num_rows($result) !=0){
-    while($row = mysqli_fetch_assoc($result)) {
-        $sql = 'SELECT perusahaan from tamu where id = '.$row['id_tamu'];
-        $result2 = mysqli_query($conn, $sql);
-        if ($result2&& mysqli_num_rows($result2) !=0){
+// $sql = 'SELECT id_tamu from kedatangan';
+// $result = mysqli_query($conn, $sql);
+// if ($result&& mysqli_num_rows($result) !=0){
+//     while($row = mysqli_fetch_assoc($result)) {
+//         $sql = 'SELECT perusahaan from tamu where id = '.$row['id_tamu'];
+//         $result2 = mysqli_query($conn, $sql);
+//         if ($result2&& mysqli_num_rows($result2) !=0){
             
-            $cur_now = 0;
-            while($row2 = mysqli_fetch_assoc($result2)) {
-                if (!in_array($row2['perusahaan'], $perusahaan_name)){
-                    $perusahaan_name[$cur]=$row2['perusahaan'];
-                    $perusahaan_datang[$cur]=1;
-                    $perusahaan_pel[$cur]=0;
-                    $cur+=1;}
-                else{
-                    foreach ($perusahaan_name as $key => $value) {
-                        if ($value == $row2['perusahaan']){
-                            $cur_now = $key;
-                            break;
-                        }
-                    }
-                    $perusahaan_datang[$cur_now]+=1;
-                    if (!isset($perusahaan_pel[$cur_now]))
-                      $perusahaan_pel[$cur_now] = 0;
-                  }
-        }
-    }
-}
-}
+//             $cur_now = 0;
+//             while($row2 = mysqli_fetch_assoc($result2)) {
+//                 if (!in_array($row2['perusahaan'], $perusahaan_name)){
+//                     $perusahaan_name[$cur]=$row2['perusahaan'];
+//                     $perusahaan_datang[$cur]=1;
+//                     $perusahaan_pel[$cur]=0;
+//                     $cur+=1;}
+//                 else{
+//                     foreach ($perusahaan_name as $key => $value) {
+//                         if ($value == $row2['perusahaan']){
+//                             $cur_now = $key;
+//                             break;
+//                         }
+//                     }
+//                     $perusahaan_datang[$cur_now]+=1;
+//                     if (!isset($perusahaan_pel[$cur_now]))
+//                       $perusahaan_pel[$cur_now] = 0;
+//                   }
+//         }
+//     }
+// }
+// }
 
 $sql = 'SELECT id, nama_departemen from departemen';
 $result = mysqli_query($conn, $sql);
@@ -439,13 +443,7 @@ foreach ($perusahaan_name as $key => $value) {
         },
         options: {
           responsive: true,
-           scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true,
-                }
-              }]
-        }
+           
         }
       });
 

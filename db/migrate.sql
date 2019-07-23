@@ -21,20 +21,9 @@ CREATE TABLE setting(
 CREATE TABLE tipe_tamu(
 	id int not null primary key auto_increment,
 	tipe varchar(20),
-	is_sub boolean
+	parent int
 );
 
-create table kartu_tamu(
-	id int not null auto_increment primary key,
-	tipe_kartu int,
-	nomor_kartu int,
-	uid varchar(50),
-	unique(uid),
-	foreign key fk_kartu_tipe(tipe_kartu)
-	references tipe_tamu(id)
-	on DELETE CASCADE
-	
-);
 
 CREATE TABLE area(
 	id int not null primary key auto_increment,
@@ -59,7 +48,6 @@ CREATE TABLE tamu (
 	terakhir_datang datetime,
 	image VARCHAR(50), 
 	nohp varchar(20),
-	saved boolean,
 	count_pelanggaran int,
 	blok boolean,	
 	terakhir_ind date,
@@ -71,6 +59,22 @@ CREATE TABLE tamu (
 	unique (uid)
 	);
 
+
+create table kartu_tamu(
+	id int not null auto_increment primary key,
+	tipe_kartu int,
+	nomor_kartu int,
+	uid varchar(50),
+	id_tamu int,
+	unique(uid),
+	foreign key fk_kartu_tipe(tipe_kartu)
+	references tipe_tamu(id)
+	on DELETE CASCADE,
+	foreign key kartu_tamu (id_tamu)
+	references tamu(id)
+	on delete set null
+	
+);
 
 CREATE table departemen (
 	id int not null auto_increment primary key, 
