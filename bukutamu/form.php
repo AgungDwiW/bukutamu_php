@@ -311,6 +311,7 @@
 
 		            </select>
 		          </div>
+
 		          <div class="col-sm-3">
 		          	<?php if (!$flag_sign){?>
 		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
@@ -504,11 +505,13 @@
 			            <!--Header-->
 			            <div class="modal-header center">
 			                
-			                <h4 class="modal-title w-100" id="myModalLabel">Peringatan</h4>
+			                <h3 class="modal-title w-100" id="myModalLabel">Peringatan</h4>
 			            </div>
 			            <!--Body-->
 			            <div class="modal-body">
-			                Indikator menyatakan anda kurang sehat, Apakah Anda yakin akan Mengunjungi/Memasuki Area pabrik?.
+			             	INDIKATOR MENYATAKAN ANDA KURANG SEHAT.<br>
+			             	ANDA DILARANG UNTUK MEMASUKI AREA PRODUKSI.<br>
+			             	APAKAH ANDA YAKIN MEMASUKI AREA PABRIK?.
 			            </div>
 			            <!--Footer-->
 			            <div class="modal-footer">
@@ -723,14 +726,16 @@
      	 var counter = 1;
     $("#add").click(function() {
     	if(counter>2){
-            alert("Only 10 textboxes allow");
+            alert("Hanya tiga identitas yang diperbolehkan setiap tamu!.");
             return false;
     	} 
         var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+
         var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"additional" + counter +"\"/>");
         var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" id = uid"+counter+" name = uid"+counter+" class=\"form-control inputsm\"> </div>");
         var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"tid"+counter+"\" id=\"tid"+counter+"\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
+
         var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
         removeButton.click(function() {
             $(this).parent().remove();
@@ -744,7 +749,7 @@
     /**/
 	   $("#removed").click(function () {
 	    if(counter==1){
-	          alert("No more textbox to remove");
+	          alert("satu identitas minimal untuk setiap tamu");
 	          return false;
 	       }   
 
