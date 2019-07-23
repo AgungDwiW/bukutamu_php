@@ -20,7 +20,8 @@ CREATE TABLE setting(
 
 CREATE TABLE tipe_tamu(
 	id int not null primary key auto_increment,
-	tipe varchar(20)
+	tipe varchar(20),
+	is_sub boolean
 );
 
 create table kartu_tamu(
@@ -56,7 +57,6 @@ CREATE TABLE tamu (
 	jenis_kelamin varchar(1),
 	signed_in boolean, 
 	terakhir_datang datetime,
-	perusahaan varchar(50), 
 	image VARCHAR(50), 
 	nohp varchar(20),
 	saved boolean,

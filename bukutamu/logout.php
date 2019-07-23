@@ -84,7 +84,6 @@
 				durasi =". $min."
 			WHERE id_tamu = ".$id. 
 			" AND signedout = false";
-	echo $sql;
 	$result_tamu = mysqli_query($conn, $sql);
 
 	header('Location: index.php');

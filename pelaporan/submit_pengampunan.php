@@ -14,8 +14,17 @@ $image = base64_decode($_POST['Image']);
     $datetime->setTimezone($tz_object);
     $now = $datetime->format('Y\-m\-d\ h:i:s');
     $now_date = $datetime->format('Y\-m\-d\ ');
-	
-$output = "MOU/".$_POST['uid_pelaku']."-".$now.".jpg";
+function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+{
+	$pieces = array();
+	$max = mb_strlen($keyspace, '8bit') - 1;
+	for ($i = 0; $i < $length; ++$i) {
+		$pieces []= $keyspace[intval(rand ( 0 , $max ))];
+	}
+	return implode('', $pieces);
+}
+$randname = random_str(5);
+$output = "MOU/".$_POST['uid_pelaku'].$randname.".jpg";
 file_put_contents($output,$image);
 
 
@@ -39,6 +48,5 @@ $result = mysqli_query($conn, $sql2);
 
 $sql = "insert into pengampunan(id_karyawan, id_tamu, mou, tanggal_pengampunan) values( '$id_kary',  '$id_tamu', '$output', '$now_date')";
 $result = mysqli_query($conn, $sql);
-echo "$sql";
 header('Location: dashboard.php');	
 ?>
