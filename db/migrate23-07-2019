@@ -5,4 +5,5 @@ FOREIGN KEY sub_tamu(parent)
 REFERENCES tipe_tamu(id)
 ON DELETE cascade;
 ALTER TABLE `tamu` DROP `perusahaan`;
+ALTER TABLE `tamu` DROP `saved`;
 ALTER TABLE `tipe_tamu` CHANGE `parent` `parent` INT(11) NULL DEFAULT '-1';

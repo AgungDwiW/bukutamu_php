@@ -72,7 +72,6 @@
 	    	$kelamin = $row['jenis_kelamin'];
 	    	$flag_sign = $row ['signed_in'];
 	    	$image = $row['image'];
-	    	$flag_tamu = $row['saved'];
 	    	$saved = $row['saved'];
 	    	$blocked = $row['blok'];
 	    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
@@ -99,7 +98,10 @@
 
 	    }
 	    if ($no_tamu == ""){
-	    	header('Location: kartu.php?id='.$id_ked);
+	    	session_start();
+			$_SESSION['id']	 = $id_ked;
+	
+	    	header('Location: kartu.php');
 	    }
 	}}
 
@@ -266,7 +268,7 @@
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
 	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama"    required  value =  <?php echo $nama;  ?> >
+	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama" style="text-transform:uppercase"   required  value =  <?php echo $nama;  ?> >
 	          </div>
 	          <div class="col-sm-3">  
 	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"   >
@@ -286,28 +288,11 @@
 	          </div>
 	        </div>
 	      
-	        <div class="form-group row"> <!-- Institusi  -->
-	          <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
-	          <div class="col-sm-9">  
-	            <select type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
-	            	<option>TIV</option>
-	            </select>
-	          </div>
-	        </div>
-	        <div class="form-group row"> <!-- Institusi  -->
-	          <label class="control-label col-sm-3" for="Institusi"></label>
-	          <div class="col-sm-9">  
-	            <select type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required  value = <?php echo  $perusahaan ?>     >
-	            	<option>TIV Kebon Candi</option>
-	            </select>
-	          </div>
-	        </div>
-	        
 	        
 	        <div class="form-group row"> <!-- SUhu badan -->
 	        <label class="control-label col-sm-3" for="tipe">Kategori :</label>
               <div class="col-sm-9">  
-                 <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
+                 <select type="text" class="form-control inputsm" name="tipe" id="tipe" required  onchange="set_sub()" 
                 >
                     
                     <?php  
@@ -316,17 +301,19 @@
                     
                     
                     $child = array();
+                    $tipes = array();
                     if (mysqli_num_rows($result_dep) > 0) {
                         // output data of each row
                         while($row = mysqli_fetch_assoc($result_dep)) {
+                        	$tipes[$row['id']] = $row['tipe'];
                         	if ($row['parent']){
                         		if (!isset($child[$row['parent']])){
                         		 $child[$row['parent']]= array();
-                        		 array_push($child[$row['parent']], $row['tipe']);
+                        		 array_push($child[$row['parent']], $row['id']);
                         		}
 
                         		else {
-                        			array_push($child[$row['parent']], $row['tipe']);	
+                        			array_push($child[$row['parent']], $row['id']);	
                         		}
 
                         	}
@@ -339,6 +326,17 @@
                 </select>
 
               </div></div>
+	        <div class="form-group row"> <!-- Institusi  -->
+	          <label class="control-label col-sm-3" for="subtip"></label>
+	          <div class="col-sm-9">  
+	            <select type="text" class="form-control inputsm" name="subtip" id="subtip" placeholder="Institusi" required  disabled >
+	            	<option value="-1">-</option>
+	            </select>
+	          </div>
+	        </div>
+	        
+	        
+	        
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
 	          <div class="col-sm-9">  
@@ -348,7 +346,7 @@
 	        <div class="form-group row"> <!-- BErtemu dengan -->
 	          <label class="control-label col-sm-3" for="Bertemu">Departemen:</label>
 	          <div class="col-sm-9">  
-	            <select type="text" class="form-control inputsm" name="departemen" id="departemen" required    
+	            <select type="text"  class="form-control inputsm" name="departemen" id="departemen" required    
 	            >
 	            	
 	            	<?php  
@@ -373,7 +371,7 @@
 	        <div class="form-group row"> <!-- BErtemu dengan -->
 	          <label class="control-label col-sm-3" for="Bertemu">Bertemu:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Bertemu" id="Bertemu"
+	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Bertemu" id="Bertemu"
 	            placeholder="Bapak/Ibu" autocomplete="off" required value =  <?php echo  $bertemu ?> >
 	          </div>
 	        </div>
@@ -381,7 +379,7 @@
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keperluan:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
+	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
 	          </div>
 	        </div>
 	        <div class="form-group row ">
@@ -409,7 +407,7 @@
 	        <label class="control-label col-sm-3" for="sakit"> Jenis sakit :</label>
 	          <div class="col-sm-9">  
 	          	
-	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit" autocomplete="off" placeholder="Sehat"  readonly required   >
+	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit" autocomplete="off" style="text-transform:uppercase" placeholder="Sehat"  readonly required   >
 	          </div>
 	        </div>
 	        
@@ -491,7 +489,8 @@
 	 echo "const max_pel  = $max_pel;";
 	 echo "const max_ind = $max_ind;";
 	 ?>
-	 const tipe_json = JSON.parse('<?php echo json_encode($child) ?>');
+	 const child_json = JSON.parse('<?php echo json_encode($child) ?>');
+	 const tipe_json = JSON.parse('<?php echo json_encode($tipes) ?>');
 	 const acc_color = '#78be20'
 	 const rej_color = 'red'
 	 const indikator = document.getElementById('indikator')
@@ -516,8 +515,8 @@
      const departemen = document.getElementById("departemen")
      const kelamin =  document.getElementById("Kelamin")
      const tid = document.getElementById("TID")
-     const tipe_tamu = document.getElementById("tipe")
-     
+     const tipe_tamu = document.getElementById("tipe");
+     const sub_tamu = document.getElementById('subtip');
      var flag_camera = false;
      var acc_temp = false;
 
@@ -528,6 +527,8 @@
      	nama.readOnly = true;
      	hp.readOnly = true;
      	kelamin.disabled = true;
+     	tipe_tamu.disabled = true;
+     	sub_tamu.disabled = true;
      	// departemen.readOnly = true;
      }
      if (flag_sign){
@@ -628,11 +629,13 @@
 		 sakit_flag = !sakit_flag
 		 sakit.readOnly = !sakit_flag
 		 sakit.required = sakit_flag
-		 change_indikator();
+		 if(!sakit_flag)
+		 	change_indikator();
      }
      function luka_aktive(){
      	luka_flag = !luka_flag
-     	change_indikator();
+     	if (luka_flag)
+     		change_indikator();
      }
 
      function change_indikator(){
@@ -654,12 +657,35 @@
     	else{
     		$("#Suhu").removeClass('is-invalid')
     		temp_flag = false
-    		change_indikator();
+    		
     	}
     }
 	
  	
      sakit_aktive()
+
+     function set_sub(){
+     	if (
+     	tipe_tamu.selectedOptions[0].value in child_json){
+     		subs = child_json[tipe_tamu.selectedOptions[0].value];
+     		sub_tamu.options.length = 0;
+     		sub_tamu.disabled = false;
+			for (x=0;x <subs.length;x++){
+			
+			sub_tamu.options[sub_tamu.options.length] = new Option(
+				tipe_json[subs[x]]
+				, subs[x]);
+			}
+     	}
+     	else{
+     		sub_tamu.disabled = true;
+     		sub_tamu.options.length = 0;
+     		sub_tamu.options[sub_tamu.options.length] = new Option("-", "-1");
+     	}
+
+
+     }
+
 </script>
  <?php include("footer.php") ; ?>
 </body>

@@ -64,6 +64,10 @@ CREATE TABLE tamu (
 	blok boolean,	
 	terakhir_ind date,
 	terakhir_count date,
+	tipe int,
+	 foreign key fk_tamu_tipe (tipe)
+    references tipe_tamu(id)
+    on delete set null,
 	unique (uid)
 	);
 

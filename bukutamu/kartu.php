@@ -1,8 +1,11 @@
 <?php
-  if(!isset($_GET['id'])){
+  session_start();
+  if(!isset($_SESSION['id'])){
     header('Location: index.php');
   }
-  $id = $_GET['id'];
+  $id = $_SESSION['id'];
+  session_destroy();
+
 ?>
 <head>
     <?php include("meta.php") ?>

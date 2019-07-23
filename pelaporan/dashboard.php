@@ -54,7 +54,7 @@ $perusahaan_name = array();
 $cur = 0;
 if ($result&& mysqli_num_rows($result) !=0){
     while($row = mysqli_fetch_assoc($result)) {
-        $sql = 'SELECT perusahaan from tamu where id = '.$row['id_tamu'];
+        $sql = 'SELECT tipe from tamu where id = '.$row['id_tamu'];
         $result2 = mysqli_query($conn, $sql);
         if ($result2&& mysqli_num_rows($result2) !=0){
             

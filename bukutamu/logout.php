@@ -4,8 +4,6 @@
 	$next = $_GET['next'];
 	$sql = "SELECT saved FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);
-	$output = "media/".$_POST['UID'].".jpg";
-	$noimage = "media/noimage.jpg";
 	if (mysqli_num_rows($result_tamu) !=0){
 		while($row = mysqli_fetch_assoc($result_tamu)) {
 	    	$saved = $row ['saved'];
@@ -23,33 +21,14 @@
 			// header('Location: index.php');
 	}
 
-	if ($tipeid != "KTP"){
-		$sql = "DELETE FROM tamu where id = $id";
-		$result = mysqli_query($conn, $sql);
-		if (file_exists($output) && $output != $noimage){
-			unlink($output);	
-		}
-		header('Location: '.$next);
-	}
+	
 	// echo "$sql";
-	if ($saved){
-		$sql = "UPDATE tamu
-				SET signed_in = false,
-				image = '$output'
-				WHERE id = ".$id;
-		$result_tamu = mysqli_query($conn, $sql);
-	}
-	else{
-		$sql = "UPDATE tamu
-				SET signed_in = false,
-				nama_tamu = 'dihapus', 
-				nohp = 'dihapus',  
-				jenis_kelamin = '',
-				image = '$noimage'
-				WHERE id = ".$id;
-		// echo $sql;
-		$result_tamu = mysqli_query($conn, $sql);	
-	}
+	
+	$sql = "UPDATE tamu
+			SET signed_in = false
+			WHERE id = ".$id;
+	$result_tamu = mysqli_query($conn, $sql);
+	// echo "$sql";
 	$tz_object = new DateTimeZone('Asia/Jakarta');
 	$datetime = new DateTime();
     $datetime->setTimezone($tz_object);
