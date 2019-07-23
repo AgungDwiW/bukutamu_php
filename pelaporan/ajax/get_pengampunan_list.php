@@ -24,11 +24,10 @@
 			$return=array();
 			while($row = mysqli_fetch_assoc($result)) {
 				if ($row['id_tamu']){
-					$sql = "SELECT nama_tamu as nama, uid from tamu where id = ".$row['id_tamu'];
+					$sql = "SELECT nama_tamu as nama from tamu where id = ".$row['id_tamu'];
 					$result2 = mysqli_query($conn, $sql);
 					while($row2 = mysqli_fetch_assoc($result2)) {
 						$row['nama_tamu'] = $row2['nama'];
-						$row['uid_tamu'] = $row2['uid'];
 					}
 				}
 				if ($row['id_karyawan']){

@@ -55,15 +55,15 @@
 			
 			if ($row['id_tamu']){
 				$id = $row['id_tamu'];
-				$flag_sign = 1;
+				$flag_card = 1;
 			}
 		}
 	}
 	/* =====================
-	if tamu is signed in ($flag_sign is true) id_tamu is $id
+	if tamu is signed in ($flag_sign is true) id_tamu is id from id_tamu
     ========================*/
-    if ($flag_sign){
-    	$flag_card = 1;
+
+    if ($flag_card){
     	$id_tamu = $id;
     	$sql = "SELECT * FROM tamu where id = ". $id_tamu;
 		$result_tamu = mysqli_query($conn, $sql);
@@ -79,8 +79,8 @@
 		    // output data of each row
 		    while($row = mysqli_fetch_assoc($result_tamu)) {
 		    	$flag_tamu = 1;  //tamu is exist id db
+		    	echo "2123";
 		    	$nama = $row['nama_tamu'];
-		    	$tid = $row['tipeid'];
 		    	$hp = $row['nohp'];
 		    	$kelamin = $row['jenis_kelamin'];
 		    	$flag_sign = $row ['signed_in'];
@@ -91,61 +91,71 @@
 		    	$ind = $ymd<$ind_limit?"0":"1";
 		    }
 	    }
-	    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
-		$result_tamu = mysqli_query($conn, $sql);
-		if ($result_tamu){
-		while($row = mysqli_fetch_assoc($result_tamu)) {
-			$id_ked = $row['id'];
-	    	$keperluan = $row['keperluan'];
-	    	$suhu = $row['suhu_badan'];
-	    	$luka = $row['luka'];
-	    	$sakit = $row['sakit'];
-	    	$bertemu = $row['bertemu'];
-	    	$departemen = $row['departemen'];
-	    	$no_tamu = $row['id_keplek'];
-
-	    }
-	    if ($no_tamu == ""){
-	    	session_start();
-			$_SESSION['id']	 = $id_ked;
-			$_SESSION['id_tamu']	 = $id_tamu;
-	    	header('Location: kartu.php');
-	    }		
-    }}
+    }
 
     
     else{
     	/* =====================
-		if tamu is not signed in ($flag_sign is true) id_tamu is $id
+		if tamu is not signed in ($flag_sign is true) id_tamu is from uid tables
 	    ========================*/
-    	$id_tamu = $_POST['UID'];
-    	$sql = "SELECT * FROM tamu where uid = ". $id_tamu;
+    	$uid = $_POST['UID'];
+    	$sql = "SELECT id_tamu, tipeid FROM uid_tamu where uid = ". $uid;
 		$result_tamu = mysqli_query($conn, $sql);
-		
-		$a = '-'.$max_ind.' day';
-		$b = strtotime($a);
-		$ind_limit = date("Y-m-d", $b);
-		$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
-		if (!$result_tamu){
-			header('Location: index.php');
-		}
-		if (mysqli_num_rows($result_tamu) > 0) {
+		if ($result_tamu && mysqli_num_rows($result_tamu) > 0) {
 		    while($row = mysqli_fetch_assoc($result_tamu)) {
-		    	$flag_tamu = 1; //tamu is exist id db
-		    	$nama = $row['nama_tamu'];
+		    	$id_tamu = $row['id_tamu'];
 		    	$tid = $row['tipeid'];
-		    	$hp = $row['nohp'];
-		    	$kelamin = $row['jenis_kelamin'];
-		    	$flag_sign = $row ['signed_in'];
-		    	$image = $row['image'];
-		    	$blocked = $row['blok'];
-		    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
-		    	// var_dump($ymd);
-		    	$ind = $ymd<$ind_limit?"0":"1";
-		    	$id_tamu = $row['id'];
-		    	}
 		    }
+		}
+		if (isset($id_tamu)){
+			$sql = "SELECT * FROM tamu where id = ". $id_tamu;
+			$result_tamu = mysqli_query($conn, $sql);
+			$a = '-'.$max_ind.' day';
+			$b = strtotime($a);
+			$ind_limit = date("Y-m-d", $b);
+			$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
+			if (!$result_tamu){
+				header('Location: index.php');
+			}
+			if (mysqli_num_rows($result_tamu) > 0) {
+			    while($row = mysqli_fetch_assoc($result_tamu)) {
+			    	$flag_tamu = 1; //tamu is exist id db
+			    	$nama = $row['nama_tamu'];
+			    	$hp = $row['nohp'];
+			    	$kelamin = $row['jenis_kelamin'];
+			    	$flag_sign = $row ['signed_in'];
+			    	$image = $row['image'];
+			    	$blocked = $row['blok'];
+			    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
+			    	// var_dump($ymd);
+			    	$ind = $ymd<$ind_limit?"0":"1";
+			    	$id_tamu = $row['id'];
+			    	}
+			    }
+			}
     }
+    if (isset($id_tamu)){
+    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
+	$result_tamu = mysqli_query($conn, $sql);
+	if ($result_tamu){
+	while($row = mysqli_fetch_assoc($result_tamu)) {
+		$id_ked = $row['id'];
+    	$keperluan = $row['keperluan'];
+    	$suhu = $row['suhu_badan'];
+    	$luka = $row['luka'];
+    	$sakit = $row['sakit'];
+    	$bertemu = $row['bertemu'];
+    	$departemen = $row['departemen'];
+    	$no_tamu = $row['id_keplek'];
+
+    }}
+    
+    if ($no_tamu == ""){
+    	session_start();
+		$_SESSION['id']	 = $id_ked;
+		$_SESSION['id_tamu']	 = $id_tamu;
+    	header('Location: kartu.php');
+    }}
  ?>
 <head>
     <link href="../assets/bootstrap/css/bootstrap.min.css"  rel="stylesheet" id="bootstrap-css">
@@ -231,8 +241,8 @@
 		    <tbody>
 		    	<?php 
 		    	
-	        		if (isset($id)){
-		    		$sql = "SELECT * FROM kedatangan where id_tamu = ". $id." ORDER BY id DESC LIMIT 3";
+	        		if (isset($id_tamu)){
+		    		$sql = "SELECT * FROM kedatangan where id_tamu = ". $id_tamu." ORDER BY id DESC LIMIT 3";
 		    		
 		    		$result = mysqli_query($conn, $sql);
 		    		if ($result && mysqli_num_rows($result) > 0) {
@@ -269,11 +279,12 @@
 	    
 	        <div class="form-group row text-left"><!-- UID -->
 		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
-		          <div class="col-sm-4">  
+		          <div class=" <?php echo $flag_sign?'col-sm-6':'col-sm-4'; ?> ">  
 		            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
 		          </div>
-		          <div class="col-sm-2">
+		          <div class="<?php echo $flag_sign?'col-sm-3':'col-sm-2'; ?>">
 		            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
+		            	<?php if (!$flag_card){?>
 		            	
 		            	<option value="KTP"<?php 
 
@@ -292,11 +303,19 @@
 		            			echo "selected";
 		            		}
 		            	 ?>>SIM</option>
+		            	<?php }
+		            	else{
+		            	?>
+						<option value="-1" selected="">Kartu Tamu</option>
+						<?php }?>
+
 		            </select>
 		          </div>
 		          <div class="col-sm-3">
+		          	<?php if (!$flag_sign){?>
 		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
 		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button></div> 
+		         	<?php }?>
 		    </div>
 	        </div>   
 	        <div class="form-group row"> <!-- nama -->
@@ -696,6 +715,8 @@
     }
 	
  	
+    
+
      sakit_aktive()
 
      $(document).ready(function() {
@@ -704,12 +725,12 @@
     	if(counter>2){
             alert("Only 10 textboxes allow");
             return false;
-    } 
+    	} 
         var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
-        var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
-        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\"> </div>");
-        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"TID\" id=\"TID\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
+        var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"additional" + counter +"\"/>");
+        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" id = uid"+counter+" name = uid"+counter+" class=\"form-control inputsm\"> </div>");
+        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"tid"+counter+"\" id=\"tid"+counter+"\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
         var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
         removeButton.click(function() {
             $(this).parent().remove();
@@ -728,13 +749,10 @@
 	       }   
 
 	    counter--;
-
-	        $("#UID" + counter).remove();
-
+	        $("#additional" + counter).remove();
 	     });
 });
 
-     
    
 
 </script>

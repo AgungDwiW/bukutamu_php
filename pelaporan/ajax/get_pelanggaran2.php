@@ -14,7 +14,7 @@
 	else{
 		$uid = $_GET['uid'];
 		require "../../db/db_con.php";
-		$sql = "SELECT id FROM tamu where uid = ". $uid;
+		$sql = "SELECT id_tamu as id FROM uid_tamu where uid = ". $uid;
 		$result = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_assoc($result)) {
 			$id = $row['id'];

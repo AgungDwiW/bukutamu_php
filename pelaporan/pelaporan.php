@@ -27,13 +27,13 @@
                                         <h4>Data Pelapor</h4>
                                         <br>
                                         <div class="form-group row" style="padding-bottom:1rem;">
-                                            <label class="control-label col-sm-2" for="nama">Nama Pelapor:</label>
+                                            <label class="control-label col-sm-2" for="nama">Nama Petugas:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Pelapor" readonly=""></div>
+                                                <input type="text" name="nama_pelapor" id = "nama_pelapor" class = "form-control inputsm" required placeholder="Nama Petugas" readonly=""></div>
                                         </div>
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
-                                          <label class="control-label col-sm-2" for="UID">UID Pelapor:</label>
+                                          <label class="control-label col-sm-2" for="UID">UID Petugas:</label>
                                           <div class="col-sm-7">  
                                             <input type="text" required class="form-control inputsm" name="uid_pelapor" id="uid_pelapor" placeholder="NIK" value =   > 
                                           </div>
@@ -50,20 +50,13 @@
                                         <br>
                                             
                                         <div class="form-group row" style="padding-bottom:1rem;"><!-- UID -->
-                                          <label class="control-label col-sm-2" for="UID">UID :</label>
-                                          <div class="col-sm-7">  
+                                          <label class="control-label col-sm-2" for="UID">UID Kartu Tamu :</label>
+                                          <div class="col-sm-10">  
                                             <input type="text" class="form-control inputsm" required name="uid_pelaku" id="uid_pelaku"  placeholder="UID Pelaku" value =   > 
                                           </div>
-                                          <div class="col-sm-3">
-                                            <select class="form-control inputsm" name="tid_pelaku" id="tid_pelaku" placeholder="Tipe id" disabled  value = {{tamu.tipeid}}>
-                                                <option>KTP</option>
-                                                <option >Kartu Pegawai</option>
-                                                <option >SIM</option>
-                                            </select>
-                                              
-                                          </div>
+                                         
                                         <label id = "hidme" hidden="">Data tamu tidak ditemukan </label>
-
+                                        <input type="text" hidden name="id" id = id >
                                         </div>  
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-2" for="nama">Nama Pelanggar:</label>
@@ -337,6 +330,7 @@ uid.addEventListener("keyup",
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
             cur = JSON.parse(this.responseText)
             
             valid = true
@@ -362,28 +356,23 @@ function get_tamu(cur){
       tanggal.removeChild(tanggal.childNodes[0]);
     }
     if (cur['error']){
+        
         document.getElementById('hidme').hidden = false;
         deactivate()
         valid = 0;
+        institusi.value = "";
+        nama.value = "";
+        no_hp.value = "";
+        document.getElementById("id").value = ""
         return false;
     }
     cur = cur[0];
     activate()
     document.getElementById('hidme').hidden = true;
-    institusi.value = cur['perusahaan']
+    institusi.value = cur['kategori']
     nama.value = cur['nama']
     no_hp.value = cur['hp']
-    if (!cur['saved']){
-        nama.value = "Deleted"
-        no_hp.value = "Deleted"
-        tid.value = "Deleted"
-    }
-    if (cur['tid'] == "KTP"){
-        tid.options[0].selected = true
-    }
-    else{
-        tid.options[2].selected = false
-    }
+    document.getElementById("id").value = cur['id'];
     kedatangan  = cur['kedatangan']
     for (key in kedatangan){
         var option = document.createElement("option");
@@ -403,7 +392,7 @@ function get_pelanggaran(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-
+        console.log(cur);
         cur = JSON.parse(this.responseText)
         pelanggaran(cur);
     }};

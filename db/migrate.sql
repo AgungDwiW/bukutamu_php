@@ -40,8 +40,6 @@ create table karyawan(
 
 CREATE TABLE tamu (
 	id int not null primary key auto_increment,
-	uid VARCHAR (15) ,
-	tipeid VARCHAR(15), 
 	nama_tamu VARCHAR(50),
 	jenis_kelamin varchar(1),
 	signed_in boolean, 
@@ -55,9 +53,19 @@ CREATE TABLE tamu (
 	tipe int,
 	 foreign key fk_tamu_tipe (tipe)
     references tipe_tamu(id)
-    on delete set null,
-	unique (uid)
+    on delete set null,	
 	);
+
+create table uid_tamu(
+	id int not null primary key auto_increment,
+	uid varchar(15),
+	tipeid varchar (15),
+	id_tamu int,
+	unique(uid),
+	foreign key uid_tamu(id_tamu)
+	references tamu(id)
+	on delete cascade
+);
 
 
 create table kartu_tamu(

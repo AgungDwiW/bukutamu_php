@@ -59,11 +59,7 @@
                                             <input type="text" class="form-control inputsm" required name="uid_pelaku" id="uid_pelaku"  placeholder="UID Pelaku" > 
                                           </div>
                                           <div class="col-sm-3">
-                                            <select class="form-control inputsm" name="tid_pelaku" id="tid_pelaku" placeholder="Tipe id" disabled  value = {{tamu.tipeid}}>
-                                                <option>KTP</option>
-                                                <option >Kartu Pegawai</option>
-                                                <option >SIM</option>
-                                            </select>
+                                            <input type="text" class="form-control inputsm" name="tid_pelaku" id="tid_pelaku" placeholder="Tipe id" disabled  >
                                             <input type="text" required class="form-control inputsm" name="id_tamu" id="id_tamu" hidden> 
                                               
                                           </div>
@@ -204,7 +200,7 @@ uid.addEventListener("keyup",
         event.preventDefault();
         
            console.log("get_tamu?uid=" + uid.value)
-            xhttp.open("GET", "ajax/get_tamu.php?uid=" + uid.value, true);
+            xhttp.open("GET", "ajax/get_tamu2.php?uid=" + uid.value, true);
             xhttp.send();
             return false;
     
@@ -221,23 +217,13 @@ function get_tamu(cur){
     cur = cur[0];
     hide.hidden = false;
     document.getElementById('hidme').hidden = true;
-    institusi.value = cur['perusahaan']
+    institusi.value = cur['kategori']
     nama.value = cur['nama']
     no_hp.value = cur['hp']
     counter.value = cur['counter']
-    document.getElementById('id_tamu').value = cur['id'];
-    if (!cur['saved']){
-        nama.value = "Deleted"
-        no_hp.value = "Deleted"
-        tid.value = "Deleted"
-    }
-    if (cur['tid'] == "KTP"){
-        tid.options[0].selected = true
-        // console.log(tid.options[0].selected)
-    }
-    else{
-        tid.options[2].selected = false
-    }
+    document.getElementById('id_tamu').value = cur['id'];  
+    tid.value = cur['tid'];
+   
     get_pelanggaran()
 };
 

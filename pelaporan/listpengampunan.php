@@ -43,7 +43,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
                                         <th style="min-width:5%;">No.</th>
                                         <th style="min-width:5%; max-width: 10%">NIK</th>
                                         <th style="min-width:5%;">Nama petugas</th>
-                                        <th style="min-width:5%;">UID pelanggar</th>
+                                        
                                         <th style="min-width:5%; max-width: 10%">Nama Pelanggar</th>
                                         <th style="min-width:5%; max-width: 10%">Tanggal peresetan</th>
                                         <th style="min-width:5%; max-width: 10%">MOU</th>
@@ -124,7 +124,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
             counter,
             json[x]['nik'],
             json[x]['nama_karyawan'],
-            json[x]['uid_tamu'],
+            
             json[x]['nama_tamu'],
             json[x]['tanggal_pengampunan'],
             

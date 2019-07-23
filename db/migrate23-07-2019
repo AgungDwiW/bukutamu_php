@@ -3,3 +3,18 @@ ALTER TABLE `tamu` DROP `perusahaan`;
 ALTER TABLE `tamu` DROP `saved`;
 ALTER TABLE `kartu_tamu` ADD `id_tamu` INT NULL AFTER `uid`;
 ALTER TABLE `tamu` ADD `tipe` INT NOT NULL AFTER `terakhir_count`;
+
+ALTER TABLE `tamu`
+  DROP `uid`,
+  DROP `tipeid`;
+
+create table uid_tamu(
+	id int not null primary key auto_increment,
+	uid varchar(15),
+	tipeid varchar (15),
+	id_tamu int,
+	unique(uid),
+	foreign key uid_tamu(id_tamu)
+	references tamu(id)
+	on delete cascade
+);

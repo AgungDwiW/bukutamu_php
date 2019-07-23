@@ -51,11 +51,7 @@
 	while($row = mysqli_fetch_assoc($result)) {
 		$id_pelapor = $row['id'];
 	}
-	$sql = "SELECT id FROM tamu where uid = ". $uid;
-	$result = mysqli_query($conn, $sql);
-	while($row = mysqli_fetch_assoc($result)) {
-		$id = $row['id'];
-	}
+	$id = $_POST['id'];
 
 	$sql = "INSERT INTO pelaporan(nama_pelapor, id_karyawan, tanggal_pelanggaran, 			tanggal_pelaporan, tipe_12, subkategori, positif, area, ap, 
 				keterangan, id_tamu, departemen)

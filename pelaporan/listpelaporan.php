@@ -43,7 +43,6 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
                                         <th style="min-width:5%;">No.</th>
                                         <th style="min-width:5%; max-width: 10%">Nama Pelapor</th>
                                         <th style="min-width:5%;">Tanggal Pelanggaran</th>
-                                        <th style="min-width:5%;">UID Pelanggar</th>
                                         <th style="min-width:5%; max-width: 10%">Nama Pelanggar</th>
                                         <th style="min-width:5%; max-width: 10%">Departemen</th>
                                         <th style="min-width:5%; max-width: 10%">Area</th>
@@ -131,7 +130,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
         }
 
       function add_data(json){
-        
+        console.log(json)
         try {
           json = JSON.parse(json);
           console.log(json);  
@@ -148,7 +147,6 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
             counter,
             json[x]['nama_pelapor'],
             json[x]['tanggal_pelanggaran'],
-            json[x]['uid'],
             json[x]['pelanggar'],
             json[x]['departemen'],
             json[x]['area'],

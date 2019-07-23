@@ -8,74 +8,65 @@
 		if (file_exists($output))
 			unlink($output);	
 			
-		if(!file_put_contents($output,$image)){
+		if(!file_put_contents($output,$image))
 			$output = $noimage;
-		}
-			
-		
 	}
-	
+	else
+		$output = $noimage;	
+
 	$uid = $_POST["UID"];
-	// ============================================================================================
-	//check tamu
-	// ============================================================================================
-	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
+
+
 	$tz_object = new DateTimeZone('Asia/Jakarta');
 	$datetime = new DateTime();
     $datetime->setTimezone($tz_object);
     $now = $datetime->format('Y\-m\-d\ h:i:s');
     $now_date = $datetime->format('Y\-m\-d\ ');
-	$result_tamu = mysqli_query($conn, $sql);
-	$flag_sign = false;
-	$id = 0;
-	if (mysqli_num_rows($result_tamu) ==0){
-		// ============================================================================================
-		// Tamu belum terdaftar
-		// ============================================================================================
-		if (!isset($_POST['subtip']))
-		$sql = "INSERT INTO tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in,  image,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
-	 		 VALUES (".$_POST['UID'].",'".$_POST['TID']."', '". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
-	 		$_POST['Kelamin']."',". true.",'". $output."','".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$_POST['tipe'].")";
-	 	else
-	 		$sql = "INSERT INTO tamu (uid, tipeid, nama_tamu, jenis_kelamin, signed_in,  image,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
-	 		 VALUES (".$_POST['UID'].",'".$_POST['TID']."', '". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
-	 		$_POST['Kelamin']."',". true.",'". $output."','".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$_POST['subtip'].")";
-	 	echo "$sql";
-		$result = mysqli_query($conn, $sql);
-		$id = mysqli_insert_id($conn);
-	// return true;
-	}
 
+	$sql = "SELECT id_tamu from uid_tamu where uid = ".$uid;
+	$result = mysqli_query($conn, $sql);
+	if (mysqli_num_rows($result) ==0){
+		// =========================================================================
+		// Tamu not found in db, add uid to uid tables and add tamu to tamu table
+		// ========================================================================
+	
+		if (isset($_POST['subtip']))
+			$tip = $_POST['subtip'];
+		else
+			$tip = $_POST['tipe'];
+		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  image,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
+	 		 VALUES ('". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
+	 		$_POST['Kelamin']."',". true.",'". $output."','".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.")";	 	
+		$result = mysqli_query($conn, $sql);
+		$id_tamu = mysqli_insert_id($conn);
+		$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$uid."', '".$_POST['TID']."', ". $id_tamu .")";
+		$result = mysqli_query($conn, $sql);
+	}
 	else{
-		// ============================================================================================
-		// Tamu sudah terdaftar
-		// ============================================================================================
-		while($row = mysqli_fetch_assoc($result_tamu)) {
-			$id = $row['id'];
-	    	$flag_sign = $row ['signed_in'];
-	    	$saved = $row ['saved'];
-	    }
-	    if (!$saved){
-	    	// ============================================================================================
-			// hapus data diri tamu
-			// ============================================================================================
-			$sql = "UPDATE tamu 
-			SET signed_in = true,
-			terakhir_datang = '".$now."',
-			image = '$output'
-			WHERE id = ".$id;}
-		else{
-			// ============================================================================================
-			// ganti status tamu menjadi keluar
-			// ============================================================================================
-			$sql = "UPDATE tamu
-			SET signed_in = true,
-			saved = '".$_POST['save']."',
-			terakhir_datang = '".$now."',
-			image = '$output'
-			WHERE id = ".$id;
+
+		$row = mysqli_fetch_assoc($result);
+		// =========================================================================
+		// Tamu found in db, change signin flag to true and update induction date if neccesary
+		// =========================================================================
+
+		$id_tamu = $row['id_tamu'];
+		// =========================================================================
+		// adding additional uids if exists
+		// =========================================================================
+		if (isset($_POST['uid1'])){
+			$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$_POST['uid1']."', '".$_POST['tid1']."', ". $id_tamu .")";
+			$result = mysqli_query($conn, $sql);
 		}
-		// echo "$sql";
+		if (isset($_POST['uid2'])){
+			$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$_POST['uid2']."', '".$_POST['tid2']."', ". $id_tamu .")";
+			$result = mysqli_query($conn, $sql);
+		}
+		$sql = "UPDATE tamu
+			SET signed_in = true,
+			terakhir_datang = '".$now."',
+			image = '$output'
+			WHERE id = ".$id_tamu;
+
 		$result = mysqli_query($conn, $sql);
 		if ($_POST['Ind'] == "Belum induksi")
 		{
@@ -85,30 +76,23 @@
 			WHERE id = ".$id;		
 			$result = mysqli_query($conn, $sql);
 		}
+		
+	}	
 
-	
-	}
-	if($flag_sign){
-		// ============================================================================================
-		// kalau tamu masih dalam kondisi didalam error
-		// ============================================================================================
-		header('Location: index.php');
-	}
-	// 
-	// ============================================================================================
+	// =============================================================================
 	// input data kedatangan
-	// ============================================================================================
+	// =============================================================================
 	
 	
 	$suhu = str_replace(",", ".", $_POST['Suhu']);
 	
 	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu)
-	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
+	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
 	
 	$result = mysqli_query($conn, $sql);
 	
 	session_start();
 	$_SESSION['id']	 = mysqli_insert_id($conn);
-	$_SESSION['id_tamu'] = $id;
+	$_SESSION['id_tamu'] = $id_tamu;
 	header('Location: kartu.php');
 ?>
