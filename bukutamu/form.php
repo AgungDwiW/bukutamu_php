@@ -238,7 +238,7 @@
 	    
 	        <div class="form-group row text-left"><!-- UID -->
 		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
-		          <div class="col-sm-5">  
+		          <div class="col-sm-4">  
 		            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
 		          </div>
 		          <div class="col-sm-2">
@@ -263,9 +263,9 @@
 		            	 ?>>SIM</option>
 		            </select>
 		          </div>
-		          <div class="col-sm-2">
-		         	<button type="button" value="+" class=" btn btn-primary"  id="add">+ </button> 
-		         	<button type="button" value="+" class="sm btn btn-danger"  id="removed">- </button></div> 
+		          <div class="col-sm-3">
+		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
+		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button></div> 
 		    </div>
 	        </div>   
 	        <div class="form-group row"> <!-- nama -->
@@ -677,8 +677,8 @@
         var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
         var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
-        var fName = $("<div class=\"col-sm-5\">  <input type=\"text\" class=\"form-control inputsm\"> </div>");
-        var fType = $("<div class=\"col-sm-2\"><select class=\"form-control inputsm\" name=\"TID\" id=\"TID\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
+        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\"> </div>");
+        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"TID\" id=\"TID\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
         var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
         removeButton.click(function() {
             $(this).parent().remove();
