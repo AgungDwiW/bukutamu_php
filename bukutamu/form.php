@@ -238,31 +238,32 @@
 	    
 	        <div class="form-group row text-left"><!-- UID -->
 		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
-		          <div class="col-sm-4">  
-		            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
-		          </div>
-		          <div class="col-sm-2">
-		            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
-		            	
-		            	<option value="KTP"<?php 
+			          
+			          <div class="col-sm-4">  
+			            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
+			          </div>
+			          <div class="col-sm-2">
+			            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
+			            	
+			            	<option value="KTP"<?php 
 
-		            		if ($tid == "KTP") {
-		            			echo "selected";
-		            		}
-		            	 ?>>KTP</option>
-		            	<option value="Kartu Pegawai"<?php 
-		            		if ($tid == "Kartu Pegawai") {
-		            			echo "selected";
-		            		}
-		            	 ?>
-		            	>Kartu Pegawai</option>
-		            	<option value="SIM" <?php 
-		            		if ($tid == "SIM") {
-		            			echo "selected";
-		            		}
-		            	 ?>>SIM</option>
-		            </select>
-		          </div>
+			            		if ($tid == "KTP") {
+			            			echo "selected";
+			            		}
+			            	 ?>>KTP</option>
+			            	<option value="Kartu Pegawai"<?php 
+			            		if ($tid == "Kartu Pegawai") {
+			            			echo "selected";
+			            		}
+			            	 ?>
+			            	>Kartu Pegawai</option>
+			            	<option value="SIM" <?php 
+			            		if ($tid == "SIM") {
+			            			echo "selected";
+			            		}
+			            	 ?>>SIM</option>
+			            </select>
+			          </div>
 		          <div class="col-sm-3">
 		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
 		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button></div> 
@@ -454,11 +455,13 @@
 			            <!--Header-->
 			            <div class="modal-header center">
 			                
-			                <h4 class="modal-title w-100" id="myModalLabel">Peringatan</h4>
+			                <h3 class="modal-title w-100" id="myModalLabel">Peringatan</h4>
 			            </div>
 			            <!--Body-->
 			            <div class="modal-body">
-			                Indikator menyatakan anda kurang sehat, Apakah Anda yakin akan Mengunjungi/Memasuki Area pabrik?.
+			             	INDIKATOR MENYATAKAN ANDA KURANG SEHAT.<br>
+			             	ANDA DILARANG UNTUK MEMASUKI AREA PRODUKSI.<br>
+			             	APAKAH ANDA YAKIN MEMASUKI AREA PABRIK?.
 			            </div>
 			            <!--Footer-->
 			            <div class="modal-footer">
@@ -671,13 +674,13 @@
      	 var counter = 1;
     $("#add").click(function() {
     	if(counter>2){
-            alert("Only 10 textboxes allow");
+            alert("Hanya tiga identitas yang diperbolehkan setiap tamu!.");
             return false;
     } 
         var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
         var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
-        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\"> </div>");
+        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\" placeholder=\"UID"+counter+"\"> </div>");
         var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"TID\" id=\"TID\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
         var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
         removeButton.click(function() {
@@ -692,7 +695,7 @@
     /**/
 	   $("#removed").click(function () {
 	    if(counter==1){
-	          alert("No more textbox to remove");
+	          alert("satu identitas minimal untuk setiap tamu");
 	          return false;
 	       }   
 
