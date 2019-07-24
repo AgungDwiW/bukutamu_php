@@ -33,7 +33,7 @@ require '../db/db_con.php'?>
                                             >
                                                 <option name= 'tipe' value="-1" selected >-</option>
                                                 <?php  
-                                                $sql = "SELECT * FROM tipe_tamu";   
+                                                $sql = "SELECT * FROM tipe_tamu where parent is null";   
                                                 $result_dep = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($result_dep) > 0) {
                                                     // output data of each row

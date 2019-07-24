@@ -43,9 +43,9 @@ if ($result &&(mysqli_num_rows($result) !=0)){
                                           <div class="col-sm-8">  
                                              <select type="text" class="form-control inputsm" name="tipe" id="tipe" required    
                                             >
-                                                <option name= 'tipe' value="-1" selected >-</option>
+                                                <option name= 'tipe' value="NULL" selected >-</option>
                                                 <?php  
-                                                $sql = "SELECT * FROM tipe_tamu";   
+                                                $sql = "SELECT * FROM tipe_tamu where parent is null";   
                                                 $result_dep = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($result_dep) > 0) {
                                                     // output data of each row

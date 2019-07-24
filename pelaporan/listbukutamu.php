@@ -41,7 +41,6 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
                                 <thead>
                                     <tr>
                                       <th style="min-width:5%;">No.</th>
-                                        <th style="min-width:5%; max-width: 10%">UID</th>
                                         <th style="min-width:5%; max-width: 10%">Nama</th>
                                         <th style="min-width:5%; max-width: 10%">Tipe</th>
                                         <th style="min-width:30%;">Tanggal datang</th>
@@ -114,9 +113,10 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
         }
 
       function add_data(json){
-        console.log(json);
+        
         try {
           json = JSON.parse(json);
+          console.log(json);
         }
         catch(err) {
           t.clear().draw();
@@ -125,10 +125,10 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
        
          t.clear().draw();
           counter = 1;
-          for (x=0;x<json.length; x++)
+          for (x=0;x<json.length; x++){
            t.row.add( [
             counter,
-            json[x]['uid'],
+
             json[x]['tamu'],
             json[x]['tipe'],
             json[x]['tanggal_datang'],
@@ -141,7 +141,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
             
         ] ).draw( false );
  
-        counter++;
+        counter++;}
       }
     </script>
    
