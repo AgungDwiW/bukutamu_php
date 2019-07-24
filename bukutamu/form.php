@@ -3,9 +3,7 @@
 	
 	$uid = $_POST["UID"];
 	
-    /* =====================
-	loading settings
-    ========================*/
+
 	$max_temp = 0;
     $sql = "SELECT value FROM setting where nama = 'max_temp' ";
 	$result_tamu = mysqli_query($conn, $sql);
@@ -24,16 +22,14 @@
 	while($row = mysqli_fetch_assoc($result_tamu)) {
 		$max_ind = $row['value'];
     }
-	
+	// echo $flag_tamu;
 	$no_tamu = -101;
-	$flag_sign = 0; // wether tamu is signed in
-	$flag_tamu = 0; // wether tamu is exist in db
-	$flag_card = 0; // wether login using card
-	$blocked = 0;
+	$flag_sign = 0;
 	$nama = "";
 	$tid = "";
 	$hp = "";
 	$kelamin = "";
+	$flag_sign = "";
 	$perusahaan = "";
 	$image = "";
 	$keperluan = "";
@@ -42,120 +38,83 @@
 	$sakit = "";
 	$bertemu = "";
 	$count = 0;
+	$flag_avail = false;
 	$image = 'media/noimage.jpg';
 	$ind = "0";
-	/* =====================
-	Searching in kartu_tamu wether it's already taken
-	if taken, then flag _sign is true
-    ========================*/
-	$sql = "select id_tamu from kartu_tamu where uid = ".$uid;
-	$result = mysqli_query($conn, $sql);
-	if ($result){
-		while($row = mysqli_fetch_assoc($result)) {
-			
-			if ($row['id_tamu']){
-				$id = $row['id_tamu'];
-				$flag_card = 1;
-			}
-		}
-	}
-	/* =====================
-	if tamu is signed in ($flag_sign is true) id_tamu is id from id_tamu
-    ========================*/
-
-    if ($flag_card){
-    	$id_tamu = $id;
-    	$sql = "SELECT * FROM tamu where id = ". $id_tamu;
-		$result_tamu = mysqli_query($conn, $sql);
-		
-		$a = '-'.$max_ind.' day';
-		$b = strtotime($a);
-		$ind_limit = date("Y-m-d", $b);
-		$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
-		if (!$result_tamu){
-			header('Location: index.php');
-		}
-		if (mysqli_num_rows($result_tamu) > 0) {
-		    // output data of each row
-		    while($row = mysqli_fetch_assoc($result_tamu)) {
-		    	$flag_tamu = 1;  //tamu is exist id db
-		    	echo "2123";
-		    	$nama = $row['nama_tamu'];
-		    	$hp = $row['nohp'];
-		    	$kelamin = $row['jenis_kelamin'];
-		    	$flag_sign = $row ['signed_in'];
-		    	$image = $row['image'];
-		    	$blocked = $row['blok'];
-		    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
-		    	// var_dump($ymd);
-		    	$ind = $ymd<$ind_limit?"0":"1";
-		    }
-	    }
-    }
-
-    
-    else{
-    	/* =====================
-		if tamu is not signed in ($flag_sign is true) id_tamu is from uid tables
-	    ========================*/
-    	$uid = $_POST['UID'];
-    	$sql = "SELECT id_tamu, tipeid FROM uid_tamu where uid = ". $uid;
-		$result_tamu = mysqli_query($conn, $sql);
-		if ($result_tamu && mysqli_num_rows($result_tamu) > 0) {
-		    while($row = mysqli_fetch_assoc($result_tamu)) {
-		    	$id_tamu = $row['id_tamu'];
-		    	$tid = $row['tipeid'];
-		    }
-		}
-		if (isset($id_tamu)){
-			$sql = "SELECT * FROM tamu where id = ". $id_tamu;
-			$result_tamu = mysqli_query($conn, $sql);
-			$a = '-'.$max_ind.' day';
-			$b = strtotime($a);
-			$ind_limit = date("Y-m-d", $b);
-			$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
-			if (!$result_tamu){
-				header('Location: index.php');
-			}
-			if (mysqli_num_rows($result_tamu) > 0) {
-			    while($row = mysqli_fetch_assoc($result_tamu)) {
-			    	$flag_tamu = 1; //tamu is exist id db
-			    	$nama = $row['nama_tamu'];
-			    	$hp = $row['nohp'];
-			    	$kelamin = $row['jenis_kelamin'];
-			    	$flag_sign = $row ['signed_in'];
-			    	$image = $row['image'];
-			    	$blocked = $row['blok'];
-			    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
-			    	// var_dump($ymd);
-			    	$ind = $ymd<$ind_limit?"0":"1";
-			    	$id_tamu = $row['id'];
-			    	}
-			    }
-			}
-    }
-    if (isset($id_tamu)){
-    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
+	$sql = "SELECT * FROM tamu where uid = ". $_POST["UID"];
 	$result_tamu = mysqli_query($conn, $sql);
-	if ($result_tamu){
-	while($row = mysqli_fetch_assoc($result_tamu)) {
-		$id_ked = $row['id'];
-    	$keperluan = $row['keperluan'];
-    	$suhu = $row['suhu_badan'];
-    	$luka = $row['luka'];
-    	$sakit = $row['sakit'];
-    	$bertemu = $row['bertemu'];
-    	$departemen = $row['departemen'];
-    	$no_tamu = $row['id_keplek'];
+	$flag_tamu = 1;
+	$blocked = 0;
+	$a = '-'.$max_ind.' day';
+	
+	$b = strtotime($a);
+	
+	$ind_limit = date("Y-m-d", $b);
+	$ind_limit = DateTime::createFromFormat('Y-m-d', $ind_limit);
+	// var_dump($ind_limit);
+	
+	
+	// echo "<br>";
+	if (!$result_tamu){
+		header('Location: index.php');
+	}
+		if (mysqli_num_rows($result_tamu) ==0){
+		$flag_tamu = 0;
+	}
+	if (mysqli_num_rows($result_tamu) > 0) {
+		$flag_avail = true;
+	    // output data of each row
+	    while($row = mysqli_fetch_assoc($result_tamu)) {
+	    	$nama = $row['nama_tamu'];
+	    	$tid = $row['tipeid'];
+	    	$hp = $row['nohp'];
+	    	$kelamin = $row['jenis_kelamin'];
+	    	$flag_sign = $row ['signed_in'];
+	    	$image = $row['image'];
+	    	$blocked = $row['blok'];
+	    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
+	    	// var_dump($ymd);
+	    	$ind = $ymd<$ind_limit?"0":"1";
+	    	$id = $row['id'];
+	    	
+	    }
+	    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id;
+		// echo $sql;
+		// echo $perusahaan;
+		$result_tamu = mysqli_query($conn, $sql);
+		if ($result_tamu){
+		while($row = mysqli_fetch_assoc($result_tamu)) {
+			// var_dump($row);
+			$id_ked = $row['id'];
+	    	$keperluan = $row['keperluan'];
+	    	$suhu = $row['suhu_badan'];
+	    	$luka = $row['luka'];
+	    	$sakit = $row['sakit'];
+	    	$bertemu = $row['bertemu'];
+	    	$departemen = $row['departemen'];
+	    	$no_tamu = $row['id_keplek'];
 
-    }}
-    
-    if ($no_tamu == ""){
-    	session_start();
-		$_SESSION['id']	 = $id_ked;
-		$_SESSION['id_tamu']	 = $id_tamu;
-    	header('Location: kartu.php');
-    }}
+	    }
+	    if ($no_tamu == ""){
+	    	session_start();
+			$_SESSION['id']	 = $id_ked;
+	
+	    	header('Location: kartu.php');
+	    }
+	}}
+
+	else{
+
+	}
+		if (!$flag_tamu){
+			if (!$flag_sign)
+				$perusahaan = "";
+	}
+	if ($flag_sign == null){
+		$flag_sign = 0;
+	}
+	
+	// var_dump($tid);
  ?>
 <head>
     <link href="../assets/bootstrap/css/bootstrap.min.css"  rel="stylesheet" id="bootstrap-css">
@@ -226,7 +185,8 @@
 	        		<?php }?>
 	          </div>
 	        </div> 
-	    
+	     
+	        
       <div class="row">
       	<div class="table-responsive col-sm-12">
 		  <table class="table ">
@@ -240,8 +200,8 @@
 		    <tbody>
 		    	<?php 
 		    	
-	        		if (isset($id_tamu)){
-		    		$sql = "SELECT * FROM kedatangan where id_tamu = ". $id_tamu." ORDER BY id DESC LIMIT 3";
+	        		if (isset($id)){
+		    		$sql = "SELECT * FROM kedatangan where id_tamu = ". $id." ORDER BY id DESC LIMIT 3";
 		    		
 		    		$result = mysqli_query($conn, $sql);
 		    		if ($result && mysqli_num_rows($result) > 0) {
@@ -265,10 +225,8 @@
 		  </table>
 		</div>
       </div>
-
       
     </div>
-
     <div class="col-sm-6 v-divider text-left">
       
           
@@ -280,44 +238,35 @@
 	    
 	        <div class="form-group row text-left"><!-- UID -->
 		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
-		          <div class=" <?php echo $flag_sign?'col-sm-6':'col-sm-4'; ?> ">  
-		            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
-		          </div>
-		          <div class="<?php echo $flag_sign?'col-sm-3':'col-sm-2'; ?>">
-		            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
-		            	<?php if (!$flag_card){?>
-		            	
-		            	<option value="KTP"<?php 
+			          
+			          <div class="col-sm-4">  
+			            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
+			          </div>
+			          <div class="col-sm-2">
+			            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
+			            	
+			            	<option value="KTP"<?php 
 
-		            		if ($tid == "KTP") {
-		            			echo "selected";
-		            		}
-		            	 ?>>KTP</option>
-		            	<option value="Kartu Pegawai"<?php 
-		            		if ($tid == "Kartu Pegawai") {
-		            			echo "selected";
-		            		}
-		            	 ?>
-		            	>Kartu Pegawai</option>
-		            	<option value="SIM" <?php 
-		            		if ($tid == "SIM") {
-		            			echo "selected";
-		            		}
-		            	 ?>>SIM</option>
-		            	<?php }
-		            	else{
-		            	?>
-						<option value="-1" selected="">Kartu Tamu</option>
-						<?php }?>
-
-		            </select>
-		          </div>
-
+			            		if ($tid == "KTP") {
+			            			echo "selected";
+			            		}
+			            	 ?>>KTP</option>
+			            	<option value="Kartu Pegawai"<?php 
+			            		if ($tid == "Kartu Pegawai") {
+			            			echo "selected";
+			            		}
+			            	 ?>
+			            	>Kartu Pegawai</option>
+			            	<option value="SIM" <?php 
+			            		if ($tid == "SIM") {
+			            			echo "selected";
+			            		}
+			            	 ?>>SIM</option>
+			            </select>
+			          </div>
 		          <div class="col-sm-3">
-		          	<?php if (!$flag_sign){?>
 		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
 		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button></div> 
-		         	<?php }?>
 		    </div>
 	        </div>   
 	        <div class="form-group row"> <!-- nama -->
@@ -381,10 +330,11 @@
                 </select>
 
               </div></div>
-	        <div class="form-group row" hidden id= "hidden_sub"> <!-- Institusi  -->
+	        <div class="form-group row"> <!-- Institusi  -->
 	          <label class="control-label col-sm-3" for="subtip"></label>
 	          <div class="col-sm-9">  
 	            <select type="text" class="form-control inputsm" name="subtip" id="subtip" placeholder="Institusi" required  disabled >
+	            	<option value="-1">-</option>
 	            </select>
 	          </div>
 	        </div>
@@ -433,7 +383,7 @@
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keperluan:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
+	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
 	          </div>
 	        </div>
 	        <div class="form-group row ">
@@ -545,7 +495,6 @@
 	 echo "const max_pel  = $max_pel;";
 	 echo "const max_ind = $max_ind;";
 	 ?>
-	 const hidden_sub =document.getElementById('hidden_sub') ;
 	 const child_json = JSON.parse('<?php echo json_encode($child) ?>');
 	 const tipe_json = JSON.parse('<?php echo json_encode($tipes) ?>');
 	 const acc_color = '#78be20'
@@ -718,29 +667,7 @@
     	}
     }
 	
-	function set_sub(){
-		if (tipe_tamu.value in child_json){
-			child = child_json[tipe_tamu.value];
-			for (x=0; x<child.length; x++){				
-				var option = document.createElement("option");
-				option.text = tipe_json[child[x]];
-				option.value = child[x];
-				sub_tamu.add(option);
-			}
-			hidden_sub.hidden = false;
-			sub_tamu.disabled = false;
-		}
-		else{
-			sub_tamu.innerHTML = "";
-			hidden_sub.hidden = true;	
-			sub_tamu.disabled = true;
-
-
-		}
-	}
  	
-    
-
      sakit_aktive()
 
      $(document).ready(function() {
@@ -749,14 +676,12 @@
     	if(counter>2){
             alert("Hanya tiga identitas yang diperbolehkan setiap tamu!.");
             return false;
-    	} 
+    } 
         var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
-
-        var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"additional" + counter +"\"/>");
-        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" id = uid"+counter+" name = uid"+counter+" class=\"form-control inputsm\"> </div>");
-        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"tid"+counter+"\" id=\"tid"+counter+"\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
-
+        var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
+        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\" placeholder=\"UID"+counter+"\"> </div>");
+        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"TID\" id=\"TID\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
         var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
         removeButton.click(function() {
             $(this).parent().remove();
@@ -775,9 +700,15 @@
 	       }   
 
 	    counter--;
-	        $("#additional" + counter).remove();
+
+	        $("#UID" + counter).remove();
+
 	     });
 });
+
+     
+   
+
 </script>
  <?php include("footer.php") ; ?>
 </body>
