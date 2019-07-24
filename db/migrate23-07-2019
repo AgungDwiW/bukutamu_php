@@ -18,3 +18,5 @@ create table uid_tamu(
 	references tamu(id)
 	on delete cascade
 );
+
+ALTER TABLE `tamu` ADD `tanggal_lahir` DATE NULL AFTER `tipe`;

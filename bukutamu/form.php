@@ -734,10 +734,9 @@
 			sub_tamu.innerHTML = "";
 			hidden_sub.hidden = true;	
 			sub_tamu.disabled = true;
-
-
 		}
 	}
+	set_sub();
  	
     
 
