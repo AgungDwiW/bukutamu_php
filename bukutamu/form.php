@@ -667,6 +667,25 @@
     	}
     }
 	
+	function set_sub(){
+		if (tipe_tamu.value in child_json){
+			child = child_json[tipe_tamu.value];
+			for (x=0; x<child.length; x++){				
+				var option = document.createElement("option");
+				option.text = tipe_json[child[x]];
+				option.value = child[x];
+				sub_tamu.add(option);
+			}
+			hidden_sub.hidden = false;
+			sub_tamu.disabled = false;
+		}
+		else{
+			sub_tamu.innerHTML = "";
+			hidden_sub.hidden = true;	
+			sub_tamu.disabled = true;
+		}
+	}
+	set_sub();
  	
      sakit_aktive()
 
