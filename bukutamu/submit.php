@@ -25,7 +25,7 @@
 	
 	$sql = "SELECT id_tamu from uid_tamu where uid = '".$uid."'";
 	$result = mysqli_query($conn, $sql);
-	if (!$result){
+	if (!$result || mysqli_num_rows($result) ==0){
 		// =========================================================================
 		// Tamu not found in db, add uid to uid tables and add tamu to tamu table
 		// ========================================================================
@@ -66,7 +66,7 @@
 			$sql = "UPDATE tamu
 			SET 
 			terakhir_ind = '".$now_date."'
-			WHERE id = ".$id;		
+			WHERE id = ".$id_tamu;		
 			$result = mysqli_query($conn, $sql);
 		}
 		
@@ -91,7 +91,7 @@
 
 	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu)
 	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
-	
+	$result = mysqli_query($conn, $sql);	
 
 	if (isset($_POST['uid1'])){
 
@@ -101,17 +101,18 @@
 			$count+=1;
 		}
 	}
-	if (isset($_POST['uid0'])){
+
+	if (isset($_POST['uid2'])){
 		
 		if ($count<3){
-			$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$_POST['uid0']."', '".$_POST['tid0']."', ". $id_tamu .")";
+			$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$_POST['uid2']."', '".$_POST['tid2']."', ". $id_tamu .")";
 			$result = mysqli_query($conn, $sql);
 			$count+=1;	
 		}
 	}
 
 
-	$result = mysqli_query($conn, $sql);
+
 	session_start();
 	$_SESSION['id']	 = mysqli_insert_id($conn);
 	
@@ -119,7 +120,7 @@
 	$flag = $_POST['Luka'] || $_POST['Sakit'] || $_POST['Suhu']> $max_temp;
 
 
-	
+	// var_dump($_POST);
 	$_SESSION['id_tamu'] = $id_tamu;
 	$_SESSION['flag'] = $flag;
 	header('Location: kartu.php');

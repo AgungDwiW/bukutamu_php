@@ -8,6 +8,7 @@
 	loading settings
     ========================*/
 	$max_temp = 0;
+	$tipe = "";
     $sql = "SELECT value FROM setting where nama = 'max_temp' ";
 	$result_tamu = mysqli_query($conn, $sql);
 	while($row = mysqli_fetch_assoc($result_tamu)) {
@@ -86,6 +87,7 @@
 		    	$flag_sign = $row ['signed_in'];
 		    	$image = $row['image'];
 		    	$blocked = $row['blok'];
+		    	$tipe= $row['tipe'];
 		    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
 		    	// var_dump($ymd);
 		    	$ind = $ymd<$ind_limit?"0":"1";
@@ -124,6 +126,7 @@
 			    	$kelamin = $row['jenis_kelamin'];
 			    	$flag_sign = $row ['signed_in'];
 			    	$image = $row['image'];
+			    	$tipe= $row['tipe'];
 			    	$blocked = $row['blok'];
 			    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
 			    	// var_dump($ymd);
@@ -159,6 +162,7 @@
     if ($no_tamu == ""){
     	session_start();
 		$_SESSION['id']	 = $id_ked;
+		$_SESSION['flag'] = $suhu>$max_temp || $luka || $sakit;
 		$_SESSION['id_tamu']	 = $id_tamu;
     	header('Location: kartu.php');
     }}
@@ -350,6 +354,16 @@
                 >
                     
                     <?php  
+                        $sql = "SELECT * FROM tipe_tamu";   
+                    $result_dep = mysqli_query($conn, $sql);
+                    $parent = -1;
+                    if (mysqli_num_rows($result_dep) > 0) {
+                    // output data of each row
+                    while($row = mysqli_fetch_assoc($result_dep)) {
+                    	if ($row['id'] == $tipe && $row['parent']){
+                    		$parent = $row['parent'];
+                    	}
+                   }}
                     $sql = "SELECT * FROM tipe_tamu";   
                     $result_dep = mysqli_query($conn, $sql);
                     
@@ -359,6 +373,7 @@
                     if (mysqli_num_rows($result_dep) > 0) {
                         // output data of each row
                         while($row = mysqli_fetch_assoc($result_dep)) {
+
                         	$tipes[$row['id']] = $row['tipe'];
                         	if ($row['parent']){
                         		if (!isset($child[$row['parent']])){
@@ -372,10 +387,16 @@
 
                         	}
                         	else{
+                        		
+                        		if ($row['id'] == $tipe || $parent == $row['id'])
                             echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";
+                        		else{
+                        			echo "<option name= 'tipe' value=".$row['id']."  >".$row['tipe']."</option>";
+                        		}
                         	}
                         }
                     }
+
                     ?>
                 </select>
 
@@ -440,7 +461,7 @@
 	      	<!-- </div>
 	      	<div class="form-group row"> -->
 	          	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="Luka" id="Luka1"  checked=<?php echo $luka?" checked ":""; ?>     onchange="luka_aktive()"     value = "1"> Ya
+	            <input type="radio"  name="Luka" id="Luka1"       onchange="luka_aktive()"     value = "1"> Ya
 	        	</label>
 	        	<label class="radio-inline col-sm-2">
 	            <input type="radio"  name="Luka" id ="Luka2"  onchange="luka_aktive()"  <?php echo !$luka?"checked":""; ?>  value="0"> Tidak
@@ -545,6 +566,7 @@
 	 echo "const max_pel  = $max_pel;";
 	 echo "const max_ind = $max_ind;";
 	 ?>
+	 const type = "<?php echo $tipe ?>";
 	 const child_json = JSON.parse('<?php echo json_encode($child) ?>');
 	 const tipe_json = JSON.parse('<?php echo json_encode($tipes) ?>');
 	 const acc_color = '#78be20'
@@ -697,8 +719,10 @@
      }
 
      function change_indikator(){
+     	console.log(luka_flag)
+     	console.log(!sakit_flag)
+     	console.log(!temp_flag)
      	if (luka_flag || !sakit_flag || temp_flag){
-     		
      		$('#modal1').modal('show');
      	}
      }
@@ -723,6 +747,8 @@
 			child = child_json[tipe_tamu.value];
 			for (x=0; x<child.length; x++){				
 				var option = document.createElement("option");
+				if (child[x] == type)
+					option.selected=true;
 				option.text = tipe_json[child[x]];
 				option.value = child[x];
 				sub_tamu.add(option);
@@ -744,15 +770,15 @@
      $(document).ready(function() {
      	 var counter = <?php echo $count ?>;
     $("#add").click(function() {
-    	if(counter>2){
+    	if(counter>3){
             alert("Hanya tiga identitas yang diperbolehkan setiap tamu!.");
             return false;
     } 
         var lastField = $("#buildyourform div:last");
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
-        var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
-        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\" placeholder=\"UID"+counter+"\"> </div>");
-        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"TID\" id=\"TID\" placeholder=\"Tipe id\"required><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
+         var fieldWrapper = $("<div class=\"form-group row text-left\" id =\"UID" + counter +"\"/>");
+        var fName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\" placeholder=\"UID"+counter+"\" id = uid"+counter+" name = uid"+counter+"> </div>");
+        var fType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\"  placeholder=\"Tipe id\"required id = tid"+counter+" name = tid"+counter+"><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select></div>"); 
         var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
         removeButton.click(function() {
             $(this).parent().remove();
