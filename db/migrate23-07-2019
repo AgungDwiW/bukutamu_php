@@ -2,7 +2,6 @@ ALTER TABLE `tipe_tamu` ADD `parent` INT NULL AFTER `tipe`;
 ALTER TABLE `tamu` DROP `perusahaan`;
 ALTER TABLE `tamu` DROP `saved`;
 ALTER TABLE `kartu_tamu` ADD `id_tamu` INT NULL AFTER `uid`;
-ALTER TABLE `tamu` ADD `tipe` INT NOT NULL AFTER `terakhir_count`;
 
 ALTER TABLE `tamu`
   DROP `uid`,

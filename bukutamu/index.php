@@ -35,12 +35,16 @@
 			       
           <input type="text" id="UID" class="form-control" name="UID" placeholder="ID" required autofocus>
           
-          <div class="center" style="display: inline-grid; grid-template-columns: auto auto auto">
+         
+            
+          <input  style="margin-top: 40px; width: 90%;  text-align: center;"  type="submit"  value="Masuk">
+            
+          <div class="center" style="width: 92%;display: grid; grid-template-columns: auto auto;grid-column-gap: 0px;">
             <div class="grid-item">
-              <input  style="margin-top: 20px;  text-align: center;"  type="submit"  value="Masuk">
+            <a  href="../index.php"  ><input style="width: 90%" type="button" name="back" id = "back" class="center btn-danger" value="Kembali"></a>
             </div>
             <div class="grid-item">
-            <a  href="../index.php"  ><input style="margin-top: 20px;  text-align: center;" type="button" name="back" id = "back" class="center" value="Kembali"></a>
+            <a  href="../index.php"  ><input style="width: 100%" type="button" name="back" id = "back" class="center btn-primary" value="Cari"></a>
             </div>
           </div>   
          
