@@ -1,28 +1,31 @@
 <?php 
 if (!isset($_GET['uid']))
-  header('Location: users.php');
+  header('Location: listtamu.php');
 else
   $uid = $_GET['uid'];
 
 require "../db/db_con.php";
-$sql = "SELECT * FROM tamu where uid = ".$uid;
+$sql = "SELECT * FROM tamu where id = ".$uid;
 
 $result = mysqli_query($conn, $sql);
 if(!$result)
 {
-  header('Location: users.php');
+  header('Location: listtamu.php');
 }
 while($row = mysqli_fetch_assoc($result)) {
   $tamu = $row;  
 }
-require "../db/db_con.php";
-
-
-$sql = "SELECT id FROM tamu where uid = ". $uid;
+$sql  = "select tipe from tipe_tamu where id = ".$tamu['tipe'];
 $result = mysqli_query($conn, $sql);
-while($row = mysqli_fetch_assoc($result)) {
-  $id = $row['id'];
+if(!$result)
+  $tipe = "";
+else{
+  $row = mysqli_fetch_assoc($result);
+  $tipe = $row['tipe'];
 }
+$id = $uid;
+
+
 include('template.php'); 
 
 ?> 
@@ -56,18 +59,6 @@ include('template.php');
                                             <form class = "text-left" >
                                           
 
-                                              <div class="form-group row"><!-- UID -->
-                                                <label class="control-label col-sm-3" for="UID">UID:</label>
-                                                <div class="col-sm-6">  
-                                                  <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value = <?php echo $tamu['uid']; ?> readonly > 
-                                                </div>
-                                                <div class="col-sm-3">
-                                                  <input class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"  value = <?php echo $tamu['tipeid']; ?> readonly>
-                                                      
-                                                </div>
-                                              </div>
-                                              
-                                              <br>
                                               
                                               <div class="form-group row"> <!-- nama -->
                                                 <label class="control-label col-sm-3" for="Nama">Nama:</label>
@@ -97,9 +88,9 @@ include('template.php');
                                               <br>
 
                                               <div class="form-group row"> <!-- Institusi  -->
-                                                <label class="control-label col-sm-3" for="Institusi">Institusi:</label>
+                                                <label class="control-label col-sm-3" for="Institusi">Kategori:</label>
                                                 <div class="col-sm-9">  
-                                                  <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required readonly value = <?php echo $tamu['perusahaan']; ?>  readonly>
+                                                  <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required readonly value = <?php echo $tipe; ?>  readonly>
                                                 </div>
                                               </div>
                                                <div class="form-group row"> <!-- Institusi  -->
@@ -114,6 +105,42 @@ include('template.php');
                                   </div>
                               </div>
                               <br>
+                              <center><h2>List ID yang Tersimpan</h2></center><br>
+                                  <div class="row">
+
+                                          <div class="table-responsive col-sm-12" style="overflow-y: scroll;
+                                  max-height:500px;  ">
+                                            <table id="table2" class="table table-bordered table-hover"
+                                                                  style="font-size:10pt; text-align:center; vertical-align:middle;" >
+                                                <thead>
+                                                <tr >
+                                                  <th >No</th>
+                                                  <th style="min-width:5%;">UID</th>
+                                                  <th style="min-width:8%;">Tipe ID</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                 <?php
+                                              $sql = "SELECT * FROM uid_tamu where id_tamu = ".$id;
+                                              $no = 1;
+                                              $result = mysqli_query($conn, $sql);
+
+                                              while($row = mysqli_fetch_assoc($result)) {
+                                              ?>
+                                               <tr>
+                                                   <td style="vertical-align:middle;"><?php echo $no;$no+=1; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['uid']; ?></td>
+                                                  <td style="vertical-align:middle;"><?php echo $row['tipeid']; ?></td>
+                                                  
+                                              </tr>
+                                              <?php
+                                            }
+                                            ?>
+                                            
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                  </div>
                               <center><h2>Grafik kunjungan</h2></center><br>
                               <div style="margin: auto;">
                                   <div class="row vertical-align">

@@ -22,33 +22,39 @@
                                 <thead>
                                     <tr>
                                         <th style="min-width:5%;">No.</th>
-                                        <th style="min-width:5%; max-width: 10%">Nama</th>
-                                        <th style="min-width:30%;">Perusahaan</th>
-                                        <th style="min-width:30%;">UID</th>
-                                        <th style="min-width:25%;">Tipe ID</th>
-                                        <th style="min-width:25%;">Terakhir datang</th>
+                                        <th style="min-width:20%;">Nama</th>
+                                        <th style="min-width:10%;">Kategori</th>
+                                        <th style="min-width:20%;">Terakhir datang</th>
+                                        <th style="min-width:25%;">Terakhir induksi</th>
+                                        <th style="min-width:25%;">Hitungan pelanggaran</th>
                                         <th style="min-width:25%;">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php  
                                         require "../db/db_con.php";
-                                            $sql = "SELECT * FROM tamu";
+                                        $sql = "SELECT * FROM tipe_tamu";
+                                        $result = mysqli_query($conn, $sql);
+                                        $kategori = array();
+                                        if ($result &&(mysqli_num_rows($result) !=0)){
+                                        while($row = mysqli_fetch_assoc($result)) {
+                                            $kategori[$row['id']] = $row['tipe'];
+                                        }
+                                        }
+                                        $sql = "SELECT * FROM tamu";
                                         $result = mysqli_query($conn, $sql);
                                         if ($result &&(mysqli_num_rows($result) !=0)){
-                                            $no = 1;
+                                        $no = 1;
                                         while($row = mysqli_fetch_assoc($result)) {
-
                                         ?>
-                                              
-                                            <tr class='clickable-row' data-href=user_detail.php?uid=<?php echo $row['uid']; ?>>
+                                            <tr class='clickable-row' data-href=user_detail.php?uid=<?php echo $row['id']; ?>>
                                              <td style="vertical-align:middle;"><?php echo $no;$no+=1; ?></td>
-                                             <td style="text-align:left;"><?php echo $row['nama_tamu']; ?></td>
-                                             <td style="text-align:left;"><?php echo $row['perusahaan']; ?></td>
-                                             <td style="text-align:left;"><?php echo $row['uid']; ?></td>
-                                             <td style="text-align:left;"><?php echo $row['tipeid']; ?></td>
-                                             <td style="text-align:left;"><?php echo $row['terakhir_datang']; ?></td>
-                                             <td style="text-align:left;"><?php echo $row['signed_in']?"Didalam":"Diluar"; ?></td>
+                                             <td style="text-align:center;"><?php echo $row['nama_tamu']; ?></td>
+                                             <td style="text-align:center;"><?php echo $kategori[$row['tipe']]; ?></td>
+                                             <td style="text-align:center;"><?php echo $row['terakhir_datang']; ?></td>
+                                             <td style="text-align:center;"><?php echo $row['terakhir_ind']; ?></td>
+                                             <td style="text-align:center;"><?php echo $row['count_pelanggaran']; ?></td>
+                                             <td style="text-align:center;"><?php echo $row['signed_in']?"Didalam":"Diluar"; ?></td>
                                              </tr>
 
                                         <?php
