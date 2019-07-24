@@ -86,7 +86,7 @@ while($row = mysqli_fetch_assoc($result)) {
 
                                         <div class="col-sm-12 center"> 
                                            <button type="input" class="btn btn-primary" style="width: 50%">Submit</button>
-                                           <a href="listdepartemen.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
+                                           <a href="listkartu.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
                                         </div>
                         
                                 </fieldset>

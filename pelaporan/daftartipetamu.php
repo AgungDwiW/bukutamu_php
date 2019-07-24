@@ -58,7 +58,7 @@ require '../db/db_con.php'?>
                                         <input type="text" id ="is_edit" hidden name="is_edit" value="-1">
                                         <div class="col-sm-12 center"> 
                                            <button type="input" class="btn btn-primary" style="width: 50%">Submit</button>
-                                           <a href="listdepartemen.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
+                                           <a href="listtipetamu.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
                                         </div>
                         
                                 </fieldset>

@@ -226,8 +226,7 @@
 	        		<?php }?>
 	          </div>
 	        </div> 
-	     
-	        
+	    
       <div class="row">
       	<div class="table-responsive col-sm-12">
 		  <table class="table ">
@@ -266,8 +265,10 @@
 		  </table>
 		</div>
       </div>
+
       
     </div>
+
     <div class="col-sm-6 v-divider text-left">
       
           
@@ -380,11 +381,10 @@
                 </select>
 
               </div></div>
-	        <div class="form-group row"> <!-- Institusi  -->
+	        <div class="form-group row" hidden id= "hidden_sub"> <!-- Institusi  -->
 	          <label class="control-label col-sm-3" for="subtip"></label>
 	          <div class="col-sm-9">  
 	            <select type="text" class="form-control inputsm" name="subtip" id="subtip" placeholder="Institusi" required  disabled >
-	            	<option value="-1">-</option>
 	            </select>
 	          </div>
 	        </div>
@@ -433,7 +433,7 @@
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keperluan:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
+	            <input type="text" class="form-control inputsm" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
 	          </div>
 	        </div>
 	        <div class="form-group row ">
@@ -545,6 +545,7 @@
 	 echo "const max_pel  = $max_pel;";
 	 echo "const max_ind = $max_ind;";
 	 ?>
+	 const hidden_sub =document.getElementById('hidden_sub') ;
 	 const child_json = JSON.parse('<?php echo json_encode($child) ?>');
 	 const tipe_json = JSON.parse('<?php echo json_encode($tipes) ?>');
 	 const acc_color = '#78be20'
@@ -717,6 +718,26 @@
     	}
     }
 	
+	function set_sub(){
+		if (tipe_tamu.value in child_json){
+			child = child_json[tipe_tamu.value];
+			for (x=0; x<child.length; x++){				
+				var option = document.createElement("option");
+				option.text = tipe_json[child[x]];
+				option.value = child[x];
+				sub_tamu.add(option);
+			}
+			hidden_sub.hidden = false;
+			sub_tamu.disabled = false;
+		}
+		else{
+			sub_tamu.innerHTML = "";
+			hidden_sub.hidden = true;	
+			sub_tamu.disabled = true;
+
+
+		}
+	}
  	
     
 
@@ -757,9 +778,6 @@
 	        $("#additional" + counter).remove();
 	     });
 });
-
-   
-
 </script>
  <?php include("footer.php") ; ?>
 </body>

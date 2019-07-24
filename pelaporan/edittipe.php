@@ -50,11 +50,11 @@ if ($result &&(mysqli_num_rows($result) !=0)){
                                                 if (mysqli_num_rows($result_dep) > 0) {
                                                     // output data of each row
                                                     while($row = mysqli_fetch_assoc($result_dep)) {
-                                                        if ($row['id']!= $id){
-                                                        if ($row['id']!= $parent)
-                                                        echo "<option name= 'tipe' value=".$row['id']."  >".$row['tipe']."</option>";
-                                                        else
-                                                            echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";
+                                                        if ($row['id']!= $id && $row['parent']!=$id){
+                                                            if ($row['id']!= $parent )
+                                                            echo "<option name= 'tipe' value=".$row['id']."  >".$row['tipe']."</option>";
+                                                            else
+                                                                echo "<option name= 'tipe' value=".$row['id']." selected >".$row['tipe']."</option>";
                                                     }}
                                                 }
                                                 ?>
@@ -72,7 +72,7 @@ if ($result &&(mysqli_num_rows($result) !=0)){
                                         <input type="text" id ="is_edit" hidden name="is_edit" value="<?php echo $_GET['id'] ?>">
                                         <div class="col-sm-12 center"> 
                                            <button type="input" class="btn btn-primary" style="width: 50%">Submit</button>
-                                           <a href="listdepartemen.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
+                                           <a href="listtipetamu.php"><button type="button" class="btn btn-danger" style="width: 45%">Cancel</button></a>
                                         </div>
                         
                                 </fieldset>
