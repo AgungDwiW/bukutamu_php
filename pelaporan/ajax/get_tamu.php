@@ -16,7 +16,7 @@
 	else{
 		$uid = $_GET['uid'];
 		require "../../db/db_con.php";
-		$sql = "SELECT id_tamu FROM kartu_tamu where uid = ".$uid."";
+		$sql = "SELECT id_tamu FROM kartu_tamu where uid = '.".$uid."'";
 		$result = mysqli_query($conn, $sql);
 		if ($result && mysqli_num_rows($result) !=0){
 			$row = mysqli_fetch_assoc($result);

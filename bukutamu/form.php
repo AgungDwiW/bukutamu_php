@@ -6,6 +6,8 @@
     /* =====================
 	loading settings
     ========================*/
+    $count = 1;
+    
 	$max_temp = 0;
     $sql = "SELECT value FROM setting where nama = 'max_temp' ";
 	$result_tamu = mysqli_query($conn, $sql);
@@ -79,7 +81,6 @@
 		    // output data of each row
 		    while($row = mysqli_fetch_assoc($result_tamu)) {
 		    	$flag_tamu = 1;  //tamu is exist id db
-		    	echo "2123";
 		    	$nama = $row['nama_tamu'];
 		    	$hp = $row['nohp'];
 		    	$kelamin = $row['jenis_kelamin'];
@@ -99,7 +100,7 @@
 		if tamu is not signed in ($flag_sign is true) id_tamu is from uid tables
 	    ========================*/
     	$uid = $_POST['UID'];
-    	$sql = "SELECT id_tamu, tipeid FROM uid_tamu where uid = ". $uid;
+    	$sql = "SELECT id_tamu, tipeid FROM uid_tamu where uid = '". $uid."'";
 		$result_tamu = mysqli_query($conn, $sql);
 		if ($result_tamu && mysqli_num_rows($result_tamu) > 0) {
 		    while($row = mysqli_fetch_assoc($result_tamu)) {
@@ -107,6 +108,7 @@
 		    	$tid = $row['tipeid'];
 		    }
 		}
+
 		if (isset($id_tamu)){
 			$sql = "SELECT * FROM tamu where id = ". $id_tamu;
 			$result_tamu = mysqli_query($conn, $sql);
@@ -132,8 +134,16 @@
 			    	$id_tamu = $row['id'];
 			    	}
 			    }
+		$sql = "SELECT count(*) as count FROM uid_tamu where id_tamu = ".$id_tamu;
+		$result_tamu = mysqli_query($conn, $sql);
+		if ($result_tamu){
+			while($row = mysqli_fetch_assoc($result_tamu)) {
+				$count = $row['count'];
+	    	}
+		}
+		
 			}
-    }
+	    }
     if (isset($id_tamu)){
     $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
 	$result_tamu = mysqli_query($conn, $sql);
@@ -152,6 +162,7 @@
     
     if ($no_tamu == ""){
     	session_start();
+    	$_SESSION['flag'] = $suhu>$max_temp || $luka || $sakit;
 		$_SESSION['id']	 = $id_ked;
 		$_SESSION['id_tamu']	 = $id_tamu;
     	header('Location: kartu.php');
@@ -196,7 +207,7 @@
 
     			echo "<img src = ".$image."?1 width=60% height=40% id  = 'image' </img>";
     			echo '<video id="player" width="60%"  controls autoplay hidden></video>
-          <canvas id="canvas"  hidden width="60%"></canvas>';
+          <canvas id="canvas"  hidden height="600px" width="800px"></canvas>';
     		}
     		else if ($flag_sign){
     			echo "<img src = ".$image."?1 width=60% id  = 'image'></img>";
@@ -205,7 +216,7 @@
     			echo "<img src = ".$image."?1 width=60% id  = 'image' hidden></img>";
 
     			echo '<video id="player" autoplay width="60%" controls ></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" width="60%" ></canvas>';
+          <canvas id="canvas" class="col-sm-12" hidden="" height="600px" width="800px" ></canvas>';
     		}
     	?>
     	<br>
@@ -604,6 +615,7 @@
      	lukan.disabled = true
      	departemen.disabled = true	
      	acc_temp = true;
+     	sub_tamu.disabled = true;
      	document.getElementById('tipe').disabled=true;
      	
      }
@@ -624,6 +636,7 @@
      	lukay.disabled = true
      	lukan.disabled = true
      	departemen.disabled = true
+     	sub_tamu.disabled = true;
      	document.getElementById('tipe').disabled=true;
      	
      	document.getElementById("capture").disabled = true
@@ -735,6 +748,9 @@
 			hidden_sub.hidden = true;	
 			sub_tamu.disabled = true;
 		}
+		if(flag_sign){
+			sub_tamu.disabled = true;
+		}
 	}
 	set_sub();
  	
@@ -743,7 +759,7 @@
      sakit_aktive()
 
      $(document).ready(function() {
-     	 var counter = 1;
+     	 var counter = <?php echo $count ?>;
     $("#add").click(function() {
     	if(counter>2){
             alert("Hanya tiga identitas yang diperbolehkan setiap tamu!.");
