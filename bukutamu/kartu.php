@@ -51,7 +51,7 @@
           <input type="text" id="tip" class="form-control" name="tip" placeholder="Tipe kartu" disabled>
           <input type="text" id="no" class="form-control" name="no" placeholder="Nomor kartu" disabled >
           <input type="text" id="uid" class="form-control" name="uid" placeholder="ID Kartu"
-           required >
+           required  autofocus="">
            <p id = "hidme" hidden>Id kartu tidak terdaftar</p>
           <input type="text" hidden name="id" id="id" value="<?php echo $id ?>">
           <input type="text" hidden name="id_kartu" id="id_kartu" >
