@@ -203,7 +203,7 @@
 
     			echo "<img src = ".$image."?1 width=60% height=40% id  = 'image' </img>";
     			echo '<video id="player" width="60%"  controls autoplay hidden></video>
-          <canvas id="canvas"  hidden width="60%"></canvas>';
+          <canvas id="canvas"  hidden height="600px" width="800px"></canvas>';
     		}
     		else if ($flag_sign){
     			echo "<img src = ".$image."?1 width=60% id  = 'image'></img>";
@@ -212,7 +212,7 @@
     			echo "<img src = ".$image."?1 width=60% id  = 'image' hidden></img>";
 
     			echo '<video id="player" autoplay width="60%" controls ></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" width="60%" ></canvas>';
+          <canvas id="canvas" class="col-sm-12" hidden="" height="600px" width="800px" ></canvas>';
     		}
     	?>
     	<br>
@@ -287,10 +287,10 @@
 	        <div class="form-group row text-left"><!-- UID -->
 		          <label class="control-label col-sm-3" for="UID">UID Utama:</label>
 			          
-			          <div class="col-sm-4">  
+			          <div class="col-sm-<?php echo $flag_sign?6:4;?>">
 			            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
 			          </div>
-			          <div class="col-sm-2">
+			          <div class="col-sm-<?php echo $flag_sign?3:2;?>"">
 			            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
 			            	
 			            	<option value="KTP"<?php 
@@ -312,9 +312,11 @@
 			            	 ?>>SIM</option>
 			            </select>
 			          </div>
+			       <?php if (!$flag_sign) {?>
 		          <div class="col-sm-3">
 		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
 		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button></div> 
+		         <?php } ?>
 		    </div>
 	        </div>   
 	        <div class="form-group row"> <!-- nama -->
@@ -438,11 +440,12 @@
 	      	<!-- </div>
 	      	<div class="form-group row"> -->
 	          	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="Luka" id="Luka1"  checked=true     onchange="luka_aktive()"     value = "1"> Ya
+	            <input type="radio"  name="Luka" id="Luka1"  checked=<?php echo $luka?" checked ":""; ?>     onchange="luka_aktive()"     value = "1"> Ya
 	        	</label>
 	        	<label class="radio-inline col-sm-2">
-	            <input type="radio"  name="Luka" id ="Luka2"  onchange="luka_aktive()"  checked=true  value="0"> Tidak
+	            <input type="radio"  name="Luka" id ="Luka2"  onchange="luka_aktive()"  <?php echo !$luka?"checked":""; ?>  value="0"> Tidak
 	        	</label>
+	        	
 	        </div>
 	        <div class="form-group row">
 	          <label class="control-label col-sm-5" for="sakit"> Sakit dalam 3 hari terakhir:</label>
@@ -582,11 +585,13 @@
      	kelamin.disabled = true;
      	tipe_tamu.disabled = true;
      	sub_tamu.disabled = true;
+
      	// departemen.readOnly = true;
      }
      if (flag_sign){
      	 sakit_val = "<?php echo "$sakit";?>";
-     	luka_val = "<?php echo "$luka";?>";
+     	luka_val = "<?php echo $luka?"true":"false";?>";
+     	luka_val=="true"?luka_val=true:luka_val=false;
      	sakit_radio_y.checked = sakit_val==""?false:true;
      	sakit.value = sakit_val;
      	lukay.checked = luka_val
@@ -680,8 +685,8 @@
  	?>
      function sakit_aktive(){
 		 sakit_flag = !sakit_flag
-		 sakit.readOnly = !sakit_flag
-		 sakit.required = sakit_flag
+		 sakit.readOnly = sakit_flag
+		 sakit.required = !sakit_flag
 		 if(!sakit_flag)
 		 	change_indikator();
      }
@@ -692,7 +697,7 @@
      }
 
      function change_indikator(){
-     	if (luka_flag || sakit_flag || temp_flag){
+     	if (luka_flag || !sakit_flag || temp_flag){
      		
      		$('#modal1').modal('show');
      	}
@@ -730,7 +735,7 @@
 			hidden_sub.hidden = true;	
 			sub_tamu.disabled = true;
 		}
-		if(flag_sign){
+		if(flag_sign||flag_tamu){
 			sub_tamu.disabled = true;
 		}
 	}

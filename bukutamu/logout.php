@@ -17,7 +17,7 @@
 	id_tamu associated with visitor's id card
     =======================*/
 	if (!isset($id_tamu)){
-		$sql = "select id_tamu from uid_tamu where uid= ". $uid;
+		$sql = "select id_tamu from uid_tamu where uid= '". $uid."'";
 		
 		$result = mysqli_query($conn, $sql);
 		if ($result && mysqli_num_rows($result) !=0){

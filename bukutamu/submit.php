@@ -122,5 +122,5 @@
 	
 	$_SESSION['id_tamu'] = $id_tamu;
 	$_SESSION['flag'] = $flag;
-	// header('Location: kartu.php');
+	header('Location: kartu.php');
 ?>
