@@ -91,8 +91,17 @@
 	
 	$result = mysqli_query($conn, $sql);
 	
+	$sql = "SELECT value FROM setting where nama = 'max_temp' ";
+	$result_tamu = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($result_tamu)) {
+		$max_temp = $row['value'];
+    }
+
+	$flag = $_POST['Luka'] || $_POST['Sakit'] || $_POST['Suhu']> $max_temp;
+
 	session_start();
 	$_SESSION['id']	 = mysqli_insert_id($conn);
 	$_SESSION['id_tamu'] = $id_tamu;
+	$_SESSION['flag'] = $flag;
 	header('Location: kartu.php');
 ?>

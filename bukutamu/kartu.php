@@ -5,6 +5,7 @@
   }
   $id = $_SESSION['id'];
   $id_tamu = $_SESSION['id_tamu'];
+  $flag = $_SESSION['flag'];
   session_destroy();
 
 ?>
@@ -35,6 +36,14 @@
 
         <br>
         <!-- Icon -->
+        <!-- =========================================================================== -->
+        <!-- =========================================================================== -->
+        <!-- THIS IS FLAG! -->
+        <?php if ($flag) {?>
+          <!-- ERRORR!!!!!!!!! -->
+        <?php } else { ?>
+          <!-- NOT ERROR!!!!!!!! -->
+        <?php } ?>
         
         <!-- Login Form -->
         <form method="POST" action="submit2.php" class="center" onsubmit="return validate()">
