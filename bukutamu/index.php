@@ -1,9 +1,11 @@
-
-<head>
-    <?php include("meta.php");
-    session_start();
+<?php 
+session_start();
     session_destroy();
+ include("meta.php");
+    
      ?>
+<head>
+   
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
     <link href="css/index.css" rel="stylesheet">

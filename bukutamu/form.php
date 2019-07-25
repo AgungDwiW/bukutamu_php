@@ -80,7 +80,6 @@
 		    // output data of each row
 		    while($row = mysqli_fetch_assoc($result_tamu)) {
 		    	$flag_tamu = 1;  //tamu is exist id db
-		    	echo "2123";
 		    	$nama = $row['nama_tamu'];
 		    	$hp = $row['nohp'];
 		    	$kelamin = $row['jenis_kelamin'];
@@ -187,11 +186,11 @@
 
 </head>
 
-<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat; margin:0 auto; height: auto;" >
+<body style="background:url(../assets/bg/indexbackground.jpg)  fixed center no-repeat;" id = "body">
  <div class="wrapper" > 
   <div id="formContent" style="top: 0px ;	width: 95% ;">
   	<form method = "POST" action = <?php
-          	if ($flag_sign) echo "logout.php?next=index.php";
+          	if ($flag_sign) echo "logout.php?next=../index.php";
         	else echo "submit.php ";
            
            ?>
@@ -326,7 +325,7 @@
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
 	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama" style="text-transform:uppercase"   required  value =  <?php echo $nama;  ?> >
+	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama Tamu" style="text-transform:uppercase"   required  value =  <?php echo $nama;  ?> >
 	          </div>
 	          <div class="col-sm-3">  
 	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"   >
@@ -342,7 +341,7 @@
 	        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="NoHP">Nomor HP:</label>
 	          <div class="col-sm-9">  
-	            <input type="number" class="form-control inputsm" name="NoHP" id="NoHP" placeholder="08xxxxxxxxxx" autocomplete="off" required   value = <?php echo $hp; ?>    >
+	            <input type="number" class="form-control inputsm" name="NoHP" min=0 id="NoHP" placeholder="08xxxxxxxxxx" autocomplete="off" required   value = <?php echo $hp; ?>    >
 	          </div>
 	        </div>
 	      
@@ -414,7 +413,7 @@
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
 	          <div class="col-sm-9">  
-	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx,x" required value = <?php echo $suhu?>  >
+	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx.x" required value = <?php echo $suhu?>  >
 	          </div>
 	        </div>
 	        <div class="form-group row"> <!-- BErtemu dengan -->
@@ -512,7 +511,7 @@
   			</div>
 	  			<div class="grid-item col-sm-6">
 	  				
-			  			<input type="button" name="cancel" id = "cancel"  value="Kembali" onclick="location.href = 'index.php';">
+			  			<input type="button" name="cancel" id = "cancel"  value="Kembali" onclick="location.href = '../index.php';">
 
 	  			</div>
   			</div>

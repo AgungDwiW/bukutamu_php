@@ -114,7 +114,7 @@ include('template.php');
                                                                   style="font-size:10pt; text-align:center; vertical-align:middle;" >
                                                 <thead>
                                                 <tr >
-                                                  <th >No</th>
+                                                  <th style="max-width:10%;">No</th>
                                                   <th style="min-width:5%;">UID</th>
                                                   <th style="min-width:8%;">Tipe ID</th>
                                                 </tr>
@@ -376,7 +376,8 @@ var ctxL = document.getElementById("djampengunjung").getContext('2d');
     $(function () {
             $('#table').DataTable({
                 "searching": true,
-                "paging": false
+                "paging": false,
+
             });
         });
     $(function () {

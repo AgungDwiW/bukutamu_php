@@ -4,5 +4,5 @@
 	$result = mysqli_query($conn, $sql);
 	$sql = "UPDATE kartu_tamu SET id_tamu = ".$_POST['id_tamu']." where id = ".$_POST['id_kartu'];
 	$result = mysqli_query($conn, $sql);
-	header('Location: index.php');
+	header('Location: ../index.php');
 ?>

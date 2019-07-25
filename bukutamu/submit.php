@@ -7,12 +7,9 @@
 	if($_POST['Image']!=""){
 		if (file_exists($output))
 			unlink($output);	
-			
 		if(!file_put_contents($output,$image))
 			$output = $noimage;
 	}
-	else
-		$output = $noimage;	
 
 	$uid = $_POST["UID"];
 
@@ -56,8 +53,7 @@
 		
 		$sql = "UPDATE tamu
 			SET signed_in = true,
-			terakhir_datang = '".$now."',
-			image = '$output'
+			terakhir_datang = '".$now."'
 			WHERE id = ".$id_tamu;
 
 		$result = mysqli_query($conn, $sql);

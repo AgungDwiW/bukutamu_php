@@ -50,17 +50,26 @@
 			
           <input type="text" id="tip" class="form-control" name="tip" placeholder="Tipe kartu" disabled>
           <input type="text" id="no" class="form-control" name="no" placeholder="Nomor kartu" disabled >
-          <input type="text" id="uid" class="form-control" name="uid" placeholder="ID Kartu"
+          <input type="text" id="uid" class="form-control" name="uid" placeholder="Masukkan ID kartu tamu"
            required  autofocus="">
            <p id = "hidme" hidden>Id kartu tidak terdaftar</p>
           <input type="text" hidden name="id" id="id" value="<?php echo $id ?>">
           <input type="text" hidden name="id_kartu" id="id_kartu" >
           <input type="text" hidden name="id_tamu" id="id_tamu" value="<?php echo $id_tamu ?>">
           <br>
-          <input type="checkbox" required>  Saya bersedia menaati dan melaksanakan seluruh peraturan<br>
+          <input type="checkbox" required>  Saya bersedia menaati dan melaksanakan seluruh peraturan Danone
           <br>
-          <input style="margin-top: 10px; width: 87%; text-align: center;" type="submit" class="col-sm-12" value="Log In">
-
+          
+<!-- Icon -->
+        <!-- =========================================================================== -->
+        <!-- =========================================================================== -->
+        <!-- THIS IS FLAG! -->
+        <?php if ($flag) {?>
+			<input type="checkbox" required>  Saya bersedia untuk tidak memasuki area produksi<br>
+          <input style="margin-top: 10px; width: 87%; text-align: center;" type="submit" class="col-sm-12 btn btn-danger" value="Log In">
+        <?php } else { ?>
+          <input style="margin-top: 10px; width: 87%; text-align: center;" type="submit" class="col-sm-12 btn btn-primary" value="Log In">
+        <?php } ?>
           </div>
     </div>
 

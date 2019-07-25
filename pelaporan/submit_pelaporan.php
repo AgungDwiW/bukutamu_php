@@ -91,7 +91,7 @@
 			// echo $row['count'];
 			// echo "<br>";
 
-			$sql = "SELECT * FROM tamu WHERE uid = ".$uid;
+			$sql = "SELECT * FROM tamu WHERE id = ".$id;
 			$result2 = mysqli_query($conn, $sql);
 			if (mysqli_num_rows($result2) !=0){
 			while($row2 = mysqli_fetch_assoc($result2)) {
