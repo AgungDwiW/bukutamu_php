@@ -17,7 +17,7 @@
 	$tz_object = new DateTimeZone('Asia/Jakarta');
 	$datetime = new DateTime();
     $datetime->setTimezone($tz_object);
-    $now = $datetime->format('Y\-m\-d\ h:i:s');
+    $now = $datetime->format('Y\-m\-d\ H:i:s');
     $now_date = $datetime->format('Y\-m\-d\ ');
 	
 	$sql = "SELECT id_tamu from uid_tamu where uid = '".$uid."'";
@@ -32,7 +32,7 @@
 		else
 			$tip = $_POST['tipe'];
 		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  image,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
-	 		 VALUES ('". mysqli_real_escape_string($conn,$_POST['Nama'])."','".
+	 		 VALUES ('". mysqli_real_escape_string($conn,strtoupper($_POST['Nama']))."','".
 	 		$_POST['Kelamin']."',". true.",'". $output."','".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.")";	 	
 		$result = mysqli_query($conn, $sql);
 		$id_tamu = mysqli_insert_id($conn);
@@ -86,7 +86,7 @@
     }
 
 	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu)
-	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,$_POST['Keperluan'])."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
+	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
 	$result = mysqli_query($conn, $sql);	
 
 	if (isset($_POST['uid1'])){

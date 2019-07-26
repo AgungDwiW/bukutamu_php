@@ -206,7 +206,7 @@
 
     			echo "<img src = ".$image."?1 width=60% height=40% id  = 'image' </img>";
     			echo '<video id="player" width="60%"  controls autoplay hidden></video>
-          <canvas id="canvas"  hidden height="600px" width="800px"></canvas>';
+          <canvas id="canvas"  hidden height="300px" width="400px"></canvas>';
     		}
     		else if ($flag_sign){
     			echo "<img src = ".$image."?1 width=60% id  = 'image'></img>";
@@ -215,7 +215,7 @@
     			echo "<img src = ".$image."?1 width=60% id  = 'image' hidden></img>";
 
     			echo '<video id="player" autoplay width="60%" controls ></video>
-          <canvas id="canvas" class="col-sm-12" hidden="" height="600px" width="800px" ></canvas>';
+          <canvas id="canvas" class="col-sm-12" hidden="" height="300px" width="400px" ></canvas>';
     		}
     	?>
     	<br>
@@ -325,7 +325,7 @@
 	        <div class="form-group row"> <!-- nama -->
 	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
 	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama Tamu" style="text-transform:uppercase"   required  value =  <?php echo $nama;  ?> >
+	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama Tamu" style="text-transform:uppercase"   required  value =  "<?php echo $nama;  ?>" >
 	          </div>
 	          <div class="col-sm-3">  
 	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"   >
@@ -416,6 +416,16 @@
 	            <input type="number" step="any" class="form-control inputsm" name="Suhu" id="Suhu" placeholder="xx.x" required value = <?php echo $suhu?>  >
 	          </div>
 	        </div>
+			
+			
+	        <div class="form-group row"> <!-- BErtemu dengan -->
+	          <label class="control-label col-sm-3" for="Bertemu">Bertemu:</label>
+	          <div class="col-sm-9">  
+	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Bertemu" id="Bertemu"
+	            placeholder="Bapak/Ibu" autocomplete="off" required value =  "<?php echo  $bertemu ?>" >
+	          </div>
+	        </div>
+			
 	        <div class="form-group row"> <!-- BErtemu dengan -->
 	          <label class="control-label col-sm-3" for="Bertemu">Departemen:</label>
 	          <div class="col-sm-9">  
@@ -441,18 +451,11 @@
 	        	</select>
 	          </div>
 	        </div>
-	        <div class="form-group row"> <!-- BErtemu dengan -->
-	          <label class="control-label col-sm-3" for="Bertemu">Bertemu:</label>
-	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Bertemu" id="Bertemu"
-	            placeholder="Bapak/Ibu" autocomplete="off" required value =  <?php echo  $bertemu ?> >
-	          </div>
-	        </div>
 	        
 	        <div class="form-group row"> <!-- Keperluan -->
 	          <label class="control-label col-sm-3" for="Keperluan">Keperluan:</label>
 	          <div class="col-sm-9">  
-	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = <?php echo  $keperluan ?>   >
+	            <input type="text" class="form-control inputsm" style="text-transform:uppercase" name="Keperluan" id="Keperluan" placeholder="Untuk" required value = "<?php echo  $keperluan ?>"   >
 	          </div>
 	        </div>
 	        <div class="form-group row ">

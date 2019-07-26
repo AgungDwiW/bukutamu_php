@@ -37,7 +37,7 @@
 	$tz_object = new DateTimeZone('Asia/Jakarta');
 	$datetime = new DateTime();
     $datetime->setTimezone($tz_object);
-    $now = $datetime->format('Y\-m\-d\ h:i:s');
+    $now = $datetime->format('Y\-m\-d\ H:i:s');
 
     /*=====================
 	get tanggal_datang to compute duration
