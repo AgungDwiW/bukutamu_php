@@ -18,4 +18,4 @@ create table uid_tamu(
 	on delete cascade
 );
 
-ALTER TABLE `kedatangan` ADD `no_pol` VARCHAR(10) NULL AFTER `id_keplek`;
+
