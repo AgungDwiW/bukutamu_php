@@ -1,15 +1,5 @@
 <?php  
 	require "../db/db_con.php";
-	$image = base64_decode($_POST['Image']);
-	$output = "media/".$_POST['UID'].".jpg";
-	// var_dump($_POST['Image']);
-	$noimage = "media/noimage.jpg";
-	if($_POST['Image']!=""){
-		if (file_exists($output))
-			unlink($output);	
-		if(!file_put_contents($output,$image))
-			$output = $noimage;
-	}
 
 	$uid = $_POST["UID"];
 
@@ -31,9 +21,9 @@
 			$tip = $_POST['subtip'];
 		else
 			$tip = $_POST['tipe'];
-		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  image,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
+		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
 	 		 VALUES ('". mysqli_real_escape_string($conn,strtoupper($_POST['Nama']))."','".
-	 		$_POST['Kelamin']."',". true.",'". $output."','".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.")";	 	
+	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.")";	 	
 		$result = mysqli_query($conn, $sql);
 		$id_tamu = mysqli_insert_id($conn);
 		$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$uid."', '".$_POST['TID']."', ". $id_tamu .")";
@@ -72,7 +62,22 @@
 	// input data kedatangan
 	// =============================================================================
 	
-	
+	$image = base64_decode($_POST['Image']);
+	$output = "media/".$id_tamu.".jpg";
+	// var_dump($_POST['Image']);
+	$noimage = "media/noimage.jpg";
+	if($_POST['Image']!=""){
+		if (file_exists($output))
+			unlink($output);	
+		if(!file_put_contents($output,$image))
+			$output = $noimage;
+		$sql = "UPDATE tamu
+			SET image = '".$output."' 
+			where id = ".$id_tamu;
+		$result = mysqli_query($conn, $sql);
+	}
+
+
 	$suhu = str_replace(",", ".", $_POST['Suhu']);
 	$sql = "SELECT value FROM setting where nama = 'max_temp' ";
 	$result_tamu = mysqli_query($conn, $sql);
@@ -85,8 +90,8 @@
 		$count = $row['count'];
     }
 
-	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu)
-	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."')";
+	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, no_pol)
+	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."','".mysqli_real_escape_string($conn,strtoupper($_POST['nopol']))."')";
 	$result = mysqli_query($conn, $sql);	
 
 	if (isset($_POST['uid1'])){

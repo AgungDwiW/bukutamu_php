@@ -41,6 +41,7 @@
 	$keperluan = "";
 	$suhu = "";
 	$luka = "";
+	$no_pol = "";
 	$sakit = "";
 	$bertemu = "";
 	$count = 1;
@@ -54,12 +55,17 @@
 	$result = mysqli_query($conn, $sql);
 	if ($result){
 		while($row = mysqli_fetch_assoc($result)) {
-			
 			if ($row['id_tamu']){
 				$id = $row['id_tamu'];
 				$flag_card = 1;
 			}
 		}
+		/* =====================
+		uid is using kartu_tamu's uid but not registered to any tamu's data
+		thus error and redirect to index.php
+	    ========================*/
+		if(!isset($id))
+			header('Location: ../index.php');		
 	}
 	/* =====================
 	if tamu is signed in ($flag_sign is true) id_tamu is id from id_tamu
@@ -144,26 +150,27 @@
 		}
     }
     if (isset($id_tamu)){
-    $sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
-	$result_tamu = mysqli_query($conn, $sql);
-	if ($result_tamu){
-	while($row = mysqli_fetch_assoc($result_tamu)) {
-		$id_ked = $row['id'];
-    	$keperluan = $row['keperluan'];
-    	$suhu = $row['suhu_badan'];
-    	$luka = $row['luka'];
-    	$sakit = $row['sakit'];
-    	$bertemu = $row['bertemu'];
-    	$departemen = $row['departemen'];
-    	$no_tamu = $row['id_keplek'];
-    }}
-    
-    if ($no_tamu == ""){
-    	session_start();
-		$_SESSION['id']	 = $id_ked;
-		$_SESSION['flag'] = $suhu>$max_temp || $luka || $sakit;
-		$_SESSION['id_tamu']	 = $id_tamu;
-    	header('Location: kartu.php');
+		$sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
+		$result_tamu = mysqli_query($conn, $sql);
+		if ($result_tamu){
+		while($row = mysqli_fetch_assoc($result_tamu)) {
+			$id_ked = $row['id'];
+			$keperluan = $row['keperluan'];
+			$suhu = $row['suhu_badan'];
+			$luka = $row['luka'];
+			$sakit = $row['sakit'];
+			$bertemu = $row['bertemu'];
+			$no_pol = $row['no_pol'];
+			$departemen = $row['departemen'];
+			$no_tamu = $row['id_keplek'];
+		}}
+
+		if ($no_tamu == ""){
+			session_start();
+			$_SESSION['id']	 = $id_ked;
+			$_SESSION['flag'] = $suhu>$max_temp || $luka || $sakit;
+			$_SESSION['id_tamu']	 = $id_tamu;
+			header('Location: kartu.php');
     }}
  ?>
 
@@ -409,6 +416,13 @@
 	        </div>
 	        
 	        
+	        <div class="form-group row"> <!-- SUhu badan -->
+	          <label class="control-label col-sm-3" for="nopol">No polisi:</label>
+	          <div class="col-sm-9">  
+	            <input type="text" step="any" class="form-control inputsm" name="nopol" id="nopol" placeholder="Nomor polisi kendaraan" style="text-transform:uppercase" required value = <?php echo $no_pol?>  >
+	          </div>
+	        </div>
+			
 	        
 	        <div class="form-group row"> <!-- SUhu badan -->
 	          <label class="control-label col-sm-3" for="SuhuBadan">Suhu Badan:</label>
@@ -629,6 +643,7 @@
      	lukan.disabled = true
      	departemen.disabled = true	
      	acc_temp = true;
+     	document.getElementById('nopol').disabled=true;
      	document.getElementById('tipe').disabled=true;
      	
      }
