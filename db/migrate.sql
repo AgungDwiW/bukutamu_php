@@ -108,6 +108,7 @@ create table kedatangan (
     departemen int,
     signedout boolean,
     id_keplek int,
+    no_pol varchar(10),
     foreign key fk_tamu_keplek (id_keplek)
     references kartu_tamu(id)
     on delete set null,
