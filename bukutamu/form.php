@@ -177,7 +177,7 @@
 			$_SESSION['id_tamu']	 = $id_tamu;
 			header('Location: kartu.php');
     }}
-
+    $image = $image."?".time()
  ?>
 
 <head>
@@ -217,12 +217,12 @@
     	<?php  
     		if ($flag_tamu){
 
-    			echo "<img src = ".$image."?1 width=60% height=40% id  = 'image' </img>";
+    			echo "<img src = ".$image."?1 width=100% id  = 'image' </img>";
     			echo '<video id="player" width="60%"  controls autoplay hidden></video>
           <canvas id="canvas"  hidden height="300px" width="400px"></canvas>';
     		}
     		else if ($flag_sign){
-    			echo "<img src = ".$image."?1 width=60% id  = 'image'></img>";
+    			echo "<img src = ".$image."?1 width=100%id  = 'image'></img>";
     		}
     		else{
     			echo "<img src = ".$image."?1 width=60% id  = 'image' hidden></img>";

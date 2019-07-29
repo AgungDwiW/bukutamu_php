@@ -77,7 +77,7 @@
 			where id = ".$id_tamu;
 		$result = mysqli_query($conn, $sql);
 	}
-
+	
 
 	$suhu = str_replace(",", ".", $_POST['Suhu']);
 	$sql = "SELECT value FROM setting where nama = 'max_temp' ";
@@ -96,6 +96,17 @@
 
 	$result = mysqli_query($conn, $sql);	
 
+	session_start();
+	$_SESSION['id']	 = mysqli_insert_id($conn);
+	
+	
+	$flag = $_POST['Luka'] || $_POST['Sakit'] || $_POST['Suhu']> $max_temp;
+
+
+	// var_dump($_POST);
+	$_SESSION['id_tamu'] = $id_tamu;
+	$_SESSION['flag'] = $flag;
+	
 	if (isset($_POST['uid1'])){
 
 		if ($count<3){
@@ -113,18 +124,7 @@
 			$count+=1;	
 		}
 	}
-
-
-
-	session_start();
-	$_SESSION['id']	 = mysqli_insert_id($conn);
-	
-	
-	$flag = $_POST['Luka'] || $_POST['Sakit'] || $_POST['Suhu']> $max_temp;
-
-
-	// var_dump($_POST);
-	$_SESSION['id_tamu'] = $id_tamu;
-	$_SESSION['flag'] = $flag;
 	header('Location: kartu.php');
+
+
 ?>
