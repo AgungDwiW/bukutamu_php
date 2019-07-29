@@ -36,15 +36,7 @@
 
         <br>
         <!-- Icon -->
-        <!-- =========================================================================== -->
-        <!-- =========================================================================== -->
-        <!-- THIS IS FLAG! -->
-        <?php if ($flag) {?>
-          <!-- ERRORR!!!!!!!!! -->
-        <?php } else { ?>
-          <!-- NOT ERROR!!!!!!!! -->
-        <?php } ?>
-        
+
         <!-- Login Form -->
         <form method="POST" action="submit2.php" class="center" onsubmit="return validate()">
 			
@@ -61,8 +53,7 @@
           <br>
           
 <!-- Icon -->
-        <!-- =========================================================================== -->
-        <!-- =========================================================================== -->
+
         <!-- THIS IS FLAG! -->
         <?php if ($flag) {?>
 			<input type="checkbox" required>  Saya bersedia untuk tidak memasuki area produksi<br>

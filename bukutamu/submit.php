@@ -21,9 +21,9 @@
 			$tip = $_POST['subtip'];
 		else
 			$tip = $_POST['tipe'];
-		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe )
+		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe, tanggal_lahir )
 	 		 VALUES ('". mysqli_real_escape_string($conn,strtoupper($_POST['Nama']))."','".
-	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.")";	 	
+	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.",'".$_POST['Tgl']."')";	 	
 		$result = mysqli_query($conn, $sql);
 		$id_tamu = mysqli_insert_id($conn);
 		$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$uid."', '".$_POST['TID']."', ". $id_tamu .")";

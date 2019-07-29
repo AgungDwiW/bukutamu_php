@@ -47,6 +47,7 @@
 	$count = 1;
 	$image = 'media/noimage.jpg';
 	$ind = "0";
+	$tgl = "";
 	/* =====================
 	Searching in kartu_tamu wether it's already taken
 	if taken, then flag _sign is true
@@ -59,13 +60,14 @@
 				$id = $row['id_tamu'];
 				$flag_card = 1;
 			}
-		}
 		/* =====================
 		uid is using kartu_tamu's uid but not registered to any tamu's data
 		thus error and redirect to index.php
 	    ========================*/
-		if(!isset($id))
-			header('Location: ../index.php');		
+			if(!isset($id))
+			header('Location: ../index.php');	
+		}
+			
 	}
 	/* =====================
 	if tamu is signed in ($flag_sign is true) id_tamu is id from id_tamu
@@ -93,6 +95,7 @@
 		    	$image = $row['image'];
 		    	$blocked = $row['blok'];
 		    	$tipe= $row['tipe'];
+		    	$tgl = $row['tanggal_lahir'];
 		    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
 		    	// var_dump($ymd);
 		    	$ind = $ymd<$ind_limit?"0":"1";
@@ -133,6 +136,7 @@
 			    	$image = $row['image'];
 			    	$tipe= $row['tipe'];
 			    	$blocked = $row['blok'];
+			    	$tgl = $row['tanggal_lahir'];
 			    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
 			    	// var_dump($ymd);
 			    	$ind = $ymd<$ind_limit?"0":"1";
@@ -163,6 +167,7 @@
 			$no_pol = $row['no_pol'];
 			$departemen = $row['departemen'];
 			$no_tamu = $row['id_keplek'];
+
 		}}
 
 		if ($no_tamu == ""){
@@ -172,6 +177,7 @@
 			$_SESSION['id_tamu']	 = $id_tamu;
 			header('Location: kartu.php');
     }}
+
  ?>
 
 <head>
@@ -351,7 +357,12 @@
 	            <input type="number" class="form-control inputsm" name="NoHP" min=0 id="NoHP" placeholder="08xxxxxxxxxx" autocomplete="off" required   value = <?php echo $hp; ?>    >
 	          </div>
 	        </div>
-	      
+	        <div class="form-group row"> <!-- no HP -->
+	          <label class="control-label col-sm-3" for="NoHP">Tanggal lahir:</label>
+	          <div class="col-sm-9">  
+	            <input type="date" class="form-control inputsm" name="Tgl" min=0 id="Tgl"  autocomplete="off" required <?php echo $tgl?"readonly":""; ?>  value = <?php echo $tgl; ?>    >
+	          </div>
+	        </div>
 	        
 	        <div class="form-group row"> <!-- SUhu badan -->
 	        <label class="control-label col-sm-3" for="tipe">Kategori :</label>
