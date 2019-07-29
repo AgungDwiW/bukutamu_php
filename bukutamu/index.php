@@ -1,8 +1,5 @@
 <?php 
-session_start();
-    session_destroy();
- include("meta.php");
-    
+header('Location: ../index.php');
      ?>
 <head>
    

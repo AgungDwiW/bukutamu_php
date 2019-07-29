@@ -52,10 +52,10 @@ CREATE TABLE tamu (
 	terakhir_count date,
 	tipe int,
 	nopol varchar(10),
-	
+	tanggal_lahir date,
 	 foreign key fk_tamu_tipe (tipe)
     references tipe_tamu(id)
-    on delete set null,	
+    on delete set null,
 	);
 
 create table uid_tamu(

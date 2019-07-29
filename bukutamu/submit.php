@@ -26,6 +26,7 @@
 	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.",'".$_POST['Tgl']."')";	 	
 		$result = mysqli_query($conn, $sql);
 		$id_tamu = mysqli_insert_id($conn);
+
 		$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$uid."', '".$_POST['TID']."', ". $id_tamu .")";
 		$result = mysqli_query($conn, $sql);
 	}
@@ -55,7 +56,7 @@
 			WHERE id = ".$id_tamu;		
 			$result = mysqli_query($conn, $sql);
 		}
-		
+
 	}	
 
 	// =============================================================================
@@ -92,6 +93,7 @@
 
 	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, no_pol)
 	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."','".mysqli_real_escape_string($conn,strtoupper($_POST['nopol']))."')";
+
 	$result = mysqli_query($conn, $sql);	
 
 	if (isset($_POST['uid1'])){
