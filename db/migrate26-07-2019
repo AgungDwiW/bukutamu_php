@@ -1,1 +1,3 @@
-ALTER TABLE `kedatangan` ADD `no_pol` VARCHAR(10) NULL AFTER `id_keplek`;
+ALTER TABLE `kedatangan` ADD `no_pol` VARCHAR(15) NULL AFTER `id_keplek`;
+
+ALTER TABLE `tamu` ADD `	tanggal_lahir` date NULL;
