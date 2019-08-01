@@ -208,7 +208,7 @@
            
            ?>
 
-           class = ""  onsubmit="return validateForm()">
+           class =  onsubmit="return validateForm()">
    <div class="row vertical-align" >
     <div class="col-sm-6" style="top: 0px">
     	 
@@ -237,7 +237,18 @@
   					<input type="button" name="cancel" id = "capture" class="col-sm-8 btn" value="Mengambil Foto" onclick="cameracapture()">
 			<?php }
 			?>
-      
+
+         <div class="form-group row "><!-- UID -->
+		          <label class="control-label col-sm-3" for="UID">Lama Kegiatan:</label>
+			          
+			          <div class="col-sm-<?php echo $flag_sign?6:4;?>">
+			            <input type="date" class="form-control inputsm" name="msk" min=0 id="Tgl"  autocomplete="off" required <?php echo $tgl?"readonly":""; ?>  value = <?php echo $tgl; ?>    >
+			          </div>
+			          <div class="col-sm-<?php echo $flag_sign?6:4;?>">
+			            <input type="date" class="form-control inputsm" name="msk" min=0 id="Tgl"  autocomplete="off" required <?php echo $tgl?"readonly":""; ?>  value = <?php echo $tgl; ?>    >
+			          </div>
+			          
+		    </div>
        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="ind">Status Induksi:</label>
 	          <div class="col-sm-6">  
