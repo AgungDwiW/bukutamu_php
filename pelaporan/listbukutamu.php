@@ -36,7 +36,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
                                           <div class="col-sm-2">
                                             <input type="date" name="end" id = "end" class="form-control form-control-sm " onchange= "get_data()" value=<?php echo '"'.$now_date.'"' ?>>
                                           </div>
-                                          Shift:
+                                              Shift:
                                          <div class="col-sm-2">  
                                             <select name="start" id = "shift" class="form-control form-control-sm " onchange= "get_data()">
                                               <option value = 4>Semua shift</option>
