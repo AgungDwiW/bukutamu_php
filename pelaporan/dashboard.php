@@ -17,6 +17,9 @@ $month = array();
 // echo "$sql";
 
 $month_pel = $month;
+foreach ($month_pel as $key => $value) {
+   $month_pel[$key] = 0;
+}
   $sql = 'SELECT STR_TO_DATE(tanggal_pelanggaran, "%Y-%m") as month, count(*) as count FROM `pelaporan` GROUP BY month';
   $result = mysqli_query($conn, $sql);
   if ($result&& mysqli_num_rows($result) !=0){
