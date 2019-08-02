@@ -49,13 +49,13 @@
 			$return=array();
 			while($row = mysqli_fetch_assoc($result)) {
 				if ($row['id_tamu']){
-					$sql = "SELECT nama_tamu as nama, tipe from tamu where id = ".$row['id_tamu'];
+					$sql = "SELECT nama_tamu as nama from tamu where id = ".$row['id_tamu'];
 					$result2 = mysqli_query($conn, $sql);
 
 					if($result2){
 					while($row2 = mysqli_fetch_assoc($result2)) {
 						$row['tamu'] = $row2['nama'];
-						$sql = "SELECT tipe from tipe_tamu where id = ".$row2['tipe'];
+						$sql = "SELECT tipe from tipe_tamu where id = ".$row['id_tipe'];
 						// echo "$sql";
 						// var_dump($row2);
 						$result3 = mysqli_query($conn, $sql);

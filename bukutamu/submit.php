@@ -17,10 +17,7 @@
 		// Tamu not found in db, add uid to uid tables and add tamu to tamu table
 		// ========================================================================
 	
-		if (isset($_POST['subtip']))
-			$tip = $_POST['subtip'];
-		else
-			$tip = $_POST['tipe'];
+		
 		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind,  tanggal_lahir )
 	 		 VALUES ('". mysqli_real_escape_string($conn,strtoupper($_POST['Nama']))."','".
 	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', '".$_POST['Tgl']."')";	 	
@@ -38,9 +35,6 @@
 		// =========================================================================
 
 		$id_tamu = $row['id_tamu'];
-		// =========================================================================
-		// adding additional uids if exists
-		// =========================================================================
 		
 		$sql = "UPDATE tamu
 			SET signed_in = true,
@@ -53,6 +47,14 @@
 			$sql = "UPDATE tamu
 			SET 
 			terakhir_ind = '".$now_date."'
+			WHERE id = ".$id_tamu;		
+			$result = mysqli_query($conn, $sql);
+		}
+		if (isset($_POST['Tgl']) && $_POST['Tgl']!="")
+		{
+			$sql = "UPDATE tamu
+			SET 
+			tanggal_lahir = '".$_POST['Tgl']."'
 			WHERE id = ".$id_tamu;		
 			$result = mysqli_query($conn, $sql);
 		}
@@ -91,6 +93,12 @@
 		$count = $row['count'];
     }
 
+    
+    if (isset($_POST['subtip']))
+			$tip = $_POST['subtip'];
+		else
+			$tip = $_POST['tipe'];
+
 
 	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, no_pol, id_tipe)
 	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."','".mysqli_real_escape_string($conn,strtoupper($_POST['nopol']))."',".$tip.")";
@@ -108,6 +116,10 @@
 	$_SESSION['id_tamu'] = $id_tamu;
 	$_SESSION['flag'] = $flag;
 	
+	// =========================================================================
+	// adding additional uids if exists
+	// =========================================================================
+		
 	if (isset($_POST['uid1'])){
 
 		if ($count<3){

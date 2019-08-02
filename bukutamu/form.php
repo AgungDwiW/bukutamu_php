@@ -94,7 +94,7 @@
 		    	$flag_sign = $row ['signed_in'];
 		    	$image = $row['image'];
 		    	$blocked = $row['blok'];
-		    	$tipe= $row['tipe'];
+		    	
 		    	$tgl = $row['tanggal_lahir'];
 		    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
 		    	// var_dump($ymd);
@@ -134,7 +134,7 @@
 			    	$kelamin = $row['jenis_kelamin'];
 			    	$flag_sign = $row ['signed_in'];
 			    	$image = $row['image'];
-			    	$tipe= $row['tipe'];
+			    	
 			    	$blocked = $row['blok'];
 			    	$tgl = $row['tanggal_lahir'];
 			    	$ymd = DateTime::createFromFormat('Y-m-d', $row['terakhir_ind']);
@@ -153,7 +153,7 @@
 
 		}
     }
-    if (isset($id_tamu)){
+    if ($flag_sign){
 		$sql = "SELECT * FROM kedatangan where signedout = false and id_tamu = ".$id_tamu;
 		$result_tamu = mysqli_query($conn, $sql);
 		if ($result_tamu){
@@ -165,6 +165,7 @@
 			$sakit = $row['sakit'];
 			$bertemu = $row['bertemu'];
 			$no_pol = $row['no_pol'];
+			$tipe= $row['id_tipe'];
 			$departemen = $row['departemen'];
 			$no_tamu = $row['id_keplek'];
 
@@ -177,6 +178,24 @@
 			$_SESSION['id_tamu']	 = $id_tamu;
 			header('Location: kartu.php');
     }}
+    else if (isset($id_tamu)){
+	    $sql = "SELECT * FROM kedatangan where id = (SELECT MAX(id) FROM kedatangan WHERE id_tamu = ".$id_tamu.")";
+		$result_tamu = mysqli_query($conn, $sql);
+		if ($result_tamu){
+		while($row = mysqli_fetch_assoc($result_tamu)) {
+			$id_ked = $row['id'];
+			$keperluan = $row['keperluan'];
+			$suhu = $row['suhu_badan'];
+			$luka = $row['luka'];
+			$sakit = $row['sakit'];
+			$bertemu = $row['bertemu'];
+			$tipe= $row['id_tipe'];
+			$no_pol = $row['no_pol'];
+			$departemen = $row['departemen'];
+			$no_tamu = $row['id_keplek'];
+
+		}}
+	}
     $image = $image."?".time()
  ?>
 
@@ -238,17 +257,7 @@
 			<?php }
 			?>
 
-         <div class="form-group row "><!-- UID -->
-		          <label class="control-label col-sm-3" for="UID">Lama Kegiatan:</label>
-			          
-			          <div class="col-sm-<?php echo $flag_sign?6:4;?>">
-			            <input type="date" class="form-control inputsm" name="msk" min=0 id="Tgl"  autocomplete="off" required <?php echo $tgl?"readonly":""; ?>  value = <?php echo $tgl; ?>    >
-			          </div>
-			          <div class="col-sm-<?php echo $flag_sign?6:4;?>">
-			            <input type="date" class="form-control inputsm" name="msk" min=0 id="Tgl"  autocomplete="off" required <?php echo $tgl?"readonly":""; ?>  value = <?php echo $tgl; ?>    >
-			          </div>
-			          
-		    </div>
+
        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="ind">Status Induksi:</label>
 	          <div class="col-sm-6">  
@@ -643,8 +652,8 @@
      	nama.readOnly = true;
      	hp.readOnly = true;
      	kelamin.disabled = true;
-     	tipe_tamu.disabled = true;
-     	sub_tamu.disabled = true;
+     	// tipe_tamu.disabled = true;
+     	// sub_tamu.disabled = true;
 
      	// departemen.readOnly = true;
      }
@@ -666,7 +675,8 @@
      	departemen.disabled = true	
      	acc_temp = true;
      	document.getElementById('nopol').disabled=true;
-     	// document.getElementById('tipe').disabled=true;
+     	document.getElementById('tipe').disabled=true;
+     	document.getElementById("Tgl").disabled=true;
      	
      }
      <?php
@@ -800,7 +810,7 @@
 			hidden_sub.hidden = true;	
 			sub_tamu.disabled = true;
 		}
-		if(flag_sign||flag_tamu){
+		if(flag_sign){
 			sub_tamu.disabled = true;
 		}
 	}

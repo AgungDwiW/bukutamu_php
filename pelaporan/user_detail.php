@@ -87,12 +87,7 @@ include('template.php');
                                               
                                               <br>
 
-                                              <div class="form-group row"> <!-- Institusi  -->
-                                                <label class="control-label col-sm-3" for="Institusi">Kategori:</label>
-                                                <div class="col-sm-9">  
-                                                  <input type="text" class="form-control inputsm" name="Institusi" id="Institusi" placeholder="Institusi" required readonly value = <?php echo $tipe; ?>  readonly>
-                                                </div>
-                                              </div>
+                                           
                                                <div class="form-group row"> <!-- Institusi  -->
                                                 <label class="control-label col-sm-3" for="Count">Counter Pelanggaran:</label>
                                                 <div class="col-sm-9">  
@@ -292,7 +287,7 @@ $month_pel = $month;
 
           labels: [<?php
                   foreach ($month as $key => $value) {
-                     echo "'".$key."', ";
+                     echo "'".substr($key, 0, 7)."', ";
                   }
                   
                 ?>],
@@ -345,7 +340,7 @@ var ctxL = document.getElementById("djampengunjung").getContext('2d');
 
           labels: [<?php
                   foreach ($month as $key => $value) {
-                     echo "'".$key."', ";
+                     echo "'".substr($key, 0, 7)."', ";
                   }
                   
                 ?>],

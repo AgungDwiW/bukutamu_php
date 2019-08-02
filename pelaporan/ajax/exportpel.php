@@ -30,11 +30,10 @@
 			while($row = mysqli_fetch_assoc($result)) {
 				$row['uid_pelanggar'] = $row['id_tamu'];
 				if ($row['id_tamu']){
-					$sql = "SELECT nama_tamu as nama,  uid from tamu where id = ".$row['id_tamu'];
+					$sql = "SELECT nama_tamu as nama from tamu where id = ".$row['id_tamu'];
 					$result2 = mysqli_query($conn, $sql);
 					while($row2 = mysqli_fetch_assoc($result2)) {
 						$row['pelanggar'] = $row2['nama'];
-						$row['uid_pelanggar'] = $row2['uid'];
 					}
 				}
 				if($row['id_karyawan']){
@@ -73,41 +72,41 @@
 		 ->setCellValue('A1', 'No')
 		 ->setCellValue('B1', 'NIK pelapor')
 		 ->setCellValue('C1', 'Nama pelapor')
-		 ->setCellValue('D1', 'UID pelangar')
-		 ->setCellValue('E1', 'Nama pelangar')
-		 ->setCellValue('F1', 'Departemen')
-		 ->setCellValue('G1', 'Area')
-		 ->setCellValue('H1', 'Tanggal pelanggaran')
-		 ->setCellValue('I1', 'Tipe aktivitas')
-		 ->setCellValue('J1', 'Subkategori')
-		 ->setCellValue('K1', '+/-')
-		 ->setCellValue('L1', 'Action Plan')
-		 ->setCellValue('M1', 'Keterangan');
+		 ->setCellValue('D1', 'Nama pelangar')
+		 ->setCellValue('E1', 'Departemen')
+		 ->setCellValue('F1', 'Area')
+		 ->setCellValue('G1', 'Tanggal pelanggaran')
+		 ->setCellValue('H1', 'Tipe aktivitas')
+		 ->setCellValue('I1', 'Subkategori')
+		 ->setCellValue('J1', '+/-')
+		 ->setCellValue('K1', 'Action Plan')
+		 ->setCellValue('L1', 'Keterangan');
 				$cell_st =array(
 		 'font' =>array('bold' => true),
 		 'alignment' =>array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER),
 		 'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
 		);
 
-			 $cell_st2 = array(
-			 	'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
-			);
+				$cell_st2 =array(
+		 
+		 'alignment' =>array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER),
+		 'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
+		);
 			$spreadsheet->getActiveSheet()->getStyle('A1:M1')->applyFromArray($cell_st);
 			
 			//set columns width
 			$spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(10);
 			$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
 			$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(30);
-			$spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-			$spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+			$spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(30);
+			$spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(20);
 			$spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(20);
 			$spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(20);
 			$spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(20);
 			$spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
-			$spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(20);
-			$spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(10);
+			$spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(10);
+			$spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(30);
 			$spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(30);
-			$spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(30);
 
 
 			$spreadsheet->getActiveSheet()->setTitle('Bukutamu'); //set a title for Worksheet
@@ -120,16 +119,15 @@
 				 ->setCellValue('A'.$no, $num)
 				 ->setCellValue('B'.$no, $row['uid_pelapor'])
 				 ->setCellValue('C'.$no, $row['nama_pelapor'])
-				 ->setCellValue('D'.$no, $row['uid_pelanggar'])
-				 ->setCellValue('E'.$no, $row['pelanggar'])
-				 ->setCellValue('F'.$no, $row['departemen'])
-				 ->setCellValue('G'.$no, $row['area'])
-				 ->setCellValue('H'.$no, $row['tanggal_pelanggaran'])
-				 ->setCellValue('I'.$no, $row['tipe_12'])
-				 ->setCellValue('J'.$no, $row['subkategori'])
-				 ->setCellValue('K'.$no, $row['positif'])
-				 ->setCellValue('L'.$no, $row['ap'])
-				 ->setCellValue('M'.$no, $row['keterangan']);
+				 ->setCellValue('D'.$no, $row['pelanggar'])
+				 ->setCellValue('E'.$no, $row['departemen'])
+				 ->setCellValue('F'.$no, $row['area'])
+				 ->setCellValue('G'.$no, $row['tanggal_pelanggaran'])
+				 ->setCellValue('H'.$no, $row['tipe_12'])
+				 ->setCellValue('I'.$no, $row['subkategori'])
+				 ->setCellValue('J'.$no, $row['positif'])
+				 ->setCellValue('K'.$no, $row['ap'])
+				 ->setCellValue('L'.$no, $row['keterangan']);
 				$spreadsheet->getActiveSheet()->getStyle('A'.$no.':M'.$no)->applyFromArray($cell_st2);
 				$no+=1;
 				$num+=1;

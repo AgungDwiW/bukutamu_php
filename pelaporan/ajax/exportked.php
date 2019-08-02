@@ -40,11 +40,11 @@
 				$no+=1;
 			    $temp = $row['id_tamu'];
 				if ($row['id_tamu']){
-					$sql = "SELECT nama_tamu as nama, tipe, uid from tamu where id = ".$row['id_tamu'];
+					$sql = "SELECT nama_tamu as nama from tamu where id = ".$row['id_tamu'];
 					$result2 = mysqli_query($conn, $sql);
 					while($row2 = mysqli_fetch_assoc($result2)) {
 						
-						$sql = "SELECT tipe from tipe_tamu where id = ".$row2['tipe'];
+						$sql = "SELECT tipe from tipe_tamu where id = ".$row['id_tipe'];
 						// echo "$sql";
 						// var_dump($row2);
 						$result3 = mysqli_query($conn, $sql);
@@ -52,7 +52,6 @@
 							$row['tipe'] = $row3['tipe'];
 						}
 						$row['tamu'] = $row2['nama'];
-						$row['uid'] = $row2['uid'];
 					}
 				}
 				
@@ -75,19 +74,18 @@
 			//add some data in excel cells
 			$spreadsheet->setActiveSheetIndex(0)
 			 ->setCellValue('A1', 'No')
-			 ->setCellValue('B1', 'UID tamu')
-			 ->setCellValue('C1', 'Nama tamu')
-			 ->setCellValue('D1', 'Tipe tamu')
-			 ->setCellValue('E1', 'Tanggal datang')
-			 ->setCellValue('F1', 'Tanggal keluar')
-			 ->setCellValue('G1', 'Durasi')
-			 ->setCellValue('H1', 'Suhu badan')
-			 ->setCellValue('I1', 'Luka')
-			 ->setCellValue('J1', 'Sakit')
-			 ->setCellValue('K1', 'Bertemu dengan')
-			 ->setCellValue('L1', 'Departemen')
-			 ->setCellValue('M1', 'Keperluan')
-			 ->setCellValue('N1', 'Status');
+			 ->setCellValue('B1', 'Nama tamu')
+			 ->setCellValue('C1', 'Tipe tamu')
+			 ->setCellValue('D1', 'Tanggal datang')
+			 ->setCellValue('E1', 'Tanggal keluar')
+			 ->setCellValue('F1', 'Durasi')
+			 ->setCellValue('G1', 'Suhu badan')
+			 ->setCellValue('H1', 'Luka')
+			 ->setCellValue('I1', 'Sakit')
+			 ->setCellValue('J1', 'Bertemu dengan')
+			 ->setCellValue('K1', 'Departemen')
+			 ->setCellValue('L1', 'Keperluan')
+			 ->setCellValue('M1', 'Status');
 
 			//set style for A1,B1,C1 cells
 					$cell_st =array(
@@ -95,10 +93,11 @@
 		 'alignment' =>array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER),
 		 'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
 		);
-
-			 $cell_st2 = array(
-			 	'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
-			);
+		$cell_st2 =array(
+		 
+		 'alignment' =>array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER),
+		 'borders'=>array('allborders' =>array('style'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM))
+		);
 			$spreadsheet->getActiveSheet()->getStyle('A1:N1')->applyFromArray($cell_st);
 			
 			//set columns width
@@ -115,7 +114,6 @@
 			$spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(20);
 			$spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
 			$spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
-			$spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(10);
 
 
 			$spreadsheet->getActiveSheet()->setTitle('Bukutamu'); //set a title for Worksheet
@@ -126,19 +124,18 @@
 			    foreach ($bukutamu as $row) {
 			        	$spreadsheet->setActiveSheetIndex(0)
 						 ->setCellValue('A'.$no, $num)
-						 ->setCellValue('B'.$no, $row['uid'])
-						 ->setCellValue('C'.$no, $row['tamu'])
-						 ->setCellValue('D'.$no, $row['tipe'])
-						 ->setCellValue('E'.$no, $row['tanggal_datang'])
-						 ->setCellValue('F'.$no, $row['tanggal_keluar'])
-						 ->setCellValue('G'.$no, $row['durasi'])
-						 ->setCellValue('H'.$no, $row['suhu_badan'])
-						 ->setCellValue('I'.$no, $row['luka']?"+":"-")
-						 ->setCellValue('J'.$no, $row['sakit'])
-						 ->setCellValue('K'.$no, $row['bertemu'])
-						 ->setCellValue('L'.$no, $row['departemen'])
-						 ->setCellValue('M'.$no, $row['keperluan'])
-						 ->setCellValue('N'.$no, $row['signedout']);
+						 ->setCellValue('B'.$no, $row['tamu'])
+						 ->setCellValue('C'.$no, $row['tipe'])
+						 ->setCellValue('D'.$no, $row['tanggal_datang'])
+						 ->setCellValue('E'.$no, $row['tanggal_keluar'])
+						 ->setCellValue('F'.$no, $row['durasi'])
+						 ->setCellValue('G'.$no, $row['suhu_badan'])
+						 ->setCellValue('H'.$no, $row['luka']?"+":"-")
+						 ->setCellValue('I'.$no, $row['sakit'])
+						 ->setCellValue('J'.$no, $row['bertemu'])
+						 ->setCellValue('K'.$no, $row['departemen'])
+						 ->setCellValue('L'.$no, $row['keperluan'])
+						 ->setCellValue('M'.$no, $row['signedout']);
 	 				$spreadsheet->getActiveSheet()->getStyle('A'.$no.':N'.$no)->applyFromArray($cell_st2);
 	 				$no+=1;
 	 				$num+=1;

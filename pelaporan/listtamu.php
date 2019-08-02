@@ -23,7 +23,6 @@
                                     <tr>
                                         <th style="min-width:5%;">No.</th>
                                         <th style="min-width:20%;">Nama</th>
-                                        <th style="min-width:10%;">Kategori</th>
                                         <th style="min-width:20%;">Terakhir datang</th>
                                         <th style="min-width:25%;">Terakhir induksi</th>
                                         <th style="min-width:25%;">Hitungan pelanggaran</th>
@@ -50,7 +49,6 @@
                                             <tr class='clickable-row' data-href=user_detail.php?uid=<?php echo $row['id']; ?>>
                                              <td style="vertical-align:middle;"><?php echo $no;$no+=1; ?></td>
                                              <td style="text-align:center;"><?php echo $row['nama_tamu']; ?></td>
-                                             <td style="text-align:center;"><?php echo $kategori[$row['tipe']]; ?></td>
                                              <td style="text-align:center;"><?php echo $row['terakhir_datang']; ?></td>
                                              <td style="text-align:center;"><?php echo $row['terakhir_ind']; ?></td>
                                              <td style="text-align:center;"><?php echo $row['count_pelanggaran']; ?></td>
