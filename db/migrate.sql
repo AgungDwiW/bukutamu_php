@@ -50,12 +50,8 @@ CREATE TABLE tamu (
 	blok boolean,	
 	terakhir_ind date,
 	terakhir_count date,
-	tipe int,
-	nopol varchar(10),
 	
-	 foreign key fk_tamu_tipe (tipe)
-    references tipe_tamu(id)
-    on delete set null,	
+	nopol varchar(10)
 	);
 
 create table uid_tamu(
@@ -111,6 +107,10 @@ create table kedatangan (
     signedout boolean,
     id_keplek int,
     no_pol varchar(10),
+    id_tipe int,
+	foreign key fk_tamu_tipe_ked (id_tipe)
+    references tipe_tamu(id)
+    on delete set null,	
     foreign key fk_tamu_keplek (id_keplek)
     references kartu_tamu(id)
     on delete set null,
@@ -137,6 +137,10 @@ create table pelaporan(
 	area int,
 	ap varchar(100),
 	keterangan varchar (100),
+	id_tipe int, 
+	foreign key fk_tamu_tipe_pel (id_tipe)
+    references tipe_tamu(id)
+    on delete set null,	
 	foreign key fk_pelanggar_kary (id_karyawan)
 	references karyawan(id)
 	on DELETE SET NULL,

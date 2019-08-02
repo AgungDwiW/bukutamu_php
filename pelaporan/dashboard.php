@@ -65,7 +65,7 @@ if ($result2&& mysqli_num_rows($result2) !=0){
 
   }
 }
-$sql = 'SELECT count(b.id) as count, a.tipe from tamu as a inner join kedatangan as b on a.id = b.id_tamu group by tipe';
+$sql = 'SELECT count(*) as count, id_tipe as tipe from  kedatangan  group by id_tipe';
 $result = mysqli_query($conn, $sql);
 
 
@@ -75,7 +75,7 @@ if ($result2&& mysqli_num_rows($result2) !=0){
     $perusahaan_datang[$row['tipe']] = $row['count'];
   }
 }
-$sql = 'SELECT count(b.id) as count, a.tipe from tamu as a inner join pelaporan as b on a.id = b.id_tamu group by tipe';
+$sql = 'SELECT count(b.id) as count, b.id_tipe as tipe from  pelaporan as b group by id_tipe';
 $result2 = mysqli_query($conn, $sql);
 if ($result2&& mysqli_num_rows($result2) !=0){
   while($row = mysqli_fetch_assoc($result2)) {

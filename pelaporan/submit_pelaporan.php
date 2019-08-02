@@ -21,6 +21,7 @@
 		while($row = mysqli_fetch_assoc($result)) {
 			$departemen = $row['departemen'];
 			$tanggal = $row['tanggal_datang'];
+			$id_tipe = $row['id_tipe'];
 		}
 	}
 	
@@ -53,8 +54,8 @@
 	}
 	$id = $_POST['id'];
 
-	$sql = "INSERT INTO pelaporan(nama_pelapor, id_karyawan, tanggal_pelanggaran, 			tanggal_pelaporan, tipe_12, subkategori, positif, area, ap, 
-				keterangan, id_tamu, departemen)
+	$sql = "INSERT INTO pelaporan(nama_pelapor, id_karyawan, tanggal_pelanggaran, tanggal_pelaporan, tipe_12, subkategori, positif, area, ap, 
+				keterangan, id_tamu, departemen,id_tipe)
 			VALUES(
 				'".$nama_pelapor."',
 				'".$id_pelapor."',
@@ -67,7 +68,8 @@
 				'".$ap."',
 				'".$keterangan."',
 				".$id.",
-				".$departemen."
+				".$departemen.",
+				".$id_tipe."
 				)
 				";
 	// echo "$now_date";

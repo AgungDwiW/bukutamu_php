@@ -655,7 +655,7 @@
      	departemen.disabled = true	
      	acc_temp = true;
      	document.getElementById('nopol').disabled=true;
-     	document.getElementById('tipe').disabled=true;
+     	// document.getElementById('tipe').disabled=true;
      	
      }
      <?php
@@ -833,6 +833,12 @@
 
      
    
+suhu_badan.addEventListener('keyup', function(evt){
+	// console.log(this.value)
+    var n = (this.value.replace(",",'.'))
+    // console.log(n)
+    this.value = n;
+}, false);
 
 </script>
  <?php include("footer.php") ; ?>

@@ -1,3 +1,24 @@
 ALTER TABLE `kedatangan` ADD `no_pol` VARCHAR(15) NULL AFTER `id_keplek`;
 
-ALTER TABLE `tamu` ADD `	tanggal_lahir` date NULL;
+ALTER TABLE `tamu` ADD `tanggal_lahir` date NULL;
+
+ALTER TABLE `kedatangan` ADD `tanggal_lahir` id_tipe NULL;
+
+ALTER TABLE kedatangan ADD CONSTRAINT fk_tipe_tamu_ked FOREIGN KEY (id_tipe) REFERENCES tipe_tamu(id);
+
+UPDATE kedatangan a
+INNER JOIN tamu b ON a.id_tamu = b.id
+SET a.id_tipe = b.tipe;
+
+
+
+ALTER TABLE `pelaporan` ADD `id_tipe` INT NULL AFTER `keterangan`;
+
+ALTER TABLE pelaporan ADD CONSTRAINT fk_tipe_tamu_pel FOREIGN KEY (id_tipe) REFERENCES tipe_tamu(id);
+
+
+UPDATE pelaporan a
+INNER JOIN tamu b ON a.id_tamu = b.id
+SET a.id_tipe = b.tipe;
+
+ALTER TABLE `tamu` DROP `tipe`;

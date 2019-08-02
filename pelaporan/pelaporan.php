@@ -235,6 +235,7 @@
                                             </select>
                                             </div>
                                         </div>
+                                        <input type="text" hidden="" name="tipe" id = "hidden_tipe">
                                       
                                       
 
@@ -363,6 +364,7 @@ function get_tamu(cur){
         institusi.value = "";
         nama.value = "";
         no_hp.value = "";
+        document.getElementById('hidden_tipe').value = "";
         document.getElementById("id").value = ""
         return false;
     }
@@ -374,6 +376,7 @@ function get_tamu(cur){
     no_hp.value = cur['hp']
     document.getElementById("id").value = cur['id'];
     kedatangan  = cur['kedatangan']
+    document.getElementById('hidden_tipe').value = cur['tipe'];
     for (key in kedatangan){
         var option = document.createElement("option");
         option.text = kedatangan[key]

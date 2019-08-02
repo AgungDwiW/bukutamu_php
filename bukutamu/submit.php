@@ -21,9 +21,9 @@
 			$tip = $_POST['subtip'];
 		else
 			$tip = $_POST['tipe'];
-		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind, tipe, tanggal_lahir )
+		$sql = "INSERT INTO tamu ( nama_tamu, jenis_kelamin, signed_in,  nohp, terakhir_datang, count_pelanggaran, blok,  terakhir_ind,  tanggal_lahir )
 	 		 VALUES ('". mysqli_real_escape_string($conn,strtoupper($_POST['Nama']))."','".
-	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', ".$tip.",'".$_POST['Tgl']."')";	 	
+	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', '".$_POST['Tgl']."')";	 	
 		$result = mysqli_query($conn, $sql);
 		$id_tamu = mysqli_insert_id($conn);
 		$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$uid."', '".$_POST['TID']."', ". $id_tamu .")";
@@ -90,9 +90,12 @@
 		$count = $row['count'];
     }
 
-	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, no_pol)
-	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."','".mysqli_real_escape_string($conn,strtoupper($_POST['nopol']))."')";
+	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, no_pol, id_tipe)
+	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."','".mysqli_real_escape_string($conn,strtoupper($_POST['nopol']))."',".$tip.")";
 	$result = mysqli_query($conn, $sql);	
+
+	session_start();
+	$_SESSION['id']	 = mysqli_insert_id($conn);
 
 	if (isset($_POST['uid1'])){
 
@@ -112,11 +115,6 @@
 		}
 	}
 
-
-
-	session_start();
-	$_SESSION['id']	 = mysqli_insert_id($conn);
-	
 	
 	$flag = $_POST['Luka'] || $_POST['Sakit'] || $_POST['Suhu']> $max_temp;
 

@@ -34,32 +34,35 @@
 			$result = mysqli_query($conn, $sql);
 			if ($result && mysqli_num_rows($result) !=0){
 				while($row = mysqli_fetch_assoc($result)) {
-					$sql = "SELECT * FROM kedatangan where id_tamu = ".$row['id']." ORDER BY tanggal_datang desc LIMIT 3";
+					$sql = "SELECT * FROM kedatangan where id_tamu = ".$row['id']." ORDER BY tanggal_datang desc LIMIT 1";
 					$result2 = mysqli_query($conn, $sql);
 					// echo $sql;
 					$temp2 = "";
 					if (mysqli_num_rows($result2) !=0){
 						$temp2 = array();
 						while($row2 = mysqli_fetch_assoc($result2)) {
+							$sql = "SELECT * FROM tipe_tamu where id = ".$row2['id_tipe']."";
+							$result = mysqli_query($conn, $sql);
+							if ($result && mysqli_num_rows($result) !=0){
+								while($row3 = mysqli_fetch_assoc($result)) {
+									$kategori = $row3['tipe'];
+								}
+							}
+							$temp3 = $kategori;							
 							$temp2[$row2['id']] = $row2['tanggal_datang'];
-							
+							$tipe = $row2['id_tipe'];
 						}
 					}
-					$sql = "SELECT * FROM tipe_tamu where id = ".$row['tipe']."";
-					$result = mysqli_query($conn, $sql);
-					if ($result && mysqli_num_rows($result) !=0){
-						while($row2 = mysqli_fetch_assoc($result)) {
-							$kategori = $row2['tipe'];
-						}
-					}
+					
 
 					$return_arr[] = array(
 						"nama" => $row['nama_tamu'],
 						"id" => $row['id'],
 	                    "hp" => $row['nohp'],
-	                    "kategori" => $kategori,
+	                    "kategori" => $temp3,
 	                    "kedatangan" => $temp2,
-	                    "counter" => $row['count_pelanggaran']
+	                    "counter" => $row['count_pelanggaran'],
+	                    "tipe"=> $tipe
 	                	);
 				}
 				echo json_encode($return_arr);
