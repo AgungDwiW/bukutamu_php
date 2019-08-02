@@ -1,13 +1,13 @@
 <?php 
 	// echo json_encode($_GET);
-	require "check.php";
-	if (!check_login())
-	{
-		$return['error'] = "not loged in";
+	// require "check.php";
+	// if (!check_login())
+	// {
+	// 	$return['error'] = "not loged in";
 		
-		echo json_encode($return);
-	}
-	else if (!isset($_POST['start'])&&!isset($_POST['end']))
+	// 	echo json_encode($return);
+	// }
+	 if (!isset($_POST['start'])&&!isset($_POST['end']))
 	{
 		$return['error'] = "parameter not satisfied";
 		echo json_encode($return);
@@ -30,12 +30,8 @@
 				$start_hour = "22:00:01";
 				$end_hour = "06:00:00";		
 			}
-			else if ($flag ==4){
-				$start_hour = "00:00:00";
-				$end_hour = "23:59:59";		
-			}
 			else
-			{	
+			{
 				$return['error'] = "parameter not satisfied";
 				echo json_encode($return);
 				return false;
@@ -43,7 +39,11 @@
 
 			$sql = "SELECT * from kedatangan where ".
 			  "STR_TO_DATE(tanggal_datang, '%Y-%m-%d') >= STR_TO_DATE('".$start."', '%Y-%m-%d') and STR_TO_DATE(tanggal_datang, '%Y-%m-%d') <= STR_TO_DATE('".$end."', '%Y-%m-%d') and DATE_FORMAT(tanggal_datang,'%H:%i:%s')>= STR_TO_DATE('".$start_hour."', '%H:%i:%s') and  DATE_FORMAT(tanggal_datang,'%H:%i:%s') <= STR_TO_DATE('".$end_hour."','%H:%i:%s') ";
-			
+			// $return ['sql'] = $sql;
+			// $return['bobo'] ="qontol";
+			// echo json_encode($return);			
+			// return true; 
+		
 			$result = mysqli_query($conn, $sql);
 			if ($result && mysqli_num_rows($result) !=0){
 			$return=array();
@@ -77,9 +77,13 @@
 				$row['status'] = $row['signedout']?"Keluar":"Didalam";
 				array_push($return, $row);
 			}
-			
-		echo json_encode($return);			
+
+			echo json_encode($return);			
 		
+		}
+		else {
+			$return['error'] = 'not found';
+			echo json_encode($return);				
 		}
 	}
 	      

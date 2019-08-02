@@ -36,6 +36,17 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
                                           <div class="col-sm-2">
                                             <input type="date" name="end" id = "end" class="form-control form-control-sm " onchange= "get_data()" value=<?php echo '"'.$now_date.'"' ?>>
                                           </div>
+                                          Shift:
+                                         <div class="col-sm-2">  
+                                            <select name="start" id = "shift" class="form-control form-control-sm " onchange= "get_data()">
+                                              <option value = 4>Semua shift</option>
+                                              <option value = 1>1 : 06:00 - 14:00</option>
+                                              <option value = 2>2 : 14:00 - 22:00</option>
+                                              <option value = 3>3 : 22:00 - 06:00</option>
+                                              
+                                            </select>
+                                          </div> 
+                                        
                                         </div>  
                             <table id="example1" class="table table-bordered table-hover" style="font-size:10pt; text-align:center; vertical-align:middle;">
                                 <thead>
@@ -84,6 +95,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
         var temp = $("#start");
         const start = temp[0];
         var temp = $("#end");
+        const shift = document.getElementById("shift");
         const end= temp[0];
         const t = $('#example1').DataTable({
                 "searching": true,
@@ -104,7 +116,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
             $.ajax({
               url: "ajax/get_bukutamu_list.php", 
               type : 'POST',
-              data : {start:start.value,end:end.value},
+              data : {start:start.value,end:end.value, shift:shift.value},
               success: function(result){
 
               add_data(result);

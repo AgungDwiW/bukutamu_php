@@ -50,8 +50,17 @@ CREATE TABLE tamu (
 	blok boolean,	
 	terakhir_ind date,
 	terakhir_count date,
+<<<<<<< HEAD
 	
 	nopol varchar(10)
+=======
+	tipe int,
+	nopol varchar(10),
+	tanggal_lahir date,
+	 foreign key fk_tamu_tipe (tipe)
+    references tipe_tamu(id)
+    on delete set null
+>>>>>>> 68a241b5a1f8546fa54118d76f8844e370257de8
 	);
 
 create table uid_tamu(

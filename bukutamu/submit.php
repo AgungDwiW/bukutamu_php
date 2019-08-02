@@ -26,6 +26,7 @@
 	 		$_POST['Kelamin']."',". true.",'".$_POST['NoHP']."','".$now."',0,0, '".$now_date."', '".$_POST['Tgl']."')";	 	
 		$result = mysqli_query($conn, $sql);
 		$id_tamu = mysqli_insert_id($conn);
+
 		$sql = "insert into uid_tamu(uid, tipeid, id_tamu) values('".$uid."', '".$_POST['TID']."', ". $id_tamu .")";
 		$result = mysqli_query($conn, $sql);
 	}
@@ -55,7 +56,7 @@
 			WHERE id = ".$id_tamu;		
 			$result = mysqli_query($conn, $sql);
 		}
-		
+
 	}	
 
 	// =============================================================================
@@ -76,7 +77,7 @@
 			where id = ".$id_tamu;
 		$result = mysqli_query($conn, $sql);
 	}
-
+	
 
 	$suhu = str_replace(",", ".", $_POST['Suhu']);
 	$sql = "SELECT value FROM setting where nama = 'max_temp' ";
@@ -90,13 +91,23 @@
 		$count = $row['count'];
     }
 
+
 	$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, no_pol, id_tipe)
 	 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id_tamu.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."','".mysqli_real_escape_string($conn,strtoupper($_POST['nopol']))."',".$tip.")";
+
 	$result = mysqli_query($conn, $sql);	
 
 	session_start();
 	$_SESSION['id']	 = mysqli_insert_id($conn);
 
+	
+	$flag = $_POST['Luka'] || $_POST['Sakit'] || $_POST['Suhu']> $max_temp;
+
+
+	// var_dump($_POST);
+	$_SESSION['id_tamu'] = $id_tamu;
+	$_SESSION['flag'] = $flag;
+	
 	if (isset($_POST['uid1'])){
 
 		if ($count<3){
@@ -114,13 +125,6 @@
 			$count+=1;	
 		}
 	}
-
-	
-	$flag = $_POST['Luka'] || $_POST['Sakit'] || $_POST['Suhu']> $max_temp;
-
-
-	// var_dump($_POST);
-	$_SESSION['id_tamu'] = $id_tamu;
-	$_SESSION['flag'] = $flag;
 	header('Location: kartu.php');
+
 ?>

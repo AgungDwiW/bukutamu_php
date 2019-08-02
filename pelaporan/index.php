@@ -1,8 +1,5 @@
 <?php 
-require "auth/check.php";
-if (check_login()){
-header('Location: dashboard.php');
-}
+header('Location: ../index.php');
 ?>
 <head>
    
