@@ -62,7 +62,8 @@ while($row = mysqli_fetch_assoc($result)) {
                                 <fieldset>
                                     
                                     <div style="margin:auto;" id = "dynform">
-                                        
+
+                                        <br>
                                         <div class="form-group row" style="padding-bottom:1rem;">
                                             <label class="control-label col-sm-10" for="nama">Maximum temperature untuk tamu :</label>
                                             <div class="col-sm-2">
@@ -90,11 +91,17 @@ while($row = mysqli_fetch_assoc($result)) {
                                         </div>
 
                                         <div class="col-sm-12 center"> 
-                                            <input type="submit" name="submit" id = "submit" class="col-sm-12">
+                                           <button type="input" class="btn btn-primary" style="width: 100%">Simpan</button>
+                                        
                                         </div>
-                        
+
+
                                 </fieldset>
                             </form>
+                          
+                           
+                                            
+
                         </div>
                         <!-- /.card-body -->
                     </div>

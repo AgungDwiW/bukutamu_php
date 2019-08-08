@@ -14,7 +14,7 @@
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            List tamu                         
+                            List Tamu                         
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->

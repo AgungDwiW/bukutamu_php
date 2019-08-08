@@ -128,9 +128,9 @@
                         <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
                         <p>Setting</p></a>
                             <div  id="setSubmenu"  class="collapse" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="downloadcsv.php" class="nav-link">
+                                <a href="download_delete.php" class="nav-link">
                                     <p>
-                                        Mengunduh
+                                        Unduh & Hapus Data
                                     </p>
                                 </a>
                                  <?php

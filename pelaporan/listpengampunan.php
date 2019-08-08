@@ -22,7 +22,7 @@ $now_date_old = $myDate = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( dat
                     <div class="card table-responsive" style="border-radius: 0px !important;">
                         <!-- /.card-header -->
                         <div class="card-header">                              
-                            List peresetan          
+                            List Peresetan          
                         </div>
                         <div class="card-body">
                                 <!-- Grid -->
