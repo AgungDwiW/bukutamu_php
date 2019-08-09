@@ -256,8 +256,32 @@
   					<input type="button" name="cancel" id = "capture" class="col-sm-8 btn" value="Mengambil Foto" onclick="cameracapture()">
 			<?php }
 			?>
+			
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Tamu Tambahan</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="buildyourformt">
 
-
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="mr-auto">
+						<button type="button" class="btn btn-danger" id="deltamu" >Hapus</button>
+						<button type="button" class="btn btn-primary" id="addtamu">Tambah</button>
+						</div>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+						<button type="button" class="btn btn-primary">Simpan</button>
+					</div>
+				</div>
+			</div>
+		</div>
        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="ind">Status Induksi:</label>
 	          <div class="col-sm-6">  
@@ -326,7 +350,7 @@
 			          <div class="col-sm-<?php echo $flag_sign?6:4;?>">
 			            <input type="text" class="form-control inputsm" name="UID" id="UID" placeholder="UID" value =  "<?php echo $uid;?>" readonly > 
 			          </div>
-			          <div class="col-sm-<?php echo $flag_sign?3:2;?>"">
+			          <div class="col-sm-<?php echo $flag_sign?3:2;?>">
 			            <select class="form-control inputsm" name="TID" id="TID" placeholder="Tipe id"    required>
 			            	
 			            	<option value="KTP"<?php 
@@ -344,32 +368,33 @@
 			            	<option value="SIM" <?php 
 			            		if ($tid == "SIM") {
 			            			echo "selected";
-			            		}
+			            		} 
 			            	 ?>>SIM</option>
 			            </select>
 			          </div>
 			       <?php if (!$flag_sign) {?>
 		          <div class="col-sm-3">
 		         	<button type="button" value="+" class="col-sm-5 btn btn-primary"  id="add">+</button> 
-		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button></div> 
+		         	<button type="button" value="-" class="col-sm-5 btn btn-danger"  id="removed">-</button>
+		         </div> 
 		         <?php } ?>
 		    </div>
 	        </div>   
 	        <div class="form-group row"> <!-- nama -->
-	          <label class="control-label col-sm-3" for="Nama">Nama:</label>
-	          <div class="col-sm-6">  
-	            <input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama Tamu" style="text-transform:uppercase"   required  value =  "<?php echo $nama;  ?>" >
-	          </div>
-	          <div class="col-sm-3">  
-	            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"   >
-	            	<option value="L" >L</option>
-				    <option value="P" <?php  
-				    	if ($kelamin == "P"){
-				    		echo "selected";
-				    	}
-				    ?>>P</option>
-	            </select>
-	        </div>
+	          	<label class="control-label col-sm-3" for="Nama">Nama:</label>
+	          	<div class="col-sm-6">  
+	            	<input type="text" class="form-control inputsm" name="Nama" id="Nama"  placeholder="Nama Tamu" style="text-transform:uppercase"   required  value =  "<?php echo $nama;  ?>" >
+	          	</div>
+		        <div class="col-sm-3">  
+		            <select class="form-control inputsm" name="Kelamin" id="Kelamin" placeholder="L/P"   >
+		            	<option value="L" >L</option>
+					    <option value="P" <?php  
+					    	if ($kelamin == "P"){
+					    		echo "selected";
+					    	}
+					    ?>>P</option>
+		            </select>
+		        </div>
 	        </div>
 	        <div class="form-group row"> <!-- no HP -->
 	          <label class="control-label col-sm-3" for="NoHP">Nomor HP:</label>
@@ -532,10 +557,18 @@
 	            <input type="text" class="form-control input-sm " name="Sakit" id="Sakit" autocomplete="off" style="text-transform:uppercase" placeholder="Sehat"  readonly required   >
 	          </div>
 	        </div>
-	        
+	        <div class="form-group row"  >
+	        	<input type="hidden" id = "Image" name = "Image" >
+  				<input type="button" class="col-sm-10 center btn" data-toggle="modal" data-target="#exampleModal" value="Tambah tamu" style="left: 5%; margin-bottom: 0px">
+
+  			</div>
 	        <div class="form-group row"  >
   			<input type="hidden" id = "Image" name = "Image" >
-  			
+  			<div class="grid-item col-sm-6">
+	  				
+			  			<input type="button" name="cancel" id = "cancel"  value="Kembali" onclick="location.href = '../index.php';">
+
+	  		</div>
   			<div class="" style="display: inline-grid; text-align: center; grid-column-start: 1; grid-column-end: 3;">
             
           	 
@@ -551,17 +584,13 @@
 	  			else{
 	  			?>
 	  			<div class="grid-item">
-	  				<input  type="submit" name="submit" id = "submit" class="col-sm-11 center btn" value ="Keluar" >
+	  				<input  type="submit" name="submit" id = "submit" class="col-sm-10 center btn" value ="Keluar" >
 	  			</div>
 	  			 <?php
 	  			}
 	  		?>
   			</div>
-	  			<div class="grid-item col-sm-6">
-	  				
-			  			<input type="button" name="cancel" id = "cancel"  value="Kembali" onclick="location.href = '../index.php';">
-
-	  			</div>
+	  			
   			</div>
   			<!-- Button trigger modal -->
 
@@ -817,7 +846,8 @@
 	set_sub();
 
      $(document).ready(function() {
-     	 var counter = <?php echo $count ?>;
+     	var counter = <?php echo $count ?>;
+     	var tcounter = 1;
     $("#add").click(function() {
     	if(counter>3){
             alert("Hanya tiga identitas yang diperbolehkan setiap tamu!.");
@@ -849,6 +879,40 @@
 
 	        $("#UID" + counter).remove();
 
+	     });
+	   $("#addtamu").click(function() {
+    	if(counter>3){
+            alert("Hanya tiga identitas yang diperbolehkan setiap tamu!.");
+            return false;
+    } 
+        var lastField = $("#buildyourformt div:last");
+        var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+         var fieldWrapper = $("<div class=\"form-group row center\" id =\"tamut" + tcounter +"\"/>");
+        var tName = $("<div class=\"col-sm-6\">  <input type=\"text\" class=\"form-control inputsm\" placeholder=\"UID "+tcounter+"\" id = \"uid"+tcounter+"\" name = \"uid"+tcounter+"\"> </div>");
+        var tType = $("<div class=\"col-sm-3\"><select class=\"form-control inputsm\"  placeholder=\"Tipe id\"required id = tid"+tcounter+" name = tid"+tcounter+"><option value=\"KTP\"" + ">KTP</option><option value=\"Kartu Pegawai\"" + ">Kartu Pegawai</option><option value=\"SIM\"" +">SIM</option></select>"); 
+        var removeButton = $("<label class=\"control-label col-sm-3\" for=\"UID\">UID Tambahan:</label>);")
+        var tname = " <label class=\"control-label col-sm-3\" for=\"Nama\">Nama:</label><div class=\"col-sm-6\"><input type=\"text\" class=\"form-control inputsm \" name=\"Nama"+tcounter+"\" id=\"Nama"+tcounter+"\"  placeholder=\"Nama Tamu "+tcounter+"\" style=\"text-transform:uppercase\" required ></div><div class=\"col-sm-3\"><select class=\"form-control inputsm\" name=\"Kelamin"+tcounter+"\" id=\"Kelamin\" placeholder=\"L/P\"   ><option value=\"L\" >L</option><option value=\"P\">P</option></select></div>"
+        removeButton.click(function() {
+            $(this).parent().remove();
+        });
+        fieldWrapper.append(removeButton);
+        fieldWrapper.append(tName);
+        fieldWrapper.append(tType);
+        fieldWrapper.append(tname);
+        tcounter++;
+        $("#buildyourformt").append(fieldWrapper);
+    });
+    /**/
+	   $("#deltamu").click(function () {
+	    if(tcounter==1){
+	          alert("Tidak ada tamu tambahan");
+	          return false;
+	       }   
+
+	    	tcounter--;
+
+	        $("#tamut" + tcounter).remove();
+	       
 	     });
 });
 
