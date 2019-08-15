@@ -236,13 +236,16 @@
 			
 
 		<?php  
-			if ($flag_tamu && $flag_img!=""){
+			if ($flag_tamu && $flag_img){
 
 				echo "<img src = ".$image."?1 width=100% id  = 'image' </img>";
 				echo '<video id="player" width="60%"  controls autoplay hidden></video>
 		  <canvas id="canvas"  hidden height="300px" width="400px"></canvas>';
 			}
-			else if ($flag_sign && $flag_img!=""){
+			else if ($flag_sign ){
+				if (!$flag_img){
+					$image = 'media/noimage.jpg';
+				}
 				echo "<img src = ".$image."?1 width=100%id  = 'image'></img>";
 			}
 			else{
