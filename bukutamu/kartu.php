@@ -76,6 +76,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 // console.log(this.responseText)
                 cur = JSON.parse(this.responseText)
+
                 get_kartu(cur);
 
             }
@@ -89,6 +90,12 @@
         function get_kartu(cur){
 
             if (cur['error']){
+                if (cur['error'] == 1){
+                  document.getElementById('hidme').innerHTML = "Id kartu tidak terdaftar";  
+                }
+                else{
+                 document.getElementById('hidme').innerHTML = "Kartu terdaftar pada tamu yang sedang didalam pabrik";   
+                }
                 document.getElementById('hidme').hidden = false;
                 document.getElementById('tip').value ="";
                 document.getElementById('no').value = "";   

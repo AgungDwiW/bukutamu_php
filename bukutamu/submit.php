@@ -137,6 +137,39 @@
 			$count+=1;	
 		}
 	}
-	header('Location: kartu.php');
+	
+	// =========================================================================
+	// multi entries
+	// =========================================================================
+	// var_dump($_POST);
+	for ($x = 1; $x<$_POST['multi_num']; $x++){
+		// echo $_POST['hidt'.$x];
+		if ($_POST['hidt'.$x] == "-"){
+			$sql = "insert into tamu(nama_tamu, jenis_kelamin, signed_in) values ('".mysqli_real_escape_string($conn,strtoupper($_POST['Namat'.$x]))."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Kelamint'.$x]))."', 1)";
+			$result = mysqli_query($conn, $sql);
+			echo "$sql";
+			$id =  mysqli_insert_id($conn);
+			echo "<br>";
+			echo "$id";
+			$sql = "insert into uid_tamu (uid, id_tamu, tipeid) values ('".$_POST['uidt'.$x]."',".$id." ,'".$_POST['tidt'.$x]."')";
+			echo "<br>";
+			echo "$sql";
+			$result = mysqli_query($conn, $sql);
 
+		}
+		else {
+			$id = $_POST['hidt'.$x];
+			$sql = "UPDATE tamu
+			SET signed_in = true,
+			terakhir_datang = '".$now."'
+			WHERE id = ".$id;
+			// echo "$sql";
+			$result = mysqli_query($conn, $sql);
+		}
+
+		$sql = "INSERT INTO kedatangan (tanggal_datang, tanggal_keluar, keperluan, suhu_badan, luka, sakit, signedout, id_tamu, departemen, bertemu, no_pol, id_tipe)
+		 		VALUES ('".$now."','".NULL."', '".mysqli_real_escape_string($conn,strtoupper($_POST['Keperluan']))."',".$suhu.",". $_POST['Luka'].",'". mysqli_real_escape_string($conn,$_POST['Sakit'])."','". false."',". $id.",'".  $_POST['departemen']."','".mysqli_real_escape_string($conn,$_POST['Bertemu'])."','".mysqli_real_escape_string($conn,strtoupper($_POST['nopol']))."',".$tip.")";
+		$result = mysqli_query($conn, $sql);	
+	}
+	header('Location: kartu.php');
 ?>

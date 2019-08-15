@@ -47,6 +47,7 @@
 			$result = mysqli_query($conn, $sql);
 			if ($result && mysqli_num_rows($result) !=0){
 			$return=array();
+			$no = 0;
 			while($row = mysqli_fetch_assoc($result)) {
 				if ($row['id_tamu']){
 					$sql = "SELECT nama_tamu as nama from tamu where id = ".$row['id_tamu'];
@@ -73,11 +74,14 @@
 						$row['departemen'] = $row2['nama'];
 					}
 				}
+				
 				$row['durasi'] = intval($row['durasi'])/60;
+				$row['durasi'] = number_format((float)$row['durasi'], 2, '.', '');
 				$row['status'] = $row['signedout']?"Keluar":"Didalam";
+				
 				array_push($return, $row);
 			}
-			
+
 		echo json_encode($return);			
 		
 		}

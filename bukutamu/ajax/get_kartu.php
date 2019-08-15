@@ -14,13 +14,19 @@
                                             $result2 = mysqli_query($conn, $sql);
 				 if ($result2 &&(mysqli_num_rows($result2) !=0)){
 	                while($row2 = mysqli_fetch_assoc($result2)) {
-	                    $row['tipe_kartu'] = $row2['tipe'];}}
+	                    $row['tipe_kartu'] = $row2['tipe'];
+	                }}
+              if ($row['id_tamu']){
+                    	$return['error'] = "2";
+        				echo json_encode($return);			
+        				die();            	
+                    }
 				$return = $row;
 			}
 			echo json_encode($return);
 		}
 		else{
-			$return['error'] = "not found";;
+			$return['error'] = "1";
 			echo json_encode($return);			
 		}
 		
